@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity Enterprise Coding Agent OS (React Theme & Full OS Menu System)</title>
+  <title>Antigravity Enterprise Coding Agent OS (React Theme & Complete OS Menu System)</title>
   
   <!-- React & Babel CDN -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
@@ -70,7 +70,7 @@
     .sandbox-selector { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--cyan); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); outline: none; }
 
     /* Dropdown Menus */
-    .dropdown-menu { position: absolute; top: 32px; left: 0; background: var(--dropdown-bg); border: 1px solid var(--panel-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-width: 220px; padding: 6px 0; z-index: 200; font-size: 0.8rem; }
+    .dropdown-menu { position: absolute; top: 32px; left: 0; background: var(--dropdown-bg); border: 1px solid var(--panel-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-width: 250px; padding: 6px 0; z-index: 200; font-size: 0.8rem; }
     .dropdown-item { padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--text-main); }
     .dropdown-item:hover { background: var(--dropdown-hover); color: var(--cyan); }
     .dropdown-shortcut { color: var(--text-muted); font-size: 0.72rem; font-family: var(--font-code); }
@@ -133,37 +133,30 @@
     const { useState, useEffect } = React;
 
     function App() {
-      // 1. Theme & Font State
-      const [themeMode, setThemeMode] = useState('night'); // 'night' | 'day' | 'system'
+      const [themeMode, setThemeMode] = useState('night');
       const [fontFamily, setFontFamily] = useState('Inter');
       const [fontSize, setFontSize] = useState(14);
       
-      // 2. Navigation Active Menu State
-      const [openMenu, setOpenMenu] = useState(null); // 'file' | 'edit' | 'selection' | 'view' | null
-      const [isFullscreen, setIsFullscreen] = useState(false);
+      const [openMenu, setOpenMenu] = useState(null);
+      const [terminalType, setTerminalType] = useState('Powershell');
 
-      // 3. Resizable Layout State
-      const [leftWidth, setLeftWidth] = useState(50); // %
-      const [rightWidth, setRightWidth] = useState(280); // px
+      const [leftWidth, setLeftWidth] = useState(50);
+      const [rightWidth, setRightWidth] = useState(280);
       const [isDraggingLeft, setIsDraggingLeft] = useState(false);
       const [isDraggingRight, setIsDraggingRight] = useState(false);
 
       const [thinkingOpen, setThinkingOpen] = useState(true);
 
-      // Handle Theme Switch Effects
       useEffect(() => {
         document.body.className = '';
-        if (themeMode === 'night') {
-          document.body.classList.add('theme-night');
-        } else if (themeMode === 'day') {
-          document.body.classList.add('theme-day');
-        } else if (themeMode === 'system') {
+        if (themeMode === 'night') document.body.classList.add('theme-night');
+        else if (themeMode === 'day') document.body.classList.add('theme-day');
+        else if (themeMode === 'system') {
           const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           document.body.classList.add(isDark ? 'theme-night' : 'theme-day');
         }
       }, [themeMode]);
 
-      // Resizer Mouse Drag logic
       useEffect(() => {
         const handleMouseMove = (e) => {
           if (isDraggingLeft) {
@@ -193,28 +186,18 @@
         setOpenMenu(openMenu === menuName ? null : menuName);
       };
 
-      // View Menu Handlers
-      const handleToggleFullscreen = () => {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(err => alert("전체화면 모드를 지원하지 않습니다: " + err.message));
-          setIsFullscreen(true);
-        } else {
-          document.exitFullscreen();
-          setIsFullscreen(false);
-        }
+      const handleRunConversation = () => {
+        alert("💬 Vibe 대화 세션을 시작합니다 (Run Conversation Session).");
       };
 
-      const handlePopoutWindow = () => {
-        window.open(window.location.href, '_blank', 'width=1400,height=900');
+      const handleRunWithParams = () => {
+        const param = prompt("실행 시 주입할 커스텀 환경변수나 파라미터를 입력하세요 (예: ENV=staging PORT=8080):");
+        if (param) alert(`[Run System] 파라미터가 주입되어 실행됩니다: ${param}`);
       };
 
-      const handleResetLayout = () => {
-        setLeftWidth(50);
-        setRightWidth(280);
-        setThemeMode('night');
-        setFontFamily('Inter');
-        setFontSize(14);
-        alert('IDE 레이아웃 및 환경 설정이 기본값으로 초기화되었습니다.');
+      const handleAgentCliCall = (cliName) => {
+        setTerminalType(cliName);
+        alert(`🤖 ${cliName} CLI 오케스트레이터가 바인딩되어 연결되었습니다.`);
       };
 
       return (
@@ -281,31 +264,64 @@
                 )}
               </div>
 
-              <!-- View Menu (View 전체화면, 창 분리, 기본설정 복원) -->
+              <!-- View Menu -->
               <div class={`menu-item-btn ${openMenu === 'view' ? 'active' : ''}`} onClick={() => toggleMenu('view')}>
                 View
                 {openMenu === 'view' && (
-                  <div class="dropdown-menu" style={{ width: '240px' }}>
-                    <div class="dropdown-item" onClick={handleToggleFullscreen}>
-                      🖥️ 전체화면 (Fullscreen) <span class="dropdown-shortcut">F11</span>
-                    </div>
-                    <div class="dropdown-item" onClick={handlePopoutWindow}>
-                      🪟 창 분리 (Detach Window)... <span class="dropdown-shortcut">Ctrl+N</span>
-                    </div>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item" onClick={() => document.documentElement.requestFullscreen()}>🖥️ 전체화면 (Fullscreen) <span class="dropdown-shortcut">F11</span></div>
+                    <div class="dropdown-item" onClick={() => window.open(window.location.href, '_blank', 'width=1400,height=900')}>🪟 창 분리 (Detach Window)... <span class="dropdown-shortcut">Ctrl+N</span></div>
                     <div class="dropdown-divider"></div>
-                    <div class="dropdown-item" onClick={handleResetLayout}>
-                      🔄 기본설정 복원 (Reset Layout)
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-item">👁️ Vibe 대화창 패널 토글</div>
-                    <div class="dropdown-item">👁️ 샌드박스 터미널 패널 토글</div>
+                    <div class="dropdown-item" onClick={() => { setLeftWidth(50); setRightWidth(280); alert("레이아웃이 초기화되었습니다."); }}>🔄 기본설정 복원 (Reset Layout)</div>
                   </div>
                 )}
               </div>
 
-              <span class="menu-item-btn">Go</span>
-              <span class="menu-item-btn">Run</span>
-              <span class="menu-item-btn">Terminal</span>
+              <!-- Go Menu (VS Code Native Navigation) -->
+              <div class={`menu-item-btn ${openMenu === 'go' ? 'active' : ''}`} onClick={() => toggleMenu('go')}>
+                Go
+                {openMenu === 'go' && (
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">📄 파일로 이동 (Go to File)... <span class="dropdown-shortcut">Ctrl+P</span></div>
+                    <div class="dropdown-item">🔣 심볼로 이동 (Go to Symbol)... <span class="dropdown-shortcut">Ctrl+Shift+O</span></div>
+                    <div class="dropdown-item">🔢 줄/열 번호로 이동 (Go to Line)... <span class="dropdown-shortcut">Ctrl+G</span></div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">⬅️ 뒤로 이동 (Back) <span class="dropdown-shortcut">Alt+Left</span></div>
+                    <div class="dropdown-item">➡️ 앞으로 이동 (Forward) <span class="dropdown-shortcut">Alt+Right</span></div>
+                  </div>
+                )}
+              </div>
+
+              <!-- Run Menu (VS Code Run + Vibe Conversation & Custom Param Run) -->
+              <div class={`menu-item-btn ${openMenu === 'run' ? 'active' : ''}`} onClick={() => toggleMenu('run')}>
+                Run
+                {openMenu === 'run' && (
+                  <div class="dropdown-menu" style={{ width: '270px' }}>
+                    <div class="dropdown-item" onClick={handleRunConversation}>💬 Vibe 대화 세션 실행 (Run Conversation) <span class="dropdown-shortcut">F5</span></div>
+                    <div class="dropdown-item" onClick={handleRunWithParams}>⚙️ 커스텀 변수/파라미터 주입 실행... <span class="dropdown-shortcut">Ctrl+F5</span></div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">▶️ 디버깅 없이 바로 실행 (Run Without Debugging)</div>
+                    <div class="dropdown-item">⏹️ 실행 중단 (Stop Execution) <span class="dropdown-shortcut">Shift+F5</span></div>
+                  </div>
+                )}
+              </div>
+
+              <!-- Terminal Menu (Powershell, Linux, Codex, Claude Code, Antigravity CLI) -->
+              <div class={`menu-item-btn ${openMenu === 'terminal' ? 'active' : ''}`} onClick={() => toggleMenu('terminal')}>
+                Terminal
+                {openMenu === 'terminal' && (
+                  <div class="dropdown-menu" style={{ width: '260px' }}>
+                    <div class="dropdown-item" onClick={() => setTerminalType('Powershell')}>💻 새 터미널 (Powershell) <span class="dropdown-shortcut">Ctrl+Shift+`</span></div>
+                    <div class="dropdown-item" onClick={() => setTerminalType('Linux Bash')}>🐧 새 터미널 (Linux Bash)</div>
+                    <div class="dropdown-divider"></div>
+                    <div style={{ padding: '6px 16px', fontWeight: 'bold', color: 'var(--cyan)' }}>🤖 Agentic CLI 오케스트레이터 호출</div>
+                    <div class="dropdown-item" onClick={() => handleAgentCliCall('Antigravity CLI')}>✨ Antigravity CLI 호출 {terminalType === 'Antigravity CLI' && '✔'}</div>
+                    <div class="dropdown-item" onClick={() => handleAgentCliCall('Claude Code CLI')}>🧠 Claude Code CLI 호출 {terminalType === 'Claude Code CLI' && '✔'}</div>
+                    <div class="dropdown-item" onClick={() => handleAgentCliCall('Codex CLI')}>⚡ Codex CLI 호출 {terminalType === 'Codex CLI' && '✔'}</div>
+                  </div>
+                )}
+              </div>
+
               <span class="menu-item-btn">Help</span>
               <span class="menu-item-btn">Setting</span>
             </div>
@@ -430,17 +446,18 @@
                 </div>
               </div>
 
+              <!-- Sandbox Live Terminal -->
               <div class="right-bottom-sandbox">
                 <div class="sandbox-header">
-                  <span>Sandbox Status: RUNNING</span>
-                  <span>Self-Correction</span>
+                  <span>Terminal: {terminalType}</span>
+                  <span style={{ color: 'var(--cyan)' }}>MCP RPC Port: 3000</span>
                 </div>
                 <div class="sandbox-terminal">
-                  [Sandbox] Running 'pytest tests/test_auth.py'...<br />
+                  [{terminalType}] Executing 'pytest tests/test_auth.py'...<br />
                   [FAILED] TypeError: object AuthSession can't be used in 'await'<br />
                   [Self-Correction] Injecting async session context manager.<br />
-                  [Sandbox] Re-running 'pytest tests/test_auth.py'...<br />
-                  <span style={{ color: 'var(--success)' }}>[SUCCESS] 4 passed in 0.35s. Self-correction done!</span>
+                  [{terminalType}] Re-running 'pytest tests/test_auth.py'...<br />
+                  <span style={{ color: 'var(--success)' }}>[SUCCESS] 4 passed in 0.35s. Agentic CLI orchestration active!</span>
                 </div>
               </div>
             </div>
@@ -449,7 +466,7 @@
 
           <!-- 3. Bottom Status Bar -->
           <div class="bottom-status-bar">
-            <div>feature/vibe-coding-agent* | Theme: {themeMode.toUpperCase()} | Font: {fontFamily} ({fontSize}px)</div>
+            <div>feature/vibe-coding-agent* | Terminal: {terminalType} | Theme: {themeMode.toUpperCase()} | Font: {fontFamily}</div>
             <div>MCP Port: 3000 | OpenRouter Quota: $12.40 / $35.00</div>
           </div>
 
