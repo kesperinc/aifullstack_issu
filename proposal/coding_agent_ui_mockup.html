@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity Enterprise Coding Agent OS (React Theme & OS Menu System)</title>
+  <title>Antigravity Enterprise Coding Agent OS (React Theme & Full OS Menu System)</title>
   
   <!-- React & Babel CDN -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
@@ -70,7 +70,7 @@
     .sandbox-selector { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--cyan); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); outline: none; }
 
     /* Dropdown Menus */
-    .dropdown-menu { position: absolute; top: 32px; left: 0; background: var(--dropdown-bg); border: 1px solid var(--panel-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-width: 210px; padding: 6px 0; z-index: 200; font-size: 0.8rem; }
+    .dropdown-menu { position: absolute; top: 32px; left: 0; background: var(--dropdown-bg); border: 1px solid var(--panel-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-width: 220px; padding: 6px 0; z-index: 200; font-size: 0.8rem; }
     .dropdown-item { padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--text-main); }
     .dropdown-item:hover { background: var(--dropdown-hover); color: var(--cyan); }
     .dropdown-shortcut { color: var(--text-muted); font-size: 0.72rem; font-family: var(--font-code); }
@@ -139,7 +139,8 @@
       const [fontSize, setFontSize] = useState(14);
       
       // 2. Navigation Active Menu State
-      const [openMenu, setOpenMenu] = useState(null); // 'file' | 'edit' | 'selection' | null
+      const [openMenu, setOpenMenu] = useState(null); // 'file' | 'edit' | 'selection' | 'view' | null
+      const [isFullscreen, setIsFullscreen] = useState(false);
 
       // 3. Resizable Layout State
       const [leftWidth, setLeftWidth] = useState(50); // %
@@ -192,10 +193,34 @@
         setOpenMenu(openMenu === menuName ? null : menuName);
       };
 
+      // View Menu Handlers
+      const handleToggleFullscreen = () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => alert("전체화면 모드를 지원하지 않습니다: " + err.message));
+          setIsFullscreen(true);
+        } else {
+          document.exitFullscreen();
+          setIsFullscreen(false);
+        }
+      };
+
+      const handlePopoutWindow = () => {
+        window.open(window.location.href, '_blank', 'width=1400,height=900');
+      };
+
+      const handleResetLayout = () => {
+        setLeftWidth(50);
+        setRightWidth(280);
+        setThemeMode('night');
+        setFontFamily('Inter');
+        setFontSize(14);
+        alert('IDE 레이아웃 및 환경 설정이 기본값으로 초기화되었습니다.');
+      };
+
       return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', fontFamily: fontFamily }} onClick={() => openMenu && setOpenMenu(null)}>
           
-          <!-- 1. Global Navigation Top Bar with OS Standard Menus -->
+          <!-- 1. Global Navigation Top Bar -->
           <div class="top-menu-bar" onClick={(e) => e.stopPropagation()}>
             <div class="menu-items">
               <span class="top-title">Antigravity Agent OS</span>
@@ -218,7 +243,7 @@
                 )}
               </div>
 
-              <!-- Edit Menu (Windows/Linux OS Standard) -->
+              <!-- Edit Menu -->
               <div class={`menu-item-btn ${openMenu === 'edit' ? 'active' : ''}`} onClick={() => toggleMenu('edit')}>
                 Edit
                 {openMenu === 'edit' && (
@@ -237,7 +262,7 @@
                 )}
               </div>
 
-              <!-- Selection Menu (Font & Size Customization) -->
+              <!-- Selection Menu -->
               <div class={`menu-item-btn ${openMenu === 'selection' ? 'active' : ''}`} onClick={() => toggleMenu('selection')}>
                 Selection
                 {openMenu === 'selection' && (
@@ -256,7 +281,28 @@
                 )}
               </div>
 
-              <span class="menu-item-btn">View</span>
+              <!-- View Menu (View 전체화면, 창 분리, 기본설정 복원) -->
+              <div class={`menu-item-btn ${openMenu === 'view' ? 'active' : ''}`} onClick={() => toggleMenu('view')}>
+                View
+                {openMenu === 'view' && (
+                  <div class="dropdown-menu" style={{ width: '240px' }}>
+                    <div class="dropdown-item" onClick={handleToggleFullscreen}>
+                      🖥️ 전체화면 (Fullscreen) <span class="dropdown-shortcut">F11</span>
+                    </div>
+                    <div class="dropdown-item" onClick={handlePopoutWindow}>
+                      🪟 창 분리 (Detach Window)... <span class="dropdown-shortcut">Ctrl+N</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item" onClick={handleResetLayout}>
+                      🔄 기본설정 복원 (Reset Layout)
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">👁️ Vibe 대화창 패널 토글</div>
+                    <div class="dropdown-item">👁️ 샌드박스 터미널 패널 토글</div>
+                  </div>
+                )}
+              </div>
+
               <span class="menu-item-btn">Go</span>
               <span class="menu-item-btn">Run</span>
               <span class="menu-item-btn">Terminal</span>
@@ -264,7 +310,7 @@
               <span class="menu-item-btn">Setting</span>
             </div>
 
-            <!-- Top Right: Theme Mode Switcher & Sandbox Selector -->
+            <!-- Top Right: Theme Switcher & Sandbox Selector -->
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '4px', background: 'var(--panel-bg)', padding: '2px', borderRadius: '6px', border: '1px solid var(--panel-border)' }}>
                 <button class={`toggle-btn ${themeMode === 'night' ? 'active' : ''}`} onClick={() => setThemeMode('night')}>🌙 Night</button>
@@ -283,7 +329,7 @@
           <!-- 2. Main Resizable 3-Column IDE Body -->
           <div class="ide-body" style={{ fontSize: `${fontSize}px` }}>
             
-            <!-- Left Resizable Section: Vibe Prompt & Thinking (leftWidth %) -->
+            <!-- Left Resizable Section -->
             <div class="left-vibe-column" style={{ width: `${leftWidth}%` }}>
               <div class="panel-header">
                 <span>✨ Vibe Coding Prompt & Thinking Stream</span>
@@ -352,7 +398,7 @@
             <!-- Right Drag Resizer Bar -->
             <div class={`resizer ${isDraggingRight ? 'dragging' : ''}`} onMouseDown={() => setIsDraggingRight(true)}></div>
 
-            <!-- Right Resizable Section: Sidebar (rightWidth px) -->
+            <!-- Right Resizable Section -->
             <div class="right-sidebar-column" style={{ width: `${rightWidth}px` }}>
               <div class="right-top-controls">
                 <div class="control-group">
@@ -369,7 +415,6 @@
                 </div>
               </div>
 
-              <!-- Code Files Explorer -->
               <div class="explorer-section">
                 <div class="panel-header" style={{ height: '30px' }}>
                   <span>📁 Code Files</span>
@@ -385,7 +430,6 @@
                 </div>
               </div>
 
-              <!-- Sandbox Live Terminal -->
               <div class="right-bottom-sandbox">
                 <div class="sandbox-header">
                   <span>Sandbox Status: RUNNING</span>
