@@ -3,168 +3,226 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>엔터프라이즈 코딩 에이전트 OS - Vibe Coding 대시보드 UI/UX</title>
+  <title>Antigravity Style Enterprise Coding Agent OS UI/UX Mockup</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #0b0d14;
-      --panel-bg: #121522;
-      --card-bg: #181c2e;
-      --card-border: #262c45;
+      --bg-dark: #090a0f;
+      --menu-bg: #11131c;
+      --panel-bg: #161926;
+      --panel-border: #23283b;
+      --panel-active: #1d2235;
       --primary: #00abf0;
       --cyan: #00e5ff;
       --purple: #ab47bc;
       --success: #00e676;
       --warning: #ff9100;
+      --danger: #ff5252;
       --text-main: #f0f3f9;
-      --text-muted: #8b95b5;
+      --text-muted: #7e8baf;
       --font-sans: 'Inter', -apple-system, sans-serif;
       --font-title: 'Outfit', sans-serif;
       --font-code: 'Fira Code', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-sans); padding: 25px; line-height: 1.5; }
-    .container { max-width: 1550px; margin: 0 auto; }
+    body { background-color: var(--bg-dark); color: var(--text-main); font-family: var(--font-sans); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-    header { display: flex; align-items: center; justify-content: space-between; padding: 20px 30px; background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-    .logo { font-family: var(--font-title); font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .status-badge { display: flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(0, 230, 118, 0.12); border: 1px solid var(--success); color: var(--success); border-radius: 20px; font-size: 0.85rem; font-weight: 700; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 10px var(--success); }
+    /* 1. Global Navigation Top Bar & Menu */
+    .top-menu-bar { height: 38px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.82rem; user-select: none; }
+    .menu-items { display: flex; gap: 16px; color: var(--text-muted); }
+    .menu-item { cursor: pointer; transition: color 0.15s; }
+    .menu-item:hover, .menu-item.active { color: #ffffff; }
+    .top-title { font-family: var(--font-title); font-weight: 700; color: var(--cyan); letter-spacing: 0.5px; }
+    .top-actions { display: flex; gap: 10px; align-items: center; }
+    .sandbox-selector { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--cyan); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); }
 
-    /* Vibe Input Banner */
-    .vibe-banner { background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px 25px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
-    .vibe-title { font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; color: var(--cyan); display: flex; align-items: center; gap: 8px; }
-    .vibe-input-box { display: flex; gap: 12px; }
-    .vibe-input { flex: 1; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 18px; color: #fff; font-family: var(--font-sans); font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-    .vibe-input:focus { border-color: var(--cyan); }
-    .vibe-btn { background: linear-gradient(135deg, var(--cyan), var(--primary)); color: #000; border: none; padding: 0 25px; border-radius: 10px; font-family: var(--font-title); font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; }
-    .vibe-btn:hover { transform: translateY(-2px); }
+    /* 3-Column IDE Layout (Left 50%, Middle File Tree, Right Editor/Controls) */
+    .ide-body { flex: 1; display: grid; grid-template-columns: 50% 200px 1fr; height: calc(100vh - 60px); overflow: hidden; }
 
-    .grid-layout { display: grid; grid-template-columns: 320px 1fr 380px; gap: 20px; }
-    .panel { background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; }
-    .panel-title { font-family: var(--font-title); font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; }
+    /* Left Column: Vibe Coding Prompt, Chat & Thinking (50% Width) */
+    .left-vibe-column { background: var(--panel-bg); border-right: 1px solid var(--panel-border); display: flex; flex-direction: column; }
+    .panel-header { height: 35px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.8rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; }
+    
+    .chat-history { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; font-size: 0.88rem; }
+    .chat-bubble { background: var(--panel-active); border: 1px solid var(--panel-border); border-radius: 10px; padding: 14px; }
+    .chat-user { border-left: 3px solid var(--cyan); }
+    .chat-agent { border-left: 3px solid var(--purple); background: #131625; }
 
-    /* Left: Workspace Tenant List */
-    .tenant-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
-    .tenant-name { font-weight: 700; color: #fff; font-size: 0.92rem; margin-bottom: 4px; }
-    .tenant-info { font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; }
+    /* Thinking Collapsible Box */
+    .thinking-box { background: rgba(171, 71, 188, 0.08); border: 1px solid rgba(171, 71, 188, 0.3); border-radius: 8px; padding: 10px 12px; margin-top: 10px; font-family: var(--font-code); font-size: 0.78rem; color: #d4b5fc; }
+    .thinking-header { display: flex; align-items: center; gap: 6px; font-weight: 600; margin-bottom: 5px; color: var(--purple); }
 
-    /* Center: Code Sandbox & Self-Correction Terminal */
-    .code-box { background: #0c0e17; border: 1px solid var(--card-border); border-radius: 10px; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: #a9b7c6; height: 320px; overflow-y: auto; margin-bottom: 15px; }
-    .code-line-add { color: var(--success); background: rgba(0, 230, 118, 0.08); display: block; padding: 2px 5px; }
-    .terminal-box { background: #05060a; border: 1px solid var(--card-border); border-radius: 10px; padding: 15px; font-family: var(--font-code); font-size: 0.8rem; color: var(--cyan); height: 180px; overflow-y: auto; }
+    .vibe-prompt-area { padding: 15px; background: var(--menu-bg); border-top: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 10px; }
+    .vibe-input-wrapper { display: flex; gap: 10px; }
+    .vibe-textarea { flex: 1; background: var(--bg-dark); border: 1px solid var(--panel-border); border-radius: 8px; padding: 12px; color: #fff; font-family: var(--font-sans); font-size: 0.88rem; resize: none; height: 60px; outline: none; }
+    .vibe-textarea:focus { border-color: var(--cyan); }
+    .vibe-submit-btn { background: linear-gradient(135deg, var(--cyan), var(--primary)); color: #000; border: none; padding: 0 20px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 0.9rem; cursor: pointer; }
 
-    /* Right: Model Switcher & Quota */
-    .mode-switch { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin-bottom: 15px; }
-    .switch-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; display: block; }
-    .switch-btn-group { display: flex; gap: 8px; }
-    .btn-switch { flex: 1; padding: 8px; border: 1px solid var(--card-border); background: var(--panel-bg); color: var(--text-muted); border-radius: 6px; font-weight: 600; font-size: 0.8rem; }
-    .btn-switch.active { background: rgba(0, 229, 255, 0.15); border-color: var(--cyan); color: var(--cyan); }
+    /* Middle Column: Generated Code File List (Explorer) */
+    .middle-file-column { background: var(--panel-bg); border-right: 1px solid var(--panel-border); display: flex; flex-direction: column; }
+    .file-list { flex: 1; padding: 10px; overflow-y: auto; font-family: var(--font-code); font-size: 0.8rem; }
+    .file-item { padding: 6px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
+    .file-item:hover, .file-item.active { background: var(--panel-active); color: #fff; }
+    .file-item.modified { color: var(--warning); }
+    .file-item.created { color: var(--success); }
 
-    footer { text-align: center; margin-top: 30px; color: var(--text-muted); font-size: 0.85rem; }
+    /* Right Column: Code Editor + Controls (Top Right: LLM/Sync | Bottom Right: Sandbox) */
+    .right-main-column { display: flex; flex-direction: column; background: var(--bg-dark); }
+    
+    /* Right Top Header: LLM Adapter & Syncthing Controls */
+    .right-top-controls { background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; font-size: 0.8rem; }
+    .control-group { display: flex; align-items: center; gap: 8px; }
+    .toggle-btn { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--text-muted); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+    .toggle-btn.active { background: rgba(0, 229, 255, 0.15); border-color: var(--cyan); color: var(--cyan); font-weight: 700; }
+
+    /* Right Middle: Code Editor */
+    .editor-container { flex: 1; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: #a9b7c6; overflow-y: auto; background: #0c0e17; }
+    .line-add { color: var(--success); background: rgba(0, 230, 118, 0.08); display: block; }
+
+    /* Right Bottom: Sandbox Status & Live Terminal */
+    .right-bottom-sandbox { height: 220px; background: #05060a; border-top: 1px solid var(--panel-border); display: flex; flex-direction: column; }
+    .sandbox-header { height: 32px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 0 15px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-family: var(--font-code); color: var(--success); }
+    .sandbox-terminal { flex: 1; padding: 12px; font-family: var(--font-code); font-size: 0.78rem; color: var(--cyan); overflow-y: auto; }
+
+    /* Status Bar */
+    .bottom-status-bar { height: 22px; background: #07080b; border-top: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-code); }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <header>
-    <div class="logo">Enterprise Coding Agent OS (Vibe Platform)</div>
-    <div style="display: flex; gap: 15px; align-items: center;">
-      <div class="status-badge"><div class="dot"></div> MCP Gateway (Port 3000)</div>
-      <div style="font-size: 0.85rem; color: var(--text-muted);">Stage 1: Desktop First Mode</div>
+  <!-- 1. Global Navigation Menu Top Bar -->
+  <div class="top-menu-bar">
+    <div class="menu-items">
+      <span class="top-title">Antigravity Coding Agent OS</span>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">Selection</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item">Go</span>
+      <span class="menu-item">Run</span>
+      <span class="menu-item">Terminal</span>
+      <span class="menu-item">Help</span>
+      <span class="menu-item">Setting</span>
     </div>
-  </header>
 
-  <!-- Vibe Input Banner -->
-  <div class="vibe-banner">
-    <div class="vibe-title">✨ Vibe Coding Prompt (의도 기반 자율 생성)</div>
-    <div class="vibe-input-box">
-      <input type="text" class="vibe-input" value="사용자 로그인 인증 로직을 비동기 JWT 토큰 기반 구조로 리팩토링하고 pytest 자동 검증해 줘" placeholder="구현하고자 하는 비즈니스 의도(Vibe)를 자연어로 입력하세요...">
-      <button class="vibe-btn">Vibe 코드 자율 생성 ➔</button>
+    <div class="top-actions">
+      <span style="color: var(--text-muted); font-size: 0.75rem;">Sandbox Env:</span>
+      <select class="sandbox-selector">
+        <option>Local Desktop Runner (.venv)</option>
+        <option>GCP GKE Sandbox Cluster</option>
+        <option>RHOAI SNO On-Premise Node</option>
+      </select>
     </div>
   </div>
 
-  <div class="grid-layout">
-    <!-- Panel 1: Developer Workspaces -->
-    <div class="panel">
-      <div class="panel-title">독립 샌드박스 현황 <span>(Desktop Active)</span></div>
-      <div class="tenant-item">
-        <div class="tenant-name">local-desktop-runner (Local .venv)</div>
-        <div class="tenant-info"><span>Target: auth_service.py</span><span style="color: var(--success);">Active</span></div>
+  <!-- 2. Main IDE Body Layout (Left Vibe 50% | Middle File Tree | Right Editor & Controls) -->
+  <div class="ide-body">
+
+    <!-- Left Column: Vibe Prompt, Chat & Thinking (50% Width) -->
+    <div class="left-vibe-column">
+      <div class="panel-header">
+        <span>✨ Vibe Coding Prompt & Thinking Stream</span>
+        <span style="font-size: 0.72rem; color: var(--success);">● Active Session</span>
       </div>
-      <div class="tenant-item">
-        <div class="tenant-name">dev-user-gcp (GCP Sandbox)</div>
-        <div class="tenant-info"><span>Feature: mcp-router</span><span style="color: var(--text-muted);">Standby</span></div>
+
+      <div class="chat-history">
+        <div class="chat-bubble chat-user">
+          <strong>User Vibe Intent:</strong><br>
+          "사용자 인증 서비스 auth_service.py의 동기 DB 조회를 비동기 Async SQLAlchemy 구조로 변경하고, pytest로 자율 검증해 줘."
+        </div>
+
+        <div class="chat-bubble chat-agent">
+          <strong>Agent Response:</strong><br>
+          요청하신 비동기 JWT 로그인 및 DB 조회 리팩토링 작업을 시작합니다.
+          
+          <div class="thinking-box">
+            <div class="thinking-header">💭 Agent Thinking Process</div>
+            1. Parse Vibe intent ➔ Identify target file: <code>auth_service.py</code><br>
+            2. Check dependencies ➔ Convert <code>db.query()</code> to <code>await db.execute(select(...))</code><br>
+            3. Trigger local sandbox test ➔ Execute <code>pytest tests/test_auth.py</code><br>
+            4. Inspect error log ➔ Apply async context manager self-correction.
+          </div>
+        </div>
       </div>
-      <div class="tenant-item">
-        <div class="tenant-name">rhoai-sno-node (On-Prem)</div>
-        <div class="tenant-info"><span>Target: Red Hat Summit Demo</span><span style="color: var(--text-muted);">Ready</span></div>
+
+      <div class="vibe-prompt-area">
+        <div style="font-size: 0.78rem; color: var(--cyan); font-weight: 700;">자연어 의도(Vibe) 추가 입력:</div>
+        <div class="vibe-input-wrapper">
+          <textarea class="vibe-textarea" placeholder="추가로 구현하거나 수정할 Vibe 의도를 입력하세요..."></textarea>
+          <button class="vibe-submit-btn">Vibe 실행 ➔</button>
+        </div>
       </div>
     </div>
 
-    <!-- Panel 2: Code Diff & Self-Correction Terminal -->
-    <div class="panel">
-      <div class="panel-title">Vibe 코드 생성 & Diff 뷰어 <span>auth_service.py</span></div>
-      <div class="code-box">
-<pre><code>def authenticate_user(db: Session, credentials: UserLogin):
--   user = db.query(User).filter(User.email == credentials.email).first()
-<span class="code-line-add">+   async with db.begin():</span>
-<span class="code-line-add">+       result = await db.execute(select(User).where(User.email == credentials.email))</span>
-<span class="code-line-add">+       user = result.scalars().first()</span>
-<span class="code-line-add">+       if not user or not await verify_password_async(credentials.password, user.password_hash):</span>
-<span class="code-line-add">+           raise HTTPException(status_code=400, detail="Invalid credentials")</span>
+    <!-- Middle Column: Generated Code File List (Explorer) -->
+    <div class="middle-file-column">
+      <div class="panel-header">📁 Code Files</div>
+      <div class="file-list">
+        <div class="file-item active modified">📄 auth_service.py</div>
+        <div class="file-item created">📄 test_auth.py</div>
+        <div class="file-item">📄 models.py</div>
+        <div class="file-item">📄 config.py</div>
+        <div class="file-item">📄 requirements.txt</div>
+        <div class="file-item">📄 README.md</div>
+      </div>
+    </div>
+
+    <!-- Right Column: Code Editor (Top) & Controls / Sandbox Status (Bottom) -->
+    <div class="right-main-column">
+
+      <!-- Right Top: LLM Adapter & Syncthing Controls -->
+      <div class="right-top-controls">
+        <div class="control-group">
+          <span style="color: var(--text-muted);">LLM Adapter:</span>
+          <button class="toggle-btn active">Desktop / OpenRouter</button>
+          <button class="toggle-btn">RHOAI vLLM (On-Prem)</button>
+        </div>
+
+        <div class="control-group">
+          <span style="color: var(--text-muted);">Sync (.stignore):</span>
+          <span style="color: var(--success); font-weight: bold;">✔ Active (.env Protected)</span>
+        </div>
+      </div>
+
+      <!-- Right Middle: Code Editor / Diff View -->
+      <div class="editor-container">
+        <div style="color: var(--text-muted); margin-bottom: 8px; font-size: 0.78rem;">// Editing: src/auth_service.py (Auto-generated by Vibe Engine)</div>
+<pre><code>async def authenticate_user(db: AsyncSession, credentials: UserLogin):
+<span class="line-add">+   async with db.begin():</span>
+<span class="line-add">+       result = await db.execute(select(User).where(User.email == credentials.email))</span>
+<span class="line-add">+       user = result.scalars().first()</span>
+<span class="line-add">+       if not user or not await verify_password_async(credentials.password, user.password_hash):</span>
+<span class="line-add">+           raise HTTPException(status_code=400, detail="Invalid credentials")</span>
     return user</code></pre>
       </div>
 
-      <div class="panel-title">샌드박스 라이브 셀프 코렉션 터미널</div>
-      <div class="terminal-box">
-        [Vibe Engine] Executing 'pytest tests/test_auth.py' in Local Sandbox...<br>
-        [FAILED] TypeError: object AuthSession can't be used in 'await' expression<br>
-        [Self-Correction] Analyzing stacktrace... Injecting async session context manager.<br>
-        [Vibe Engine] Re-running 'pytest tests/test_auth.py'...<br>
-        <span style="color: var(--success);">[SUCCESS] 4 passed in 0.38s. Vibe Self-correction completed!</span>
+      <!-- Right Bottom: Sandbox Status & Live Terminal -->
+      <div class="right-bottom-sandbox">
+        <div class="sandbox-header">
+          <span>Sandbox Status: RUNNING (Local Desktop .venv)</span>
+          <span>Self-Correction: ACTIVE</span>
+        </div>
+        <div class="sandbox-terminal">
+          [Sandbox Runner] Executing 'pytest tests/test_auth.py'...<br>
+          [FAILED] TypeError: object AuthSession can't be used in 'await' expression<br>
+          [Self-Correction] Analyzing stacktrace... Injecting async session context manager.<br>
+          [Sandbox Runner] Re-running 'pytest tests/test_auth.py'...<br>
+          <span style="color: var(--success);">[SUCCESS] 4 passed in 0.35s. Self-correction loop completed!</span>
+        </div>
       </div>
+
     </div>
 
-    <!-- Panel 3: LLM Adapter & Quota Management -->
-    <div class="panel">
-      <div class="panel-title">LLM 어댑터 & 동기화 설정</div>
-      
-      <div class="mode-switch">
-        <span class="switch-label">현재 LLM Provider 모드</span>
-        <div class="switch-btn-group">
-          <button class="btn-switch active">Desktop / OpenRouter</button>
-          <button class="btn-switch">RHOAI vLLM (On-Prem)</button>
-        </div>
-      </div>
-
-      <div class="mode-switch">
-        <span class="switch-label">MCP CLI 연동 현황</span>
-        <div style="font-size: 0.85rem; color: var(--cyan); margin-top: 5px;">
-          • Antigravity CLI (Active)<br>
-          • Claude Code CLI (Active)<br>
-          • VS Code Continue.dev (Active)
-        </div>
-      </div>
-
-      <div class="mode-switch">
-        <span class="switch-label">Syncthing 동기화 점검 (.stignore)</span>
-        <div style="font-size: 0.8rem; color: var(--success);">
-          ✔ .env (계정/비밀번호) 예외 처리 완료<br>
-          ✔ .venv (로컬 가상환경) 충돌 방지 완료
-        </div>
-      </div>
-    </div>
   </div>
 
-  <footer>
-    <p>Enterprise Coding Agent OS Dashboard UI/UX Prototype</p>
-    <p>© 2026 AI Architecture Engineering Team. All rights reserved.</p>
-  </footer>
-</div>
+  <!-- 3. Bottom Status Bar -->
+  <div class="bottom-status-bar">
+    <div>feature/vibe-coding-agent* | UTF-8 | Python 3.14.3 (.venv)</div>
+    <div>MCP Port: 3000 | OpenRouter Quota: $12.40 / $35.00</div>
+  </div>
 
 </body>
 </html>
