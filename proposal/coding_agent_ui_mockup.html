@@ -39,13 +39,13 @@
     .top-actions { display: flex; gap: 10px; align-items: center; }
     .sandbox-selector { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--cyan); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); }
 
-    /* 3-Column IDE Layout (Left 50%, Middle File Tree, Right Editor/Controls) */
-    .ide-body { flex: 1; display: grid; grid-template-columns: 50% 200px 1fr; height: calc(100vh - 60px); overflow: hidden; }
+    /* 3-Column IDE Layout (Left Vibe 50% | Center Code Diff Editor | Right Explorer & Sandbox Settings) */
+    .ide-body { flex: 1; display: grid; grid-template-columns: 50% 1fr 280px; height: calc(100vh - 60px); overflow: hidden; }
+
+    .panel-header { height: 35px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.8rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; }
 
     /* Left Column: Vibe Coding Prompt, Chat & Thinking (50% Width) */
     .left-vibe-column { background: var(--panel-bg); border-right: 1px solid var(--panel-border); display: flex; flex-direction: column; }
-    .panel-header { height: 35px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.8rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; }
-    
     .chat-history { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; font-size: 0.88rem; }
     .chat-bubble { background: var(--panel-active); border: 1px solid var(--panel-border); border-radius: 10px; padding: 14px; }
     .chat-user { border-left: 3px solid var(--cyan); }
@@ -61,31 +61,32 @@
     .vibe-textarea:focus { border-color: var(--cyan); }
     .vibe-submit-btn { background: linear-gradient(135deg, var(--cyan), var(--primary)); color: #000; border: none; padding: 0 20px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 0.9rem; cursor: pointer; }
 
-    /* Middle Column: Generated Code File List (Explorer) */
-    .middle-file-column { background: var(--panel-bg); border-right: 1px solid var(--panel-border); display: flex; flex-direction: column; }
-    .file-list { flex: 1; padding: 10px; overflow-y: auto; font-family: var(--font-code); font-size: 0.8rem; }
-    .file-item { padding: 6px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
+    /* Center Column: Main Code Generation & Diff Editor (가운데 배치!) */
+    .center-editor-column { background: #0c0e17; border-right: 1px solid var(--panel-border); display: flex; flex-direction: column; }
+    .editor-container { flex: 1; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: #a9b7c6; overflow-y: auto; }
+    .line-add { color: var(--success); background: rgba(0, 230, 118, 0.08); display: block; padding: 2px 5px; }
+
+    /* Right Column: Top Controls, Code File Explorer, Bottom Sandbox Terminal */
+    .right-sidebar-column { background: var(--panel-bg); display: flex; flex-direction: column; }
+
+    /* Right Top Header: LLM Adapter & Syncthing Controls */
+    .right-top-controls { background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 12px; display: flex; flex-direction: column; gap: 10px; font-size: 0.78rem; }
+    .control-group { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .toggle-btn { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--text-muted); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem; }
+    .toggle-btn.active { background: rgba(0, 229, 255, 0.15); border-color: var(--cyan); color: var(--cyan); font-weight: 700; }
+
+    /* Right Middle: Generated Code File List (Explorer) */
+    .explorer-section { flex: 1; display: flex; flex-direction: column; border-bottom: 1px solid var(--panel-border); overflow: hidden; }
+    .file-list { flex: 1; padding: 8px; overflow-y: auto; font-family: var(--font-code); font-size: 0.78rem; }
+    .file-item { padding: 5px 8px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); margin-bottom: 2px; }
     .file-item:hover, .file-item.active { background: var(--panel-active); color: #fff; }
     .file-item.modified { color: var(--warning); }
     .file-item.created { color: var(--success); }
 
-    /* Right Column: Code Editor + Controls (Top Right: LLM/Sync | Bottom Right: Sandbox) */
-    .right-main-column { display: flex; flex-direction: column; background: var(--bg-dark); }
-    
-    /* Right Top Header: LLM Adapter & Syncthing Controls */
-    .right-top-controls { background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; font-size: 0.8rem; }
-    .control-group { display: flex; align-items: center; gap: 8px; }
-    .toggle-btn { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--text-muted); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
-    .toggle-btn.active { background: rgba(0, 229, 255, 0.15); border-color: var(--cyan); color: var(--cyan); font-weight: 700; }
-
-    /* Right Middle: Code Editor */
-    .editor-container { flex: 1; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: #a9b7c6; overflow-y: auto; background: #0c0e17; }
-    .line-add { color: var(--success); background: rgba(0, 230, 118, 0.08); display: block; }
-
-    /* Right Bottom: Sandbox Status & Live Terminal */
-    .right-bottom-sandbox { height: 220px; background: #05060a; border-top: 1px solid var(--panel-border); display: flex; flex-direction: column; }
-    .sandbox-header { height: 32px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 0 15px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-family: var(--font-code); color: var(--success); }
-    .sandbox-terminal { flex: 1; padding: 12px; font-family: var(--font-code); font-size: 0.78rem; color: var(--cyan); overflow-y: auto; }
+    /* Right Bottom: Sandbox Status & Terminal */
+    .right-bottom-sandbox { height: 210px; background: #05060a; display: flex; flex-direction: column; }
+    .sandbox-header { height: 30px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 0 10px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-family: var(--font-code); color: var(--success); }
+    .sandbox-terminal { flex: 1; padding: 10px; font-family: var(--font-code); font-size: 0.75rem; color: var(--cyan); overflow-y: auto; line-height: 1.4; }
 
     /* Status Bar */
     .bottom-status-bar { height: 22px; background: #07080b; border-top: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-code); }
@@ -118,7 +119,7 @@
     </div>
   </div>
 
-  <!-- 2. Main IDE Body Layout (Left Vibe 50% | Middle File Tree | Right Editor & Controls) -->
+  <!-- 2. Main IDE Body Layout (Left Vibe 50% | Center Code Diff Editor | Right Explorer & Controls) -->
   <div class="ide-body">
 
     <!-- Left Column: Vibe Prompt, Chat & Thinking (50% Width) -->
@@ -157,39 +158,14 @@
       </div>
     </div>
 
-    <!-- Middle Column: Generated Code File List (Explorer) -->
-    <div class="middle-file-column">
-      <div class="panel-header">📁 Code Files</div>
-      <div class="file-list">
-        <div class="file-item active modified">📄 auth_service.py</div>
-        <div class="file-item created">📄 test_auth.py</div>
-        <div class="file-item">📄 models.py</div>
-        <div class="file-item">📄 config.py</div>
-        <div class="file-item">📄 requirements.txt</div>
-        <div class="file-item">📄 README.md</div>
+    <!-- Center Column: Main Code Generation & Diff Editor (가운데 배치!) -->
+    <div class="center-editor-column">
+      <div class="panel-header">
+        <span>📝 Generated Code & Diff Viewer (auth_service.py)</span>
+        <span style="font-size: 0.72rem; color: var(--warning);">Diff Status: Modified</span>
       </div>
-    </div>
-
-    <!-- Right Column: Code Editor (Top) & Controls / Sandbox Status (Bottom) -->
-    <div class="right-main-column">
-
-      <!-- Right Top: LLM Adapter & Syncthing Controls -->
-      <div class="right-top-controls">
-        <div class="control-group">
-          <span style="color: var(--text-muted);">LLM Adapter:</span>
-          <button class="toggle-btn active">Desktop / OpenRouter</button>
-          <button class="toggle-btn">RHOAI vLLM (On-Prem)</button>
-        </div>
-
-        <div class="control-group">
-          <span style="color: var(--text-muted);">Sync (.stignore):</span>
-          <span style="color: var(--success); font-weight: bold;">✔ Active (.env Protected)</span>
-        </div>
-      </div>
-
-      <!-- Right Middle: Code Editor / Diff View -->
       <div class="editor-container">
-        <div style="color: var(--text-muted); margin-bottom: 8px; font-size: 0.78rem;">// Editing: src/auth_service.py (Auto-generated by Vibe Engine)</div>
+        <div style="color: var(--text-muted); margin-bottom: 12px; font-size: 0.78rem;">// Editing: src/auth_service.py (Auto-generated by Vibe Engine)</div>
 <pre><code>async def authenticate_user(db: AsyncSession, credentials: UserLogin):
 <span class="line-add">+   async with db.begin():</span>
 <span class="line-add">+       result = await db.execute(select(User).where(User.email == credentials.email))</span>
@@ -198,19 +174,55 @@
 <span class="line-add">+           raise HTTPException(status_code=400, detail="Invalid credentials")</span>
     return user</code></pre>
       </div>
+    </div>
+
+    <!-- Right Column: Top Controls, Explorer (Code Files), Bottom Sandbox Terminal -->
+    <div class="right-sidebar-column">
+
+      <!-- Right Top: LLM Adapter & Syncthing Controls -->
+      <div class="right-top-controls">
+        <div class="control-group">
+          <span style="color: var(--text-muted);">LLM Adapter:</span>
+          <div>
+            <button class="toggle-btn active">Desktop</button>
+            <button class="toggle-btn">RHOAI</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <span style="color: var(--text-muted);">Sync (.stignore):</span>
+          <span style="color: var(--success); font-weight: bold;">✔ Protected</span>
+        </div>
+      </div>
+
+      <!-- Right Middle: Generated Code File List (Explorer) -->
+      <div class="explorer-section">
+        <div class="panel-header" style="height: 30px;">
+          <span>📁 Code Files</span>
+          <span style="font-size: 0.7rem; color: var(--text-muted);">6 Files</span>
+        </div>
+        <div class="file-list">
+          <div class="file-item active modified"><span>📄 auth_service.py</span><span style="color: var(--warning);">M</span></div>
+          <div class="file-item created"><span>📄 test_auth.py</span><span style="color: var(--success);">U</span></div>
+          <div class="file-item"><span>📄 models.py</span></div>
+          <div class="file-item"><span>📄 config.py</span></div>
+          <div class="file-item"><span>📄 requirements.txt</span></div>
+          <div class="file-item"><span>📄 README.md</span></div>
+        </div>
+      </div>
 
       <!-- Right Bottom: Sandbox Status & Live Terminal -->
       <div class="right-bottom-sandbox">
         <div class="sandbox-header">
-          <span>Sandbox Status: RUNNING (Local Desktop .venv)</span>
-          <span>Self-Correction: ACTIVE</span>
+          <span>Sandbox Status: RUNNING</span>
+          <span>Self-Correction</span>
         </div>
         <div class="sandbox-terminal">
-          [Sandbox Runner] Executing 'pytest tests/test_auth.py'...<br>
-          [FAILED] TypeError: object AuthSession can't be used in 'await' expression<br>
-          [Self-Correction] Analyzing stacktrace... Injecting async session context manager.<br>
-          [Sandbox Runner] Re-running 'pytest tests/test_auth.py'...<br>
-          <span style="color: var(--success);">[SUCCESS] 4 passed in 0.35s. Self-correction loop completed!</span>
+          [Sandbox] Running 'pytest tests/test_auth.py'...<br>
+          [FAILED] TypeError: object AuthSession can't be used in 'await'<br>
+          [Self-Correction] Injecting async session context manager.<br>
+          [Sandbox] Re-running 'pytest tests/test_auth.py'...<br>
+          <span style="color: var(--success);">[SUCCESS] 4 passed in 0.35s. Self-correction done!</span>
         </div>
       </div>
 
