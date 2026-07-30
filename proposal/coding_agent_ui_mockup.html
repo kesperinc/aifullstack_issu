@@ -3,10 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity Style Enterprise Coding Agent OS UI/UX Mockup</title>
+  <title>Antigravity Enterprise Coding Agent OS (React & Resizable Panes)</title>
+  
+  <!-- React & Babel CDN for Modern Interactive UI -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --bg-dark: #090a0f;
@@ -19,7 +27,6 @@
       --purple: #ab47bc;
       --success: #00e676;
       --warning: #ff9100;
-      --danger: #ff5252;
       --text-main: #f0f3f9;
       --text-muted: #7e8baf;
       --font-sans: 'Inter', -apple-system, sans-serif;
@@ -30,52 +37,53 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background-color: var(--bg-dark); color: var(--text-main); font-family: var(--font-sans); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-    /* 1. Global Navigation Top Bar & Menu */
-    .top-menu-bar { height: 38px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.82rem; user-select: none; }
-    .menu-items { display: flex; gap: 16px; color: var(--text-muted); }
+    /* Top Navigation Menu Bar */
+    .top-menu-bar { height: 38px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.82rem; user-select: none; flex-shrink: 0; }
+    .menu-items { display: flex; gap: 14px; color: var(--text-muted); align-items: center; }
     .menu-item { cursor: pointer; transition: color 0.15s; }
     .menu-item:hover, .menu-item.active { color: #ffffff; }
-    .top-title { font-family: var(--font-title); font-weight: 700; color: var(--cyan); letter-spacing: 0.5px; }
-    .top-actions { display: flex; gap: 10px; align-items: center; }
-    .sandbox-selector { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--cyan); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); }
+    .top-title { font-family: var(--font-title); font-weight: 700; color: var(--cyan); letter-spacing: 0.5px; margin-right: 8px; }
+    .sandbox-selector { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--cyan); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); outline: none; }
 
-    /* 3-Column IDE Layout (Left Vibe 50% | Center Code Diff Editor | Right Explorer & Sandbox Settings) */
-    .ide-body { flex: 1; display: grid; grid-template-columns: 50% 1fr 280px; height: calc(100vh - 60px); overflow: hidden; }
+    /* Main IDE Resizable Container */
+    .ide-body { flex: 1; display: flex; height: calc(100vh - 60px); overflow: hidden; position: relative; }
 
-    .panel-header { height: 35px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.8rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; }
+    /* Resizable Resplitter Handle */
+    .resizer { width: 5px; background: var(--panel-border); cursor: col-resize; transition: background 0.2s; flex-shrink: 0; z-index: 10; }
+    .resizer:hover, .resizer.dragging { background: var(--cyan); }
 
-    /* Left Column: Vibe Coding Prompt, Chat & Thinking (50% Width) */
-    .left-vibe-column { background: var(--panel-bg); border-right: 1px solid var(--panel-border); display: flex; flex-direction: column; }
+    .panel-header { height: 35px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.78rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; flex-shrink: 0; }
+
+    /* Left Column: Vibe Prompt & Thinking Stream */
+    .left-vibe-column { background: var(--panel-bg); display: flex; flex-direction: column; height: 100%; overflow: hidden; }
     .chat-history { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; font-size: 0.88rem; }
     .chat-bubble { background: var(--panel-active); border: 1px solid var(--panel-border); border-radius: 10px; padding: 14px; }
     .chat-user { border-left: 3px solid var(--cyan); }
     .chat-agent { border-left: 3px solid var(--purple); background: #131625; }
 
-    /* Thinking Collapsible Box */
     .thinking-box { background: rgba(171, 71, 188, 0.08); border: 1px solid rgba(171, 71, 188, 0.3); border-radius: 8px; padding: 10px 12px; margin-top: 10px; font-family: var(--font-code); font-size: 0.78rem; color: #d4b5fc; }
-    .thinking-header { display: flex; align-items: center; gap: 6px; font-weight: 600; margin-bottom: 5px; color: var(--purple); }
+    .thinking-header { display: flex; align-items: center; justify-content: space-between; font-weight: 600; margin-bottom: 5px; color: var(--purple); cursor: pointer; }
 
-    .vibe-prompt-area { padding: 15px; background: var(--menu-bg); border-top: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 10px; }
+    .vibe-prompt-area { padding: 12px 15px; background: var(--menu-bg); border-top: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
     .vibe-input-wrapper { display: flex; gap: 10px; }
-    .vibe-textarea { flex: 1; background: var(--bg-dark); border: 1px solid var(--panel-border); border-radius: 8px; padding: 12px; color: #fff; font-family: var(--font-sans); font-size: 0.88rem; resize: none; height: 60px; outline: none; }
+    .vibe-textarea { flex: 1; background: var(--bg-dark); border: 1px solid var(--panel-border); border-radius: 8px; padding: 10px; color: #fff; font-family: var(--font-sans); font-size: 0.88rem; resize: none; height: 50px; outline: none; }
     .vibe-textarea:focus { border-color: var(--cyan); }
-    .vibe-submit-btn { background: linear-gradient(135deg, var(--cyan), var(--primary)); color: #000; border: none; padding: 0 20px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 0.9rem; cursor: pointer; }
+    .vibe-submit-btn { background: linear-gradient(135deg, var(--cyan), var(--primary)); color: #000; border: none; padding: 0 18px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 0.88rem; cursor: pointer; transition: transform 0.15s; }
+    .vibe-submit-btn:hover { transform: translateY(-2px); }
 
-    /* Center Column: Main Code Generation & Diff Editor (가운데 배치!) */
-    .center-editor-column { background: #0c0e17; border-right: 1px solid var(--panel-border); display: flex; flex-direction: column; }
+    /* Center Column: Main Code Generation & Diff Editor */
+    .center-editor-column { background: #0c0e17; display: flex; flex-direction: column; height: 100%; overflow: hidden; flex-grow: 1; }
     .editor-container { flex: 1; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: #a9b7c6; overflow-y: auto; }
     .line-add { color: var(--success); background: rgba(0, 230, 118, 0.08); display: block; padding: 2px 5px; }
 
-    /* Right Column: Top Controls, Code File Explorer, Bottom Sandbox Terminal */
-    .right-sidebar-column { background: var(--panel-bg); display: flex; flex-direction: column; }
-
-    /* Right Top Header: LLM Adapter & Syncthing Controls */
-    .right-top-controls { background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 12px; display: flex; flex-direction: column; gap: 10px; font-size: 0.78rem; }
+    /* Right Column: Sidebar (Top Controls, Code Explorer, Bottom Sandbox Terminal) */
+    .right-sidebar-column { background: var(--panel-bg); display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+    
+    .right-top-controls { background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; font-size: 0.78rem; flex-shrink: 0; }
     .control-group { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .toggle-btn { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--text-muted); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem; }
     .toggle-btn.active { background: rgba(0, 229, 255, 0.15); border-color: var(--cyan); color: var(--cyan); font-weight: 700; }
 
-    /* Right Middle: Generated Code File List (Explorer) */
     .explorer-section { flex: 1; display: flex; flex-direction: column; border-bottom: 1px solid var(--panel-border); overflow: hidden; }
     .file-list { flex: 1; padding: 8px; overflow-y: auto; font-family: var(--font-code); font-size: 0.78rem; }
     .file-item { padding: 5px 8px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); margin-bottom: 2px; }
@@ -83,158 +91,241 @@
     .file-item.modified { color: var(--warning); }
     .file-item.created { color: var(--success); }
 
-    /* Right Bottom: Sandbox Status & Terminal */
-    .right-bottom-sandbox { height: 210px; background: #05060a; display: flex; flex-direction: column; }
+    .right-bottom-sandbox { height: 210px; background: #05060a; display: flex; flex-direction: column; flex-shrink: 0; }
     .sandbox-header { height: 30px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 0 10px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-family: var(--font-code); color: var(--success); }
     .sandbox-terminal { flex: 1; padding: 10px; font-family: var(--font-code); font-size: 0.75rem; color: var(--cyan); overflow-y: auto; line-height: 1.4; }
 
-    /* Status Bar */
-    .bottom-status-bar { height: 22px; background: #07080b; border-top: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-code); }
+    /* Bottom Status Bar */
+    .bottom-status-bar { height: 22px; background: #07080b; border-top: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-code); flex-shrink: 0; }
+
+    /* Responsive Design Adjustments */
+    @media (max-width: 1024px) {
+      .ide-body { flex-direction: column; height: auto; overflow-y: auto; }
+      .left-vibe-column, .center-editor-column, .right-sidebar-column { width: 100% !important; height: 450px !important; }
+      .resizer { display: none; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- 1. Global Navigation Menu Top Bar -->
-  <div class="top-menu-bar">
-    <div class="menu-items">
-      <span class="top-title">Antigravity Coding Agent OS</span>
-      <span class="menu-item">File</span>
-      <span class="menu-item">Edit</span>
-      <span class="menu-item">Selection</span>
-      <span class="menu-item">View</span>
-      <span class="menu-item">Go</span>
-      <span class="menu-item">Run</span>
-      <span class="menu-item">Terminal</span>
-      <span class="menu-item">Help</span>
-      <span class="menu-item">Setting</span>
-    </div>
+  <div id="root"></div>
 
-    <div class="top-actions">
-      <span style="color: var(--text-muted); font-size: 0.75rem;">Sandbox Env:</span>
-      <select class="sandbox-selector">
-        <option>Local Desktop Runner (.venv)</option>
-        <option>GCP GKE Sandbox Cluster</option>
-        <option>RHOAI SNO On-Premise Node</option>
-      </select>
-    </div>
-  </div>
+  <!-- React & Babel Component Definition -->
+  <script type="text/babel">
+    const { useState, useRef, useEffect } = React;
 
-  <!-- 2. Main IDE Body Layout (Left Vibe 50% | Center Code Diff Editor | Right Explorer & Controls) -->
-  <div class="ide-body">
+    function App() {
+      // Resizable Panel Width State
+      const [leftWidth, setLeftWidth] = useState(50); // percentage (%)
+      const [rightWidth, setRightWidth] = useState(280); // fixed pixels (px)
+      const [isDraggingLeft, setIsDraggingLeft] = useState(false);
+      const [isDraggingRight, setIsDraggingRight] = useState(false);
 
-    <!-- Left Column: Vibe Prompt, Chat & Thinking (50% Width) -->
-    <div class="left-vibe-column">
-      <div class="panel-header">
-        <span>✨ Vibe Coding Prompt & Thinking Stream</span>
-        <span style="font-size: 0.72rem; color: var(--success);">● Active Session</span>
-      </div>
+      // LLM Provider Toggle State
+      const [provider, setProvider] = useState('desktop');
+      const [thinkingOpen, setThinkingOpen] = useState(true);
 
-      <div class="chat-history">
-        <div class="chat-bubble chat-user">
-          <strong>User Vibe Intent:</strong><br>
-          "사용자 인증 서비스 auth_service.py의 동기 DB 조회를 비동기 Async SQLAlchemy 구조로 변경하고, pytest로 자율 검증해 줘."
-        </div>
+      // Handle Mouse Drag for Left Resizer
+      const handleMouseDownLeft = () => setIsDraggingLeft(true);
+      const handleMouseDownRight = () => setIsDraggingRight(true);
 
-        <div class="chat-bubble chat-agent">
-          <strong>Agent Response:</strong><br>
-          요청하신 비동기 JWT 로그인 및 DB 조회 리팩토링 작업을 시작합니다.
+      useEffect(() => {
+        const handleMouseMove = (e) => {
+          if (isDraggingLeft) {
+            const newPercentage = (e.clientX / window.innerWidth) * 100;
+            if (newPercentage > 20 && newPercentage < 70) {
+              setLeftWidth(newPercentage);
+            }
+          }
+          if (isDraggingRight) {
+            const newRightWidth = window.innerWidth - e.clientX;
+            if (newRightWidth > 200 && newRightWidth < 500) {
+              setRightWidth(newRightWidth);
+            }
+          }
+        };
+
+        const handleMouseUp = () => {
+          setIsDraggingLeft(false);
+          setIsDraggingRight(false);
+        };
+
+        if (isDraggingLeft || isDraggingRight) {
+          window.addEventListener('mousemove', handleMouseMove);
+          window.addEventListener('mouseup', handleMouseUp);
+        }
+
+        return () => {
+          window.removeEventListener('mousemove', handleMouseMove);
+          window.removeEventListener('mouseup', handleMouseUp);
+        };
+      }, [isDraggingLeft, isDraggingRight]);
+
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
           
-          <div class="thinking-box">
-            <div class="thinking-header">💭 Agent Thinking Process</div>
-            1. Parse Vibe intent ➔ Identify target file: <code>auth_service.py</code><br>
-            2. Check dependencies ➔ Convert <code>db.query()</code> to <code>await db.execute(select(...))</code><br>
-            3. Trigger local sandbox test ➔ Execute <code>pytest tests/test_auth.py</code><br>
-            4. Inspect error log ➔ Apply async context manager self-correction.
+          <!-- 1. Top Global Navigation Bar -->
+          <div class="top-menu-bar">
+            <div class="menu-items">
+              <span class="top-title">Antigravity Coding Agent OS</span>
+              <span class="menu-item active">File</span>
+              <span class="menu-item">Edit</span>
+              <span class="menu-item">Selection</span>
+              <span class="menu-item">View</span>
+              <span class="menu-item">Go</span>
+              <span class="menu-item">Run</span>
+              <span class="menu-item">Terminal</span>
+              <span class="menu-item">Help</span>
+              <span class="menu-item">Setting</span>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>Sandbox Target:</span>
+              <select class="sandbox-selector">
+                <option>Local Desktop Runner (.venv)</option>
+                <option>GCP GKE Sandbox Cluster</option>
+                <option>RHOAI SNO On-Premise Node</option>
+              </select>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="vibe-prompt-area">
-        <div style="font-size: 0.78rem; color: var(--cyan); font-weight: 700;">자연어 의도(Vibe) 추가 입력:</div>
-        <div class="vibe-input-wrapper">
-          <textarea class="vibe-textarea" placeholder="추가로 구현하거나 수정할 Vibe 의도를 입력하세요..."></textarea>
-          <button class="vibe-submit-btn">Vibe 실행 ➔</button>
-        </div>
-      </div>
-    </div>
+          <!-- 2. Main IDE Resizable 3-Column Body -->
+          <div class="ide-body">
+            
+            <!-- Left Resizable Section: Vibe Prompt & Thinking (leftWidth %) -->
+            <div class="left-vibe-column" style={{ width: `${leftWidth}%` }}>
+              <div class="panel-header">
+                <span>✨ Vibe Coding Prompt & Thinking Stream</span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--success)' }}>● Active Session</span>
+              </div>
 
-    <!-- Center Column: Main Code Generation & Diff Editor (가운데 배치!) -->
-    <div class="center-editor-column">
-      <div class="panel-header">
-        <span>📝 Generated Code & Diff Viewer (auth_service.py)</span>
-        <span style="font-size: 0.72rem; color: var(--warning);">Diff Status: Modified</span>
-      </div>
-      <div class="editor-container">
-        <div style="color: var(--text-muted); margin-bottom: 12px; font-size: 0.78rem;">// Editing: src/auth_service.py (Auto-generated by Vibe Engine)</div>
-<pre><code>async def authenticate_user(db: AsyncSession, credentials: UserLogin):
+              <div class="chat-history">
+                <div class="chat-bubble chat-user">
+                  <strong>User Vibe Intent:</strong><br />
+                  "사용자 인증 서비스 auth_service.py의 동기 DB 조회를 비동기 Async SQLAlchemy 구조로 변경하고, pytest로 자율 검증해 줘."
+                </div>
+
+                <div class="chat-bubble chat-agent">
+                  <strong>Agent Response:</strong><br />
+                  요청하신 비동기 JWT 로그인 및 DB 조회 리팩토링 작업을 시작합니다.
+                  
+                  <div class="thinking-box">
+                    <div class="thinking-header" onClick={() => setThinkingOpen(!thinkingOpen)}>
+                      <span>💭 Agent Thinking Process</span>
+                      <span>{thinkingOpen ? '▲' : '▼'}</span>
+                    </div>
+                    {thinkingOpen && (
+                      <div style={{ marginTop: '5px' }}>
+                        1. Parse Vibe intent ➔ Identify target file: <code>auth_service.py</code><br />
+                        2. Check dependencies ➔ Convert <code>db.query()</code> to <code>await db.execute(select(...))</code><br />
+                        3. Trigger local sandbox test ➔ Execute <code>pytest tests/test_auth.py</code><br />
+                        4. Inspect error log ➔ Apply async context manager self-correction.
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div class="vibe-prompt-area">
+                <div style={{ fontSize: '0.78rem', color: 'var(--cyan)', fontWeight: 700 }}>자연어 의도(Vibe) 추가 입력:</div>
+                <div class="vibe-input-wrapper">
+                  <textarea class="vibe-textarea" placeholder="추가로 구현하거나 수정할 Vibe 의도를 입력하세요..."></textarea>
+                  <button class="vibe-submit-btn">Vibe 실행 ➔</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Left Drag Resizer Bar -->
+            <div class={`resizer ${isDraggingLeft ? 'dragging' : ''}`} onMouseDown={handleMouseDownLeft}></div>
+
+            <!-- Center Column: Generated Code & Diff Viewer (Flex-grow 1) -->
+            <div class="center-editor-column">
+              <div class="panel-header">
+                <span>📝 Generated Code & Diff Viewer (auth_service.py)</span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--warning)' }}>Diff Status: Modified</span>
+              </div>
+              <div class="editor-container">
+                <div style={{ color: 'var(--text-muted)', marginBottom: '12px', fontSize: '0.78rem' }}>// Editing: src/auth_service.py (Auto-generated by Vibe Engine)</div>
+                <pre><code>
+{`async def authenticate_user(db: AsyncSession, credentials: UserLogin):`}
 <span class="line-add">+   async with db.begin():</span>
 <span class="line-add">+       result = await db.execute(select(User).where(User.email == credentials.email))</span>
 <span class="line-add">+       user = result.scalars().first()</span>
 <span class="line-add">+       if not user or not await verify_password_async(credentials.password, user.password_hash):</span>
 <span class="line-add">+           raise HTTPException(status_code=400, detail="Invalid credentials")</span>
-    return user</code></pre>
-      </div>
-    </div>
+{`    return user`}
+                </code></pre>
+              </div>
+            </div>
 
-    <!-- Right Column: Top Controls, Explorer (Code Files), Bottom Sandbox Terminal -->
-    <div class="right-sidebar-column">
+            <!-- Right Drag Resizer Bar -->
+            <div class={`resizer ${isDraggingRight ? 'dragging' : ''}`} onMouseDown={handleMouseDownRight}></div>
 
-      <!-- Right Top: LLM Adapter & Syncthing Controls -->
-      <div class="right-top-controls">
-        <div class="control-group">
-          <span style="color: var(--text-muted);">LLM Adapter:</span>
-          <div>
-            <button class="toggle-btn active">Desktop</button>
-            <button class="toggle-btn">RHOAI</button>
+            <!-- Right Resizable Section: Sidebar (rightWidth px) -->
+            <div class="right-sidebar-column" style={{ width: `${rightWidth}px` }}>
+              
+              <!-- Right Top Controls -->
+              <div class="right-top-controls">
+                <div class="control-group">
+                  <span style={{ color: 'var(--text-muted)' }}>LLM Adapter:</span>
+                  <div>
+                    <button class={`toggle-btn ${provider === 'desktop' ? 'active' : ''}`} onClick={() => setProvider('desktop')}>Desktop</button>
+                    <button class={`toggle-btn ${provider === 'rhoai' ? 'active' : ''}`} onClick={() => setProvider('rhoai')}>RHOAI</button>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <span style={{ color: 'var(--text-muted)' }}>Sync (.stignore):</span>
+                  <span style={{ color: 'var(--success)', fontWeight: 'bold' }}>✔ Protected</span>
+                </div>
+              </div>
+
+              <!-- Right Middle: Code File List (Explorer) -->
+              <div class="explorer-section">
+                <div class="panel-header" style={{ height: '30px' }}>
+                  <span>📁 Code Files</span>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>6 Files</span>
+                </div>
+                <div class="file-list">
+                  <div class="file-item active modified"><span>📄 auth_service.py</span><span style={{ color: 'var(--warning)' }}>M</span></div>
+                  <div class="file-item created"><span>📄 test_auth.py</span><span style={{ color: 'var(--success)' }}>U</span></div>
+                  <div class="file-item"><span>📄 models.py</span></div>
+                  <div class="file-item"><span>📄 config.py</span></div>
+                  <div class="file-item"><span>📄 requirements.txt</span></div>
+                  <div class="file-item"><span>📄 README.md</span></div>
+                </div>
+              </div>
+
+              <!-- Right Bottom: Sandbox Status & Live Terminal -->
+              <div class="right-bottom-sandbox">
+                <div class="sandbox-header">
+                  <span>Sandbox Status: RUNNING</span>
+                  <span>Self-Correction</span>
+                </div>
+                <div class="sandbox-terminal">
+                  [Sandbox] Running 'pytest tests/test_auth.py'...<br />
+                  [FAILED] TypeError: object AuthSession can't be used in 'await'<br />
+                  [Self-Correction] Injecting async session context manager.<br />
+                  [Sandbox] Re-running 'pytest tests/test_auth.py'...<br />
+                  <span style={{ color: 'var(--success)' }}>[SUCCESS] 4 passed in 0.35s. Self-correction done!</span>
+                </div>
+              </div>
+
+            </div>
+
           </div>
+
+          <!-- 3. Bottom Status Bar -->
+          <div class="bottom-status-bar">
+            <div>feature/vibe-coding-agent* | UTF-8 | Python 3.14.3 (.venv)</div>
+            <div>MCP Port: 3000 | OpenRouter Quota: $12.40 / $35.00</div>
+          </div>
+
         </div>
+      );
+    }
 
-        <div class="control-group">
-          <span style="color: var(--text-muted);">Sync (.stignore):</span>
-          <span style="color: var(--success); font-weight: bold;">✔ Protected</span>
-        </div>
-      </div>
-
-      <!-- Right Middle: Generated Code File List (Explorer) -->
-      <div class="explorer-section">
-        <div class="panel-header" style="height: 30px;">
-          <span>📁 Code Files</span>
-          <span style="font-size: 0.7rem; color: var(--text-muted);">6 Files</span>
-        </div>
-        <div class="file-list">
-          <div class="file-item active modified"><span>📄 auth_service.py</span><span style="color: var(--warning);">M</span></div>
-          <div class="file-item created"><span>📄 test_auth.py</span><span style="color: var(--success);">U</span></div>
-          <div class="file-item"><span>📄 models.py</span></div>
-          <div class="file-item"><span>📄 config.py</span></div>
-          <div class="file-item"><span>📄 requirements.txt</span></div>
-          <div class="file-item"><span>📄 README.md</span></div>
-        </div>
-      </div>
-
-      <!-- Right Bottom: Sandbox Status & Live Terminal -->
-      <div class="right-bottom-sandbox">
-        <div class="sandbox-header">
-          <span>Sandbox Status: RUNNING</span>
-          <span>Self-Correction</span>
-        </div>
-        <div class="sandbox-terminal">
-          [Sandbox] Running 'pytest tests/test_auth.py'...<br>
-          [FAILED] TypeError: object AuthSession can't be used in 'await'<br>
-          [Self-Correction] Injecting async session context manager.<br>
-          [Sandbox] Re-running 'pytest tests/test_auth.py'...<br>
-          <span style="color: var(--success);">[SUCCESS] 4 passed in 0.35s. Self-correction done!</span>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- 3. Bottom Status Bar -->
-  <div class="bottom-status-bar">
-    <div>feature/vibe-coding-agent* | UTF-8 | Python 3.14.3 (.venv)</div>
-    <div>MCP Port: 3000 | OpenRouter Quota: $12.40 / $35.00</div>
-  </div>
-
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
 </body>
 </html>
