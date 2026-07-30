@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity Enterprise Coding Agent OS (React Theme & Complete OS Menu System)</title>
+  <title>Antigravity Enterprise Coding Agent OS (React Marketplace & VS Code Icon)</title>
   
   <!-- React & Babel CDN -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
@@ -69,12 +69,30 @@
     .top-title { font-family: var(--font-title); font-weight: 700; color: var(--cyan); letter-spacing: 0.5px; margin-right: 12px; }
     .sandbox-selector { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--cyan); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); outline: none; }
 
+    /* VS Code Logo Icon */
+    .vscode-icon-btn { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 4px; cursor: pointer; transition: background 0.15s; }
+    .vscode-icon-btn:hover { background: var(--panel-active); }
+
     /* Dropdown Menus */
     .dropdown-menu { position: absolute; top: 32px; left: 0; background: var(--dropdown-bg); border: 1px solid var(--panel-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-width: 250px; padding: 6px 0; z-index: 200; font-size: 0.8rem; }
     .dropdown-item { padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--text-main); }
     .dropdown-item:hover { background: var(--dropdown-hover); color: var(--cyan); }
     .dropdown-shortcut { color: var(--text-muted); font-size: 0.72rem; font-family: var(--font-code); }
     .dropdown-divider { height: 1px; background: var(--panel-border); margin: 4px 0; }
+
+    /* VS Code Extension Marketplace Modal */
+    .market-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 999; }
+    .market-modal { width: 750px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 14px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; display: flex; flex-direction: column; }
+    .market-header { padding: 18px 22px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; justify-content: space-between; align-items: center; }
+    .market-title { font-family: var(--font-title); font-size: 1.2rem; font-weight: 700; color: var(--cyan); display: flex; align-items: center; gap: 10px; }
+    .market-search-box { padding: 15px 22px; background: var(--bg-dark); border-bottom: 1px solid var(--panel-border); }
+    .market-input { width: 100%; padding: 10px 14px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 8px; color: #fff; font-size: 0.88rem; outline: none; }
+    .market-list { max-height: 420px; overflow-y: auto; padding: 15px 22px; display: flex; flex-direction: column; gap: 12px; }
+    .market-item { background: var(--bg-dark); border: 1px solid var(--panel-border); border-radius: 10px; padding: 14px; display: flex; justify-content: space-between; align-items: center; }
+    .market-ext-title { font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 4px; }
+    .market-ext-desc { font-size: 0.82rem; color: var(--text-muted); }
+    .btn-install { background: var(--cyan); color: #000; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
+    .btn-installed { background: rgba(0, 230, 118, 0.15); color: var(--success); border: 1px solid var(--success); padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
 
     /* Main IDE Resizable Container */
     .ide-body { flex: 1; display: flex; height: calc(100vh - 60px); overflow: hidden; position: relative; }
@@ -139,6 +157,7 @@
       
       const [openMenu, setOpenMenu] = useState(null);
       const [terminalType, setTerminalType] = useState('Powershell');
+      const [isMarketOpen, setIsMarketOpen] = useState(false);
 
       const [leftWidth, setLeftWidth] = useState(50);
       const [rightWidth, setRightWidth] = useState(280);
@@ -184,20 +203,6 @@
 
       const toggleMenu = (menuName) => {
         setOpenMenu(openMenu === menuName ? null : menuName);
-      };
-
-      const handleRunConversation = () => {
-        alert("💬 Vibe 대화 세션을 시작합니다 (Run Conversation Session).");
-      };
-
-      const handleRunWithParams = () => {
-        const param = prompt("실행 시 주입할 커스텀 환경변수나 파라미터를 입력하세요 (예: ENV=staging PORT=8080):");
-        if (param) alert(`[Run System] 파라미터가 주입되어 실행됩니다: ${param}`);
-      };
-
-      const handleAgentCliCall = (cliName) => {
-        setTerminalType(cliName);
-        alert(`🤖 ${cliName} CLI 오케스트레이터가 바인딩되어 연결되었습니다.`);
       };
 
       return (
@@ -277,56 +282,20 @@
                 )}
               </div>
 
-              <!-- Go Menu (VS Code Native Navigation) -->
-              <div class={`menu-item-btn ${openMenu === 'go' ? 'active' : ''}`} onClick={() => toggleMenu('go')}>
-                Go
-                {openMenu === 'go' && (
-                  <div class="dropdown-menu">
-                    <div class="dropdown-item">📄 파일로 이동 (Go to File)... <span class="dropdown-shortcut">Ctrl+P</span></div>
-                    <div class="dropdown-item">🔣 심볼로 이동 (Go to Symbol)... <span class="dropdown-shortcut">Ctrl+Shift+O</span></div>
-                    <div class="dropdown-item">🔢 줄/열 번호로 이동 (Go to Line)... <span class="dropdown-shortcut">Ctrl+G</span></div>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-item">⬅️ 뒤로 이동 (Back) <span class="dropdown-shortcut">Alt+Left</span></div>
-                    <div class="dropdown-item">➡️ 앞으로 이동 (Forward) <span class="dropdown-shortcut">Alt+Right</span></div>
-                  </div>
-                )}
-              </div>
-
-              <!-- Run Menu (VS Code Run + Vibe Conversation & Custom Param Run) -->
-              <div class={`menu-item-btn ${openMenu === 'run' ? 'active' : ''}`} onClick={() => toggleMenu('run')}>
-                Run
-                {openMenu === 'run' && (
-                  <div class="dropdown-menu" style={{ width: '270px' }}>
-                    <div class="dropdown-item" onClick={handleRunConversation}>💬 Vibe 대화 세션 실행 (Run Conversation) <span class="dropdown-shortcut">F5</span></div>
-                    <div class="dropdown-item" onClick={handleRunWithParams}>⚙️ 커스텀 변수/파라미터 주입 실행... <span class="dropdown-shortcut">Ctrl+F5</span></div>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-item">▶️ 디버깅 없이 바로 실행 (Run Without Debugging)</div>
-                    <div class="dropdown-item">⏹️ 실행 중단 (Stop Execution) <span class="dropdown-shortcut">Shift+F5</span></div>
-                  </div>
-                )}
-              </div>
-
-              <!-- Terminal Menu (Powershell, Linux, Codex, Claude Code, Antigravity CLI) -->
-              <div class={`menu-item-btn ${openMenu === 'terminal' ? 'active' : ''}`} onClick={() => toggleMenu('terminal')}>
-                Terminal
-                {openMenu === 'terminal' && (
-                  <div class="dropdown-menu" style={{ width: '260px' }}>
-                    <div class="dropdown-item" onClick={() => setTerminalType('Powershell')}>💻 새 터미널 (Powershell) <span class="dropdown-shortcut">Ctrl+Shift+`</span></div>
-                    <div class="dropdown-item" onClick={() => setTerminalType('Linux Bash')}>🐧 새 터미널 (Linux Bash)</div>
-                    <div class="dropdown-divider"></div>
-                    <div style={{ padding: '6px 16px', fontWeight: 'bold', color: 'var(--cyan)' }}>🤖 Agentic CLI 오케스트레이터 호출</div>
-                    <div class="dropdown-item" onClick={() => handleAgentCliCall('Antigravity CLI')}>✨ Antigravity CLI 호출 {terminalType === 'Antigravity CLI' && '✔'}</div>
-                    <div class="dropdown-item" onClick={() => handleAgentCliCall('Claude Code CLI')}>🧠 Claude Code CLI 호출 {terminalType === 'Claude Code CLI' && '✔'}</div>
-                    <div class="dropdown-item" onClick={() => handleAgentCliCall('Codex CLI')}>⚡ Codex CLI 호출 {terminalType === 'Codex CLI' && '✔'}</div>
-                  </div>
-                )}
+              <span class="menu-item-btn">Go</span>
+              <span class="menu-item-btn">Run</span>
+              <span class="menu-item-btn">Terminal</span>
+              
+              <!-- Marketplace Shortcut Menu -->
+              <div class="menu-item-btn" onClick={() => setIsMarketOpen(true)} style={{ color: 'var(--cyan)', fontWeight: 'bold' }}>
+                🛒 Extensions Market
               </div>
 
               <span class="menu-item-btn">Help</span>
               <span class="menu-item-btn">Setting</span>
             </div>
 
-            <!-- Top Right: Theme Switcher & Sandbox Selector -->
+            <!-- Top Right: Theme Switcher, Sandbox Selector & VS Code Icon -->
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '4px', background: 'var(--panel-bg)', padding: '2px', borderRadius: '6px', border: '1px solid var(--panel-border)' }}>
                 <button class={`toggle-btn ${themeMode === 'night' ? 'active' : ''}`} onClick={() => setThemeMode('night')}>🌙 Night</button>
@@ -339,10 +308,80 @@
                 <option>GCP GKE Sandbox Cluster</option>
                 <option>RHOAI SNO On-Premise Node</option>
               </select>
+
+              <!-- VS Code Official Emblem Icon (Rightmost Placement) -->
+              <div class="vscode-icon-btn" title="VS Code Marketplace & Extension Integration" onClick={() => setIsMarketOpen(true)}>
+                <svg width="18" height="18" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M72.2 4.6L24.3 27.6L9.8 19.3L1.5 24.3L16.2 50L1.5 75.7L9.8 80.7L24.3 72.4L72.2 95.4L98.5 83V17L72.2 4.6ZM72.2 73.6L34.3 50L72.2 26.4V73.6Z" fill="#0066B8"/>
+                  <path d="M72.2 4.6L24.3 27.6L9.8 19.3L1.5 24.3L16.2 50L1.5 75.7L9.8 80.7L24.3 72.4L72.2 95.4L98.5 83V17L72.2 4.6ZM72.2 73.6L34.3 50L72.2 26.4V73.6Z" fill="url(#paint0_linear)"/>
+                  <defs>
+                    <linearGradient id="paint0_linear" x1="1.5" y1="50" x2="98.5" y2="50" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#007ACC"/>
+                      <stop offset="1" stop-color="#1F9CF0"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
             </div>
           </div>
 
-          <!-- 2. Main Resizable 3-Column IDE Body -->
+          <!-- 2. VS Code Extension Marketplace Modal -->
+          {isMarketOpen && (
+            <div class="market-modal-overlay" onClick={() => setIsMarketOpen(false)}>
+              <div class="market-modal" onClick={(e) => e.stopPropagation()}>
+                <div class="market-header">
+                  <div class="market-title">
+                    <svg width="22" height="22" viewBox="0 0 100 100" fill="none">
+                      <path d="M72.2 4.6L24.3 27.6L9.8 19.3L1.5 24.3L16.2 50L1.5 75.7L9.8 80.7L24.3 72.4L72.2 95.4L98.5 83V17L72.2 4.6ZM72.2 73.6L34.3 50L72.2 26.4V73.6Z" fill="#007ACC"/>
+                    </svg>
+                    VS Code Extensions Marketplace
+                  </div>
+                  <button style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: '1.2rem', cursor: 'pointer' }} onClick={() => setIsMarketOpen(false)}>✖</button>
+                </div>
+
+                <div class="market-search-box">
+                  <input type="text" class="market-input" placeholder="VS Code 확장 마켓플레이스 검색 (예: Continue, Python, Docker, RHOAI)..." />
+                </div>
+
+                <div class="market-list">
+                  <div class="market-item">
+                    <div>
+                      <div class="market-ext-title">Continue.dev AI Assistant</div>
+                      <div class="market-ext-desc">오픈소스 AI 코딩 익스텐션 & LLM 커넥터 통합 도구</div>
+                    </div>
+                    <button class="btn-installed">✔ Installed</button>
+                  </div>
+
+                  <div class="market-item">
+                    <div>
+                      <div class="market-ext-title">Red Hat OpenShift AI Connector</div>
+                      <div class="market-ext-desc">RHOAI SNO 폐쇄망 vLLM ServingRuntime 1-Click 연동 가속기</div>
+                    </div>
+                    <button class="btn-install">+ Install</button>
+                  </div>
+
+                  <div class="market-item">
+                    <div>
+                      <div class="market-ext-title">Antigravity MCP Gateway Helper</div>
+                      <div class="market-ext-desc">Port 3000 MCP JSON-RPC 라우팅 세션 동기화 익스텐션</div>
+                    </div>
+                    <button class="btn-installed">✔ Installed</button>
+                  </div>
+
+                  <div class="market-item">
+                    <div>
+                      <div class="market-ext-title">Python & Pylance Language Server</div>
+                      <div class="market-ext-desc">파이썬 샌드박스 pytest 자동 검증 및 정적 언어 분석 엔진</div>
+                    </div>
+                    <button class="btn-installed">✔ Installed</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <!-- 3. Main Resizable 3-Column IDE Body -->
           <div class="ide-body" style={{ fontSize: `${fontSize}px` }}>
             
             <!-- Left Resizable Section -->
@@ -446,7 +485,6 @@
                 </div>
               </div>
 
-              <!-- Sandbox Live Terminal -->
               <div class="right-bottom-sandbox">
                 <div class="sandbox-header">
                   <span>Terminal: {terminalType}</span>
@@ -464,7 +502,7 @@
 
           </div>
 
-          <!-- 3. Bottom Status Bar -->
+          <!-- 4. Bottom Status Bar -->
           <div class="bottom-status-bar">
             <div>feature/vibe-coding-agent* | Terminal: {terminalType} | Theme: {themeMode.toUpperCase()} | Font: {fontFamily}</div>
             <div>MCP Port: 3000 | OpenRouter Quota: $12.40 / $35.00</div>
