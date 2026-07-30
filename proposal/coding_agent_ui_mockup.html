@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>엔터프라이즈 코딩 에이전트 대시보드 UI/UX 초안</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0d14;
+      --panel-bg: #121522;
+      --card-bg: #181c2e;
+      --card-border: #262c45;
+      --primary: #00abf0;
+      --cyan: #00e5ff;
+      --purple: #ab47bc;
+      --success: #00e676;
+      --warning: #ff9100;
+      --text-main: #f0f3f9;
+      --text-muted: #8b95b5;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-title: 'Outfit', sans-serif;
+      --font-code: 'Fira Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-sans); padding: 30px 20px; line-height: 1.5; }
+    .container { max-width: 1500px; margin: 0 auto; }
+
+    header { display: flex; align-items: center; justify-content: space-between; padding: 20px 30px; background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+    .logo { font-family: var(--font-title); font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .status-badge { display: flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(0, 230, 118, 0.12); border: 1px solid var(--success); color: var(--success); border-radius: 20px; font-size: 0.85rem; font-weight: 700; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 10px var(--success); }
+
+    .grid-layout { display: grid; grid-template-columns: 320px 1fr 380px; gap: 20px; }
+    .panel { background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; }
+    .panel-title { font-family: var(--font-title); font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; }
+
+    /* Left: Workspace Tenant List */
+    .tenant-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px; margin-bottom: 12px; transition: border-color 0.2s; }
+    .tenant-item:hover { border-color: var(--cyan); }
+    .tenant-name { font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 4px; }
+    .tenant-info { font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; }
+
+    /* Center: Code Sandbox & Self-Correction Terminal */
+    .code-box { background: #0c0e17; border: 1px solid var(--card-border); border-radius: 10px; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: #a9b7c6; height: 350px; overflow-y: auto; margin-bottom: 15px; }
+    .code-line-add { color: var(--success); background: rgba(0, 230, 118, 0.08); display: block; padding: 2px 5px; }
+    .code-line-del { color: #ff5252; background: rgba(255, 82, 82, 0.08); display: block; padding: 2px 5px; }
+    .terminal-box { background: #05060a; border: 1px solid var(--card-border); border-radius: 10px; padding: 15px; font-family: var(--font-code); font-size: 0.8rem; color: var(--cyan); height: 180px; overflow-y: auto; }
+
+    /* Right: Model Switcher & Quota */
+    .mode-switch { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin-bottom: 15px; }
+    .switch-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; display: block; }
+    .switch-btn-group { display: flex; gap: 8px; }
+    .btn-switch { flex: 1; padding: 8px; border: 1px solid var(--card-border); background: var(--panel-bg); color: var(--text-muted); border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.8rem; }
+    .btn-switch.active { background: rgba(0, 229, 255, 0.15); border-color: var(--cyan); color: var(--cyan); }
+
+    .quota-meter { height: 8px; background: var(--card-bg); border-radius: 4px; overflow: hidden; margin-top: 8px; }
+    .quota-bar { height: 100%; width: 34%; background: linear-gradient(90deg, var(--cyan), var(--purple)); }
+
+    footer { text-align: center; margin-top: 30px; color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="logo">Enterprise Coding Agent OS</div>
+    <div style="display: flex; gap: 15px; align-items: center;">
+      <div class="status-badge"><div class="dot"></div> MCP Gateway Active (Port 3000)</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">GCP Cloud Mode</div>
+    </div>
+  </header>
+
+  <div class="grid-layout">
+    <!-- Panel 1: Developer Workspaces -->
+    <div class="panel">
+      <div class="panel-title">격리 워크스페이스 현황 <span>(3/5 Active)</span></div>
+      <div class="tenant-item">
+        <div class="tenant-name">dev-user-01 (GKE Sandbox)</div>
+        <div class="tenant-info"><span>Feature: async-refactor</span><span style="color: var(--success);">Running</span></div>
+      </div>
+      <div class="tenant-item">
+        <div class="tenant-name">dev-user-02 (Docker Pod)</div>
+        <div class="tenant-info"><span>Feature: mcp-router</span><span style="color: var(--success);">Running</span></div>
+      </div>
+      <div class="tenant-item">
+        <div class="tenant-name">dev-user-03 (Local Sandbox)</div>
+        <div class="tenant-info"><span>Feature: pytest-fix</span><span style="color: var(--warning);">Testing</span></div>
+      </div>
+    </div>
+
+    <!-- Panel 2: Code Diff & Self-Correction Terminal -->
+    <div class="panel">
+      <div class="panel-title">자율 코드 생성 & Diff 뷰어 <span>auth_service.py</span></div>
+      <div class="code-box">
+<pre><code>def authenticate_user(db: Session, credentials: UserLogin):
+-   user = db.query(User).filter(User.email == credentials.email).first()
+-   if not user or not verify_password(credentials.password, user.password_hash):
+-       raise HTTPException(status_code=400, detail="Invalid credentials")
+<span class="code-line-add">+   async with db.begin():</span>
+<span class="code-line-add">+       result = await db.execute(select(User).where(User.email == credentials.email))</span>
+<span class="code-line-add">+       user = result.scalars().first()</span>
+<span class="code-line-add">+       if not user or not await verify_password_async(credentials.password, user.password_hash):</span>
+<span class="code-line-add">+           raise HTTPException(status_code=400, detail="Invalid credentials")</span>
+    return user</code></pre>
+      </div>
+
+      <div class="panel-title" style="margin-top: 10px;">샌드박스 에러 셀프 코렉션 터미널</div>
+      <div class="terminal-box">
+        [Agent Loop] Executing 'pytest tests/test_auth.py' in Sandbox...<br>
+        [FAILED] TypeError: object AuthSession can't be used in 'await' expression<br>
+        [Self-Correction] Analyzing stacktrace... Injecting async session context manager.<br>
+        [Agent Loop] Re-running 'pytest tests/test_auth.py'...<br>
+        <span style="color: var(--success);">[SUCCESS] 4 passed in 0.42s. Self-correction completed!</span>
+      </div>
+    </div>
+
+    <!-- Panel 3: LLM Adapter & Quota Management -->
+    <div class="panel">
+      <div class="panel-title">LLM 어댑터 & 토글 설정</div>
+      
+      <div class="mode-switch">
+        <span class="switch-label">현재 LLM Provider 모드</span>
+        <div class="switch-btn-group">
+          <button class="btn-switch active">OpenRouter API (GCP)</button>
+          <button class="btn-switch">RHOAI vLLM (On-Prem)</button>
+        </div>
+      </div>
+
+      <div class="mode-switch">
+        <span class="switch-label">MCP CLI 연동 바인딩</span>
+        <div style="font-size: 0.85rem; color: var(--cyan); margin-top: 5px;">
+          • Antigravity CLI (Active)<br>
+          • Claude Code CLI (Active)<br>
+          • VS Code Continue.dev (Active)
+        </div>
+      </div>
+
+      <div class="mode-switch">
+        <span class="switch-label">GCP Cloud 개발 비용 (일일 쿼터)</span>
+        <div style="font-size: 0.9rem; font-weight: 700; color: #fff;">$12.40 / $35.00</div>
+        <div class="quota-meter"><div class="quota-bar"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Enterprise Coding Agent OS Dashboard UI/UX Prototype</p>
+    <p>© 2026 AI Architecture Engineering Team. All rights reserved.</p>
+  </footer>
+</div>
+
+</body>
+</html>

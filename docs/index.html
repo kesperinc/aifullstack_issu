@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise AI Solution Documentation Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0d14;
+      --panel-bg: #121522;
+      --card-bg: #181c2e;
+      --card-border: #262c45;
+      --primary: #00abf0;
+      --accent-gold: #d4af37;
+      --text-main: #f0f3f9;
+      --text-muted: #8b95b5;
+      --blackwell: #76b900;
+      --cyan: #00e5ff;
+      --purple: #ab47bc;
+      --gradient-title: linear-gradient(135deg, #00abf0 0%, #00e5ff 50%, #d4af37 100%);
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-title: 'Outfit', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-sans); line-height: 1.6; padding: 40px 20px; }
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    header { text-align: center; margin-bottom: 40px; padding: 40px 20px; background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .badge { display: inline-block; padding: 6px 16px; background: rgba(0, 171, 240, 0.15); border: 1px solid var(--primary); color: var(--primary); border-radius: 30px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; }
+    h1 { font-family: var(--font-title); font-size: 2.5rem; font-weight: 800; background: var(--gradient-title); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; }
+    .subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 950px; margin: 0 auto; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
+    .doc-card { background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 25px; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, border-color 0.2s; }
+    .doc-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
+    .doc-title { font-family: var(--font-title); font-size: 1.4rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
+    .doc-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+    .doc-btn { color: var(--cyan); font-weight: 700; font-size: 0.95rem; }
+
+    footer { text-align: center; margin-top: 50px; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--card-border); padding-top: 25px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="badge">Documentation Portal</div>
+    <h1>기술 규격서 & 분석 보고서 통합 포털</h1>
+    <p class="subtitle">Word(docx) 변환 및 인쇄 최적화 HTML 기술 문서 및 IDEATION 아이디어 백업 문서 탐색</p>
+  </header>
+
+  <div class="grid-2">
+    <!-- Doc 1: Basic Design HTML -->
+    <a href="coding_agent_basic_design.html" class="doc-card">
+      <div>
+        <div style="color: var(--cyan); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">HTML Specification</div>
+        <div class="doc-title">엔터프라이즈 코딩 에이전트 기본설계서 & 상세설계서 ➔</div>
+        <p class="doc-desc">
+          • GCP Cloud 기반 개발 ➔ Red Hat OpenShift AI (SNO) 온프레미스 1-Click 포팅 규격서<br>
+          • MCP 라우터, 개발자 독립 워크스페이스 샌드박스, 작업 트라이어드 (Plan-Code-Doc) 가드레일 수칙 포함
+        </p>
+      </div>
+      <div class="doc-btn">HTML 기본설계서 보기 (Word/PDF 변환 최적화) ➔</div>
+    </a>
+
+    <!-- Doc 2: TOP 3 Analysis HTML -->
+    <a href="coding_agent_top3_analysis.html" class="doc-card">
+      <div>
+        <div style="color: var(--purple); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">Benchmark Report</div>
+        <div class="doc-title">글로벌 코딩 에이전트 TOP 3 분석 보고서 ➔</div>
+        <p class="doc-desc">
+          • Cursor, Claude Code, Continue.dev 비교 분석 표 및 온프레미스 이식 가능성 평가<br>
+          • 개발자 선호 우선개발 4대 항목 및 /office-hours 관점 시연/기술홍보/오픈소스 차별화 요소
+        </p>
+      </div>
+      <div class="doc-btn" style="color: var(--purple);">HTML 분석 보고서 보기 ➔</div>
+    </a>
+
+    <!-- Doc 3: Proposal Portal -->
+    <a href="../proposal/index.html" class="doc-card">
+      <div>
+        <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">Proposal Portal</div>
+        <div class="doc-title">제안서 포털 사이트 (Proposal Portal) ➔</div>
+        <p class="doc-desc">
+          • 10월 Red Hat & 11월 Intel 행사 전시 Pilot Solution 계획서<br>
+          • 기업 문서 파이프라인 패키지, 코딩 에이전트 패키지, Articul8 AI 산업 특화 패키지 모음
+        </p>
+      </div>
+      <div class="doc-btn" style="color: var(--primary);">제안서 포털 이동 ➔</div>
+    </a>
+
+    <!-- Doc 4: IDEATION Backup Folder -->
+    <a href="IDEATION/coding_agent_basic_design.md" class="doc-card">
+      <div>
+        <div style="color: var(--accent-gold); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">Legacy Markdown Backup</div>
+        <div class="doc-title">IDEATION 마크다운 백업 폴더 ➔</div>
+        <p class="doc-desc">
+          • 기존 마크다운(`.md`) 파일들이 안전하게 이동/백업된 `docs/IDEATION/` 폴더<br>
+          • 아이디어 및 초기 초안 텍스트 백업 데이터
+        </p>
+      </div>
+      <div class="doc-btn" style="color: var(--accent-gold);">IDEATION 백업 문서 보기 ➔</div>
+    </a>
+  </div>
+
+  <footer>
+    <p>Enterprise AI Engineering Documentation System</p>
+    <p>© 2026 AI Architecture Engineering Team. All rights reserved.</p>
+  </footer>
+</div>
+
+</body>
+</html>
