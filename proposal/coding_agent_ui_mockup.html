@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity Enterprise Coding Agent OS (React & Resizable Panes)</title>
+  <title>Antigravity Enterprise Coding Agent OS (React Theme & OS Menu System)</title>
   
-  <!-- React & Babel CDN for Modern Interactive UI -->
+  <!-- React & Babel CDN -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -13,10 +13,17 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-title: 'Outfit', sans-serif;
+      --font-code: 'Fira Code', monospace;
+    }
+
+    /* Night (Dark) Theme Variables */
+    body.theme-night {
       --bg-dark: #090a0f;
       --menu-bg: #11131c;
       --panel-bg: #161926;
@@ -29,56 +36,76 @@
       --warning: #ff9100;
       --text-main: #f0f3f9;
       --text-muted: #7e8baf;
-      --font-sans: 'Inter', -apple-system, sans-serif;
-      --font-title: 'Outfit', sans-serif;
-      --font-code: 'Fira Code', monospace;
+      --dropdown-bg: #191c2b;
+      --dropdown-hover: #262c43;
+    }
+
+    /* Day (Light) Theme Variables */
+    body.theme-day {
+      --bg-dark: #f4f6f9;
+      --menu-bg: #ffffff;
+      --panel-bg: #ffffff;
+      --panel-border: #cbd5e1;
+      --panel-active: #e2e8f0;
+      --primary: #0284c7;
+      --cyan: #0284c7;
+      --purple: #9333ea;
+      --success: #16a34a;
+      --warning: #d97706;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --dropdown-bg: #ffffff;
+      --dropdown-hover: #f1f5f9;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--bg-dark); color: var(--text-main); font-family: var(--font-sans); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+    body { background-color: var(--bg-dark); color: var(--text-main); font-family: var(--font-sans); height: 100vh; overflow: hidden; display: flex; flex-direction: column; transition: background-color 0.2s, color 0.2s; }
 
     /* Top Navigation Menu Bar */
-    .top-menu-bar { height: 38px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.82rem; user-select: none; flex-shrink: 0; }
-    .menu-items { display: flex; gap: 14px; color: var(--text-muted); align-items: center; }
-    .menu-item { cursor: pointer; transition: color 0.15s; }
-    .menu-item:hover, .menu-item.active { color: #ffffff; }
-    .top-title { font-family: var(--font-title); font-weight: 700; color: var(--cyan); letter-spacing: 0.5px; margin-right: 8px; }
+    .top-menu-bar { height: 38px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.82rem; user-select: none; flex-shrink: 0; position: relative; z-index: 100; }
+    .menu-items { display: flex; gap: 4px; color: var(--text-muted); align-items: center; }
+    .menu-item-btn { padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: background 0.15s, color 0.15s; position: relative; }
+    .menu-item-btn:hover, .menu-item-btn.active { background: var(--panel-active); color: var(--text-main); }
+    .top-title { font-family: var(--font-title); font-weight: 700; color: var(--cyan); letter-spacing: 0.5px; margin-right: 12px; }
     .sandbox-selector { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--cyan); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); outline: none; }
+
+    /* Dropdown Menus */
+    .dropdown-menu { position: absolute; top: 32px; left: 0; background: var(--dropdown-bg); border: 1px solid var(--panel-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-width: 210px; padding: 6px 0; z-index: 200; font-size: 0.8rem; }
+    .dropdown-item { padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--text-main); }
+    .dropdown-item:hover { background: var(--dropdown-hover); color: var(--cyan); }
+    .dropdown-shortcut { color: var(--text-muted); font-size: 0.72rem; font-family: var(--font-code); }
+    .dropdown-divider { height: 1px; background: var(--panel-border); margin: 4px 0; }
 
     /* Main IDE Resizable Container */
     .ide-body { flex: 1; display: flex; height: calc(100vh - 60px); overflow: hidden; position: relative; }
-
-    /* Resizable Resplitter Handle */
     .resizer { width: 5px; background: var(--panel-border); cursor: col-resize; transition: background 0.2s; flex-shrink: 0; z-index: 10; }
     .resizer:hover, .resizer.dragging { background: var(--cyan); }
 
     .panel-header { height: 35px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.78rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; flex-shrink: 0; }
 
     /* Left Column: Vibe Prompt & Thinking Stream */
-    .left-vibe-column { background: var(--panel-bg); display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+    .left-vibe-column { background: var(--panel-bg); display: flex; flex-direction: column; height: 100%; overflow: hidden; border-right: 1px solid var(--panel-border); }
     .chat-history { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; font-size: 0.88rem; }
     .chat-bubble { background: var(--panel-active); border: 1px solid var(--panel-border); border-radius: 10px; padding: 14px; }
     .chat-user { border-left: 3px solid var(--cyan); }
-    .chat-agent { border-left: 3px solid var(--purple); background: #131625; }
+    .chat-agent { border-left: 3px solid var(--purple); background: var(--menu-bg); }
 
-    .thinking-box { background: rgba(171, 71, 188, 0.08); border: 1px solid rgba(171, 71, 188, 0.3); border-radius: 8px; padding: 10px 12px; margin-top: 10px; font-family: var(--font-code); font-size: 0.78rem; color: #d4b5fc; }
-    .thinking-header { display: flex; align-items: center; justify-content: space-between; font-weight: 600; margin-bottom: 5px; color: var(--purple); cursor: pointer; }
+    .thinking-box { background: rgba(171, 71, 188, 0.08); border: 1px solid rgba(171, 71, 188, 0.3); border-radius: 8px; padding: 10px 12px; margin-top: 10px; font-family: var(--font-code); font-size: 0.78rem; color: var(--purple); }
+    .thinking-header { display: flex; align-items: center; justify-content: space-between; font-weight: 600; margin-bottom: 5px; cursor: pointer; }
 
     .vibe-prompt-area { padding: 12px 15px; background: var(--menu-bg); border-top: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
     .vibe-input-wrapper { display: flex; gap: 10px; }
-    .vibe-textarea { flex: 1; background: var(--bg-dark); border: 1px solid var(--panel-border); border-radius: 8px; padding: 10px; color: #fff; font-family: var(--font-sans); font-size: 0.88rem; resize: none; height: 50px; outline: none; }
+    .vibe-textarea { flex: 1; background: var(--bg-dark); border: 1px solid var(--panel-border); border-radius: 8px; padding: 10px; color: var(--text-main); font-family: var(--font-sans); font-size: 0.88rem; resize: none; height: 50px; outline: none; }
     .vibe-textarea:focus { border-color: var(--cyan); }
-    .vibe-submit-btn { background: linear-gradient(135deg, var(--cyan), var(--primary)); color: #000; border: none; padding: 0 18px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 0.88rem; cursor: pointer; transition: transform 0.15s; }
-    .vibe-submit-btn:hover { transform: translateY(-2px); }
+    .vibe-submit-btn { background: linear-gradient(135deg, var(--cyan), var(--primary)); color: #fff; border: none; padding: 0 18px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 0.88rem; cursor: pointer; }
 
     /* Center Column: Main Code Generation & Diff Editor */
-    .center-editor-column { background: #0c0e17; display: flex; flex-direction: column; height: 100%; overflow: hidden; flex-grow: 1; }
-    .editor-container { flex: 1; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: #a9b7c6; overflow-y: auto; }
+    .center-editor-column { background: var(--bg-dark); display: flex; flex-direction: column; height: 100%; overflow: hidden; flex-grow: 1; }
+    .editor-container { flex: 1; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: var(--text-main); overflow-y: auto; }
     .line-add { color: var(--success); background: rgba(0, 230, 118, 0.08); display: block; padding: 2px 5px; }
 
-    /* Right Column: Sidebar (Top Controls, Code Explorer, Bottom Sandbox Terminal) */
-    .right-sidebar-column { background: var(--panel-bg); display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-    
+    /* Right Column: Sidebar */
+    .right-sidebar-column { background: var(--panel-bg); display: flex; flex-direction: column; height: 100%; overflow: hidden; border-left: 1px solid var(--panel-border); }
     .right-top-controls { background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; font-size: 0.78rem; flex-shrink: 0; }
     .control-group { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .toggle-btn { background: var(--panel-bg); border: 1px solid var(--panel-border); color: var(--text-muted); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem; }
@@ -87,100 +114,164 @@
     .explorer-section { flex: 1; display: flex; flex-direction: column; border-bottom: 1px solid var(--panel-border); overflow: hidden; }
     .file-list { flex: 1; padding: 8px; overflow-y: auto; font-family: var(--font-code); font-size: 0.78rem; }
     .file-item { padding: 5px 8px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); margin-bottom: 2px; }
-    .file-item:hover, .file-item.active { background: var(--panel-active); color: #fff; }
-    .file-item.modified { color: var(--warning); }
-    .file-item.created { color: var(--success); }
+    .file-item:hover, .file-item.active { background: var(--panel-active); color: var(--text-main); }
 
-    .right-bottom-sandbox { height: 210px; background: #05060a; display: flex; flex-direction: column; flex-shrink: 0; }
+    .right-bottom-sandbox { height: 210px; background: var(--bg-dark); display: flex; flex-direction: column; flex-shrink: 0; }
     .sandbox-header { height: 30px; background: var(--menu-bg); border-bottom: 1px solid var(--panel-border); padding: 0 10px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-family: var(--font-code); color: var(--success); }
     .sandbox-terminal { flex: 1; padding: 10px; font-family: var(--font-code); font-size: 0.75rem; color: var(--cyan); overflow-y: auto; line-height: 1.4; }
 
     /* Bottom Status Bar */
-    .bottom-status-bar { height: 22px; background: #07080b; border-top: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-code); flex-shrink: 0; }
-
-    /* Responsive Design Adjustments */
-    @media (max-width: 1024px) {
-      .ide-body { flex-direction: column; height: auto; overflow-y: auto; }
-      .left-vibe-column, .center-editor-column, .right-sidebar-column { width: 100% !important; height: 450px !important; }
-      .resizer { display: none; }
-    }
+    .bottom-status-bar { height: 22px; background: var(--menu-bg); border-top: 1px solid var(--panel-border); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-code); flex-shrink: 0; }
   </style>
 </head>
-<body>
+<body class="theme-night">
 
   <div id="root"></div>
 
-  <!-- React & Babel Component Definition -->
+  <!-- React Component Execution -->
   <script type="text/babel">
-    const { useState, useRef, useEffect } = React;
+    const { useState, useEffect } = React;
 
     function App() {
-      // Resizable Panel Width State
-      const [leftWidth, setLeftWidth] = useState(50); // percentage (%)
-      const [rightWidth, setRightWidth] = useState(280); // fixed pixels (px)
+      // 1. Theme & Font State
+      const [themeMode, setThemeMode] = useState('night'); // 'night' | 'day' | 'system'
+      const [fontFamily, setFontFamily] = useState('Inter');
+      const [fontSize, setFontSize] = useState(14);
+      
+      // 2. Navigation Active Menu State
+      const [openMenu, setOpenMenu] = useState(null); // 'file' | 'edit' | 'selection' | null
+
+      // 3. Resizable Layout State
+      const [leftWidth, setLeftWidth] = useState(50); // %
+      const [rightWidth, setRightWidth] = useState(280); // px
       const [isDraggingLeft, setIsDraggingLeft] = useState(false);
       const [isDraggingRight, setIsDraggingRight] = useState(false);
 
-      // LLM Provider Toggle State
-      const [provider, setProvider] = useState('desktop');
       const [thinkingOpen, setThinkingOpen] = useState(true);
 
-      // Handle Mouse Drag for Left Resizer
-      const handleMouseDownLeft = () => setIsDraggingLeft(true);
-      const handleMouseDownRight = () => setIsDraggingRight(true);
+      // Handle Theme Switch Effects
+      useEffect(() => {
+        document.body.className = '';
+        if (themeMode === 'night') {
+          document.body.classList.add('theme-night');
+        } else if (themeMode === 'day') {
+          document.body.classList.add('theme-day');
+        } else if (themeMode === 'system') {
+          const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.body.classList.add(isDark ? 'theme-night' : 'theme-day');
+        }
+      }, [themeMode]);
 
+      // Resizer Mouse Drag logic
       useEffect(() => {
         const handleMouseMove = (e) => {
           if (isDraggingLeft) {
             const newPercentage = (e.clientX / window.innerWidth) * 100;
-            if (newPercentage > 20 && newPercentage < 70) {
-              setLeftWidth(newPercentage);
-            }
+            if (newPercentage > 20 && newPercentage < 70) setLeftWidth(newPercentage);
           }
           if (isDraggingRight) {
             const newRightWidth = window.innerWidth - e.clientX;
-            if (newRightWidth > 200 && newRightWidth < 500) {
-              setRightWidth(newRightWidth);
-            }
+            if (newRightWidth > 200 && newRightWidth < 500) setRightWidth(newRightWidth);
           }
         };
-
         const handleMouseUp = () => {
           setIsDraggingLeft(false);
           setIsDraggingRight(false);
         };
-
         if (isDraggingLeft || isDraggingRight) {
           window.addEventListener('mousemove', handleMouseMove);
           window.addEventListener('mouseup', handleMouseUp);
         }
-
         return () => {
           window.removeEventListener('mousemove', handleMouseMove);
           window.removeEventListener('mouseup', handleMouseUp);
         };
       }, [isDraggingLeft, isDraggingRight]);
 
+      const toggleMenu = (menuName) => {
+        setOpenMenu(openMenu === menuName ? null : menuName);
+      };
+
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', fontFamily: fontFamily }} onClick={() => openMenu && setOpenMenu(null)}>
           
-          <!-- 1. Top Global Navigation Bar -->
-          <div class="top-menu-bar">
+          <!-- 1. Global Navigation Top Bar with OS Standard Menus -->
+          <div class="top-menu-bar" onClick={(e) => e.stopPropagation()}>
             <div class="menu-items">
-              <span class="top-title">Antigravity Coding Agent OS</span>
-              <span class="menu-item active">File</span>
-              <span class="menu-item">Edit</span>
-              <span class="menu-item">Selection</span>
-              <span class="menu-item">View</span>
-              <span class="menu-item">Go</span>
-              <span class="menu-item">Run</span>
-              <span class="menu-item">Terminal</span>
-              <span class="menu-item">Help</span>
-              <span class="menu-item">Setting</span>
+              <span class="top-title">Antigravity Agent OS</span>
+              
+              <!-- File Menu -->
+              <div class={`menu-item-btn ${openMenu === 'file' ? 'active' : ''}`} onClick={() => toggleMenu('file')}>
+                File
+                {openMenu === 'file' && (
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">👤 사용자 로그인 (Login)...</div>
+                    <div class="dropdown-item">⚙️ 워크스페이스 설정 (Workspace Settings)</div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">📁 폴더 선택 (Open Folder)... <span class="dropdown-shortcut">Ctrl+K O</span></div>
+                    <div class="dropdown-item">🕒 최근 폴더 히스토리 (Recent Folders) ➔</div>
+                    <div class="dropdown-item">📄 파일 불러오기 (Open File)... <span class="dropdown-shortcut">Ctrl+O</span></div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">💾 저장하기 (Save) <span class="dropdown-shortcut">Ctrl+S</span></div>
+                    <div class="dropdown-item">💾 다른 이름으로 저장 (Save As)... <span class="dropdown-shortcut">Ctrl+Shift+S</span></div>
+                  </div>
+                )}
+              </div>
+
+              <!-- Edit Menu (Windows/Linux OS Standard) -->
+              <div class={`menu-item-btn ${openMenu === 'edit' ? 'active' : ''}`} onClick={() => toggleMenu('edit')}>
+                Edit
+                {openMenu === 'edit' && (
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">↩️ 실행 취소 (Undo) <span class="dropdown-shortcut">Ctrl+Z</span></div>
+                    <div class="dropdown-item">↪️ 다시 실행 (Redo) <span class="dropdown-shortcut">Ctrl+Y</span></div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">✂️ 잘라내기 (Cut) <span class="dropdown-shortcut">Ctrl+X</span></div>
+                    <div class="dropdown-item">📋 복사 (Copy) <span class="dropdown-shortcut">Ctrl+C</span></div>
+                    <div class="dropdown-item">📥 붙여넣기 (Paste) <span class="dropdown-shortcut">Ctrl+V</span></div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item">🔍 찾기 (Find)... <span class="dropdown-shortcut">Ctrl+F</span></div>
+                    <div class="dropdown-item">🔄 바꾸기 (Replace)... <span class="dropdown-shortcut">Ctrl+H</span></div>
+                    <div class="dropdown-item">전체 선택 (Select All) <span class="dropdown-shortcut">Ctrl+A</span></div>
+                  </div>
+                )}
+              </div>
+
+              <!-- Selection Menu (Font & Size Customization) -->
+              <div class={`menu-item-btn ${openMenu === 'selection' ? 'active' : ''}`} onClick={() => toggleMenu('selection')}>
+                Selection
+                {openMenu === 'selection' && (
+                  <div class="dropdown-menu" style={{ width: '250px' }}>
+                    <div style={{ padding: '8px 16px', fontWeight: 'bold', color: 'var(--cyan)' }}>🔤 Font Family 변경</div>
+                    <div class="dropdown-item" onClick={() => setFontFamily('Inter')}>Inter {fontFamily === 'Inter' && '✔'}</div>
+                    <div class="dropdown-item" onClick={() => setFontFamily('Fira Code')}>Fira Code (Monospace) {fontFamily === 'Fira Code' && '✔'}</div>
+                    <div class="dropdown-item" onClick={() => setFontFamily('Outfit')}>Outfit {fontFamily === 'Outfit' && '✔'}</div>
+                    <div class="dropdown-item" onClick={() => setFontFamily('Roboto')}>Roboto {fontFamily === 'Roboto' && '✔'}</div>
+                    <div class="dropdown-divider"></div>
+                    <div style={{ padding: '8px 16px', fontWeight: 'bold', color: 'var(--cyan)' }}>📏 Font Size 변경</div>
+                    <div class="dropdown-item" onClick={() => setFontSize(12)}>12px (Small) {fontSize === 12 && '✔'}</div>
+                    <div class="dropdown-item" onClick={() => setFontSize(14)}>14px (Normal) {fontSize === 14 && '✔'}</div>
+                    <div class="dropdown-item" onClick={() => setFontSize(16)}>16px (Large) {fontSize === 16 && '✔'}</div>
+                  </div>
+                )}
+              </div>
+
+              <span class="menu-item-btn">View</span>
+              <span class="menu-item-btn">Go</span>
+              <span class="menu-item-btn">Run</span>
+              <span class="menu-item-btn">Terminal</span>
+              <span class="menu-item-btn">Help</span>
+              <span class="menu-item-btn">Setting</span>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>Sandbox Target:</span>
+            <!-- Top Right: Theme Mode Switcher & Sandbox Selector -->
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: '4px', background: 'var(--panel-bg)', padding: '2px', borderRadius: '6px', border: '1px solid var(--panel-border)' }}>
+                <button class={`toggle-btn ${themeMode === 'night' ? 'active' : ''}`} onClick={() => setThemeMode('night')}>🌙 Night</button>
+                <button class={`toggle-btn ${themeMode === 'day' ? 'active' : ''}`} onClick={() => setThemeMode('day')}>☀️ Day</button>
+                <button class={`toggle-btn ${themeMode === 'system' ? 'active' : ''}`} onClick={() => setThemeMode('system')}>💻 System</button>
+              </div>
+
               <select class="sandbox-selector">
                 <option>Local Desktop Runner (.venv)</option>
                 <option>GCP GKE Sandbox Cluster</option>
@@ -189,8 +280,8 @@
             </div>
           </div>
 
-          <!-- 2. Main IDE Resizable 3-Column Body -->
-          <div class="ide-body">
+          <!-- 2. Main Resizable 3-Column IDE Body -->
+          <div class="ide-body" style={{ fontSize: `${fontSize}px` }}>
             
             <!-- Left Resizable Section: Vibe Prompt & Thinking (leftWidth %) -->
             <div class="left-vibe-column" style={{ width: `${leftWidth}%` }}>
@@ -236,9 +327,9 @@
             </div>
 
             <!-- Left Drag Resizer Bar -->
-            <div class={`resizer ${isDraggingLeft ? 'dragging' : ''}`} onMouseDown={handleMouseDownLeft}></div>
+            <div class={`resizer ${isDraggingLeft ? 'dragging' : ''}`} onMouseDown={() => setIsDraggingLeft(true)}></div>
 
-            <!-- Center Column: Generated Code & Diff Viewer (Flex-grow 1) -->
+            <!-- Center Column: Generated Code & Diff Viewer -->
             <div class="center-editor-column">
               <div class="panel-header">
                 <span>📝 Generated Code & Diff Viewer (auth_service.py)</span>
@@ -259,18 +350,16 @@
             </div>
 
             <!-- Right Drag Resizer Bar -->
-            <div class={`resizer ${isDraggingRight ? 'dragging' : ''}`} onMouseDown={handleMouseDownRight}></div>
+            <div class={`resizer ${isDraggingRight ? 'dragging' : ''}`} onMouseDown={() => setIsDraggingRight(true)}></div>
 
             <!-- Right Resizable Section: Sidebar (rightWidth px) -->
             <div class="right-sidebar-column" style={{ width: `${rightWidth}px` }}>
-              
-              <!-- Right Top Controls -->
               <div class="right-top-controls">
                 <div class="control-group">
                   <span style={{ color: 'var(--text-muted)' }}>LLM Adapter:</span>
                   <div>
-                    <button class={`toggle-btn ${provider === 'desktop' ? 'active' : ''}`} onClick={() => setProvider('desktop')}>Desktop</button>
-                    <button class={`toggle-btn ${provider === 'rhoai' ? 'active' : ''}`} onClick={() => setProvider('rhoai')}>RHOAI</button>
+                    <button class="toggle-btn active">Desktop</button>
+                    <button class="toggle-btn">RHOAI</button>
                   </div>
                 </div>
 
@@ -280,7 +369,7 @@
                 </div>
               </div>
 
-              <!-- Right Middle: Code File List (Explorer) -->
+              <!-- Code Files Explorer -->
               <div class="explorer-section">
                 <div class="panel-header" style={{ height: '30px' }}>
                   <span>📁 Code Files</span>
@@ -296,7 +385,7 @@
                 </div>
               </div>
 
-              <!-- Right Bottom: Sandbox Status & Live Terminal -->
+              <!-- Sandbox Live Terminal -->
               <div class="right-bottom-sandbox">
                 <div class="sandbox-header">
                   <span>Sandbox Status: RUNNING</span>
@@ -310,14 +399,13 @@
                   <span style={{ color: 'var(--success)' }}>[SUCCESS] 4 passed in 0.35s. Self-correction done!</span>
                 </div>
               </div>
-
             </div>
 
           </div>
 
           <!-- 3. Bottom Status Bar -->
           <div class="bottom-status-bar">
-            <div>feature/vibe-coding-agent* | UTF-8 | Python 3.14.3 (.venv)</div>
+            <div>feature/vibe-coding-agent* | Theme: {themeMode.toUpperCase()} | Font: {fontFamily} ({fontSize}px)</div>
             <div>MCP Port: 3000 | OpenRouter Quota: $12.40 / $35.00</div>
           </div>
 
