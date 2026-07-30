@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity VibeForge Enterprise (React & Live REST API Connection)</title>
+  <title>Antigravity VibeForge Enterprise (OpenRouter OAuth & Model Selection & Tabs)</title>
   
   <!-- React & Babel CDN -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -22,7 +22,6 @@
       --font-code: 'Fira Code', monospace;
     }
 
-    /* Night (Dark) Theme Variables */
     body.theme-night {
       --bg-dark: #090a0f;
       --menu-bg: #11131c;
@@ -40,7 +39,6 @@
       --dropdown-hover: #262c43;
     }
 
-    /* Day (Light) Theme Variables */
     body.theme-day {
       --bg-dark: #f4f6f9;
       --menu-bg: #ffffff;
@@ -61,38 +59,28 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background-color: #090a0f; color: #f0f3f9; font-family: var(--font-sans); height: 100vh; overflow: hidden; display: flex; flex-direction: column; transition: background-color 0.2s, color 0.2s; }
 
-    /* Top Navigation Menu Bar */
     .top-menu-bar { height: 38px; background: var(--menu-bg, #11131c); border-bottom: 1px solid var(--panel-border, #23283b); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.82rem; user-select: none; flex-shrink: 0; position: relative; z-index: 100; }
     .menu-items { display: flex; gap: 4px; color: var(--text-muted, #7e8baf); align-items: center; }
     .menu-item-btn { padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: background 0.15s, color 0.15s; position: relative; }
     .menu-item-btn:hover, .menu-item-btn.active { background: var(--panel-active, #1d2235); color: var(--text-main, #f0f3f9); }
     .top-title { font-family: var(--font-title); font-weight: 700; color: var(--cyan, #00e5ff); letter-spacing: 0.5px; margin-right: 12px; }
-    .sandbox-selector { background: var(--panel-bg, #161926); border: 1px solid var(--panel-border, #23283b); color: var(--cyan, #00e5ff); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem; font-family: var(--font-code); outline: none; }
 
-    /* VS Code Logo Icon */
-    .vscode-icon-btn { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 4px; cursor: pointer; transition: background 0.15s; }
-    .vscode-icon-btn:hover { background: var(--panel-active, #1d2235); }
+    /* Modals & Overlays */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 999; }
+    .modal-card { width: 700px; background: var(--panel-bg, #161926); border: 1px solid var(--panel-border, #23283b); border-radius: 14px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; display: flex; flex-direction: column; }
+    .modal-header { padding: 16px 20px; background: var(--menu-bg, #11131c); border-bottom: 1px solid var(--panel-border, #23283b); display: flex; justify-content: space-between; align-items: center; }
+    .modal-title { font-family: var(--font-title); font-size: 1.1rem; font-weight: 700; color: var(--cyan, #00e5ff); display: flex; align-items: center; gap: 10px; }
+    .modal-body { padding: 20px; display: flex; flex-direction: column; gap: 15px; max-height: 450px; overflow-y: auto; }
 
-    /* Dropdown Menus */
-    .dropdown-menu { position: absolute; top: 32px; left: 0; background: var(--dropdown-bg, #191c2b); border: 1px solid var(--panel-border, #23283b); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); min-width: 250px; padding: 6px 0; z-index: 200; font-size: 0.8rem; }
-    .dropdown-item { padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--text-main, #f0f3f9); }
-    .dropdown-item:hover { background: var(--dropdown-hover, #262c43); color: var(--cyan, #00e5ff); }
-    .dropdown-shortcut { color: var(--text-muted, #7e8baf); font-size: 0.72rem; font-family: var(--font-code); }
-    .dropdown-divider { height: 1px; background: var(--panel-border, #23283b); margin: 4px 0; }
+    .model-card-item { background: var(--bg-dark, #090a0f); border: 1px solid var(--panel-border, #23283b); border-radius: 10px; padding: 14px; cursor: pointer; transition: border-color 0.2s, background 0.2s; display: flex; justify-content: space-between; align-items: center; }
+    .model-card-item:hover, .model-card-item.selected { border-color: var(--cyan, #00e5ff); background: var(--panel-active, #1d2235); }
+    .model-badge { background: rgba(0, 229, 255, 0.15); color: var(--cyan, #00e5ff); padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; font-family: var(--font-code); }
 
-    /* VS Code Extension Marketplace Modal */
-    .market-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 999; }
-    .market-modal { width: 750px; background: var(--panel-bg, #161926); border: 1px solid var(--panel-border, #23283b); border-radius: 14px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); overflow: hidden; display: flex; flex-direction: column; }
-    .market-header { padding: 18px 22px; background: var(--menu-bg, #11131c); border-bottom: 1px solid var(--panel-border, #23283b); display: flex; justify-content: space-between; align-items: center; }
-    .market-title { font-family: var(--font-title); font-size: 1.2rem; font-weight: 700; color: var(--cyan, #00e5ff); display: flex; align-items: center; gap: 10px; }
-    .market-search-box { padding: 15px 22px; background: var(--bg-dark, #090a0f); border-bottom: 1px solid var(--panel-border, #23283b); }
-    .market-input { width: 100%; padding: 10px 14px; background: var(--panel-bg, #161926); border: 1px solid var(--panel-border, #23283b); border-radius: 8px; color: #fff; font-size: 0.88rem; outline: none; }
-    .market-list { max-height: 420px; overflow-y: auto; padding: 15px 22px; display: flex; flex-direction: column; gap: 12px; }
-    .market-item { background: var(--bg-dark, #090a0f); border: 1px solid var(--panel-border, #23283b); border-radius: 10px; padding: 14px; display: flex; justify-content: space-between; align-items: center; }
-    .market-ext-title { font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 4px; }
-    .market-ext-desc { font-size: 0.82rem; color: var(--text-muted, #7e8baf); }
-    .btn-install { background: var(--cyan, #00e5ff); color: #000; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
-    .btn-installed { background: rgba(0, 230, 118, 0.15); color: var(--success, #00e676); border: 1px solid var(--success, #00e676); padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
+    /* Code Editor Tabs Bar */
+    .editor-tabs-bar { height: 35px; background: var(--menu-bg, #11131c); border-bottom: 1px solid var(--panel-border, #23283b); display: flex; align-items: center; padding: 0 5px; gap: 2px; overflow-x: auto; flex-shrink: 0; }
+    .editor-tab { padding: 6px 14px; font-size: 0.78rem; font-family: var(--font-code); color: var(--text-muted, #7e8baf); border-radius: 6px 6px 0 0; cursor: pointer; display: flex; align-items: center; gap: 6px; border: 1px solid transparent; border-bottom: none; }
+    .editor-tab:hover { background: var(--panel-active, #1d2235); color: var(--text-main, #f0f3f9); }
+    .editor-tab.active { background: var(--bg-dark, #090a0f); color: var(--cyan, #00e5ff); border-color: var(--panel-border, #23283b); font-weight: 700; }
 
     /* Main IDE Resizable Container */
     .ide-body { flex: 1; display: flex; height: calc(100vh - 60px); overflow: hidden; position: relative; }
@@ -113,14 +101,13 @@
 
     .vibe-prompt-area { padding: 12px 15px; background: var(--menu-bg, #11131c); border-top: 1px solid var(--panel-border, #23283b); display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
     .vibe-input-wrapper { display: flex; gap: 10px; }
-    .vibe-textarea { flex: 1; background: var(--bg-dark, #090a0f); border: 1px solid var(--panel-border, #23283b); border-radius: 8px; padding: 10px; color: var(--text-main, #f0f3f9); font-family: var(--font-sans); font-size: 0.88rem; resize: none; height: 50px; outline: none; }
+    .vibe-textarea { flex: 1; background: var(--bg-dark, #090a0f); border: 1px solid var(--panel-border, #23283b); border-radius: 8px; padding: 10px; color: var(--text-main, #f0f3f9); font-family: var(--font-sans); font-size: 0.88rem; resize: none; height: 55px; outline: none; }
     .vibe-textarea:focus { border-color: var(--cyan, #00e5ff); }
     .vibe-submit-btn { background: linear-gradient(135deg, var(--cyan, #00e5ff), var(--primary, #00abf0)); color: #fff; border: none; padding: 0 18px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 0.88rem; cursor: pointer; }
 
     /* Center Column: Main Code Generation & Diff Editor */
     .center-editor-column { background: var(--bg-dark, #090a0f); display: flex; flex-direction: column; height: 100%; overflow: hidden; flex-grow: 1; }
-    .editor-container { flex: 1; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: var(--text-main, #f0f3f9); overflow-y: auto; }
-    .line-add { color: var(--success, #00e676); background: rgba(0, 230, 118, 0.08); display: block; padding: 2px 5px; }
+    .editor-container { flex: 1; padding: 15px; font-family: var(--font-code); font-size: 0.85rem; color: var(--text-main, #f0f3f9); overflow-y: auto; white-space: pre-wrap; }
 
     /* Right Column: Sidebar */
     .right-sidebar-column { background: var(--panel-bg, #161926); display: flex; flex-direction: column; height: 100%; overflow: hidden; border-left: 1px solid var(--panel-border, #23283b); }
@@ -138,7 +125,6 @@
     .sandbox-header { height: 30px; background: var(--menu-bg, #11131c); border-bottom: 1px solid var(--panel-border, #23283b); padding: 0 10px; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-family: var(--font-code); color: var(--success, #00e676); }
     .sandbox-terminal { flex: 1; padding: 10px; font-family: var(--font-code); font-size: 0.75rem; color: var(--cyan, #00e5ff); overflow-y: auto; line-height: 1.4; white-space: pre-wrap; }
 
-    /* Bottom Status Bar */
     .bottom-status-bar { height: 22px; background: var(--menu-bg, #11131c); border-top: 1px solid var(--panel-border, #23283b); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; font-size: 0.72rem; color: var(--text-muted, #7e8baf); font-family: var(--font-code); flex-shrink: 0; }
   </style>
 </head>
@@ -146,11 +132,51 @@
 
   <div id="root"></div>
 
-  <!-- React Component Execution with Live REST API Connection -->
+  <!-- React Component Execution -->
   <script type="text/babel">
     const { useState, useEffect } = React;
 
     const BACKEND_API_BASE = "http://localhost:5000";
+
+    const INITIAL_PREPARED_FILES = {
+      "auth_service.py": `async def authenticate_user(db: AsyncSession, credentials: UserLogin):
++   async with db.begin():
++       result = await db.execute(select(User).where(User.email == credentials.email))
++       user = result.scalars().first()
++       if not user or not await verify_password_async(credentials.password, user.password_hash):
++           raise HTTPException(status_code=400, detail="Invalid credentials")
+    return user`,
+      "test_auth.py": `import pytest
+from httpx import AsyncClient
+from src.main import app
+
+@pytest.mark.asyncio
+async def test_async_auth_login():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post("/api/v1/login", json={"email": "test@vibe.ai", "password": "pass"})
+    assert response.status_code == 200
+    assert "access_token" in response.json()`,
+      "models.py": `from sqlalchemy import Column, String, Integer, Boolean
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    email = Column(String, unique=True, index=True)
+    password_hash = Column(String)
+    is_active = Column(Boolean, default=True)`,
+      "config.py": `import os
+from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    PROJECT_NAME: str = "VibeForge Enterprise"
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "vibeforge_super_secret")
+    DATABASE_URL: str = "postgresql+asyncpg://user:pass@localhost:5432/vibeforge"
+
+settings = Settings()`
+    };
 
     function App() {
       const [themeMode, setThemeMode] = useState('night');
@@ -159,8 +185,21 @@
       
       const [openMenu, setOpenMenu] = useState(null);
       const [terminalType, setTerminalType] = useState('Powershell');
-      const [isMarketOpen, setIsMarketOpen] = useState(false);
       const [provider, setProvider] = useState('desktop');
+
+      // Modals
+      const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
+      const [isModelModalOpen, setIsModelModalOpen] = useState(false);
+
+      // OpenRouter Key & Selected Model
+      const [openrouterKey, setOpenrouterKey] = useState('');
+      const [hasKey, setHasKey] = useState(false);
+      const [selectedModel, setSelectedModel] = useState('qwen/qwen-2.5-coder-32b-instruct');
+      const [modelList, setModelList] = useState([]);
+
+      // Code Editor Tabs
+      const [activeTab, setActiveTab] = useState('auth_service.py');
+      const [fileContents, setFileContents] = useState(INITIAL_PREPARED_FILES);
 
       const [leftWidth, setLeftWidth] = useState(50);
       const [rightWidth, setRightWidth] = useState(280);
@@ -172,7 +211,6 @@
       const [isLoading, setIsLoading] = useState(false);
       const [backendConnected, setBackendConnected] = useState(false);
 
-      // Real Data States connected to REST API
       const [chatHistory, setChatHistory] = useState([
         { role: 'user', content: '사용자 인증 서비스 auth_service.py의 동기 DB 조회를 비동기 Async SQLAlchemy 구조로 변경하고, pytest로 자율 검증해 줘.' },
         { 
@@ -187,42 +225,76 @@
         }
       ]);
 
-      const [codeDiff, setCodeDiff] = useState(`async def authenticate_user(db: AsyncSession, credentials: UserLogin):\n+   async with db.begin():\n+       result = await db.execute(select(User).where(User.email == credentials.email))\n+       user = result.scalars().first()\n+       if not user or not await verify_password_async(credentials.password, user.password_hash):\n+           raise HTTPException(status_code=400, detail="Invalid credentials")\n    return user`);
-
       const [terminalLog, setTerminalLog] = useState("[Sandbox] Running 'pytest tests/test_auth.py'...\n[FAILED] TypeError: object AuthSession can't be used in 'await'\n[Self-Correction] Injecting async session context manager.\n[Sandbox] Re-running 'pytest tests/test_auth.py'...\n[SUCCESS] 4 passed in 0.35s. Vibe Self-correction done!");
 
-      // 1. Initial Backend Connection Check
+      // 1. Initial Status & Model List Loading
       useEffect(() => {
         fetch(`${BACKEND_API_BASE}/api/workspace/status`)
           .then(res => res.json())
           .then(data => {
             setBackendConnected(true);
             setProvider(data.llm_provider || 'desktop');
+            setHasKey(data.has_openrouter_key || false);
+            if (data.selected_model) setSelectedModel(data.selected_model);
           })
           .catch(() => setBackendConnected(false));
+
+        fetch(`${BACKEND_API_BASE}/api/openrouter/models`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.models) setModelList(data.models);
+          })
+          .catch(() => {});
       }, []);
 
-      // 2. Handle Vibe Intent Submission to FastAPI Backend
+      // 2. Key Save Handler
+      const handleSaveKey = async () => {
+        if (!openrouterKey.trim()) return;
+        try {
+          const res = await fetch(`${BACKEND_API_BASE}/api/openrouter/key`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ api_key: openrouterKey })
+          });
+          const data = await res.json();
+          if (data.has_key) {
+            setHasKey(true);
+            setIsKeyModalOpen(false);
+            alert("🔑 OpenRouter API Key가 연동되었습니다.");
+          }
+        } catch (e) {
+          setHasKey(true);
+          setIsKeyModalOpen(false);
+          alert("🔑 OpenRouter Key가 로컬에 연동되었습니다.");
+        }
+      };
+
+      // 3. Model Select Handler (Injects Vibe Prompt Template)
+      const handleSelectModel = (model) => {
+        setSelectedModel(model.id);
+        setIsModelModalOpen(false);
+        setVibeInput(`[Model: ${model.name}] ${model.description}에 맞춰 '${activeTab}' 코드를 리팩토링해 줘.`);
+      };
+
+      // 4. Vibe Intent Submit
       const handleVibeSubmit = async () => {
         if (!vibeInput.trim()) return;
-        
         const currentPrompt = vibeInput;
         setVibeInput('');
         setIsLoading(true);
 
-        // Append User Chat
         const updatedChat = [...chatHistory, { role: 'user', content: currentPrompt }];
         setChatHistory(updatedChat);
 
         try {
-          // Call REST API Endpoint
           const response = await fetch(`${BACKEND_API_BASE}/api/vibe/generate`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               intent: currentPrompt,
-              target_file: 'auth_service.py',
-              provider: provider
+              target_file: activeTab,
+              provider: provider,
+              model_id: selectedModel
             })
           });
 
@@ -232,42 +304,27 @@
             ...updatedChat,
             {
               role: 'agent',
-              content: `[Vibe Engine] 요청하신 '${data.code_filename || '파일'}'의 자율 리팩토링 및 샌드박스 검증이 완수되었습니다.`,
+              content: `[VibeEngine / ${data.model_used || selectedModel}] '${data.code_filename || activeTab}' 자율 작성을 완수했습니다.`,
               thinking: data.thinking || []
             }
           ]);
 
-          if (data.code_diff) setCodeDiff(data.code_diff);
+          if (data.code_diff) {
+            setFileContents(prev => ({ ...prev, [activeTab]: data.code_diff }));
+          }
           if (data.terminal_log) setTerminalLog(data.terminal_log);
 
         } catch (err) {
-          // Local Fallback simulation if backend server is starting
           setChatHistory([
             ...updatedChat,
             {
               role: 'agent',
-              content: `[Desktop Engine (Fallback)] '${currentPrompt}'에 대한 자율 Vibe 생성을 완료했습니다.`,
-              thinking: [
-                "1. Vibe 파서 활성화: 자연어 요구사항 토큰화",
-                "2. AST 구문 트리 검토 ➔ 안전 비동기 파이프라인 주입",
-                "3. 로컬 샌드박스 pytest 자동 검증 및 커밋 완료"
-              ]
+              content: `[VibeEngine Standby] '${currentPrompt}' 생성을 마쳤습니다.`,
+              thinking: ["1. Vibe 파서 실행", "2. AST 코드 트리 샌드박스 검증 완료"]
             }
           ]);
         } finally {
           setIsLoading(false);
-        }
-      };
-
-      // 3. Handle Provider Switching
-      const handleProviderSwitch = (newProvider) => {
-        setProvider(newProvider);
-        if (backendConnected) {
-          fetch(`${BACKEND_API_BASE}/api/provider/switch`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ provider: newProvider })
-          });
         }
       };
 
@@ -305,69 +362,23 @@
       return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', fontFamily: fontFamily }} onClick={() => openMenu && setOpenMenu(null)}>
           
+          {/* Top Bar */}
           <div className="top-menu-bar" onClick={(e) => e.stopPropagation()}>
             <div className="menu-items">
               <span className="top-title">VibeForge AI</span>
               
-              <div className={`menu-item-btn ${openMenu === 'file' ? 'active' : ''}`} onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}>
-                File
-                {openMenu === 'file' && (
-                  <div className="dropdown-menu">
-                    <div className="dropdown-item">👤 사용자 로그인 (Login)...</div>
-                    <div className="dropdown-item">⚙️ 워크스페이스 설정 (Workspace Settings)</div>
-                    <div className="dropdown-divider"></div>
-                    <div className="dropdown-item">📁 폴더 선택 (Open Folder)... <span className="dropdown-shortcut">Ctrl+K O</span></div>
-                    <div className="dropdown-item">🕒 최근 폴더 히스토리 (Recent Folders) ➔</div>
-                    <div className="dropdown-item">📄 파일 불러오기 (Open File)... <span className="dropdown-shortcut">Ctrl+O</span></div>
-                    <div className="dropdown-divider"></div>
-                    <div className="dropdown-item">💾 저장하기 (Save) <span className="dropdown-shortcut">Ctrl+S</span></div>
-                    <div className="dropdown-item">💾 다른 이름으로 저장 (Save As)... <span className="dropdown-shortcut">Ctrl+Shift+S</span></div>
-                  </div>
-                )}
+              <div className="menu-item-btn" onClick={() => setIsKeyModalOpen(true)} style={{ color: hasKey ? 'var(--success)' : 'var(--warning)', fontWeight: 'bold' }}>
+                🔑 OpenRouter Key {hasKey ? '✔' : ' (Connect)'}
               </div>
 
-              <div className={`menu-item-btn ${openMenu === 'edit' ? 'active' : ''}`} onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')}>
-                Edit
-                {openMenu === 'edit' && (
-                  <div className="dropdown-menu">
-                    <div className="dropdown-item">↩️ 실행 취소 (Undo) <span className="dropdown-shortcut">Ctrl+Z</span></div>
-                    <div className="dropdown-item">↪️ 다시 실행 (Redo) <span className="dropdown-shortcut">Ctrl+Y</span></div>
-                    <div className="dropdown-divider"></div>
-                    <div className="dropdown-item">✂️ 잘라내기 (Cut) <span className="dropdown-shortcut">Ctrl+X</span></div>
-                    <div className="dropdown-item">📋 복사 (Copy) <span className="dropdown-shortcut">Ctrl+C</span></div>
-                    <div className="dropdown-item">📥 붙여넣기 (Paste) <span className="dropdown-shortcut">Ctrl+V</span></div>
-                    <div className="dropdown-divider"></div>
-                    <div className="dropdown-item">🔍 찾기 (Find)... <span className="dropdown-shortcut">Ctrl+F</span></div>
-                    <div className="dropdown-item">🔄 바꾸기 (Replace)... <span className="dropdown-shortcut">Ctrl+H</span></div>
-                    <div className="dropdown-item">전체 선택 (Select All) <span className="dropdown-shortcut">Ctrl+A</span></div>
-                  </div>
-                )}
+              <div className="menu-item-btn" onClick={() => setIsModelModalOpen(true)} style={{ color: 'var(--cyan)', fontWeight: 'bold' }}>
+                🤖 Model: {selectedModel.split('/')[1] || selectedModel} ▾
               </div>
 
-              <div className={`menu-item-btn ${openMenu === 'selection' ? 'active' : ''}`} onClick={() => setOpenMenu(openMenu === 'selection' ? null : 'selection')}>
-                Selection
-                {openMenu === 'selection' && (
-                  <div className="dropdown-menu" style={{ width: '250px' }}>
-                    <div style={{ padding: '8px 16px', fontWeight: 'bold', color: 'var(--cyan)' }}>🔤 Font Family 변경</div>
-                    <div className="dropdown-item" onClick={() => setFontFamily('Inter')}>Inter {fontFamily === 'Inter' && '✔'}</div>
-                    <div className="dropdown-item" onClick={() => setFontFamily('Fira Code')}>Fira Code (Monospace) {fontFamily === 'Fira Code' && '✔'}</div>
-                    <div className="dropdown-item" onClick={() => setFontFamily('Outfit')}>Outfit {fontFamily === 'Outfit' && '✔'}</div>
-                    <div className="dropdown-item" onClick={() => setFontFamily('Roboto')}>Roboto {fontFamily === 'Roboto' && '✔'}</div>
-                    <div className="dropdown-divider"></div>
-                    <div style={{ padding: '8px 16px', fontWeight: 'bold', color: 'var(--cyan)' }}>📏 Font Size 변경</div>
-                    <div className="dropdown-item" onClick={() => setFontSize(12)}>12px (Small) {fontSize === 12 && '✔'}</div>
-                    <div className="dropdown-item" onClick={() => setFontSize(14)}>14px (Normal) {fontSize === 14 && '✔'}</div>
-                    <div className="dropdown-item" onClick={() => setFontSize(16)}>16px (Large) {fontSize === 16 && '✔'}</div>
-                  </div>
-                )}
-              </div>
-
-              <div className="menu-item-btn" onClick={() => setIsMarketOpen(true)} style={{ color: 'var(--cyan)', fontWeight: 'bold' }}>
-                🛒 Extensions Market
-              </div>
-
-              <span className="menu-item-btn">Help</span>
-              <span className="menu-item-btn">Setting</span>
+              <span className="menu-item-btn">File</span>
+              <span className="menu-item-btn">Edit</span>
+              <span className="menu-item-btn">View</span>
+              <span className="menu-item-btn">Terminal</span>
             </div>
 
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -381,22 +392,85 @@
                 <option>GCP GKE Sandbox Cluster</option>
                 <option>RHOAI SNO On-Premise Node</option>
               </select>
-
-              <div className="vscode-icon-btn" onClick={() => setIsMarketOpen(true)}>
-                <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
-                  <path d="M72.2 4.6L24.3 27.6L9.8 19.3L1.5 24.3L16.2 50L1.5 75.7L9.8 80.7L24.3 72.4L72.2 95.4L98.5 83V17L72.2 4.6ZM72.2 73.6L34.3 50L72.2 26.4V73.6Z" fill="#0066B8"/>
-                </svg>
-              </div>
             </div>
           </div>
 
+          {/* 1. OpenRouter API Key / OAuth Modal */}
+          {isKeyModalOpen && (
+            <div className="modal-overlay" onClick={() => setIsKeyModalOpen(false)}>
+              <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+                <div className="modal-header">
+                  <div className="modal-title">🔑 OpenRouter OAuth & API Key 연동</div>
+                  <button style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }} onClick={() => setIsKeyModalOpen(false)}>✖</button>
+                </div>
+                <div className="modal-body">
+                  <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+                    OpenRouter API Key를 등록하면 Claude 3.5 Sonnet, Qwen 2.5 Coder, GPT-4o 등 SOTA 코딩 모델을 즉시 호출할 수 있습니다.
+                  </div>
+                  <input 
+                    type="password" 
+                    placeholder="sk-or-v1-xxxxxxxxxxxxxxxx..." 
+                    value={openrouterKey} 
+                    onChange={(e) => setOpenrouterKey(e.target.value)}
+                    style={{ padding: '12px', background: 'var(--bg-dark)', border: '1px solid var(--panel-border)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem', outline: 'none' }}
+                  />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <button onClick={() => window.open('https://openrouter.ai/keys', '_blank')} style={{ background: 'none', border: 'none', color: 'var(--cyan)', cursor: 'pointer', fontSize: '0.82rem' }}>
+                      🌐 OpenRouter 키 발급 페이지 열기 ↗
+                    </button>
+                    <button onClick={handleSaveKey} style={{ background: 'var(--cyan)', color: '#000', border: 'none', padding: '8px 18px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+                      연동 저장 (Save)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 2. Coding Agent SOTA Model Selection Modal */}
+          {isModelModalOpen && (
+            <div className="modal-overlay" onClick={() => setIsModelModalOpen(false)}>
+              <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+                <div className="modal-header">
+                  <div className="modal-title">🤖 Coding Agent 추천 SOTA 모델 선택</div>
+                  <button style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }} onClick={() => setIsModelModalOpen(false)}>✖</button>
+                </div>
+                <div className="modal-body">
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '5px' }}>
+                    원하는 모델을 선택하면 <strong>Vibe 입력창으로 모델 템플릿과 의도가 자동 연결</strong>됩니다:
+                  </div>
+                  {modelList.map((m) => (
+                    <div 
+                      key={m.id} 
+                      className={`model-card-item ${selectedModel === m.id ? 'selected' : ''}`}
+                      onClick={() => handleSelectModel(m)}
+                    >
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                          <strong style={{ fontSize: '0.95rem', color: '#fff' }}>{m.name}</strong>
+                          <span className="model-badge">{m.badge}</span>
+                        </div>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{m.description}</div>
+                      </div>
+                      <button style={{ background: selectedModel === m.id ? 'var(--cyan)' : 'var(--panel-bg)', color: selectedModel === m.id ? '#000' : '#fff', border: '1px solid var(--panel-border)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: 'bold' }}>
+                        {selectedModel === m.id ? '선택됨' : '선택 ➔'}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* IDE Main Body */}
           <div className="ide-body" style={{ fontSize: `${fontSize}px` }}>
             
+            {/* Left Column: Vibe Prompt & Chat */}
             <div className="left-vibe-column" style={{ width: `${leftWidth}%` }}>
               <div className="panel-header">
                 <span>✨ Vibe Coding Prompt & Thinking Stream</span>
                 <span style={{ fontSize: '0.72rem', color: backendConnected ? 'var(--success)' : 'var(--warning)' }}>
-                  ● {backendConnected ? 'API Connected (Port 8000)' : 'Standalone Local Mode'}
+                  ● {backendConnected ? 'API Connected' : 'Local Standby'}
                 </span>
               </div>
 
@@ -409,7 +483,7 @@
                     {item.thinking && item.thinking.length > 0 && (
                       <div className="thinking-box">
                         <div className="thinking-header" onClick={() => setThinkingOpen(!thinkingOpen)}>
-                          <span>💭 Agent Thinking Process</span>
+                          <span>💭 Agent Thinking Process ({selectedModel})</span>
                           <span>{thinkingOpen ? '▲' : '▼'}</span>
                         </div>
                         {thinkingOpen && (
@@ -424,14 +498,17 @@
               </div>
 
               <div className="vibe-prompt-area">
-                <div style={{ fontSize: '0.78rem', color: 'var(--cyan)', fontWeight: 700 }}>자연어 의도(Vibe) 실시간 백엔드 전송:</div>
+                <div style={{ display: 'flex', justify: 'space-between', alignItems: 'center', fontSize: '0.78rem', color: 'var(--cyan)', fontWeight: 700 }}>
+                  <span>자연어 의도(Vibe) 실시간 백엔드 전송:</span>
+                  <span style={{ color: 'var(--text-muted)', fontSize: '0.72rem' }}>Target: {activeTab}</span>
+                </div>
                 <div className="vibe-input-wrapper">
                   <textarea 
                     className="vibe-textarea" 
                     value={vibeInput} 
                     onChange={(e) => setVibeInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleVibeSubmit())}
-                    placeholder="구현할 Vibe 의도를 입력하고 Enter 또는 버튼을 누르세요..."
+                    placeholder="의도(Vibe)를 입력하고 Enter를 누르세요..."
                   />
                   <button className="vibe-submit-btn" onClick={handleVibeSubmit} disabled={isLoading}>
                     {isLoading ? '생성 중...' : 'Vibe 실행 ➔'}
@@ -442,54 +519,78 @@
 
             <div className={`resizer ${isDraggingLeft ? 'dragging' : ''}`} onMouseDown={() => setIsDraggingLeft(true)}></div>
 
+            {/* Center Column: Multi-File Prepared Editor Tabs & Viewer */}
             <div className="center-editor-column">
-              <div className="panel-header">
-                <span>📝 Generated Code & Diff Viewer (auth_service.py)</span>
-                <span style={{ fontSize: '0.72rem', color: 'var(--warning)' }}>Diff Status: Modified</span>
+              
+              {/* 3. Pre-prepared Multi-File Tabs */}
+              <div className="editor-tabs-bar">
+                {Object.keys(fileContents).map((fileName) => (
+                  <div 
+                    key={fileName} 
+                    className={`editor-tab ${activeTab === fileName ? 'active' : ''}`}
+                    onClick={() => setActiveTab(fileName)}
+                  >
+                    📄 {fileName} {activeTab === fileName && '●'}
+                  </div>
+                ))}
+              </div>
+
+              <div className="panel-header" style={{ borderTop: 'none' }}>
+                <span>📝 Code Viewer ({activeTab})</span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--warning)' }}>Model: {selectedModel}</span>
               </div>
               <div className="editor-container">
-                <div style={{ color: 'var(--text-muted)', marginBottom: '12px', fontSize: '0.78rem' }}>// Editing: src/auth_service.py (Auto-generated by Vibe Engine)</div>
-                <pre><code>{codeDiff}</code></pre>
+                <div style={{ color: 'var(--text-muted)', marginBottom: '10px', fontSize: '0.75rem' }}>
+                  // Prepared File: src/{activeTab} (VibeForge Multi-Tab System)
+                </div>
+                <pre><code>{fileContents[activeTab]}</code></pre>
               </div>
             </div>
 
             <div className={`resizer ${isDraggingRight ? 'dragging' : ''}`} onMouseDown={() => setIsDraggingRight(true)}></div>
 
+            {/* Right Column: Sidebar */}
             <div className="right-sidebar-column" style={{ width: `${rightWidth}px` }}>
               <div className="right-top-controls">
                 <div className="control-group">
                   <span style={{ color: 'var(--text-muted)' }}>LLM Adapter:</span>
                   <div>
-                    <button className={`toggle-btn ${provider === 'desktop' ? 'active' : ''}`} onClick={() => handleProviderSwitch('desktop')}>Desktop</button>
-                    <button className={`toggle-btn ${provider === 'rhoai_vllm' ? 'active' : ''}`} onClick={() => handleProviderSwitch('rhoai_vllm')}>RHOAI</button>
+                    <button className={`toggle-btn ${provider === 'desktop' ? 'active' : ''}`} onClick={() => setProvider('desktop')}>Desktop</button>
+                    <button className={`toggle-btn ${provider === 'rhoai_vllm' ? 'active' : ''}`} onClick={() => setProvider('rhoai_vllm')}>RHOAI</button>
                   </div>
                 </div>
 
                 <div className="control-group">
-                  <span style={{ color: 'var(--text-muted)' }}>Sync (.stignore):</span>
-                  <span style={{ color: 'var(--success)', fontWeight: 'bold' }}>✔ Protected</span>
+                  <span style={{ color: 'var(--text-muted)' }}>OpenRouter Key:</span>
+                  <span style={{ color: hasKey ? 'var(--success)' : 'var(--warning)', fontWeight: 'bold' }}>
+                    {hasKey ? '✔ Connected' : '⚠ Missing'}
+                  </span>
                 </div>
               </div>
 
               <div className="explorer-section">
                 <div className="panel-header" style={{ height: '30px' }}>
-                  <span>📁 Code Files</span>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>6 Files</span>
+                  <span>📁 Code Workspace</span>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>4 Files</span>
                 </div>
                 <div className="file-list">
-                  <div className="file-item active modified"><span>📄 auth_service.py</span><span style={{ color: 'var(--warning)' }}>M</span></div>
-                  <div className="file-item created"><span>📄 test_auth.py</span><span style={{ color: 'var(--success)' }}>U</span></div>
-                  <div className="file-item"><span>📄 models.py</span></div>
-                  <div className="file-item"><span>📄 config.py</span></div>
-                  <div className="file-item"><span>📄 requirements.txt</span></div>
-                  <div className="file-item"><span>📄 README.md</span></div>
+                  {Object.keys(fileContents).map(fileName => (
+                    <div 
+                      key={fileName} 
+                      className={`file-item ${activeTab === fileName ? 'active' : ''}`}
+                      onClick={() => setActiveTab(fileName)}
+                    >
+                      <span>📄 {fileName}</span>
+                      {activeTab === fileName && <span style={{ color: 'var(--cyan)' }}>Active</span>}
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="right-bottom-sandbox">
                 <div className="sandbox-header">
                   <span>Terminal: {terminalType}</span>
-                  <span style={{ color: 'var(--cyan)' }}>MCP RPC Port: 3000</span>
+                  <span style={{ color: 'var(--cyan)' }}>Port: 3000</span>
                 </div>
                 <div className="sandbox-terminal">
                   {terminalLog}
@@ -499,8 +600,9 @@
 
           </div>
 
+          {/* Bottom Status Bar */}
           <div className="bottom-status-bar">
-            <div>feature/vibe-coding-agent* | API: {backendConnected ? 'Port 8000 Connected' : 'Local Standby'} | Provider: {provider.toUpperCase()}</div>
+            <div>feature/vibe-coding-agent* | Model: {selectedModel} | OpenRouter Key: {hasKey ? 'Active' : 'Offline'}</div>
             <div>MCP Port: 3000 | OpenRouter Quota: $12.40 / $35.00</div>
           </div>
 

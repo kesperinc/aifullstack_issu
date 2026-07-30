@@ -1,6 +1,6 @@
 """
 Enterprise Coding Agent OS Backend Main Server
-FastAPI Web App (Port 8080) with REST API & MCP Router (Port 3000)
+FastAPI Web App (Port 5000) with REST API & MCP Router (Port 3000)
 """
 
 import sys
@@ -15,9 +15,9 @@ import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
-from adapters.llm_adapter import LLMAdapter
+from adapters.llm_adapter import LLMAdapter, RECOMMENDED_CODING_MODELS
 from vibe.engine import VibeEngine
 from mcp.router import MCPRouter
 
@@ -46,34 +46,62 @@ class VibeRequest(BaseModel):
     intent: str
     target_file: Optional[str] = "auth_service.py"
     provider: Optional[str] = "desktop"
+    model_id: Optional[str] = "qwen/qwen-2.5-coder-32b-instruct"
 
 class ProviderSwitchRequest(BaseModel):
     provider: str
+
+class OpenRouterKeyRequest(BaseModel):
+    api_key: str
 
 @app.get("/")
 def read_root():
     return {
         "status": "online",
-        "service": "Enterprise Coding Agent OS Backend Server",
+        "service": "Antigravity VibeForge Enterprise Backend Server",
         "mcp_gateway_port": 3000,
-        "docs_url": "http://localhost:8080/docs"
+        "docs_url": "http://localhost:5000/docs"
     }
 
 @app.get("/api/workspace/status")
 def get_workspace_status():
     """
-    샌드박스 상태 및 LLM/Syncthing 동기화 정보 반환
+    샌드박스 상태 및 LLM/OpenRouter Key/Syncthing 동기화 정보 반환
     """
     return {
         "status": "RUNNING",
         "active_sandbox": "Local Desktop Runner (.venv)",
         "llm_provider": llm_adapter.provider,
+        "selected_model": llm_adapter.selected_model,
+        "has_openrouter_key": bool(llm_adapter.openrouter_key and llm_adapter.openrouter_key != "your_openrouter_api_key_here"),
         "mcp_port": 3000,
         "syncthing_protected": True,
         "quota": {
             "used": 12.40,
             "total": 35.00
         }
+    }
+
+@app.get("/api/openrouter/models")
+def get_coding_models():
+    """
+    Coding Agent에 최적화된 SOTA 모델 리스트 반환
+    """
+    return {
+        "models": RECOMMENDED_CODING_MODELS,
+        "current_selected": llm_adapter.selected_model
+    }
+
+@app.post("/api/openrouter/key")
+def set_openrouter_key(req: OpenRouterKeyRequest):
+    """
+    OpenRouter API Key 또는 OAuth 토큰 동적 저장
+    """
+    llm_adapter.set_openrouter_key(req.api_key)
+    return {
+        "status": "success",
+        "message": "OpenRouter API Key가 성공적으로 등록 및 검증되었습니다.",
+        "has_key": True
     }
 
 @app.post("/api/vibe/generate")
@@ -86,8 +114,10 @@ async def generate_vibe_code(req: VibeRequest):
     
     if req.provider:
         llm_adapter.switch_provider(req.provider)
+    if req.model_id:
+        llm_adapter.set_model(req.model_id)
         
-    result = await vibe_engine.execute_vibe(req.intent, req.target_file)
+    result = await vibe_engine.execute_vibe(req.intent, req.target_file, req.model_id)
     return result
 
 @app.post("/api/provider/switch")
