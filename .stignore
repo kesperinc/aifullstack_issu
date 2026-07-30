@@ -1,0 +1,22 @@
+# Syncthing Ignore File (.stignore)
+# 다른 PC / 작업용 워크스테이션과의 P2P 동기화 시 로컬 OS 전용 파일 예외 처리
+
+// 1. Virtual Environments & Local Dependencies
+.venv
+venv
+__pycache__
+*.pyc
+
+// 2. Local Environment Secrets
+.env
+*.pem
+*.key
+
+// 3. IDE & Temporary Files
+.idea
+.vscode/*.log
+.pytest_cache
+*.tmp
+
+// 4. Git Internal Objects (Optional: if syncing via Git origin)
+// .git

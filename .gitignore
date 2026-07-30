@@ -8,6 +8,16 @@ venv/
 ENV/
 env/
 
+# Secrets & Local Envs
+.env
+*.env.local
+*.key
+*.pem
+
+# Syncthing
+.stfolder/
+.stversions/
+
 # System / IDE
 .idea/
 .vscode/
