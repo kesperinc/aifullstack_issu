@@ -22,7 +22,7 @@ from vibe.engine import VibeEngine
 from mcp.router import MCPRouter
 
 app = FastAPI(
-    title="Enterprise Coding Agent OS Backend API",
+    title="Antigravity VibeForge Enterprise Backend API",
     description="Vibe Coding Orchestration Engine & MCP Gateway REST API",
     version="1.0.0"
 )

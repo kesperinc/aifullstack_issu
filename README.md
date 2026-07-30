@@ -1,4 +1,4 @@
-# 🚀 Enterprise Coding Agent OS (with Vibe Coding Platform)
+# 🚀 Antigravity VibeForge Enterprise (Vibe Coding Agent OS)
 
 > **"의도(Vibe)만 제시하면, 코드 작성부터 샌드박스 검증까지 자율 완성하는 엔터프라이즈 AI 코딩 에이전트"**
 
