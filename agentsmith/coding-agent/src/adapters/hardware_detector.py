@@ -23,7 +23,7 @@ if sys.platform == "win32":
 class HardwareDetector:
     def __init__(self, base_dir: Path):
         self.base_dir = base_dir
-        self.venv_dir = base_dir / ".venv"
+        self.venv_dir = base_dir / "agentsmith" / ".venv"
         self.bin_dir = base_dir / "agentsmith" / "coding-agent" / "bin"
         self.bin_dir.mkdir(parents=True, exist_ok=True)
 
