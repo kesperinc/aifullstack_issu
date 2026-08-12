@@ -36,3 +36,6 @@ tmp/
 
 # Archive files
 *.zip
+
+# Sub-projects
+agentsmith/
