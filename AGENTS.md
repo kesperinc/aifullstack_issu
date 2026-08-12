@@ -21,7 +21,7 @@ designer, QA lead, release engineer, debugger, and more.
 9. **Agentic CLI (Codex, Claude Code, Antigravity) 연동**: MCP(Model Context Protocol)를 통해 CLI 및 IDE(VS Code/Jupyter)와 즉시 연동되도록 바인딩 인터페이스를 개발한다.
 10. **개발 기간 비용 최적화 (OpenRouter / Direct API Call)**: 온프레미스 GPU 전 단계에서는 OpenRouter API 및 직접 모델 호출을 활용하여 인프라 비용을 최소화한다.
 11. **시연용 샘플 준비**: 행사에 직접 관람객이 시연할 수 있는 파이썬/자바 실시간 Vibe 코딩 및 FIM 샘플 코드를 준비한다.
-12. **기초/상세 설계서 작성**: 플랫폼 전반의 기본설계서 및 상세설계서(`docs/agent_smith_basic_detailed_design.md` 및 `YYYY-MM-DD_기초상세설계서.md` 형태)를 수립한다.
+12. **기초/상세 설계서 작성**: 플랫폼 전반의 기본설계서 및 상세설계서(`agentsmith/docs/2026-08-12_agent_smith_basic_detailed_design.md` 및 `YYYY-MM-DD_기초상세설계서.md` 형태)를 수립한다.
 13. **UI/UX 초안 HTML 작성**: 개발자 대시보드 및 워크스페이스 관리 웹 UI/UX 초안을 모던 HTML로 작성하여 제공한다.
 14. **Agent Smith 인프라, 인코딩 및 다국어 생성물 가드레일 (Harness)**:
     - 파이썬 가상환경(`uv`) 및 Node.js 초기 자동 설치 정책을 준수한다.
