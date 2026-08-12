@@ -82,9 +82,9 @@ flowchart TB
 
 ### 4.2 작업 트라이어드 (Plan - Code - Doc) 가드레일
 모든 신규 개발 작업 시 다음 3개 아티팩트가 1:1:1로 반사 생성되어야 머지(Merge)가 가능함:
-1. **[작업계획서]**: `mvp/coding-agent/docs/plans/feature_name_plan.md`
-2. **[개발된 코드]**: `mvp/coding-agent/src/...`
-3. **[상세명세서]**: `mvp/coding-agent/docs/specs/feature_name_spec.md`
+1. **[작업계획서]**: `agentsmith/coding-agent/docs/plans/feature_name_plan.md`
+2. **[개발된 코드]**: `agentsmith/coding-agent/src/...`
+3. **[상세명세서]**: `agentsmith/coding-agent/docs/specs/feature_name_spec.md`
 
 ### 4.3 시크릿 보안 및 SAST 가드레일
 - OpenRouter API Key 및 사내 토큰 유출 방지를 위한 **Pre-commit hook** 도입.

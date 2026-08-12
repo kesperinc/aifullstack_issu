@@ -19,7 +19,7 @@
 * **공식 제품명 결정**: **`Antigravity VibeForge Enterprise`** (약칭: **`VibeForge AI`**)
   * *의미*: 개발자의 의도(Vibe)를 입력받아 샌드박스 자율 검증 및 셀프코렉션을 거쳐 완벽한 프로덕션 코드로 단조(Forge)해내는 에이전트 OS.
 * **프로젝트 문서 및 코드베이스 브랜딩 통일**:
-  * `README.md`, `offering/coding_agent_ui_mockup.html`, `mvp/coding-agent/src/main.py`에 전격 반영.
+  * `README.md`, `offering/coding_agent_ui_mockup.html`, `agentsmith/coding-agent/src/main.py`에 전격 반영.
 
 ### B. React IDE UI/UX 대시보드 완성 (`offering/coding_agent_ui_mockup.html`)
 1. **OS 마이크로 메타 메뉴 시스템**:
@@ -39,14 +39,14 @@
 5. **🔑 OpenRouter OAuth & Key 모달**:
    * API Key 입력 팝업을 통해 백엔드로 동적 전달 및 `✔ Connected` 상태 표시.
 
-### C. FastAPI 자율 백엔드 오케스트레이션 엔진 (`mvp/coding-agent/src/`)
+### C. FastAPI 자율 백엔드 오케스트레이션 엔진 (`agentsmith/coding-agent/src/`)
 * **REST API 메인 서버 (`main.py`)**: `Port 5000`에서 구동.
 * **Vibe Engine (`vibe/engine.py`)**: 의도 파싱 ➔ Agent Thinking ➔ Code Diff ➔ 샌드박스 `pytest` 검증 ➔ 셀프코렉션(Self-Correction) 자동화.
 * **MCP Router (`mcp/router.py`)**: `Port 3000`에서 IDE 및 Agentic CLI와 JSON-RPC 통신.
 * **LLM Adapter (`adapters/llm_adapter.py`)**: OpenRouter (Cloud) ↔ Red Hat OpenShift AI (On-Prem) 1-Click 스위칭 어댑터.
 
 ### D. Stage 1 로컬 데스크톱 1-Click 런너 (`desktop_runner.py`)
-* **1-Click 런칭 스크립트**: `python mvp/coding-agent/src/desktop_runner.py`
+* **1-Click 런칭 스크립트**: `python agentsmith/coding-agent/src/desktop_runner.py`
   * 로컬 `.venv` 검증 ➔ FastAPI 백엔드 론칭 ➔ UI 대시보드 브라우저 자동 오픈 ➔ 터미널 Vibe CLI 인터랙터 제공.
 * **시크릿 유출 차단 가드레일 (`scripts/check_secrets.py`)**:
   * OpenRouter API Key 등 하드코딩 유출 사전 검출 및 Git 커밋 차단.
@@ -63,7 +63,7 @@ aifullstack/
 │       └── 2026-07-30_vibeforge_stage1_worklog.md  # [NEW] 오늘 작업 일지
 ├── offering/
 │   └── coding_agent_ui_mockup.html              # VibeForge AI 완일 UI 대시보드
-└── mvp/coding-agent/
+└── agentsmith/coding-agent/
     ├── TODO.md                                  # Stage 1 완료 체크 반영
     ├── docs/
     │   ├── plans/
@@ -106,7 +106,7 @@ aifullstack/
 1. **Stage 2 (GCP Cloud Expansion)**:
    * GCP 인프라 멀티 테넌시 Docker 샌드박스 자동 할당기 구축.
 2. **Stage 3 (On-Premise RHOAI SNO 1-Click Porting)**:
-   * 10월 Red Hat 행사 부스 시연용 파이썬/자바 실시간 Vibe 코딩 및 FIM 샘플 프로젝트 작성 (`mvp/coding-agent/samples/`).
+    * 10월 Red Hat 행사 부스 시연용 파이썬/자바 실시간 Vibe 코딩 및 FIM 샘플 프로젝트 작성 (`agentsmith/coding-agent/samples/`).
 
 ---
 

@@ -5,10 +5,10 @@
 ---
 
 ## 📌 1. 실행 가이드
-* **엔트리 스크립트**: `mvp/coding-agent/src/desktop_runner.py`
+* **엔트리 스크립트**: `agentsmith/coding-agent/src/desktop_runner.py`
 * **시작 명령**:
 ```bash
-python mvp/coding-agent/src/desktop_runner.py
+python agentsmith/coding-agent/src/desktop_runner.py
 ```
 
 ---

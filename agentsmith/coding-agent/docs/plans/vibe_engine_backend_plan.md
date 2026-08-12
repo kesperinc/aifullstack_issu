@@ -14,7 +14,7 @@
 ## 🏗️ 백엔드 컴포넌트 구성 (Component Architecture)
 
 ```
-mvp/coding-agent/src/
+agentsmith/coding-agent/src/
 ├── main.py                    # FastAPI 웹 서버 및 REST API 라우터 (Port 8000)
 ├── vibe/
 │   ├── __init__.py

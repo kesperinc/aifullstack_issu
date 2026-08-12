@@ -45,9 +45,9 @@ flowchart LR
 ## 🛡️ 4. 개발 가드레일 (Plan-Code-Doc 트라이어드 수칙)
 
 본 프로젝트의 모든 기능 개발은 **작업 트라이어드 수칙**에 따라 다음 3가지 파일이 1:1:1로 반사 생성되어야 Git 머지(Merge)가 가능합니다:
-1. **[작업계획서]**: `mvp/coding-agent/docs/plans/feature_name_plan.md`
-2. **[개발된 코드]**: `mvp/coding-agent/src/...`
-3. **[상세명세서]**: `mvp/coding-agent/docs/specs/feature_name_spec.md`
+1. **[작업계획서]**: `agentsmith/coding-agent/docs/plans/feature_name_plan.md`
+2. **[개발된 코드]**: `agentsmith/coding-agent/src/...`
+3. **[상세명세서]**: `agentsmith/coding-agent/docs/specs/feature_name_spec.md`
 
 ---
 
@@ -74,7 +74,7 @@ aifullstack/
 │   ├── index.html             # 제안서 통합 포털 사이트
 │   ├── coding_agent_ui_mockup.html      # 코딩 에이전트 대시보드 UI 초안
 │   └── exhibition_pilot_solution_proposal.html  # 10월/11월 행사 시연 제안서
-└── mvp/coding-agent/          # 코딩 에이전트 MVP 시연 소스코드
+└── agentsmith/coding-agent/    # 코딩 에이전트 MVP 시연 소스코드
     ├── README.md              # MVP 상세 실행 안내서
     └── TODO.md                # 단계별 구현 과제 로드맵
 ```

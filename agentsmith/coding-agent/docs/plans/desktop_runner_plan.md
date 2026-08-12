@@ -13,9 +13,9 @@
 ---
 
 ## 🏗️ 2. 컴포넌트 구성
-* `mvp/coding-agent/src/desktop_runner.py`: 로컬 데스크톱 런너 오케스트레이터
-* `mvp/coding-agent/scripts/check_secrets.py`: OpenRouter Key 등 비밀값 누출 방지 가드레일
-* `mvp/coding-agent/docs/specs/desktop_runner_spec.md`: 상세 명세서
+* `agentsmith/coding-agent/src/desktop_runner.py`: 로컬 데스크톱 런너 오케스트레이터
+* `agentsmith/coding-agent/scripts/check_secrets.py`: OpenRouter Key 등 비밀값 누출 방지 가드레일
+* `agentsmith/coding-agent/docs/specs/desktop_runner_spec.md`: 상세 명세서
 
 ---
 

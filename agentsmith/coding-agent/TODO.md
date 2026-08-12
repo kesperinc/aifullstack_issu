@@ -14,16 +14,16 @@
 - [x] 프로젝트 메인 `README.md` 및 Vibe Coding 자율 개발 패러다임 개념 정립
 - [x] Git 브랜치 전략 수립 및 GitHub 원격 저장소 동기화 (`main`, `staging`, `feature/vibe-coding-agent`)
 - [x] 1-Click OS별 데스크톱 실행 스크립트 구축 (`run_desktop.bat`, `run_desktop.sh`)
-- [x] 로컬 데스크톱 Runner 엔진 구현 (`mvp/coding-agent/src/desktop_runner.py`)
+- [x] 로컬 데스크톱 Runner 엔진 구현 (`agentsmith/coding-agent/src/desktop_runner.py`)
 - [x] React IDE UI/UX 대시보드 구축 (`offering/coding_agent_ui_mockup.html`)
   - [x] View / Go / Run / Terminal 메타 메뉴 및 **Agentic CLI(`Antigravity`, `Claude Code`, `Codex`)** 연동
   - [x] VS Code 공식 엠블럼 Icon 및 `🛒 Extensions Market` 접근 모달
   - [x] 코드 창 아래 **Coding Agent SOTA 모델 선택 바** (Qwen 2.5 Coder, Claude 3.5 Sonnet, DeepSeek Coder V2, GPT-4o, Llama 3.3 70B 1-Click Vibe 연동)
   - [x] 다중 파일 준비 코드 탭 시스템 (`auth_service.py`, `test_auth.py`, `models.py`, `config.py`)
   - [x] `🔑 OpenRouter OAuth & API Key` 연동 모달
-- [x] FastAPI 백엔드 Vibe 오케스트레이션 엔진 구축 (`mvp/coding-agent/src/main.py`, `Port 5000`)
+- [x] FastAPI 백엔드 Vibe 오케스트레이션 엔진 구축 (`agentsmith/coding-agent/src/main.py`, `Port 5000`)
   - [x] Vibe 파서, Agent Thinking Stream, Code Diff, 샌드박스 `pytest` 검증 & 셀프코렉션(Self-Correction) 연동
-- [x] OpenRouter API Key 시크릿 유출 방지 검사 스크립트 작성 (`mvp/coding-agent/scripts/check_secrets.py`)
+- [x] OpenRouter API Key 시크릿 유출 방지 검사 스크립트 작성 (`agentsmith/coding-agent/scripts/check_secrets.py`)
 - [x] Stage 1 개발 작업일지 작성 및 저장 (`docs/worklog/2026-07-30_vibeforge_stage1_worklog.md`)
 
 ---
@@ -47,7 +47,7 @@
 ---
 
 ### 🔜 Stage 2: GCP 기반 멀티 테넌트 & MCP 라우터 확장 (차기 진행 과제)
-- [x] MCP (Model Context Protocol) JSON-RPC 게이트웨이 포트(3000) 바인딩 (`mvp/coding-agent/src/mcp/router.py`)
+- [x] MCP (Model Context Protocol) JSON-RPC 게이트웨이 포트(3000) 바인딩 (`agentsmith/coding-agent/src/mcp/router.py`)
 - [x] VS Code (Continue.dev) 및 Agentic CLI 커넥터 인터페이스 연동
 - [ ] GCP GKE 기반 개발자 테넌트별 동적 Docker 샌드박스 할당기 구현
 - [ ] 개발자별 일단위/월단위 LLM 토큰 사용량 할당 및 쿼터(Quota) 모니터링 API
@@ -55,9 +55,9 @@
 ---
 
 ### 🔜 Stage 3: 온프레미스 (Red Hat OpenShift AI SNO) 1-Click 포팅 & 시연
-- [x] OpenShift AI (SNO) vLLM 엔드포인트 호환 어댑터 1-Click 스위칭 포팅 (`mvp/coding-agent/src/adapters/llm_adapter.py`)
+- [x] OpenShift AI (SNO) vLLM 엔드포인트 호환 어댑터 1-Click 스위칭 포팅 (`agentsmith/coding-agent/src/adapters/llm_adapter.py`)
 - [x] 샌드박스 자율 `pytest` 실행 및 에러 셀프코렉션(Self-Correction) 시연 로직 준비
-- [ ] 10월 Red Hat 행사 부스 시연용 파이썬/자바 실시간 Vibe 코딩 및 FIM 샘플 프로젝트 작성 (`mvp/coding-agent/samples/`)
+- [ ] 10월 Red Hat 행사 부스 시연용 파이썬/자바 실시간 Vibe 코딩 및 FIM 샘플 프로젝트 작성 (`agentsmith/coding-agent/samples/`)
 - [ ] OpenShift AI (SNO) 단일 노드(Baremetal) 1-Click 배포 헬름 차트 및 매니페스트 작성
 
 ---

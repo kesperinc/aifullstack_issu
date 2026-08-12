@@ -56,11 +56,11 @@
 | 파일 | 변경 내용 |
 |------|-----------|
 | `README.md` | 디렉터리 트리 `proposal/` → `offering/` |
-| `mvp/coding-agent/TODO.md` | UI 목업 경로 수정 |
+| `agentsmith/coding-agent/TODO.md` | UI 목업 경로 수정 |
 | `docs/index.html` | 포털 링크 수정 |
-| `mvp/coding-agent/docs/plans/vibe_engine_backend_plan.md` | 파일 링크 수정 |
-| `mvp/coding-agent/docs/plans/desktop_runner_plan.md` | 파일 링크 수정 |
-| `mvp/coding-agent/docs/specs/desktop_runner_spec.md` | 파일 링크 수정 |
+| `agentsmith/coding-agent/docs/plans/vibe_engine_backend_plan.md` | 파일 링크 수정 |
+| `agentsmith/coding-agent/docs/plans/desktop_runner_plan.md` | 파일 링크 수정 |
+| `agentsmith/coding-agent/docs/specs/desktop_runner_spec.md` | 파일 링크 수정 |
 | `docs/worklog/2026-07-30_vibeforge_stage1_worklog.md` | 작업일지 내 3곳 경로 수정 |
 
 ### C. TODO.md 현행화
@@ -94,7 +94,7 @@ aifullstack/
 │       ├── on_premise_ai_full_stack_master_proposal.docx
 │       ├── on_premise_ai_fullstack_architecture_guidelines.docx
 │       └── on_premise_ai_poc_and_production_architecture.docx
-└── mvp/coding-agent/
+└── agentsmith/coding-agent/
     ├── TODO.md                                       # [수정] 현행화 완료
     └── docs/
         ├── plans/

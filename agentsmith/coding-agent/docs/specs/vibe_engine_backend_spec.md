@@ -5,7 +5,7 @@
 ---
 
 ## 📌 1. 백엔드 개요
-* **서비스 엔트리포인트**: `mvp/coding-agent/src/main.py`
+* **서비스 엔트리포인트**: `agentsmith/coding-agent/src/main.py`
 * **서버 구동 포트**: REST API (8000), MCP JSON-RPC Gateway (3000)
 * **주요 의존 패키지**: FastAPI, Uvicorn, Pydantic, httpx, pytest
 
