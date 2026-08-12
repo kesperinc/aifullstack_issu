@@ -2,7 +2,7 @@
 
 본 문서는 **Antigravity VibeForge Enterprise (Vibe Coding Agent OS)**의 Stage 1~3 개발 과제 및 중장기 로드맵 현행화 목록입니다.
 
-* **최종 현행화 일자**: 2026년 7월 30일
+* **최종 현행화 일자**: 2026년 8월 12일
 * **현재 완성 단계**: **Stage 1 (Desktop-First MVP) 100% 완료**
 
 ---
@@ -15,7 +15,7 @@
 - [x] Git 브랜치 전략 수립 및 GitHub 원격 저장소 동기화 (`main`, `staging`, `feature/vibe-coding-agent`)
 - [x] 1-Click OS별 데스크톱 실행 스크립트 구축 (`run_desktop.bat`, `run_desktop.sh`)
 - [x] 로컬 데스크톱 Runner 엔진 구현 (`mvp/coding-agent/src/desktop_runner.py`)
-- [x] React IDE UI/UX 대시보드 구축 (`proposal/coding_agent_ui_mockup.html`)
+- [x] React IDE UI/UX 대시보드 구축 (`offering/coding_agent_ui_mockup.html`)
   - [x] View / Go / Run / Terminal 메타 메뉴 및 **Agentic CLI(`Antigravity`, `Claude Code`, `Codex`)** 연동
   - [x] VS Code 공식 엠블럼 Icon 및 `🛒 Extensions Market` 접근 모달
   - [x] 코드 창 아래 **Coding Agent SOTA 모델 선택 바** (Qwen 2.5 Coder, Claude 3.5 Sonnet, DeepSeek Coder V2, GPT-4o, Llama 3.3 70B 1-Click Vibe 연동)
@@ -25,6 +25,24 @@
   - [x] Vibe 파서, Agent Thinking Stream, Code Diff, 샌드박스 `pytest` 검증 & 셀프코렉션(Self-Correction) 연동
 - [x] OpenRouter API Key 시크릿 유출 방지 검사 스크립트 작성 (`mvp/coding-agent/scripts/check_secrets.py`)
 - [x] Stage 1 개발 작업일지 작성 및 저장 (`docs/worklog/2026-07-30_vibeforge_stage1_worklog.md`)
+
+---
+
+### ✅ 문서화 & 제안서 패키지 정비 (100% 완료)
+- [x] `proposal/` 폴더를 `offering/`으로 리네이밍 및 프로젝트 전체 참조 경로 일괄 갱신 (8/12)
+- [x] `offering/` 폴더 내 HTML 제안서 11건 → DOCX(Word) 일괄 변환 완료 (`offering/docx/`) (8/12)
+  - [x] `additional_ai_market_solutions.docx` — 추가 AI 시장 솔루션
+  - [x] `articul8_ai_package_proposal.docx` — Articul8 AI 패키지 제안서
+  - [x] `coding_agent_solution_proposal.docx` — 코딩 에이전트 솔루션 제안서
+  - [x] `coding_agent_ui_mockup.docx` — 코딩 에이전트 UI 목업
+  - [x] `document_pipeline_solution_proposal.docx` — 문서 파이프라인 솔루션 제안서
+  - [x] `exhibition_pilot_solution_proposal.docx` — 전시회 파일럿 솔루션 제안서
+  - [x] `index.docx` — 제안서 포털 인덱스
+  - [x] `korea_b2b_ai_agent_market.docx` — 한국 B2B AI 에이전트 시장 분석
+  - [x] `on_premise_ai_full_stack_master_proposal.docx` — 온프레미스 AI 풀스택 마스터 제안서
+  - [x] `on_premise_ai_fullstack_architecture_guidelines.docx` — 온프레미스 아키텍처 가이드라인
+  - [x] `on_premise_ai_poc_and_production_architecture.docx` — PoC 및 프로덕션 아키텍처
+- [x] 프로젝트 참조 경로 일괄 갱신 (`README.md`, `TODO.md`, `docs/index.html` 외 5개 파일)
 
 ---
 

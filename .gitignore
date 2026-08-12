@@ -33,3 +33,6 @@ scratch/
 temp/
 tmp/
 *.log
+
+# Archive files
+*.zip

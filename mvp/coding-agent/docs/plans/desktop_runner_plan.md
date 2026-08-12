@@ -7,7 +7,7 @@
 ## 🎯 1. 구현 목표
 * **1-Click 로컬 데스크톱 실행 런너 (`desktop_runner.py`) 구축**:
   * 로컬 `.venv` 파이썬 가상환경 검증 및 FastAPI 백엔드 서버(Port 5000) 자율 시동.
-  * 실행 완료 시 개발자 로컬 브라우저에 `VibeForge AI` 웹 대시보드([proposal/coding_agent_ui_mockup.html](file:///c:/dev/antigravity-workspace/aifullstack/proposal/coding_agent_ui_mockup.html))를 즉시 1-Click자동 팝업 런칭.
+  * 실행 완료 시 개발자 로컬 브라우저에 `VibeForge AI` 웹 대시보드([proposal/coding_agent_ui_mockup.html](file:///c:/dev/antigravity-workspace/aifullstack/offering/coding_agent_ui_mockup.html))를 즉시 1-Click자동 팝업 런칭.
   * CLI 터미널 환경에서도 Vibe 의도를 직접 입력하고 샌드박스 결과를 실시간 확인하는 인터랙티브 로컬 런너 제공.
 
 ---

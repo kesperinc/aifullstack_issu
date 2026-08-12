@@ -19,9 +19,9 @@
 * **공식 제품명 결정**: **`Antigravity VibeForge Enterprise`** (약칭: **`VibeForge AI`**)
   * *의미*: 개발자의 의도(Vibe)를 입력받아 샌드박스 자율 검증 및 셀프코렉션을 거쳐 완벽한 프로덕션 코드로 단조(Forge)해내는 에이전트 OS.
 * **프로젝트 문서 및 코드베이스 브랜딩 통일**:
-  * `README.md`, `proposal/coding_agent_ui_mockup.html`, `mvp/coding-agent/src/main.py`에 전격 반영.
+  * `README.md`, `offering/coding_agent_ui_mockup.html`, `mvp/coding-agent/src/main.py`에 전격 반영.
 
-### B. React IDE UI/UX 대시보드 완성 (`proposal/coding_agent_ui_mockup.html`)
+### B. React IDE UI/UX 대시보드 완성 (`offering/coding_agent_ui_mockup.html`)
 1. **OS 마이크로 메타 메뉴 시스템**:
    * **File**: 사용자 로그인, 워크스페이스 설정, 폴더 선택/히스토리, 저장하기
    * **Edit**: OS 표준 편집 (Undo/Redo, Cut/Copy/Paste, Find/Replace, Select All)
@@ -61,7 +61,7 @@ aifullstack/
 ├── docs/
 │   └── worklog/
 │       └── 2026-07-30_vibeforge_stage1_worklog.md  # [NEW] 오늘 작업 일지
-├── proposal/
+├── offering/
 │   └── coding_agent_ui_mockup.html              # VibeForge AI 완일 UI 대시보드
 └── mvp/coding-agent/
     ├── TODO.md                                  # Stage 1 완료 체크 반영

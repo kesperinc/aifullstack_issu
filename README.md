@@ -70,7 +70,7 @@ aifullstack/
 │   ├── coding_agent_basic_design.html   # 기본설계서 & 상세설계서
 │   ├── coding_agent_top3_analysis.html  # 글로벌 TOP 3 분석 보고서
 │   └── IDEATION/              # 아이디어 백업 마크다운 폴더
-├── proposal/                  # 제안서 & UI/UX 목업 (HTML)
+├── offering/                  # 제안서 & UI/UX 목업 (HTML)
 │   ├── index.html             # 제안서 통합 포털 사이트
 │   ├── coding_agent_ui_mockup.html      # 코딩 에이전트 대시보드 UI 초안
 │   └── exhibition_pilot_solution_proposal.html  # 10월/11월 행사 시연 제안서
