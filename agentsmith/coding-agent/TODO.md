@@ -46,6 +46,16 @@
 
 ---
 
+### ✅ 1주차: 초기 인프라, 하드웨어 가속 검출 및 가드레일 (100% 완료)
+- [x] Python `uv` 가상환경 자동 구축 모듈 개발 (8/12)
+- [x] Node.js 포터블 다운로드 및 설치 감지 모듈 개발 (8/12)
+- [x] 전역 UTF-8 인코딩 및 환경변수 주입 (cp949 에러 방지) (8/12)
+- [x] RHOAI 클러스터 vLLM 및 ServingRuntime API 자동 스캔 기능 (8/12)
+- [x] DGX Spark BIOS/DMI 스캔 및 고성능 모델 프로필 매핑 스크립트 작성 (8/12)
+- [x] NVIDIA CUDA / Intel / AMD 가속기 장치 탐색 스크립트 작성 (8/12)
+- [x] 영어 UI & 한국어 주석/출력 강제화 가드레일(Harness) 연동 테스트 완료 (8/12)
+
+
 ### 🔜 Stage 2: GCP 기반 멀티 테넌트 & MCP 라우터 확장 (차기 진행 과제)
 - [x] MCP (Model Context Protocol) JSON-RPC 게이트웨이 포트(3000) 바인딩 (`agentsmith/coding-agent/src/mcp/router.py`)
 - [x] VS Code (Continue.dev) 및 Agentic CLI 커넥터 인터페이스 연동
