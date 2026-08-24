@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VMware Migration Sales Offering Portal v2.0 | MEGAZONECLOUD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --accent-blue: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', system-ui, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      background-image: radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .app-container { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 280px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      top: 0; bottom: 0; left: 0;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      width: 38px; height: 38px;
+      background: var(--gradient-brand);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 18px; color: white;
+    }
+
+    .brand-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+    .brand-sub { font-size: 11px; color: var(--accent-cyan); font-weight: 600; }
+
+    .sidebar-nav { flex: 1; overflow-y: auto; padding: 16px 12px; }
+    .nav-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); padding: 12px 12px 6px; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 14px; color: var(--text-secondary);
+      text-decoration: none; border-radius: var(--radius-sm);
+      font-size: 13px; font-weight: 500; transition: all 0.2s;
+    }
+    .nav-item:hover { background: rgba(255, 255, 255, 0.05); color: var(--text-primary); }
+    .nav-item.active { background: rgba(59, 130, 246, 0.15); color: var(--accent-cyan); font-weight: 600; border-left: 3px solid var(--accent-cyan); }
+
+    .main-content { margin-left: 280px; flex: 1; padding: 36px 48px 80px; max-width: 1360px; }
+
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(15, 23, 42, 0.7) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: var(--radius-xl);
+      padding: 40px; margin-bottom: 36px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 9999px;
+      background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3);
+      color: var(--accent-cyan); font-size: 12px; font-weight: 600; margin-bottom: 14px;
+    }
+    .hero-title { font-size: 30px; font-weight: 800; color: #ffffff; line-height: 1.3; margin-bottom: 12px; }
+    .hero-desc { font-size: 15px; color: #94a3b8; line-height: 1.6; }
+
+    .tab-bar {
+      display: flex; gap: 8px; background: var(--bg-secondary);
+      padding: 6px; border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color); margin-bottom: 32px;
+    }
+    .tab-btn {
+      flex: 1; padding: 12px 20px; border: none; background: transparent;
+      color: var(--text-secondary); font-size: 13.5px; font-weight: 600;
+      border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;
+    }
+    .tab-btn.active { background: var(--accent-blue); color: white; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 36px; margin-bottom: 36px;
+    }
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);
+    }
+    .section-num {
+      width: 32px; height: 32px; background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.4); color: var(--accent-cyan);
+      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; margin-right: 12px;
+    }
+    .section-title { font-size: 19px; font-weight: 700; color: var(--text-primary); }
+
+    p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 14px; text-align: justify; }
+
+    .table-container {
+      width: 100%; overflow-x: auto; border-radius: var(--radius-md);
+      border: 1px solid var(--border-color); background: var(--bg-secondary); margin: 20px 0;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th { background: rgba(255, 255, 255, 0.04); padding: 12px 14px; font-weight: 700; color: var(--text-secondary); border-bottom: 1px solid var(--border-color); }
+    td { padding: 12px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); color: var(--text-primary); }
+
+    .badge { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .badge-rose { background: rgba(244, 63, 94, 0.15); color: #fda4af; }
+    .badge-emerald { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+    .badge-blue { background: rgba(59, 130, 246, 0.15); color: #93c5fd; }
+    .badge-purple { background: rgba(139, 92, 246, 0.15); color: #d8b4fe; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 18px 0; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 18px 0; }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); padding: 22px;
+    }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+
+    /* Calculator Styles */
+    .calc-container {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-xl); padding: 32px;
+    }
+    .slider-group { margin-bottom: 22px; }
+    .slider-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 600; }
+    .slider-val { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--accent-cyan); font-size: 15px; }
+    input[type=range] { width: 100%; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.1); outline: none; -webkit-appearance: none; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-cyan); cursor: pointer; }
+    .result-display { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-lg); padding: 24px; text-align: center; }
+    .result-num { font-size: 38px; font-weight: 800; color: var(--accent-emerald); font-family: 'JetBrains Mono', monospace; margin: 12px 0; }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-badge">M</div>
+      <div>
+        <div class="brand-title">MEGAZONECLOUD</div>
+        <div class="brand-sub">ISV & Hybrid Cloud BU</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Navigation</div>
+      <a href="#tab-guide" class="nav-item active" onclick="switchTab('guide')">📑 Sales Offering Guide</a>
+      <a href="#tab-comp" class="nav-item" onclick="switchTab('comp')">⚔️ 국내외 경쟁 분석</a>
+      <a href="#tab-battlecard" class="nav-item" onclick="switchTab('battlecard')">⚡ 1-Page Battlecard</a>
+      <a href="#tab-calc" class="nav-item" onclick="switchTab('calc')">🧮 TCO 시뮬레이터</a>
+
+      <div class="nav-section-title">Chapters</div>
+      <a href="#sec-0" class="nav-item" onclick="scrollToSec('sec-0')">0. 고객 및 시장 분석</a>
+      <a href="#sec-1" class="nav-item" onclick="scrollToSec('sec-1')">1. VMware 제품군 개요</a>
+      <a href="#sec-2" class="nav-item" onclick="scrollToSec('sec-2')">2. 대체 영역 1:1 매핑</a>
+      <a href="#sec-3" class="nav-item" onclick="scrollToSec('sec-3')">3. Target Industry</a>
+      <a href="#sec-4" class="nav-item" onclick="scrollToSec('sec-4')">4. 구성 및 아키텍처</a>
+      <a href="#sec-5" class="nav-item" onclick="scrollToSec('sec-5')">5. 비용 구조 & TCO</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="hero-banner">
+      <div class="hero-badge">Enterprise Sales Offering Portal v2.0</div>
+      <h1 class="hero-title">VMware to Nutanix & Red Hat OpenShift<br>하이브리드 클라우드 전환 전략 가이드</h1>
+      <p class="hero-desc">
+        Broadcom 인수 이후 급격한 비용 인상과 라이선스 종속에 직면한 기업들을 위한 종합 마이그레이션 전략, 국내외 경쟁 솔루션 비교 분석 및 TCO 최적화 가이드입니다.
+      </p>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" id="btn-tab-guide" onclick="switchTab('guide')">📑 종합 오퍼링 가이드</button>
+      <button class="tab-btn" id="btn-tab-comp" onclick="switchTab('comp')">⚔️ 국내외 경쟁 솔루션 분석</button>
+      <button class="tab-btn" id="btn-tab-battlecard" onclick="switchTab('battlecard')">⚡ 1-Page 영업 배틀카드</button>
+      <button class="tab-btn" id="btn-tab-calc" onclick="switchTab('calc')">🧮 실시간 TCO 시뮬레이터</button>
+    </div>
+
+    <!-- TAB 1: GUIDE -->
+    <div id="tab-guide" class="tab-content active">
+      <section id="sec-0" class="section-card">
+        <div class="section-header">
+          <div style="display:flex; align-items:center;">
+            <div class="section-num">0</div>
+            <div class="section-title">고객 및 시장 환경 분석 (Market Context)</div>
+          </div>
+        </div>
+        <p>
+          2023년 말 Broadcom의 VMware 인수 이후 영구 라이선스가 전면 폐지되고 3년 구독형이 강제 적용되었습니다. 
+          특히 CPU 소켓 단위에서 물리 코어당 과금(최소 16코어 보장)으로 변경되고 VCF/VVF 메가 번들이 강제됨에 따라 국내외 기업들의 갱신 비용이 <strong>2~5배(최대 7배) 폭증</strong>하고 있습니다.
+        </p>
+      </section>
+
+      <section id="sec-1" class="section-card">
+        <div class="section-header">
+          <div style="display:flex; align-items:center;">
+            <div class="section-num">1</div>
+            <div class="section-title">VMware 제품군 개요 및 Shelfware 맹점 분석</div>
+          </div>
+        </div>
+        <p>
+          Broadcom은 VCF(풀스택)와 VVF(경량) 단 두 가지 번들만을 제공합니다. 대다수 국내 엔터프라이즈는 외장 SAN 스토리지와 물리 방화벽을 이미 보유하고 있음에도 불필요한 vSAN 및 NSX 라이선스를 강제로 구매해야 하는 <strong>심각한 Shelfware(미사용 잉여 기능 강매)</strong>를 겪고 있습니다.
+        </p>
+      </section>
+
+      <section id="sec-2" class="section-card">
+        <div class="section-header">
+          <div style="display:flex; align-items:center;">
+            <div class="section-num">2</div>
+            <div class="section-title">Red Hat OpenShift & Nutanix 대체 영역 1:1 매핑</div>
+          </div>
+        </div>
+        <p>
+          Nutanix NCI(AHV 하이퍼바이저 내장)와 Red Hat OpenShift의 결합을 통해 VMware 인프라 전체를 100% 완벽하게 대체하며, 라이선스 중복 과금을 원천 제거합니다.
+        </p>
+      </section>
+    </div>
+
+    <!-- TAB 2: COMPETITIVE ANALYSIS -->
+    <div id="tab-comp" class="tab-content">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">⚔️ 국내외 경쟁 가상화 및 클라우드 솔루션 심층 분석</div>
+        </div>
+        <p>
+          탈VMware 시장에서 Nutanix 및 OpenShift 외에도 글로벌 및 국내 토종 솔루션들이 거론되고 있으나, 각 솔루션마다 명확한 기술적 한계가 존재합니다.
+        </p>
+
+        <div class="grid-2">
+          <div class="feature-card">
+            <div class="card-title">🌐 Microsoft Azure Local (구 Azure Stack HCI)</div>
+            <p style="font-size:12.5px;">• 강점: 기존 Windows 라이선스 혜택 연계<br>• 한계: Azure 구독 종속, 30일 인터넷 단절 시 인증 문제(폐쇄망 난항), AWS 멀티클라우드 연동 불가</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-title">🇰🇷 오케스트로 (Okestro) 콘트라베이스</div>
+            <p style="font-size:12.5px;">• 강점: 공공 보안 적합성(CC인증) 및 밀착 기술지원<br>• 한계: 글로벌 CSP(AWS/Azure) 양방향 마이그레이션 제약, 글로벌 엔터프라이즈 ISV(SAP HANA 등) 인증 부족</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-title">🌐 SUSE Harvester / Rancher</div>
+            <p style="font-size:12.5px;">• 강점: KubeVirt 기반 경량 오픈소스 HCI<br>• 한계: 분산 스토리지 성숙도 미흡, 국내 금융/대기업 핵심 계정계 대규모 레퍼런스 부재</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-title">🇰🇷 이노그리드 (Innogrid) 클라우드잇</div>
+            <p style="font-size:12.5px;">• 강점: 공공 조달 및 지자체 클라우드 특화<br>• 한계: 대규모 엔터프라이즈 멀티 테넌시 및 고성능 I/O 워크로드 처리 검증 부족</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 3: BATTLECARD -->
+    <div id="tab-battlecard" class="tab-content">
+      <section class="section-card">
+        <div class="section-header"><div class="section-title">⚡ 1-Page 영업 배틀카드</div></div>
+        <div class="grid-2">
+          <div class="feature-card">
+            <div class="card-title">🔍 타깃 발굴 5대 트리거</div>
+            <p style="font-size:12.5px;">• VMware 계약 갱신 D-180일 이내 도래<br>• Broadcom 견적서 수령 후 비용 폭증<br>• vSAN/NSX 미사용인데 VCF 강매 대상<br>• SAP S/4HANA 또는 사내 AI 인프라 추진</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-title">🛡️ 주요 반론 격파</div>
+            <p style="font-size:12.5px;">• <strong>Q. Nutanix가 VMware보다 생태계가 약한가?</strong><br>➔ Dell/HPE 공식 인증 완비 및 HD한국조선해양, BNK금융 등 전사 90% 메인 업무 검증 완료.<br>• <strong>Q. 서비스 중단 없는 이전이 가능한가?</strong><br>➔ Nutanix Move 무상 툴로 10분 내 컷오버 보장.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 4: CALCULATOR -->
+    <div id="tab-calc" class="tab-content">
+      <section class="section-card">
+        <div class="section-header"><div class="section-title">🧮 실시간 TCO 절감액 시뮬레이터</div></div>
+        <div class="calc-container">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+            <div>
+              <div class="slider-group">
+                <div class="slider-header"><span>물리 CPU 코어 수</span><span class="slider-val" id="val-cores">96 Cores</span></div>
+                <input type="range" id="input-cores" min="32" max="1024" step="16" value="96" oninput="calcTCO()">
+              </div>
+              <div class="slider-group">
+                <div class="slider-header"><span>가상머신(VM) 수</span><span class="slider-val" id="val-vms">120 VMs</span></div>
+                <input type="range" id="input-vms" min="20" max="2000" step="10" value="120" oninput="calcTCO()">
+              </div>
+              <div class="slider-group">
+                <div class="slider-header"><span>계약 약정 기간</span><span class="slider-val" id="val-years">3 년</span></div>
+                <input type="range" id="input-years" min="1" max="5" step="1" value="3" oninput="calcTCO()">
+              </div>
+            </div>
+            <div class="result-display">
+              <div style="font-size:13px; color:var(--text-secondary);">예상 총 TCO 절감 금액 (누적)</div>
+              <div class="result-num" id="calc-savings">₩ 165,000,000</div>
+              <div id="calc-pct" style="color:var(--accent-cyan); font-weight:700; font-size:14px;">기존 VMware 대비 약 35% 비용 절감</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    document.getElementById('btn-tab-' + tabId).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function calcTCO() {
+    const cores = parseInt(document.getElementById('input-cores').value);
+    const vms = parseInt(document.getElementById('input-vms').value);
+    const years = parseInt(document.getElementById('input-years').value);
+
+    document.getElementById('val-cores').innerText = cores + ' Cores';
+    document.getElementById('val-vms').innerText = vms + ' VMs';
+    document.getElementById('val-years').innerText = years + ' 년';
+
+    const vmwareTotal = (cores * 150 + vms * 50) * 1350 * years;
+    const nutanixTotal = (cores * 60 + vms * 20) * 1350 * years + 30000000;
+    const savings = Math.max(0, vmwareTotal - nutanixTotal);
+    const pct = Math.round((savings / vmwareTotal) * 100);
+
+    document.getElementById('calc-savings').innerText = '₩ ' + savings.toLocaleString();
+    document.getElementById('calc-pct').innerText = `기존 VMware 대비 약 ${pct}% 비용 절감`;
+  }
+  window.onload = function() { calcTCO(); };
+</script>
+
+</body>
+</html>
