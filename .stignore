@@ -1,4 +1,4 @@
-﻿# Syncthing Ignore File (.stignore)
+# Syncthing Ignore File (.stignore)
 # 다른 PC / 작업용 워크스테이션과의 P2P 동기화 시 로컬 OS 전용 파일 예외 처리
 
 // 1. Virtual Environments & Local Dependencies
@@ -30,6 +30,16 @@ cloud-sql-proxy.exe
 // --- [CortexOS Mem0 로컬 DB 및 바이너리 제외] ---
 .CortexOS/mem0_qdrant_db/
 .CortexOS/mem0_history.db
+
+// 5. docs 폴더 내 원본 문서 (PDF 및 원본 데이터 폴더) 제외
+(?d)docs/**/*.pdf
+(?d)docs/Puzzle Data/
+(?d)docs/퀀텀ai/
+(?d)docs/raw/
+(?d)docs/original/
+(?d)docs/originals/
+(?d)docs/source/
+(?d)docs/sources/
 
 // --- [EXCEPTIONS (동기화 허용할 공통 파일)] ---
 !.CortexOS/mem0_facts.json

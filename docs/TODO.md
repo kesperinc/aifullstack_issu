@@ -11,6 +11,18 @@
   4. **신규 비즈니스 인력/조직 셋업 비용 & 1년 BEP 기준**: 전담 조직(5인) 고정비 시뮬레이션 기반, BEP가 1년 단위 이상이면 '부정적(보류)' 판정
   5. **객관적 톤앤매너 및 '검토 보고서' 명칭 원칙**: 과장 표현 배제 및 객관성 유지
 
+## 🎯 [완료] Syncthing docs 원본 문서 동기화 제외 및 P2P 동기화 헬스체크 (2026-08-26)
+- [x] **docs 내 외부 수신 대용량 원본 문서 동기화 제외 (`.stignore`)**:
+  - [x] `aifullstack/.stignore` 및 워크스페이스 루트 `.stignore` 내 PDF 및 원본 데이터 폴더 제외 규칙(`(?d)**/docs/**/*.pdf`, `(?d)**/docs/Puzzle Data/`, `(?d)**/docs/퀀텀ai/` 등) 적용
+  - [x] 불필요한 대용량 P2P 트래픽 및 동기화 지연 차단
+- [x] **P2P 동기화 무결성 및 충돌(Conflict) 점검/조치**:
+  - [x] 디바이스 연결 상태(`home-sunkim`, `DESKTOP-LGNoteBook`) 100% 정상 가동 확인
+  - [x] 워크스페이스 내 과거 잔여 충돌 파일 2건 삭제 및 `aifullstack` 0-Conflict 무결성 검증
+  - [x] Syncthing REST API를 통한 인덱스 즉시 재스캔(Rescan) 완료
+- [x] **작업 명세서 및 핸드오버 보고서 발간**:
+  - [x] 상세 명세서: [`docs/specs/2026-08-26_syncthing_ignore_and_sync_optimization_spec.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/specs/2026-08-26_syncthing_ignore_and_sync_optimization_spec.md)
+  - [x] 핸드오버 보고서: [`docs/2026-08-26_syncthing_docs_ignore_and_sync_health_handover.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-08-26_syncthing_docs_ignore_and_sync_health_handover.md)
+
 ---
 
 ## 🎯 [완료] 퍼즐데이터 & 퀀텀AI AI Full Stack 접목 Use Case 및 기술 분석 보고서 구축 (2026-08-26)
