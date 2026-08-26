@@ -1,0 +1,125 @@
+=== ppt/slides/slide1.xml ===
+MEGAZONE × RED HAT OpenShift 딜, 플랫폼 전환으로 클로즈하는 법 파트너 세일즈 인에이블먼트 · 실전 딜 플레이북 · 40분 제품 기능 설명보다 고객의 고민, 활용 사례, 경쟁 대응, 전환 리스크, 실행 액션 중심 01
+
+=== ppt/slides/slide10.xml ===
+MEGAZONE × RED HAT 10 메가존이 만들 수 있는 OpenShift 딜 구축 요청을 기다리지 말고 변화 신호에서 먼저 진입한다 • VMware 대체 및 OpenShift Virtualization • 온프레미스·폐쇄망 Kubernetes 표준화 • AWS·Azure·Google Cloud 멀티클라우드 플랫폼 • 애플리케이션 현대화 및 DevSecOps • AI/ML 플랫폼 기반 구축 • 컨테이너 보안·이미지 레지스트리·공급망 통제 • OpenShift 운영 MSP와 플랫폼 엔지니어링
+
+=== ppt/slides/slide11.xml ===
+MEGAZONE × RED HAT 11 대표 딜 스토리 예시 실제 고객 사례 확보 후 고객명·수치로 교체 구분 내용 상황 제조기업 A사. VMware 비용 상승, 일부 앱은 컨테이너 전환, AI PoC 시작 페인 VM과 컨테이너 운영이 분리되고, 클라우드와 온프레미스 배포 표준이 다름 진입 질문 “앞으로 VM·컨테이너·AI 워크로드를 각각 다른 운영체계로 가져가실 건가요?” 전환점 비핵심 VM 1개와 신규 컨테이너 앱 1개를 같은 플랫폼에서 파일럿 결과 구조 OpenShift 구독 + 구축 + 마이그레이션 + 운영 MSP + AI 확장
+
+=== ppt/slides/slide12.xml ===
+MEGAZONE × RED HAT 12 딜을 세 단계로 해부한다 성공사례를 반복 가능한 세일즈 모션으로 바꾼다 1 진입 시그널 • VMware 갱신·비용 압박 • Kubernetes 난립 • AI·DevSecOps 착수 2 결정적 전환점 • 워크로드 분류 • 파일럿 성공 기준 합의 • 운영·보안 키맨 확보 3 클로징 메커니즘 • TCO·리스크 비교 • 단계 전환 로드맵 • 메가존 운영지원 포함 핵심: “컨테이너 플랫폼이 필요합니까?”가 아니라 “어떤 워크로드를 어떤 운영 기준으로 통합할 것입니까?”로 질문한다
+
+=== ppt/slides/slide13.xml ===
+MEGAZONE × RED HAT 13 타깃 고객 티어링 바로 공략할 고객과 육성할 고객을 나눈다 구분 고객 신호 진입 방식 Tier 1 VMware 갱신·비용 이슈, Kubernetes 운영 실패, 보안 감사 지적 Assessment 또는 워크로드 분류 미팅 Tier 2 클라우드 이전, AI 플랫폼, DevSecOps, 앱 현대화 예정 아키텍처 리뷰와 파일럿 제안 Tier 3 개발팀 컨테이너 사용 시작, 소규모 서비스 성장 세미나·핸즈온·표준 가이드 제공 제외 일회성 실험, 단일 앱, 운영 표준화 의지 없음 무리한 제안보다 육성 또는 보류
+
+=== ppt/slides/slide14.xml ===
+MEGAZONE × RED HAT 14 OpenShift 타깃 신호 빌링만 보지 말고 운영·계약·보안·프로젝트 신호를 함께 본다 데이터 확인할 신호 VMware·가상화 계약 갱신 시점, 코어 증가, DR·VDI·서버 통합 요구 클라우드 비용·자산 EKS/AKS/GKE 증가, 클러스터 난립, 중복 도구 보안 취약점·감사 이미지 취약점, 권한 과다, 배포 승인 미흡 장애·운영 이력 업그레이드 실패, 클러스터 장애, 배포 실패 반복 프로젝트 계획 AI, DevSecOps, 앱 현대화, 폐쇄망, 공장·엣지 조직 변화 플랫폼 엔지니어링 조직 신설, DevOps 인력 부족
+
+=== ppt/slides/slide15.xml ===
+MEGAZONE × RED HAT 15 이해관계자 맵 같은 플랫폼을 사람마다 다른 언어로 설명한다 대상 관심사 핵심 문장 개발팀 배포 속도·셀프서비스 “승인 기다림보다 표준 템플릿으로 바로 배포합니다” 운영팀 업그레이드·장애·표준화 “클러스터를 하나의 운영 제품처럼 관리합니다” 보안팀 이미지·정책·권한 “보안을 배포 뒤가 아니라 배포 흐름 안에 넣습니다” CIO/CTO 클라우드·AI·현대화 “VM·컨테이너·AI를 같은 전략 아래 묶습니다” CFO 비용·리스크 “라이선스가 아니라 사람·장애·전환 비용까지 봅니다”
+
+=== ppt/slides/slide16.xml ===
+MEGAZONE × RED HAT 16 첫 미팅 디스커버리 질문 파는 말보다 고객 입으로 운영 문제를 말하게 한다 • 현재 Kubernetes 클러스터는 몇 개이며 누가 운영합니까? • VM과 컨테이너 운영은 같은 팀이 관리합니까? • 클러스터 업그레이드와 장애 대응은 표준 절차가 있습니까? • 개발팀은 승인된 방식으로 셀프서비스 배포가 가능합니까? • 이미지 취약점과 런타임 보안은 어디에서 통제합니까? • 올해 AI·DevSecOps·VMware 대체·앱 현대화 계획이 있습니까? • 온프레미스와 클라우드의 배포·보안·관측 기준이 동일합니까? “가장 중요한 질문: “클러스터는 있는데, 전사 플랫폼으로 운영되고 있습니까?””
+
+=== ppt/slides/slide17.xml ===
+MEGAZONE × RED HAT 17 12주 딜 사이클 기존 인프라 리뷰 루틴에 OpenShift 전환 대화를 얹는다 W0 리스트업 VMware·K8s·AI·보안 신호 추출 W1–2 진입 미팅 운영 페인·워크로드·키맨 확인 W3–4 아키텍처 리뷰 에디션·배치·파일럿 설계 W5–8 파일럿 VM/앱/보안/배포 시나리오 검증 W9–12 클로징 TCO·마이그레이션·운영 MSP 제안 클로징 고정 질문: “첫 파일럿 워크로드는 VM입니까, 컨테이너 앱입니까, AI 워크로드입니까?”
+
+=== ppt/slides/slide18.xml ===
+MEGAZONE × RED HAT 18 랜드앤익스팬드 처음부터 전사 전환을 팔지 말고 안전한 출발점을 잡는다 Land Expand Attach 비핵심 VM 파일럿 핵심 업무 VM 이전 OpenShift Virtualization 운영 신규 컨테이너 앱 앱 현대화 확대 DevSecOps·GitOps·CI/CD 폐쇄망 작은 클러스터 전사 표준 플랫폼 Quay·ACM·ACS·ODF AI PoC 인프라 AI 모델 운영 플랫폼 OpenShift AI·GPU 운영 단일 사업부 계열사·해외 법인 확산 Managed Platform Service 참고: Red Hat 공식 OpenShift 제품 페이지, OpenShift Container Platform, Platform Plus 자료 기반
+
+=== ppt/slides/slide19.xml ===
+ACT 3 반론 격파 Kubernetes 기능표 싸움에서 조직·운영·리스크 검증으로 전환 19
+
+=== ppt/slides/slide2.xml ===
+MEGAZONE × RED HAT 02 오늘 40분의 구조 문제 정의 → 딜 발굴 → 반론 격파 → 파트너 수익과 실행 ACT 1 문제 정의 왜 Kubernetes가 아니라 기업 애플리케이션 플랫폼인가 ACT 2 딜 발굴 타깃 신호 · 이해관계자 · 12주 세일즈 사이클 ACT 3 반론 격파 EKS/AKS/GKE · OSS Kubernetes · 비용 · 전환 리스크 ACT 4 수익·액션 메가존 사업 확장 · 지원 오퍼 · 다음 주 할 일 가장 긴 파트는 ACT 3 — 고객이 이미 Kubernetes를 안다고 말할 때 싸움터를 바꾸는 배틀카드
+
+=== ppt/slides/slide20.xml ===
+MEGAZONE × RED HAT 20 대원칙 기능표로 싸우지 말고 운영 적합성을 검증한다 “Kubernetes 배포판 비교가 아니라, 귀사의 애플리케이션을 누가 얼마나 안전하게 운영할 수 있는지 비교하겠습니다.” • 기능 수로 싸우면 고객의 프레임 안에서 논다 • 반박보다 “같은 워크로드·같은 운영 조건” 검증을 제안한다 • 경쟁사가 유리한 환경은 인정하고, 우리가 이기는 판을 분명히 한다 • PoC는 기능 데모가 아니라 운영 리스크를 증명하는 과정이다
+
+=== ppt/slides/slide21.xml ===
+MEGAZONE × RED HAT 21 반론 대응 5단계 화법 어떤 반론이 와도 같은 절차로 흐른다 단계 화법 목적 1 인정 “그 선택도 충분히 가능합니다” 방어적 대립 방지 2 확인 “어떤 워크로드와 운영 조건에서 보셨나요?” 근거와 맥락 확인 3 전환 “기능보다 운영 책임과 조직 역량을 보겠습니다” 싸움터 변경 4 검증 “동일 조건으로 레퍼런스와 운영 공수를 비교하죠” 입증 책임 이동 5 실측 “파일럿으로 직접 확인하겠습니다” 말을 데이터로 전환
+
+=== ppt/slides/slide22.xml ===
+MEGAZONE × RED HAT 22 경쟁 지형 한눈에 우리가 이기는 자리를 지도에서 찾는다 선택지 강점 주의할 점 OSS Kubernetes 낮은 초기 비용·높은 자유도 운영 표준과 지원 책임을 내부가 감당해야 함 EKS/AKS/GKE 각 CSP에 최적화된 관리형 경험 멀티클라우드·온프레미스 일관성은 별도 설계 필요 VMware Tanzu 기존 VMware 운영 연계 비용·전략 변화와 컨테이너/VM 통합 방향 확인 Rancher/SUSE 경량 멀티클러스터 관리 보안·개발자 경험·생태계 요구 확인 OpenShift 하이브리드 일관성, 개발자·운영·보안 통합 초기 설계와 운영 모델 정립이 중요
+
+=== ppt/slides/slide23.xml ===
+MEGAZONE × RED HAT 23 우리가 이기는 판 OpenShift가 가장 설득력 있는 환경 • 온프레미스와 퍼블릭 클라우드를 함께 운영하는 고객 • VMware 대체와 앱 현대화를 동시에 검토하는 고객 • 보안·규제·망분리·폐쇄망 요건이 강한 고객 • 개발팀 셀프서비스와 중앙 통제가 모두 필요한 고객 • AI/ML·GPU·모델 서빙을 운영 플랫폼으로 전환하려는 고객 • 클러스터가 늘어나 운영팀이 감당하기 어려운 고객 • Red Hat 생태계 RHEL·Ansible·Quay·ACS·ACM과 연계 가능한 고객 참고: Red Hat 공식 OpenShift 제품 페이지, OpenShift Container Platform, Platform Plus 자료 기반
+
+=== ppt/slides/slide24.xml ===
+MEGAZONE × RED HAT 24 어려운 판 전체 전환보다 범위와 시점을 조정한다 어려운 환경 • 단일 클라우드에 완전히 고정 • 작은 개발팀의 단기 실험 • Kubernetes 전문가가 충분히 많음 • 비핵심 앱 한두 개만 운영 • 초기 비용만 비교하는 구매 프레임 전환 • 멀티클라우드·DR 미래 시나리오 • 운영·보안·감사 포함 TCO • VM·컨테이너·AI 통합 로드맵 • 핵심 업무 또는 규제 대상부터 • 파일럿 범위 축소 후 검증
+
+=== ppt/slides/slide25.xml ===
+MEGAZONE × RED HAT 25 오브젝션 ② “오픈소스 Kubernetes면 충분하지 않나요?” 실행 가능성과 운영 책임은 다르다 확인 질문 전환 프레임 클러스터 업그레이드는 누가, 얼마나 자주 합니까? 내부 운영공수와 장애 리스크 이미지·권한·네트워크 정책은 표준화되어 있습니까? 보안·정책 통제 개발팀별 배포 방식이 달라지지 않습니까? 플랫폼 엔지니어링 운영자 교체 시 같은 수준을 유지할 수 있습니까? 사람 의존도 감소 장애 시 벤더 지원과 책임 경계가 있습니까? 기업 지원 체계
+
+=== ppt/slides/slide26.xml ===
+MEGAZONE × RED HAT 26 오브젝션 ③ “EKS/AKS/GKE면 되는 것 아닌가요?” 클라우드 서비스와 기업 표준 플랫폼의 차이를 분리한다 • 단일 클라우드 중심이면 관리형 Kubernetes가 합리적일 수 있음 • 그러나 온프레미스·폐쇄망·멀티클라우드까지 가면 운영 기준이 분산됨 • 클라우드별 보안·배포·관측·IAM 방식 차이가 커질 수 있음 • OpenShift는 self-managed와 managed cloud services를 함께 선택할 수 있음 • 핵심 질문: “장소가 바뀌어도 같은 개발·운영 경험을 유지해야 합니까?” 참고: Red Hat 공식 OpenShift 제품 페이지, OpenShift Container Platform, Platform Plus 자료 기반
+
+=== ppt/slides/slide27.xml ===
+MEGAZONE × RED HAT 27 오브젝션 ④ “OpenShift는 비쌉니다” 단가가 아니라 전체 운영 구조로 비교한다 제품 가격만 보면 전체비용으로 보면 Kubernetes 자체는 무료처럼 보임 운영자·보안·업그레이드·장애 대응 비용이 발생 CSP 관리형은 초기 진입이 쉬움 클라우드별 도구·정책·인력 분산 비용이 발생 OpenShift는 구독료가 보임 플랫폼 표준화·지원·생태계·운영 자동화 가치가 포함 기능 비교로는 설득 어려움 워크로드별 3년 TCO와 리스크 비교가 필요 대응 문장: “비싼지 여부는 클러스터 비용이 아니라 사람·장애·보안·전환 비용을 포함해 봐야 합니다.”
+
+=== ppt/slides/slide28.xml ===
+MEGAZONE × RED HAT 28 VMware 대체 프레임 전환 교체가 아니라 다음 운영 모델을 설계한다 가상화만 보면 • 하이퍼바이저 비용 비교 • VM 마이그레이션 중심 • 인프라팀 단독 의사결정 • 기존 운영 방식 유지 OpenShift로 보면 • VM과 컨테이너 동시 운영 • 장기 앱 현대화 경로 확보 • 개발·운영·보안 공동 플랫폼 • AI·DevSecOps 확장 기반 참고: Red Hat 공식 OpenShift 제품 페이지, OpenShift Container Platform, Platform Plus 자료 기반
+
+=== ppt/slides/slide29.xml ===
+MEGAZONE × RED HAT 29 오브젝션 ⑥ “앱을 컨테이너로 바꾸는 게 위험합니다” 현대화는 빅뱅이 아니라 선택지의 문제 • 모든 앱을 한 번에 refactor하지 않는다 • 유지·rehost·re-platform·refactor를 업무별로 나눈다 • VM은 OpenShift Virtualization으로 우선 수용 가능 • 신규 앱부터 컨테이너 표준을 적용하고, 기존 앱은 단계적으로 이동 • 위험은 기술보다 순서와 검증 부재에서 발생한다 “질문은 “컨테이너로 바꿀 수 있나”가 아니라 “어떤 앱부터 어떤 방식으로 옮길 것인가”입니다.”
+
+=== ppt/slides/slide3.xml ===
+ACT 1 문제 정의 왜 지금 OpenShift인가 — Kubernetes 운영을 플랫폼 전략으로 재정의 03
+
+=== ppt/slides/slide30.xml ===
+MEGAZONE × RED HAT 30 도입·전환 리스크 맵 고객이 진짜 두려워하는 것을 먼저 꺼낸다 위험 확인 내용 대응 서비스 중단 컷오버 허용시간·롤백 파일럿·병행 운영·단계 전환 앱 호환성 상태 저장·세션·스토리지 워크로드 분류와 사전 테스트 운영 미숙 클러스터·Operator·배포 절차 핸즈온·운영 Runbook 보안 정책 이미지·권한·네트워크 표준 정책과 승인 흐름 비용 초과 노드·스토리지·라이선스 사이징·TCO·사용량 리뷰 조직 저항 개발/운영/보안 역할 RACI와 플랫폼 운영 모델
+
+=== ppt/slides/slide31.xml ===
+MEGAZONE × RED HAT 31 도입 플레이북 빅뱅이 아니라 분석→파일럿→단계 확장 1 발견 워크로드·클러스터·보안·조직 현황 2 분류 VM·컨테이너·AI·제외 대상 구분 3 설계 에디션·아키텍처·보안·운영모델 4 파일럿 대표 워크로드로 검증 5 확장 운영 MSP와 표준 이미지·정책 확대 각 단계를 메가존이 리드하면 단순 라이선스가 아니라 구축·마이그레이션·운영까지 주도권을 가져갑니다.
+
+=== ppt/slides/slide32.xml ===
+MEGAZONE × RED HAT 32 미팅에서 보여줄 데모 3가지 기능 전체가 아니라 페인을 증명하는 장면만 보여준다 데모 보여줄 것 고객 페인 Developer self-service 템플릿·빌드·배포·Route 개발 속도와 표준화 Policy & Security 이미지 스캔·권한·네트워크 정책 보안팀 통제와 감사 VM + Container VM 실행과 컨테이너 앱 배포 VMware 대체와 현대화 연결 AI 확장 옵션 GPU·모델 서빙·OpenShift AI 연결 AI PoC→운영 전환 참고: Red Hat 공식 OpenShift 제품 페이지, OpenShift Container Platform, Platform Plus 자료 기반
+
+=== ppt/slides/slide33.xml ===
+MEGAZONE × RED HAT 33 기능표 싸움에 끌려간 딜 경쟁사의 홈그라운드에서 싸우지 않는다 패인 • EKS·AKS·GKE 기능 비교표로 대응 • 고객의 단일 클라우드 프레임을 깨지 못함 • 운영·보안·조직 공수로 전환하지 못함 • 파일럿 성공 기준이 기능 체크리스트로 변질 교훈 • 기능 수가 아니라 운영 책임으로 비교 • 멀티클라우드·폐쇄망·보안 요건 여부 확인 • 비교 기준을 먼저 합의 • 동일 워크로드 실측으로 전환
+
+=== ppt/slides/slide34.xml ===
+MEGAZONE × RED HAT 34 플랫폼 챔피언 없이 진행한 PoC 좋은 기술 검증만으로는 클로징이 안 된다 패인 • 개발팀은 좋아했지만 운영팀이 불안 • 보안팀은 정책과 감사 증빙을 요구 • CIO에게는 “왜 지금?”이 설명되지 않음 • PoC가 계약 논리로 번역되지 못함 교훈 • 초기부터 개발·운영·보안·임원 테이블 구성 • PoC 성공 기준에 운영·보안 포함 • 비즈니스 언어와 TCO 준비 • 플랫폼 운영 모델을 함께 제안
+
+=== ppt/slides/slide35.xml ===
+ACT 4 수익과 실행 교육이 아니라 파이프라인 킥오프 35
+
+=== ppt/slides/slide36.xml ===
+MEGAZONE × RED HAT 36 기능이 아니라 네 가지 언어 고객 반론을 같은 구조로 회수한다 고객 반론 답변 언어 핵심 메시지 Kubernetes는 있습니다 플랫폼의 언어 클러스터 보유와 전사 운영 표준은 다릅니다 EKS/AKS/GKE면 됩니다 일관성의 언어 장소가 바뀌어도 같은 경험이 필요합니다 OpenShift는 비쌉니다 전체비용의 언어 사람·장애·보안·전환 비용까지 봅니다 전환이 위험합니다 순서의 언어 분석·파일럿·단계 확장으로 위험을 나눕니다
+
+=== ppt/slides/slide37.xml ===
+MEGAZONE × RED HAT 37 메가존이 가져가는 것 단기 구축부터 장기 운영 경쟁력까지 구분 수익 구조 단기 · 딜당 수익 OpenShift 구독, 구축, 아키텍처 설계, 마이그레이션, 파일럿 중기 · 반복 매출 OpenShift 운영 MSP, 패치·업그레이드, 보안 점검, 장애 대응 장기 · 사업 확장 VMware 대체, 앱 현대화, AI 플랫폼, DevSecOps, 하이브리드 클라우드 리텐션 방어 고객 관계가 인프라에서 애플리케이션 플랫폼 계층으로 깊어짐
+
+=== ppt/slides/slide38.xml ===
+MEGAZONE × RED HAT 38 메가존 지원 오퍼 OpenShift Platform Assessment • 현행 VM·컨테이너·Kubernetes·보안·운영 현황 분석 • 워크로드 분류: VM 유지, VM 이전, 컨테이너화, 현대화, 제외 • OpenShift 에디션 및 아키텍처 방향 제안 • 파일럿 후보 워크로드와 성공 기준 정의 • TCO·전환 리스크·운영 MSP 범위 산정 • Red Hat SE와 공동 어카운트 플랜 수립 고객 제안 문장: “도입을 먼저 결정하지 마시고, 어떤 워크로드부터 안전하게 플랫폼화할 수 있는지부터 보겠습니다.”
+
+=== ppt/slides/slide39.xml ===
+MEGAZONE × RED HAT 39 한 장 배틀카드 다음 미팅에서 그대로 펼치는 요약 항목 내용 한 줄 가치 VM·컨테이너·AI 워크로드를 일관된 보안·배포·운영 기준으로 묶는 기업 애플리케이션 플랫폼 즉시 타깃 VMware 갱신, K8s 난립, 보안 감사, AI 운영화, 폐쇄망, 앱 현대화 핵심 질문 “클러스터는 있는데 전사 플랫폼으로 운영되고 있습니까?” 대표 반론 OSS K8s, EKS/AKS/GKE, 비용, VMware 대체, 전환 위험 공통 무기 기능표보다 동일 워크로드·동일 운영 조건으로 검증 다음 행동 OpenShift Platform Assessment 또는 파일럿 워크로드 선정
+
+=== ppt/slides/slide4.xml ===
+MEGAZONE × RED HAT 04 현장에서 가장 많이 듣는 다섯 문장 첫 미팅에서 고객이 이미 갖고 있는 프레임을 확인한다 1 “Kubernetes는 이미 있습니다” 2 “EKS/AKS/GKE면 되는 것 아닌가요?” 3 “OpenShift는 너무 무겁고 비싸다던데요” 4 “VMware 대체면 그냥 가상화 솔루션이면 되지 않나요?” 5 “애플리케이션을 컨테이너로 바꾸는 게 더 위험합니다”
+
+=== ppt/slides/slide40.xml ===
+MEGAZONE × RED HAT 40 이번 주 액션 아이템 교육이 아니라 파이프라인 킥오프입니다 • 관리 고객 중 VMware 갱신·Kubernetes 운영·AI 플랫폼·보안 감사 신호가 있는 상위 10개 추출 • 각 고객을 Tier 1/2/3으로 분류하고 첫 미팅 질문 한 줄 작성 • Red Hat 담당자와 2주 내 1:1 어카운트 플랜 세션 진행 • 파일럿 후보 워크로드 1개 선정: VM, 컨테이너 앱, AI 중 하나 • Assessment 산출물 템플릿: 현황, 리스크, 전환 방식, TCO, 운영 MSP 범위
+
+=== ppt/slides/slide41.xml ===
+MEGAZONE × RED HAT 41 참고 자료 공식 자료 기준으로 업데이트 필요 • Red Hat OpenShift 제품 페이지: https://www.redhat.com/en/technologies/cloud-computing/openshift • Red Hat OpenShift Container Platform: https://www.redhat.com/en/technologies/cloud-computing/openshift/container-platform • Red Hat OpenShift Platform Plus: https://www.redhat.com/en/technologies/cloud-computing/openshift/platform-plus • 고객 제안 전에는 최신 제품 구성, 에디션, 가격, 지원 범위를 Red Hat 담당자와 확인
+
+=== ppt/slides/slide42.xml ===
+MEGAZONE × RED HAT 우리는 Kubernetes를 판매하지 않습니다. 고객의 애플리케이션 운영 방식을 더 빠르고, 더 안전하고, 더 일관된 플랫폼으로 전환합니다. 딜 클로즈는 플랫폼 전환의 결과입니다. 42
+
+=== ppt/slides/slide5.xml ===
+MEGAZONE × RED HAT 05 오브젝션 ① “Kubernetes는 이미 있습니다” 클러스터 보유와 플랫폼 운영은 다른 문제 고객이 보는 것 • 클러스터가 이미 있음 • kubectl로 배포 가능 • DevOps 팀이 운영 중 • CSP 관리형 Kubernetes 사용 • 컨테이너 런타임은 돌아감 확인해야 할 것 • 여러 팀이 동일한 표준으로 쓰는가 • 보안·정책·이미지·배포가 통제되는가 • 업그레이드와 장애 책임이 명확한가 • 온프레미스와 클라우드 경험이 같은가 • 개발자가 셀프서비스로 쓸 수 있는가 “Kubernetes가 있는가가 아니라, 조직이 Kubernetes를 안전하고 반복 가능하게 쓸 수 있는가가 핵심입니다.” 참고: Red Hat 공식 OpenShift 제품 페이지, OpenShift Container Platform, Platform Plus 자료 기반
+
+=== ppt/slides/slide6.xml ===
+MEGAZONE × RED HAT 06 문제 재정의 컨테이너 도입이 아니라 애플리케이션 운영 표준화로 설명한다 낮은 프레임 높은 프레임 Kubernetes 구축 전사 애플리케이션 플랫폼 표준화 컨테이너 런타임 운영 보안·배포·관측·정책이 통합된 운영 체계 개발팀 도구 개발·운영·보안이 함께 쓰는 공통 플랫폼 인프라 비용 출시 속도·운영 리스크·클라우드 전략 클러스터 한 대 온프레미스·퍼블릭 클라우드·엣지를 잇는 일관성
+
+=== ppt/slides/slide7.xml ===
+MEGAZONE × RED HAT 07 왜 지금 OpenShift인가 AI·VMware 대체·멀티클라우드·보안 요구가 한 플랫폼에서 만난다 VMware 비용 압박 VM과 컨테이너를 같은 플랫폼에서 운영하려는 요구 증가 AI 운영 전환 GPU·모델 서빙·데이터 접근을 Kubernetes 기반으로 표준화 멀티클라우드 현실화 온프레미스와 AWS·Azure·Google Cloud의 운영 차이를 줄여야 함 보안·공급망 리스크 이미지·정책·취약점·런타임 통제를 개발 흐름에 내장 운영인력 부족 설치·업그레이드·모니터링·정책을 플랫폼으로 표준화 참고: Red Hat 공식 OpenShift 제품 페이지, OpenShift Container Platform, Platform Plus 자료 기반
+
+=== ppt/slides/slide8.xml ===
+MEGAZONE × RED HAT 08 한 문장 가치제안 기능보다 고객의 운영 구조를 바꾸는 메시지 OpenShift는 Kubernetes를 하나 더 구축하는 제품이 아니라, 분산된 애플리케이션을 보안·배포·운영·확장 기준이 통합된 기업 플랫폼으로 전환하는 표준입니다. • 개발자는 더 빨리 배포 • 운영자는 더 일관되게 관리 • 보안팀은 더 앞단에서 통제 • 경영진은 클라우드와 AI 전환의 기반 확보
+
+=== ppt/slides/slide9.xml ===
+ACT 2 딜 발굴 누구에게, 어떤 신호로, 어떤 질문을 던질 것인가 09

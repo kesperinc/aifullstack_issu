@@ -1,0 +1,266 @@
+=== PAGE 1 ===
+Delivering the Blueprint for Premium Inference 
+Copyright © 2026 SambaNova Systems Inc.   |   Confidential & Proprietary   |   sambanova.ai 
+
+=== PAGE 2 ===
+2
+Confidential & Proprietary 
+The SambaNova Journey Snapshot: ●Founded in 2017 by AI pioneers with roots at Stanford University●400+ employees across Palo Alto, Austin, London, Bangalore, Tokyo, Singapore, and Australia●$1.4B+ funding raised through Series E●$1B Series F close at $11B post-money valuation
+Founders 
+Rodrigo Liang Co-founder & CEO Kunle Olukotun Co-founder & Chief Technologist & Stanford Professor 
+Christopher Ré Co-founder & Stanford Professor Lip-Bu Tan Chairman 
+Sophisticated, long-term investors and strategic new investors 
+
+
+=== PAGE 3 ===
+SambaNova accelerates enterprise AI infrastructure momentumThe company completed the first close of $1B in Series F financing at an $11B valuation, alongside new enterprise adoption from JPMorganChase. FINANCING MILESTONE 
+$1B Series F first close Strategic financing led by General Atlantic, with significant investment from Seligman Ventures and T. Rowe Price Associates. VALUATION SIGNAL 
+$11B post-money valuation SambaNova’s valuation highlights the growing market demand for fast inference infrastructure built for enterprise AI deployment. ENTERPRISE VALIDATION 
+JPMorganChase selects SambaNova for on-prem AI inference JPMorganChase is deploying SN40 and SN50 systems to power secure, on-prem AI inference for enterprise workloads. 
+“SambaNova’s $11 billion valuation highlights the central role that fast inference now plays in the enterprise AI stack.” 
+Co-founder & CEO, SambaNova Rodrigo Liang 
+
+
+=== PAGE 4 ===
+Why Speed Matters for Agents LLM Call #1Output: 10sTokens: 1K LLM Call #2Output: 15sTokens: 10K 
+Agent Planning Tool CallWeb SearchAgent Skill etc. User Request 
+LLM Call #3Output: 20sTokens: 100K 
+01. End-to-end latency 02. Cost per task 03. Task success/quality 
+Latency compound across every step of the workflow  
+2026 © 
+Confidential & Proprietary 
+4
+
+=== PAGE 5 ===
+Copyright © 2026 SambaNova Inc.   |   Confidential & Proprietary   |   sambanova.ai
+Premium Inference is the new Standard  “NVIDIAjust admitted the general-purpose GPU era is ending” Matt Marshall January 3, 2026 
+110 Tokens Entering the Trillion Parameter Era  
+25 Hours  Agents Are Running for Days instead of Hours on current GPUs 
+250  Token/s/user  Enterprises are paying a premium for speed on intelligent models 
+Dylan Patel @dylan522p Open models show 2.5x faster, 6x more expensive Lower batch size, speculative decoding harder Pareto optimal curve for Deepseek at InferenceMAX.aishows this Claude Opus 4.6 is 100 Tok/s/user Deepseek at 100 is 6k Tok/s/GPU At 250 tok/s/user it's closer to 1k 
+Long Horizon Coding Agent on OpenAI Codex Using GPT5.3-codex at Extra High reasoning  ACTIVE RUNTIME 25.4h 29.7h wall-clock session span  
+TOKEN USAGE  12.7M  10.7M input •2.0M output  
+TOOL CALLS 2,106 1,391 shell calls •632 patches  
+PATCH VOLUME 26.0k  Appropriate lines added  
+PEAK SINGLE STEP 270,352 Tokens in one turn 
+Long Horizon Coding Agent on OpenAI Codex LLM Call #1Output: 10sTokens: 1K LLM Call #2Output: 15sTokens: 10K 
+Agent Planning Tool CallWeb SearchAgent Skill etc. User Request 
+LLM Call #3Output: 20sTokens: 100K 
+01. End-to-end latency 02. Cost per task 03. Task success/quality Latency compound across every step of the workflow  
+2026 © 
+Confidential & Proprietary 
+5
+
+=== PAGE 6 ===
+Demystifying the Tokenomics of Inference 
+Premium Tokens  =  Model Scale  x Tokens / Sec / User 
+Slow Frontier Smart, but painful UX 
+Commodity Race to zero 
+Premium Tokens Frontier intelligence, interactive speeds 
+Fast, But Limited Speed without intelligence 
+Model Scale 
+Inference Speed Slow Fast 
+Small Frontier 
+Intelligence Both axes compound intelligence + User Experience Faster tokens = responsive, delightful UX = Pricing Power Premium product = premium $ / token 
+2026 © 
+Confidential & Proprietary 
+6
+
+=== PAGE 7 ===
+GPU SN40 SN50 
+2026 © 
+Five Generations of Dataflow Innovation From SN10 to SN50, SambaNova has continued to advance its inference architecture across multiple chip generations. 
+Superior Chip Performance for AI Inference 
+10xspeed of GPUs
+45xInference vs. SN40
+SN10 2020 SN20 2021 SN30 2022 SN40 2023 SN50 2025 
+Tape-Outs Last Seven Years 6 
+3 2 
+Confidential & Proprietary 
+7
+
+=== PAGE 8 ===
+2026 © 
+07
+Lower Model Spend, Faster Output A blended model workflow can reduce total bill while improving speed, without forcing teams to abandon the models they already rely on.
+A frontier-model-heavy coding workflow can deliver strong quality, but total spend rises quickly and response speed becomes harder to scale. 
+Claude Most requests go to Claude 
+Monthly Model Bill (Example) ~$200K+Higher Spend
+Coding Response Speed 
+Slower Output 
+Without SambaNova A blended workflow keeps high-value frontier models in the stack, while routing the right work more efficiently to improve speed and reduce total cost. 
+Claude High-value, complex work 
+MiniMax Fast efficient throughput 
+Intelligent Routing & Inference 
+Monthly Model Bill (Example) ~50%Lower Spend
+Coding Response Speed 
+3x Faster Output 
+With SambaNova 
+50% Lower Bill Same outcomes, Smarter mix 3x Faster Higher velocity for developers Preferred Models Still in Workflow Claude remains. Teams don’t have to give it up. 
+Takeaway:A smarter inference mix improves economics and speed without requiring a full workflow change.Confidential & Proprietary 
+
+=== PAGE 9 ===
+SN50 RDU 5nm TSMCReconfigurable Dataflow ArchitectureThree-Tier Memory (SRAM, HBM2e, DDR) 
+2026 © 
+05 
+SambaNova Partners with CSPs to Serve Agents with Less Infrastructure using Existing Data Centers 
+SN50: Purpose-Built for Fast Decode SambaNova helps providers serve agents with less infrastructure using existing data centers. 
+•Premium Fast Tokens •Energy Efficiency •Agentic Caching 
+Confidential & Proprietary 
+
+=== PAGE 10 ===
+The Best Balance of User Speed and System Throughput Gen Speed VS Gen Throughput -Llama 3.3 70B, FP8, 1K, 1K B200 TRT) per GPU Output Token Throughput, FP8, InferenceX SN50 per RDU Output Token Throughput, FP8, estimated 
+Over 3x Savings 
+THE GOLDILOCKS ZONE 
+5x Max Speed 
+40 80 60 100 200 400 600 800 0 
+1000 
+2000 
+3000 
+4000 
+5000 Output Token Throughput Per Chip 
+Generation Speed per User 
+
+=== PAGE 11 ===
+Copyright © 2025 SambaNova Inc.   |   Confidential & Proprietary   |   sambanova.ai
+7 
+Confidential & Proprietary 
+Same Premium Price. Lower Cost. Higher Margin. GPU-based inference turns premium demand into premium cost. SambaNova turns it into margin. Commodity tokens on GPU Premium tokens on GPU Premium tokens on SambaNova RDU 
+THIN MARGIN SQUEEZED MARGIN 
+Same premium price 
+COST 
+OUTSIZED MARGIN 
+MARGIN 
+Margin Margin GPU Cost Same Premium Price Same premium price. A fraction of the cost. Margin that scales. 
+7x MARGIN EXPANSION 
+
+=== PAGE 12 ===
+SambaNova Solves the Compute Crisis, Freeing GPU CapacityMove high-speed decode off GPUs. Free GPU racks for prefill, training, and other compute-heavy work. Compute Constrained Data CentersTHE SHIFT SambaNova CustomersEverything runs on GPUs All workloads compete for the same constrained supply. •GPU RACKS 
+Decode dominant load 
+Training compute-heavy 
+Prefill parallel 
+Other workloads misc 
+Decode steals capacity from everything else. 
+SAMBANOVA RDU 
+Offload decode 
+01 RDU handles decode Built for token generation. Lower per token throughput. Fast Inference 
+Higher Margins
+Existing Footprint 
+02 GPUs are freed up No more competing capacity. GPUs return to compute-heavy where they excel Prefill Training Other compute 
+7 
+Confidential & Proprietary 
+
+=== PAGE 13 ===
+09 Confidential & Proprietary 
+
+
+=== PAGE 14 ===
+Copyright © 2026 SambaNova Systems Inc.   |   Confidential & Proprietary   |   sambanova.ai
+2026 © 
+SambaNova Platform: From Chips to Models
+APIsInference | BYOC
+Products
+Platform
+System
+SambaStackHosted | On-Premises | Air-Gapped
+SambaManagedManaged Inference Cloud
+Foundation ModelsLlama | Qwen | DeepSeek |gpt-oss | MiniMax
+RDU AI Processor)SN40L | SN50
+Orchestration Load Balancing | Monitoring | Model Management
+SambaRackHardware + Operating System + Networking
+SambaCloudDeveloper
+
+=== PAGE 15 ===
+Confidential & Proprietary 15
+SambaNova Platform: From Chips to Models AI Developers Developer Ecosystem Agentic Frameworks Needing Fast Decode 
+ML Ops ML Ops Ecosystem LLM Orchestration and Model APIs 
+AI Infrastructure Dev Ops Infrastructure Management and Health Checks ML Engineers and Researcher PyTorch Model Compilation 
+Sys. administrators SambaRack Manager NVIDIA DCGM 
+SambaRack N DGX | NVL RDU AI Processor) SN40 | SN50 GPU Blackwell | Rubin | MI300X 
+Systems Hardware & Management 
+
+
+=== PAGE 16 ===
+Fast Inference on Leading Open-Source Models SambaNova supports many of today’s largest and most capable open-source models with fast inference built for production AI.  
+Meta Llama 4Maverick-17B128EInstructMeta Llama 3.370BInstructMeta Llama 3.18BInstructLlama-3.3Swallow-70BInstruct-v0.4 OpenAI GPTOSS120bWhisper-Large-v3  
+DeepSeek-R1 0528DeepSeek V30324DeepSeek-R1Distill-Llama-70BDeepSeek-V3.1DeepSeek-V3.2 
+Qwen332BQwen3235BQwen-2.5-vl-32b MiniMax M2.5 MiniMax M2.7 Gemma 312b-itGemma-327b-it  
+Mistral E5 7B OctaveEVI3  
+2026 © 
+Confidential & Proprietary 
+16
+
+=== PAGE 17 ===
+Customers Around the World2026 © 24
+Confidential & Proprietary
+And Many More!
+
+
+=== PAGE 18 ===
+2026 © 13 
+Confidential & Proprietary 
+Australia 
+India 
+Germany UK 
+Dallas Palo Alto 
+Japan 
+France Singapore 
+USA 
+SambaCloud SambaManaged SambaStack 
+Middle East 
+
+=== PAGE 19 ===
+2026 © 
+14 
+Problems Inference Providers Need to Solve 
+01 Differentiate beyond GPUs Providers need ways to offer premium inference with both high user speed and strong system throughput. 
+02 Reduce time to market Long hardware and rack delivery cycles make it harder to meet demand quickly with traditional infrastructure paths. 
+03 Improve infrastructure ROI Every provider must decide where new infrastructure dollars generate the highest return across power, cooling, and hardware. 
+Confidential & Proprietary 
+
+=== PAGE 20 ===
+2026 © 
+17 
+A Practical Hardware Blueprint for Premium Inference Combining GPUs, RDUs, and CPUs to support premium inference across prefill, decode, and agentic tool execution. 
+SN50 
+Landscape: Delivering Premium Inference on the Largest Workloads 
+What systems are used for inference? How many decode chips are required to deliver Premium Inference on trillion parameter models? What data centers does this system fit in? 
+How well does the hardware adapt to changing premium workloads? 
+What is the software coverage for agentic tools? 
+Prefill: GPU/RDU AgnosticDecode: SambaNova SN50CPU Intel Xeon 6 
+256 ChipsSambaNova SN50 
+Plugs into existing data centers -requires just 30 kW per rack 
+High utilization 
+Intel Xeon 6 
+Prefill: Nvidia Rubin GPUDecode: Rubin GPU & Groq 3 LPUCPU Vera CPU 
+2000 ChipsGroq 3 LPU 
+Requires new liquid-cooled data center facility -1 MW 
+Low utilization 
+Nvidia Vera CPU 
+Prefill: GPU AgnosticDecode: Cerebras CS3CPU RISC-based CPU 
+Not possibleCerebras CS3 
+Not applicable 
+Not applicable 
+RISC-based CPU 
+Solving the biggest bottlenecks in agentic inference:Fast Decode, Full Chip Utilization, Fast Agent Tool Execution and Full Software CoverageConfidential & Proprietary 
+
+=== PAGE 21 ===
+2026 © 
+The Building Blocks of the Agentic Inference Token Factory Inference revenue depends on two key metrics: how fast each request completes and how many users the system can serve. 
+Request 
+GPU (Prefill) Compute bound 
+PROMPT What is inference? ↓ tokenize TOKEN IDS 2061 338 28917 29973 ↓ embed → vectors NUMERICAL VECTORS 0.82, 0.14…] 0.03, 0.91…] 0.55, 0.37…] 
+GPU perform parallel processing to turn the prompt into KV Cache 
+RDU (Decode) Memory bound 
+ONE TOKEN GENERATED PER STEP When an AI model generates an answer 
+↑ reads KV-cache + weights each step 
+RDU provides low latency, high throughput token generation 
+Output When an AI model generates an answer 
+Revenue from Inference Depends on Two Key Metrics: 1.How Fast Each Function Completes2.How Many Users Are Served Confidential & Proprietary 
+
+=== PAGE 22 ===
+Selected by JPMorganChase for secure, on-prem AI inference SN40 and SN50 systems deployed for enterprise inference workloads 
+Secure AI inference for financial institutions Deploy high-performance AI inference on-premises while maintaining greater control over sensitive data and infrastructure. 
+
+=== PAGE 23 ===
+Copyright © 2026 SambaNova Systems Inc.   |   Confidential & Proprietary   |   sambanova.ai

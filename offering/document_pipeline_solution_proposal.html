@@ -79,7 +79,7 @@
       • [인용 2] <strong>NVIDIA Blackwell Architecture Technical Whitepaper (2025/2026)</strong>: RTX Pro Blackwell Edition 및 B200 Air-Cooling / DLC (Direct Liquid Cooling) 냉각 가이드.<br>
       • [인용 3] <strong>Cohere Command A & Reranker v3 On-Premise Deployment Guide</strong>: 프라이빗 LLM RAG 파이프라인 및 Tensor Parallelism 규격.<br>
       • [인용 4] <strong>MinIO High-Performance Object Storage Architecture</strong>: Kubernetes Local Storage Operator(topolvm) 연동 S3 파이프라인.<br>
-      • [인용 5] <strong>Red Hat OpenShift Observability & Datadog Enterprise Guide</strong>: K8s APM, Prometheus/Grafana 및 OpenTelemetry 추적 표준.
+      • [인용 5] <strong>Red Hat OpenShift Observability & Dynatrace Enterprise Guide</strong>: K8s APM, Prometheus/Grafana 및 OpenTelemetry 추적 표준.
     </div>
   </div>
 
@@ -225,7 +225,7 @@ flowchart TB
           <th>구분 항목</th>
           <th>기본 구성 (Observability 미포함)</th>
           <th>OpenShift Native Observability 탑재</th>
-          <th>Datadog / Dynatrace Enterprise APM 연동</th>
+          <th>Dynatrace Enterprise APM 연동</th>
         </tr>
       </thead>
       <tbody>
@@ -233,7 +233,7 @@ flowchart TB
           <td><strong>모니터링 방식</strong></td>
           <td>기본 K8s cAdvisor 로그</td>
           <td><strong>Prometheus + Grafana + OpenTelemetry</strong></td>
-          <td>Datadog SaaS / On-prem APM Agent</td>
+          <td>Dynatrace On-prem OneAgent APM</td>
         </tr>
         <tr>
           <td><strong>HW CAPEX (서버/GPU)</strong></td>
@@ -245,7 +245,7 @@ flowchart TB
           <td><strong>SW 라이선스 (연간)</strong></td>
           <td>243,000,000 원 (RHOAI+Cohere)</td>
           <td><strong>258,000,000 원</strong> (OpenShift Obs 연간)</td>
-          <td><strong>275,000,000 원</strong> (Datadog Host/APM 서브스크립션)</td>
+          <td><strong>275,000,000 원</strong> (Dynatrace OneAgent 서브스크립션)</td>
         </tr>
         <tr>
           <td><strong>구축 SI 비용 (1회성)</strong></td>

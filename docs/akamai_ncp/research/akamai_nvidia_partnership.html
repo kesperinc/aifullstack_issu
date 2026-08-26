@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아카마이(AKAMAI) & 엔비디아(NVIDIA) GPUaaS 및 AI 보안 협력 상세 조사 보고서</title>
+    <!-- 구글 폰트 적용 (Outfit & Noto Sans KR) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(22, 25, 32, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #3b82f6;
+            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --accent: #ef4444;
+            --success: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.12) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 네비게이션 가이드 */
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        
+        .nav-back a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-back a:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        /* 메인 리포트 카드 */
+        .report-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 45px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 타이틀 스타일 */
+        header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 마크다운 요소별 렌더링 스타일링 */
+        h2 {
+            font-size: 1.5rem;
+            color: #93c5fd;
+            margin-top: 35px;
+            margin-bottom: 18px;
+            border-left: 4px solid var(--primary);
+            padding-left: 14px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #a7f3d0;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: #e5e7eb;
+            font-size: 0.98rem;
+        }
+
+        /* 목록 스타일링 (순서 없는 리스트) */
+        ul {
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 22px;
+            color: #d1d5db;
+        }
+
+        li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* 마크다운 표(Table) 스타일링 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.92rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 12px 14px;
+            font-weight: 600;
+            color: #93c5fd;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e5e7eb;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* 인용구(Blockquote) 스타일링 */
+        blockquote {
+            border-left: 4px solid var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+            color: #93c5fd;
+            font-weight: 500;
+        }
+
+        /* 수평선 스타일 */
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 30px 0;
+        }
+
+        /* Mermaid 코드블럭 또는 일반 이미지 렌더링 스타일 */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 20px 0;
+        }
+
+        /* 꼬리말 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="../../README.html">← 메인 README 메인 화면으로 돌아가기</a>
+    </div>
+
+    <div class="report-card">
+        <header>
+            <span class="meta-tag">공동 사업 기획 기획 검토서</span>
+            <h1>아카마이(AKAMAI) & 엔비디아(NVIDIA) GPUaaS 및 AI 보안 협력 상세 조사 보고서</h1>
+        </header>
+
+        <main>
+            <p>본 보고서는 글로벌 분산 클라우드 리더인 아카마이와 AI 가속 컴퓨팅 기업인 엔비디아 간의 GPU-as-a-Service(GPUaaS) 협력 범위, 기술 결합 방식, 비즈니스 규모 및 기대 효과를 분석한 자료입니다.</p>
+<hr />
+<h2>1. 파트너십 추진 배경 및 목적</h2>
+<p>인공지능 시장이 거대 언어 모델(LLM)의 <strong>학습(Training) 단계</strong>에서 실제 서비스화 단계인 <strong>추론(Inference) 단계</strong>로 전환됨에 따라, 초저지연 성능과 데이터 전송 비용의 중요성이 급격히 부각되었습니다.<br />
+*   <strong>중앙 집중식의 한계</strong>: AWS, Azure, GCP 등 하이퍼스케일러의 대규모 데이터센터(AI Factories)는 대량의 학습용 연산에는 적합하지만, 전 세계 사용자에게 실시간으로 답변을 제공해야 하는 추론 영역에서는 물리적 거리로 인한 <strong>네트워크 지연(Latency)</strong>과 막대한 <strong>트래픽 전송 비용(Egress Fees)</strong>을 발생시킵니다.<br />
+*   <strong>분산 엣지 클라우드의 대안</strong>: 아카마이는 전 세계 130개국, 4,000개 이상의 위치에 분산 배치된 <strong>Akamai Connected Cloud</strong>(구 Linode 인프라 고도화)를 보유하고 있습니다. 여기에 엔비디아의 최신 가속 컴퓨팅 아키텍처를 결합함으로써, 사용자와 가장 가까운 위치에서 AI 모델을 실행하는 초저지연 분산형 AI 추론 환경을 제공하고자 합니다.</p>
+<hr />
+<h2>2. 주요 협력 분야 및 기술 결합 방식</h2>
+<p>양사의 협력은 크게 <strong>분산 컴퓨팅 인프라(Compute)</strong>와 <strong>AI 데이터/모델 보안(Security)</strong>의 두 가지 핵심 축으로 전개됩니다.</p>
+<h3>2.1. 글로벌 분산 GPU 인프라 (Inference GPUaaS)</h3>
+<ul>
+<li><strong>Blackwell GPU 대규모 도입</strong>: 아카마이는 자사의 글로벌 분산 클라우드 노드에 수천 대의 최신 <strong>NVIDIA Blackwell GPU</strong> 및 L40S, H100 GPU를 포팅하여 연산 망을 구축했습니다.</li>
+<li><strong>추론 비용 86% 절감</strong>: 중앙 집중식 클라우드 대비 데이터의 발생지(엣지)와 연산 노드가 가깝고 아카마이의 저렴한 Egress 정책이 맞물려, 전체 AI 추론 비용을 최대 <strong>86% 절감</strong>하는 성과를 목표로 합니다.</li>
+<li><strong>NVIDIA NIM 및 Triton</strong>: 엔비디아의 최적화 추론 소프트웨어 스택인 NVIDIA NIM(Invidia Inference Microservices)과 Triton Inference Server가 아카마이의 Linode Kubernetes Engine(LKE) 환경에 매끄럽게 호팅되어, 개발자가 복잡한 설정 없이 컨테이너 환경에서 즉각 최적화된 추론 API를 호출할 수 있도록 협력합니다.</li>
+</ul>
+<h3>2.2. BlueField-4 STX 기반 제로 트러스트 보안 결합 (2026년 6월 강화)</h3>
+<ul>
+<li><strong>Guardicore와 BlueField DPU의 결합</strong>: AI 팩토리 내부의 보안 강화를 위해, 아카마이의 세계적인 세그멘테이션 솔루션인 <strong>Akamai Guardicore Segmentation</strong>을 엔비디아의 차세대 네트워크/스토리지 가속 장치인 <strong>NVIDIA BlueField-4 STX DPU</strong> 아키텍처에 내장(NVIDIA DOCA 소프트웨어 프레임워크 활용)시켰습니다.</li>
+<li><strong>성능 저하 없는 제로 트러스트 보안</strong>:<ul>
+<li>AI 모델의 가중치, 프롬프트 입력 값, autonomous agent 간의 통신 데이터를 가상 인프라 레이어에서 논리적으로 격리(Micro-segmentation)합니다.</li>
+<li>보안 검사가 메인 GPU나 CPU의 연산 자원을 소모하지 않고 DPU 가속 하드웨어에서 직접 이루어지므로, 고속 Accelerated Computing 속도를 그대로 유지하면서 완전한 망 격리 수준의 보안을 만족시킵니다.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>3. 사업 규모, 매출 및 파급력 분석</h2>
+<ul>
+<li><strong>CapEx 규모</strong>: 아카마이는 Connected Cloud의 AI 특화를 위해 <strong>수억 달러(USD) 규모의 설비 투자(CapEx)</strong>를 할당했으며, 엔비디아와의 우선 공급 파트너십을 통해 글로벌 GPU 수급난 속에서도 물량을 안정적으로 공급받고 있습니다.</li>
+<li><strong>비즈니스 포지셔닝</strong>:<ul>
+<li>기존 CDN 사업 위주에서 고수익의 GPUaaS 영역으로 사업 포트폴리오를 빠르게 다각화하고 있습니다.</li>
+<li>대기업 고객들이 프라이버시 법률(GDPR 등)로 인해 데이터를 중앙 집중식 퍼블릭 클라우드에 올리지 못하는 문제를 해결함으로써, 하이브리드 AI 시장에서 독보적인 니치 마켓(Niche Market)을 공략하고 있습니다.</li>
+</ul>
+</li>
+</ul>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2026 AKAMAI & NVIDIA & MZC HYBRID PROJECT COOPERATIVE GROUP.</p>
+    </footer>
+</div>
+
+</body>
+</html>

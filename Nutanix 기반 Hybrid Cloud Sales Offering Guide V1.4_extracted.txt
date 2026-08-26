@@ -1,0 +1,47 @@
+=== ppt/slides/slide1.xml ===
+Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED. Nutanix  기반  Hybrid Cloud Sales Offering Guide v1.4 ISV   Business   Unit / Hybrid Cloud  2026.08.
+
+=== ppt/slides/slide10.xml ===
+민감정보에 대한 외부 클라우드 서비스 이관 부담 극복과 국가 / 산업 컴플라이언스 준수를 통한 데이터 보호 및 안정성 회복 고객  Pain Points :         SAP S/4 HANA  로 마이그레이션을 위해  SaaS  형태로 전환해야 하는 부담과 컴플라이언스 준수에 따른 대외 반출 금지 Sales Offering :          해외 클라우드 사이트로 데이터 전환을 하지 않고  PCE (Private Cloud Edition)  형태로  CDC (Customer Data Center) 에          프라이빗  클라우드 형태로 구현하여 민감정보 반출 없이 컴플라이언스 요건 준수 제안 구성 특징 SAP Production System SAP  Application Server SAP  Application Server Microservices Private Cloud Any DB DMO with System Move Export Import Converted data to SAP HANA format Flat files DMO with System Move (Cloud Part) Load Any DB SAP Test System SAP  Application Server 이전  SAP  버전에 대한 업그레이드로  SaaS  형태의 클라우드 환경으로 전환에 대한 부담극복과 정보보안 준수 SAP 의  DMO of SUM (Database Migration Option of SW Update Manager) 를 이용하여 안정적인  프라이빗  클라우드 이관 수행 기존 시스템 인터페이스와 동일한  프라이빗  클라우드 환경을 빠르게 구축하여 ,  모든 인터페이스가  프라이빗  클라우드 상에서 정상적 가동 On-Prem  형태의  프라이빗  클라우드 구축 ,  국내 제조사 등  7 곳 적용 구축 완료 Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED.
+
+=== ppt/slides/slide11.xml ===
+Nutanix Cloud Clusters (NC2) on AWS  비용 구조 Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED. NC2   on   AWS  는  AWS  사용료  + Nutanix Subscription  구조로 운영 AWS Infrastructure Cost Migration Service Nutanix Subscription Managed Service (Optional) EC2 Bare Metal EBS (Block Storage) VPC / Load Balancer Data Transfer Route 53,CloudWatch 등 NCI   License(AHV 포함 ) Prism   Central Files / Objects (option) Flow Security (option) Lifecycle Manager Assessment Move (Migration) Validation Cut-over Knowledge Transfer Monitoring Patch Management Backup / DR Cost optimization 24x7 Support
+
+=== ppt/slides/slide12.xml ===
+VMware Cloud on AWS (VMC) vs. NC2 on AWS vs. Native AWS  비교 Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED. 항목 VMware Cloud on AWS NC2 on AWS Native AWS 기존  VM migration ★★★★★ ★★★★★ ★★ Application  변경 없음 없음 없음 vMotion   수준  migration 지원 Move  지원 미지원 운영방식 기존  VMware On-prem Nutanix  통일 Cloud Native 라이선스 비용 높음 중간 없음 AWS  서비스 연동 제한적 우수 최고 Exit  전략 어려움 쉬움 재구성 필요 DR  구축 우수 우수 별도 구축 Hybrid Cloud 우수 최우수 보통
+
+=== ppt/slides/slide13.xml ===
+경쟁사 비교  ( Hybrid   Cloud   Platform   Comparison) Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED. 항목 Nutanix NC2 Azure Stack HCI VM ware VCF RedHat OpenShift AWS  지원 ★★★★★ X △ △ Azure  지원 ★★★★★ ★★★★★ △ △ 멀티클라우드 ★★★★★ ★★ ★★★ ★★★★ VM migration ★★★★★ ★★★ ★★★★★ ★★★ K8s  통합 NKP  기본 AKS Tanzu OpenShift 관리 플랫폼 Prism Central Azure Portal VCF Ops OpenShift Console 라이선스 Subscription Subscription Subscription Subscription Hypervisor AHV  포함 Hyper-V ESXi KVM
+
+=== ppt/slides/slide14.xml ===
+Why NC2 on AWS ? Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED. Cloud Exit  지원성과  AI Modernization  을 위한  Cloud  솔루션과 서비스 연계한 유연한 자원 활용 융합 서비스 기존환경 On-prem /VMware VMware  고객 기존  VM  그대로 VM VM 변경 없이 그대로 이전 Nutanix Move 자동화된 마이그레이션 ( 다운타임 최소화 ) NC2 on AWS NC2  클러스터 운영 시작 AWS   Native  활용 S3 RDS Bedrock FSx SageMaker 기타서비스 필요 시  On-prem  회귀  ( 공존하여 충분한 검증수행 ) 핵심 차별화 포인트 Cloud Exit  지원 AWS ↔ On-prem 양방향 지원 Cloud Bursting 피크기간에만 AWS  확장 AWS 를  DR  사이트로 활용 NC2   on   AWS 를  DR  사이트로 활용 AI Modernization AWS AI  서비스 및  3rd Party   솔루션과 연계한  AI  서비스 확장
+
+=== ppt/slides/slide15.xml ===
+  비즈니스  기대 효과 데이터 현장에서 완성되는 비즈니스 가치 “ AI  하이브리드 클라우드 구축의 기대효과 .” AWS BareMetal  서비스 :  온  프레미스  전향을 목표 계획에 대해 메모리 가격 상승 및 비용 증가 요소에 대한 단기적 탄력 대응으로  프라이빗  클라우드 및 온  프레미스  서비스 런칭에 대한 탄력적이고 신속한 인프라     환경 구현을 통해 주변 변화에 대한  Business Agility  충족 중복 투자 방지  :  기존 보유한  IT  인프라를 그대로 활용하여 최신의 검증된 솔루션과 융합 구성하여 초기      투자 비용 절감 및 기 투자 보호 효과와 리스크 최소화 원본 데이터 유출 차단   :  기밀데이터 ,  민감 정보는 사내  Dell  스토리지에 고정하고 ,  분석 및 활용은              클라우드를 통해 분석 결과 값만 전송되어 금융 보안 규제 등  compliance  및 준수 요건 충족 No vendor Lock-in  :  특정 클라우드에 종속되지 않고 ,  다양한 환경에서  AI  모델 연결 및 유연한 인프라 환경에서 취사 선택하여 효율성과 경제성 제공 고성능  AI  기반 마련  :  로컬   인프라를 활용한 압도적 속도와 성능을 통한  LLM 의  RAG  환경에서 지연 없는     데이터 공급 및 분석 기반 제공
+
+=== ppt/slides/slide16.xml ===
+THANK YOU
+
+=== ppt/slides/slide2.xml ===
+AGENDA Executive Summary AI  하이브리드 클라우드 전환을 위한 핵심 전략 Nutanix   Cloud   Platform   –  제품 소개 주요 사업 사례와 구성 방안   비용 구조 및 경쟁 비교 기대 효과 Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED.
+
+=== ppt/slides/slide3.xml ===
+Executive Summary  – AI  하이브리드 클라우드 혁신 전략  :  차세대  AI  비즈니스 인프라 구축과 혁신 퍼블릭 클라우드의 유연성과  On-prem 의 직접 통제를 결합한 최적의  Hybrid Infra 가 비즈니스의 성패를 결정 기대 효과 및 고객 가치  (Key Value) 비용 효율성 및 재무 유연성  :       초기 대규모 투자  ( CaPex ) 를 최소화하여  사용기반 과금 (Pay-Per-Use) 을 통해 비용 가시성을 확보하고 현금 흐름 개선 보안 및 규정준수  (Compliance)   :       금융 및 제조 산업의 엄격한 보안 요구사항과 컴플라이언스를  On-Prem  환경에서 완벽하게 충족 민첩한 비즈니스 (Business Agility)  대응  :       로컬 버퍼 (Local Buffer) 를 활용한 자원에 대한 즉시 확장과 전담 지원 조직을 통해 시장 변화에 신속하고 민첩한 대응 Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED.
+
+=== ppt/slides/slide4.xml ===
+Nutanix Cloud Platform Portfolio Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED.
+
+=== ppt/slides/slide5.xml ===
+Nutanix Cloud Platform –  주요 솔루션 및 기능들 Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED. Nutanix Prism 인프라 통합 관리 가상화 관리 운영 분석 헬스 체크 Nutanix Cloud Infrastructure (NCI) 컴퓨팅 ,  스토리지 , N/W,  가상화를 하나의 클러스터로 통합한  HCI  솔루션 AHV  제공 ,  선형적  Scale-out,  분산 스토리지 패브릭 Nutanix Cloud Clusters (NC2) Private /   Public Cloud  단일운영 관리 BareMetal  Instance@AWS Nutanix Central 을 통한 통합 관리 Nutanix Cloud Cluster Nutanix Kubernetes Platform (NKP) 산재된  멀티클라우드의   K8s  환경 배포 ,  보안 ,  관리 간소화 강력한 데이터 서비스 통합 (NDK) Nutanix Enterprise AI (NAI) Turn Key AI Stack : AI  학습 및 추론에 필요한 컴퓨팅 인프라를 결합한 배포 제공  (CISCO, HPE, Dell, Lenovo 와 협업 데이터 정보 보호 및 취사 선택 가능한  AI  솔루션 GPT-in-a-Box, Nutanix Enterprise AI  등으로  Edge AI /Cloud  제공 Nutanix Unified   Storage 정형 / 비정형 데이터를 위한 통합 스토리지 스토리지 배포 ,  데이터 관리 , Tiering Archiving 글로벌 네임스페이스 및 재해복구 Data Lens 비정형 데이터의 통합 관리 / 보호 데이터 감사를 통한 규정 준수 활동 지원 상대적인 데이터 위험 점수 추세 분석 Nutanix Database Service (NDB) 하이브리드 멀티 클라우드 환경의 데이터베이스 통합 관리 다수의  DB  엔진 지원 ,  데이터베이스 카탈로그 제공 데이터베이스 복구  SLA  충족 ,  원 클릭 복제 및  Refresh
+
+=== ppt/slides/slide6.xml ===
+VMware  가상화 인프라   솔루션 전환  –  가상화   환경 전환을 위한 솔루션과 방법론 VMware 의 라이선스 정책 변환으로 급격한 비용 증가에 따른 대체 및 전환 방안 고객  Pain Points :      Broadcom 의  vmware   인수 이후 라이선스 정책 변화로 구독형 서비스 강제 전환으로 급격히 상승한 비용과 기술 지원에        대한 불투명성과 서비스 안정성에 대한 불안감 증대 Sales Offering :         제공되는 솔루션 내에  하이퍼바이저 (AHV) 가 포함되어 기존 환경과 높은 호환성을 통해 추가되는 신규 라이선스 및 비용         절감과   공급사에서   제공하는 마이그레이션 툴  (Nutanix Move) 를 통해 기존  VMware  환경에서 안전한 전환 및 개선 제공 제안 구성 특징 Broadcom 의 라이선스 정책 변화에 따른 고객사들의 급작스런 비용 증가로  대체안  마련에 대한 고심을 해결해 줄 솔루션 가장 큰 고민 중 하나인 마이그레이션 작업에 대한 솔루션 제공으로 여러 가지 서비스 전환에 대한 보다 적은 부담으로 개선된 업무 혁신 과제 수행 가능 Copyright 2026 © MEGAZONECLOUD    CORP. ALL RIGHT RESERVED.
+
+=== ppt/slides/slide7.xml ===
+신규 서비스 런칭을 위한  IT  인프라 구성에 대한 서비스 환경 구축 고객  Pain Points :        최근 반도체 가격 상승으로 시스템 수급 지연 및 가격 급등으로 제때에 서비스 런칭에 대한 어려움으로 서비스 오픈 지연과 여러가지        악재들에 대한 방안 필요 Sales Offering :       향후 몇 년간 지속적 가격 상승과 비용 상승을 대비하여 수급이 원활해지고 가격 안정될 때 까지 퍼블릭 클라우드의      Bare Metal  서비스 및 국내  리전의  전용 인프라 환경 서비스를 활용   이후 서비스 확장 및  DR  환경 구성용으로 확대 가능 제안 구성 특징 한국  리전의   BareMetal & Edge  서비스   고객사 데이터센터  (On-prem  및  Private Cloud) 신규  On-prem  환경에서 런칭해야 하는 서비스 환경에 대한  IT  인프라 구축 H/W  수급 불균형 및 가격 급등으로 인한 리드타임 지연과 비용 상승으로 서비스 런칭 지연에 대한 해결안 제시 향후 가격 안정화 및 새로운 서비스 전환 및 통합 요건 시 전체적인 재구성 및 새로운 서비스 구성 재구획을 통합 운영 효율성 증대 한국  리전   Bare Metal  서비스 한국 내  AI Edge Cloud  서비스 향후  H/W  가격 안정화 및 환경 여건 개선 시  On-prem  이전 추진 or 추가적인 서비스 환경확장과  DR  환경 구성 BareMetal Service
+
+=== ppt/slides/slide8.xml ===
+재해복구 구성에 대한 검증되고 안정적 복구 환경 구성 고객  Pain Points :       업무 연속성 및 서비스 운영의 다운타임에 대한 최소화 및 미션 크리티컬 업무에 대해서 재해복구 구성이 필요         합리적 예산과 검증된 방안으로 신속하고 용이한 업무 연속성 구성을 위한 고민 Sales Offering :       기 검증된 스토리지 기반 특히  NAS   (Network   Attached   Storage) 를 활용하여 실시간 데이터 복제를 통한 정보 보호와  DR  센터 운영도       On-prem  사이트 또는 퍼블릭 클라우드를 활용한 유연하고 합리적 환경 구성 제안 구성 특징 메인 데이터 센터   재해복구 센터 (On-prem or Public Cloud) 기존  프라이빗  클라우드 Nutanix Unified   Storage 그룹사 공동 파일 공유 데이터  (NAS) 그룹사 공동 파일 공유 데이터  (NAS) 운영 DWDM DWDM NIC1 Network Switch #2 Network Switch #1 Network Switch #2 Network Switch #1 NIC2 NIC1 NIC2 NIC1 NIC2 NIC1 NIC2 Controller   #1 Controller   #2 Controller   #1 Controller   #2 Snapshot Snapshot Snapshot Snapshot Sync 신규  NAS  스토리지 구축 ※  구성에 따른 도입 구축비용 필요   기존 레거시 인프라 서비스 환경에 대한 재해복구 센터 구현 방안 기존  On-prem  레거시 환경과 완벽한 호환성을 갖는  H/W  스토리지 기반 데이터 복제 솔루션을 통한 완벽한 정보 보호 및 재해복구 요건 준수 Dell, NetApp,  PureStorage   등 기존 메이저  H/W  인프라 솔루션 혹은 퍼블릭 클라우드의  NAS  서비스를 활용하여 보다 합리적 투자와 구현을 위한 경제성과 서비스 안정성 제공
+
+=== ppt/slides/slide9.xml ===
+기존 투자 인프라 및 이기종 스토리지들을 활용한 통합 운영 고객사의 다양하고 혼재되어 있는  IT 인프라의 성능 유지와 복잡한 환경에 대한 다양한 서비스 관리와 운영 방안 고객  Pain Points :       분산된 인프라 자원으로 인한 운영 효율성 저하 및 통합 관리 체계 부재 Sales Offering :        Nutanix NCI( 컴퓨팅 노드 ) 와 외장 스토리지의 유연한 결합 및 가상환경 통합 ,   Nutanix NKP 를 통해 컨테이너 (K8s) 를 단일 환경에서 통합 관리 Virtual Compute, Storage, Networking; Disaster Recovery; Security Private Cloud MSPs AI-Optimized Infra Nutanix Cloud Infrastructure (NCI) Edge 기존 구축되어 있는 레거시 인프라 제안 구성 특징 Nutanix Kubernetes Platform (NKP) LCM  |  Fleet Mgmt  |  Security 기존 다양한 업체의  IT 인프라 특히 스토리지에 대한 통합 관리와 각 컴퓨팅 노드별 복잡한 운영 관리를  Nutanix Cloud Infrastructure  를 통해 통합 관리 Nutanix Cloud Infrastructure (NCI) 와   Nutanix Kubernetes Platform (NKP) 를 통해 가상머신 (VM) 과  Container 를 통합하여 단일플랫폼에서 완벽한 관리와 클라우드 형태의 운영 수행

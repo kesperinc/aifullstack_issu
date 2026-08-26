@@ -1,9 +1,10 @@
-# Syncthing Ignore File (.stignore)
+﻿# Syncthing Ignore File (.stignore)
 # 다른 PC / 작업용 워크스테이션과의 P2P 동기화 시 로컬 OS 전용 파일 예외 처리
 
 // 1. Virtual Environments & Local Dependencies
 .venv
 venv
+node_modules/
 __pycache__
 *.pyc
 
@@ -17,6 +18,18 @@ __pycache__
 .vscode/*.log
 .pytest_cache
 *.tmp
+*.log
+
+// Syncthing 충돌 파일 자동 제외 및 자동 삭제 허용
+(?d)(?i)*sync-conflict*
+cloud-sql-proxy.exe
 
 // 4. Git Internal Objects (Optional: if syncing via Git origin)
-// .git
+.git
+
+// --- [CortexOS Mem0 로컬 DB 및 바이너리 제외] ---
+.CortexOS/mem0_qdrant_db/
+.CortexOS/mem0_history.db
+
+// --- [EXCEPTIONS (동기화 허용할 공통 파일)] ---
+!.CortexOS/mem0_facts.json

@@ -1,0 +1,38 @@
+=== ppt/slides/slide1.xml ===
+Nutanix Hybrid Cloud & AI MegazoneCloud ISV Sales Playbook & Execution Kit
+
+=== ppt/slides/slide10.xml ===
+05. MegazoneCloud Offering Why Partner with MegazoneCloud?
+
+=== ppt/slides/slide11.xml ===
+전담 기술 인력 밀착 지원  Nutanix 전문 기술력을 보유한 전담 SA, TAM을 배정하여 초기 인프라 설계부터 마이그레이션, 그리고 24/7 매니지드 서비스(Managed Ops)까지 안정적인 엔드투엔드 기술 지원을 제공합니다. 검증된 End-to-End 패키지  단순 솔루션 납품을 넘어 Assessment, Migration Pilot, NC2 Landing Zone 구축, AI-ready 인프라 확장 등 고객의 성숙도에 맞춘 체계적이고 모듈화된 오퍼링 패키지를 통해 프로젝트 성공률을 높입니다. 비용 최적화 및 전략적 펀딩 지원  AWS, Intel, Nutanix 등 글로벌 벤더 파트너십을 십분 활용하여 기회 별 맞춤형 지원금(Funding) 프로그램을 적용하고, 초기 투자 비용(CAPEX) 절감 및 라이선스 최적화 컨설팅을 제공합니다. One-stop 통합 에코시스템  인프라 구독 결제 편의성 제공 및 세금계산서 통합 발행은 물론, MZC 파트너망을 연계하여 백업, 보안, 관제 솔루션 등을 단일 창구에서 구축할 수 있는 완벽한 에코시스템을 제공합니다. 메가존클라우드 차별화 혜택
+
+=== ppt/slides/slide12.xml ===
+Call to Action 담당 고객사의 가상화 갱신 주기 및 클라우드 이전 계획을 확인하세요. ISV Business Unit 전담팀이 영업대표님의 Joint Call과 제안을 전폭 지원합니다. isv_sales_support@megazone.com
+
+=== ppt/slides/slide13.xml ===
+https://media.istockphoto.com/id/1430149884/vector/cloud-networking-3d-illustration.jpg?s=612x612&w=0&k=20&c=PbhqelbPUGKcYzbQ2aD8zao6kPrrC1KjRUy_kxtMQjU= Source:  www.istockphoto.com Image Sources
+
+=== ppt/slides/slide2.xml ===
+01. Targeting Framework Ideal Customer Profile & Buying Triggers
+
+=== ppt/slides/slide3.xml ===
+Targeting & Triggers Verified Pain Points VMware 계약 갱신 대상:  장기 계약 만료가 도래하여 구독형 전환 및 비용 급등을 우려하는 기업. 데이터센터 현대화:  인프라 노후화로 인한 하드웨어 교체 주기 도래 및 데이터센터 철수/이전을 계획 중인 기업. 보안 및 AI 수요:  데이터 통제가 필수적인 규제 산업(금융, 공공, 제조) 중, 안전한 On-prem 기반 AI 인프라 구축을 희망하는 기업. 비용 통제 상실:  타 벤더의 일방적인 라이선스 정책 변경으로 인한 IT 인프라 예산의 급격한 상승 및 예측 불가성. 클라우드 전환 장벽:  퍼블릭 클라우드 이관 시 필수적인 애플리케이션 재설계(Refactoring) 부담과 전환 기간 지연. 운영 사일로(Silo):  온프레미스와 퍼블릭 클라우드, 컨테이너 환경이 혼재되어 관리 도구가 파편화되고 운영 및 보안 복잡성 가중. • • • • • • Ideal Customer Profile (ICP)
+
+=== ppt/slides/slide4.xml ===
+02. Solution Overview Nutanix Cloud Platform Value Proposition
+
+=== ppt/slides/slide5.xml ===
+Nutanix Cloud Platform은 온프레미스와 퍼블릭 클라우드를 통합하여 유연성과 민첩성을 제공하는 하이브리드 멀티클라우드 플랫폼입니다. NCI & AHV:  업계 최고 수준의 HCI 기반 가상화 인프라. 무상 하이퍼바이저(AHV) 탑재로 라이선스 비용 획기적 절감. Nutanix Move:  애플리케이션 재설계 없이 기존 VM을 최소한의 다운타임으로 안전하게 자동 이관. NC2 on AWS:  기존 운영 방식과 도구 그대로 퍼블릭 클라우드로 인프라를 확장하여 진정한 하이브리드 운영 실현. NKP & NAI:  복잡한 K8s 환경 통합 관리 및 안전한 기업용 자체 생성형 AI 인프라 턴키 배포. • • • • One Platform, Any Cloud
+
+=== ppt/slides/slide6.xml ===
+03. Competitive Battle Card Nutanix vs Alternative Solutions
+
+=== ppt/slides/slide7.xml ===
+비교 항목 Nutanix (NCI/NC2) Native Public Cloud Legacy 가상화 (V.사) 기존 VM 이관 Nutanix Move 지원 (앱 재설계 불필요) 애플리케이션 재설계(Refactoring) 필수 vMotion 수준 지원 라이선스 / TCO 구독형 (AHV 하이퍼바이저 무상 제공) 라이선스 없음 (사용량/트래픽 지속 과금) 매우 높음 (구독형 강제 전환 및 급증) 운영 방식 On-prem & Cloud 단일 관리 도구 (Prism) 새로운 클라우드 네이티브 아키텍처 학습 기존 방식 유지 Exit 전략 / 종속성 가장 유연함 (손쉬운 양방향 마이그레이션) 퍼블릭 클라우드 서비스 종속 우려 강력한 벤더 종속성 (Lock-in) 경쟁 솔루션 비교 (Win/Loss Positioning)
+
+=== ppt/slides/slide8.xml ===
+04. Key Use Cases Winning Scenarios & Reference Models
+
+=== ppt/slides/slide9.xml ===
+가상화 비용 절감 & 전환 기존 가상화 벤더의 라이선스 비용 급등에 대한 완벽한 대안입니다. 무상 하이퍼바이저(AHV)를 통한 실질적인 TCO 절감을 보장하며, Nutanix Move를 활용하여 다운타임을 최소화하는 무중단 마이그레이션 팩토리를 제공합니다. Hybrid DR & Cloud Bursting NC2 on AWS를 활용하여 평상시에는 효율적인 On-prem 인프라를 운영하고, 서비스 트래픽 피크 타임이나 재난 복구(DR) 상황 발생 시에만 클라우드 자원을 유연하고 신속하게 확장하는 하이브리드 아키텍처를 구현합니다. Sovereign AI Infrastructure Nutanix Enterprise AI(NAI)와 로컬 스토리지를 결합하여 민감한 기업의 핵심 데이터를 외부 유출 없이 보호합니다. 기업 내부 망에서 안전하게 자체 LLM을 구축하고 구동할 수 있는 Private AI 환경을 턴키로 제공합니다. 핵심 타겟 시나리오

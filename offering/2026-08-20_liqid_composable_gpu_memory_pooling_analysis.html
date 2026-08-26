@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liqid Composable GPU & Memory Pooling 기술 분석 및 MZC AI Full Stack 연계 전략 보고서</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --panel-bg: #0d111d;
+      --card-bg: #13182a;
+      --card-hover: #1b213a;
+      --card-border: #1f2642;
+      --border-light: #2c365d;
+      
+      --mzc-blue: #00abf0;
+      --mzc-blue-light: #4dabf7;
+      --nv-green: #76b900;
+      --dell-blue: #0071c5;
+      --accent-purple: #9d4edd;
+      --accent-gold: #d4af37;
+      --accent-coral: #ff6b6b;
+      --cyan: #00e5ff;
+      
+      --text-main: #f0f4fc;
+      --text-muted: #9aa5be;
+      --text-dim: #5c6886;
+
+      --font-main: 'Inter', -apple-system, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 9, 14, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .nav-brand-logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, #00e5ff, #9d4edd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-brand-tag {
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      color: var(--cyan);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    .container {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 30px 24px;
+    }
+
+    .doc-cover {
+      text-align: center;
+      padding: 50px 20px 40px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 40px;
+      background: radial-gradient(circle at 50% 25%, rgba(0, 229, 255, 0.1) 0%, rgba(157, 78, 221, 0.05) 50%, transparent 80%);
+    }
+    .doc-meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      color: var(--cyan);
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .doc-title {
+      font-family: var(--font-display);
+      font-size: 2.35rem;
+      font-weight: 900;
+      line-height: 1.25;
+      color: #ffffff;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .doc-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 950px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+
+    .section-wrap {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 36px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .section-header {
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 14px;
+    }
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--cyan);
+      background: rgba(0, 229, 255, 0.12);
+      padding: 3px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .narrative-p {
+      font-size: 0.96rem;
+      line-height: 1.8;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    .bullet-list {
+      margin: 12px 0 20px 20px;
+      line-height: 1.85;
+      font-size: 0.93rem;
+      color: var(--text-main);
+    }
+    .bullet-list li {
+      margin-bottom: 10px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 22px;
+      transition: all 0.2s ease;
+    }
+    .feature-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+    .feature-card h4 {
+      font-size: 1.08rem;
+      color: #ffffff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .callout {
+      background: rgba(0, 229, 255, 0.06);
+      border: 1px solid rgba(0, 229, 255, 0.25);
+      border-left: 4px solid var(--cyan);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 20px 0;
+    }
+    .callout.gold {
+      background: rgba(212, 175, 55, 0.06);
+      border-color: rgba(212, 175, 55, 0.25);
+      border-left-color: var(--accent-gold);
+    }
+    .callout-title {
+      font-weight: 800;
+      color: #80deea;
+      font-size: 0.98rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .callout.gold .callout-title {
+      color: #ffe082;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    .data-table th {
+      background: #111528;
+      color: #ffffff;
+      padding: 12px 16px;
+      font-weight: 700;
+      border-bottom: 2px solid var(--card-border);
+    }
+    .data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-main);
+      vertical-align: top;
+    }
+    .data-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--card-border);
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-logo">MEGAZONECLOUD</span>
+      <span class="nav-brand-tag">CDI & Private Cloud Analysis</span>
+    </a>
+    <div>
+      <span style="font-size: 0.85rem; color: var(--text-muted);">Confidential · ISSU Strategic Review</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- COVER -->
+    <div class="doc-cover">
+      <div class="doc-meta-badge">⚡ Hardware-Level CDI & Private Cloud Feasibility Analysis</div>
+      <h1 class="doc-title">Liqid Composable GPU & Memory Pooling 기술 분석<br>& MZC AI Full Stack 연계 / 총판 사업 타당성 검토</h1>
+      <p class="doc-subtitle">
+        PCIe Gen5 기반 소프트웨어 정의 GPU/DRAM 풀링(CDI) 기술 심층 분석, NVIDIA NVL-72 대비 7배 코어 비용 절감 및 90% KV Cache 가속 효과 검토, 
+        그리고 ISSU(Solution Sales & Presales) 조직 특성 및 인프라 제약 기반의 Private Cloud 파트너 세일즈 오퍼링 전략
+      </p>
+    </div>
+
+    <!-- SECTION 1: ISSU 조직 배경 및 분석 전제 -->
+    <section class="section-wrap" id="sec1">
+      <div class="section-header">
+        <span class="section-tag">Section 01</span>
+        <h2 class="section-title">ISSU 조직 배경 및 분석 기본 전제 (Context & Baseline)</h2>
+      </div>
+
+      <div class="callout gold">
+        <div class="callout-title">🏛️ ISSU(Integrated Solution Sales Unit) 조직 정의 및 비즈니스 모델</div>
+        <p style="font-size: 0.92rem; color: var(--text-main); line-height: 1.75;">
+          • <strong>조직의 본질</strong>: ISSU는 메가존클라우드의 <strong>솔루션 세일즈(Solution Sales), 기술 영업 및 프리세일즈(Presales) 중심 조직</strong>입니다.<br>
+          • <strong>하드웨어 특화 솔루션의 성격</strong>: 하드웨어를 직접 제조하거나 사내에 실물 장비를 보유하는 구조가 아니며, 당사는 <strong>'세일즈 오퍼링(Offering)' 및 아키텍처 컨설팅 패키지 형태로 포트폴리오를 보유</strong>합니다 (현재 AIDC 사업에 대하여 검토 중이나, 구체화된 내용은 없음).<br>
+          • <strong>판매 및 공급 체계</strong>: 실제 하드웨어의 조달, 납품, 유지보수 및 구축은 <strong>델(Dell)과 엔비디아(NVIDIA) 파트너를 통하여 이루어짐</strong>.<br>
+          • <strong>현재의 인프라 제약</strong>: 현재 ISSU 내부에는 <strong>하드웨어를 직접 설치하여 테스트할 수 있는 자체 실증 Infra가 부재</strong>한 상태입니다.
+        </p>
+      </div>
+
+      <p class="narrative-p">
+        따라서 본 검토는 단순한 H/W 자체 테스트가 아닌, <strong>'MZC AI Full Stack의 Layer 01/02 인프라 오퍼링 포트폴리오 편입 가능성'</strong>과 <strong>'Private Cloud 시장에서의 총판/리셀러 비즈니스 아이템으로서의 시장성 및 파트너 협력 구조'</strong>를 중심으로 평가합니다.
+      </p>
+    </section>
+
+    <!-- SECTION 2: Liqid 핵심 기술 요약 -->
+    <section class="section-wrap" id="sec2">
+      <div class="section-header">
+        <span class="section-tag">Section 02</span>
+        <h2 class="section-title">Liqid(리키드) 핵심 기술 요약 (GPU & DRAM Disaggregation)</h2>
+      </div>
+
+      <p class="narrative-p">
+        <strong>Liqid(리키드)</strong>는 서버 내부에 고정되어 있던 GPU와 메모리(DRAM)를 섀시 단위로 분리(Disaggregation)하고, 
+        초고속 <strong>PCIe Gen5 x16 패브릭과 소프트웨어(Liqid Matrix)를 통해 필요한 만큼 동적으로 묶어주는 Composable Disaggregated Infrastructure (CDI)</strong> 플랫폼입니다.
+      </p>
+
+      <div class="grid-3">
+        <div class="feature-card">
+          <h4 style="color: var(--cyan);"><span>🔌</span> 1. PCIe Fabric 기반 풀링</h4>
+          <p>
+            • <strong>Liqid Expansion Chassis</strong>: 섀시당 10개 GPU(최대 30x GPU 풀링), 섀시당 40TB DRAM(최대 200TB 풀링)<br>
+            • <strong>기존 서버 재활용 (Zero Waste)</strong>: Dell, HPE, Cisco, Supermicro 등 기존 1U~4U 서버에 PCIe HIC 카드만 장착하여 연결<br>
+            • <strong>초저지연 PCIe Gen5</strong>: 네트워킹 오버헤드 없이 네이티브 버스 속도로 자원 공유
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h4 style="color: var(--nv-green);"><span>⚡</span> 2. Liqid Matrix SW 자원 오케스트레이션</h4>
+          <p>
+            • <strong>소프트웨어 정의 자원 할당</strong>: 물리적 케이블 재배치 없이 GUI/API로 서버에 GPU와 메모리를 1초 만에 동적 증설/회수<br>
+            • <strong>K8s & Slurm 플러그인</strong>: Kubernetes 워크로드 요구량에 맞춰 GPU 개수 및 DRAM 크기를 자율 스케줄링<br>
+            • <strong>자원 과다 프로비저닝(Overprovisioning) 75% 절감</strong>
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h4 style="color: var(--accent-purple);"><span>🧠</span> 3. 대용량 DRAM 풀링 & KV Cache 가속</h4>
+          <p>
+            • <strong>최대 200TB 초대형 DRAM 풀</strong>: 단일 GPU 메모리 한계를 극복하는 거대 메모리 공유 풀 제공<br>
+            • <strong>90% KV Cache Hit Rate 달성</strong>: LLM 긴 문맥 추론 시 토큰 재연산(Recompute)을 제거하여 <strong>추론 속도 7배 향상</strong><br>
+            • <strong>Tokens per Watt 2배 극대화</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: NVL-72 vs Liqid PCIe-72 비교 분석 -->
+    <section class="section-wrap" id="sec3">
+      <div class="section-header">
+        <span class="section-tag">Section 03</span>
+        <h2 class="section-title">엔비디아 NVL-72 vs Liqid PCIe-72 심층 비교 분석</h2>
+      </div>
+
+      <p class="narrative-p">
+        Liqid는 고비용·특수 냉각이 강제되는 NVIDIA NVL-72의 독점 구조를 타파하고, <strong>일반 공랭식 데이터센터에서 RTX 6000 Ada / L40S 기반으로 엔터프라이즈 AI 추론을 최적화할 수 있는 유효한 TCO 대안</strong>을 제시합니다.
+      </p>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">비교 지표</th>
+              <th style="width: 40%;">NVIDIA NVL-72 (독점 턴키 팩토리)</th>
+              <th style="width: 40%;">Liqid PCIe-72 (컴포저블 풀링)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>GPU 및 아키텍처</strong></td>
+              <td>72x B200 NVLink 일체형 (고정형 랙)</td>
+              <td><strong>72x RTX 6000 Ada / L40S PCIe (동적 풀링)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>GPU당 단가 / 코어당 비용</strong></td>
+              <td>~$30,000 / GPU (<strong>Core당 $2.21</strong>)</td>
+              <td>~$7,500 / GPU (<strong>Core당 $0.31 ➔ 약 7배 우수</strong>)</td>
+            </tr>
+            <tr>
+              <td><strong>전력 소모 (Power)</strong></td>
+              <td><strong>~150 kW</strong> (특수 수랭식 랙 필수)</td>
+              <td><strong>~60 kW</strong> (공랭식 랙 지원, <strong>전력 5배 절감</strong>)</td>
+            </tr>
+            <tr>
+              <td><strong>데이터센터 요구조건</strong></td>
+              <td>수랭 인프라 완비된 특수 신축 데이터센터만 가능</td>
+              <td><strong>기존 일반 기업 전산실/데이터센터 즉시 설치 가능</strong></td>
+            </tr>
+            <tr>
+              <td><strong>인프라 유연성</strong></td>
+              <td>정적 구성 (Static, 변경 불가)</td>
+              <td><strong>소프트웨어 기반 동적 자원 재할당 (Dynamic Composable)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>LLM 추론 성능 (Tokens/TCO)</strong></td>
+              <td>대규모 학습 중심, 추론 시 과도한 비용 발생</td>
+              <td><strong>대용량 DRAM KV Cache 연동 시 최상위 Tokens/$ 달성</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 엔터프라이즈 HA 안정성 및 PCIe/NTB 구조적 제약 · 성능 비교 -->
+    <section class="section-wrap" id="sec4">
+      <div class="section-header">
+        <span class="section-tag">Section 04</span>
+        <h2 class="section-title">엔터프라이즈 고가용성(HA) 및 PCIe/NTB 구조적 제약 · 성능 비교 (vs NVLink / InfiniBand)</h2>
+      </div>
+
+      <p class="narrative-p">
+        엔터프라이즈 미션 크리티컬 환경에 Liqid를 도입하기 위해서는 단순한 TCO 절감 외에 <strong>고가용성(HA), 장애 격리(Fault Isolation), 그리고 PCIe/NTB 패브릭의 태생적 물리 한계</strong>에 대한 냉철한 기술 검토가 선행되어야 합니다.
+      </p>
+
+      <!-- 1. HA 및 안정성 평가 -->
+      <div class="grid-2">
+        <div class="feature-card" style="border-left: 4px solid var(--accent-coral);">
+          <h4 style="color: var(--accent-coral);"><span>⚠️</span> 1. 고가용성(HA) 및 단일 장애점(SPOF) 리스크</h4>
+          <p>
+            • <strong>Expansion Chassis 레벨 SPOF</strong>: Liqid 섀시 1대에 최대 30개 GPU 및 다수 호스트가 연결되므로, 섀시 전원/PCIe 스위치 고장 시 <strong>연결된 모든 서버의 AI 서비스가 동시 중단되는 장애 확산 위험</strong>이 존재합니다.<br>
+            • <strong>PCIe 링크 페일오버의 한계</strong>: 이더넷/InfiniBand(LACP/BGP)와 달리, PCIe 하드웨어 버스 단절 시 OS 커널 패닉(PCIe AER) 및 CUDA 컨텍스트 강제 종료가 발생할 수 있어 <strong>무중단 하드웨어 페일오버에 한계</strong>가 있습니다.<br>
+            • <strong>컨트롤 플레인(Liqid Matrix) 이중화</strong>: Matrix 오케스트레이터의 Active-Standby 이중화 및 메타데이터 동기화 아키텍처가 필수 검증 항목입니다.
+          </p>
+        </div>
+
+        <div class="feature-card" style="border-left: 4px solid var(--accent-gold);">
+          <h4 style="color: var(--accent-gold);"><span>⚙️</span> 2. PCIe & NTB(Non-Transparent Bridge) 확장성 제약</h4>
+          <p>
+            • <strong>초기 세팅 후 동적 토폴로지 변경의 제약</strong>: PCIe는 기본적으로 트리(Tree) 구조의 정적 버스 열거(Bus Enumeration)에 의존합니다. 런타임 동적 재할당(Hot-plug) 시 <strong>OS 커널 드라이버 및 CUDA 런타임 리로드 간헐적 불안정성</strong>이 발생할 수 있습니다.<br>
+            • <strong>랙 스케일(Rack-Scale) 한계</strong>: 단일 섀시(최대 30x GPU) 및 단일 Pod(최대 16대 서버) 범위 내에서는 효과적이나, <strong>멀티 랙(Multi-Rack) 이상의 대규모 클러스터로 확장 시에는 결국 InfiniBand/RoCEv2 네트워크 브릿징이 강제</strong>됩니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 2. 대역폭 및 지연시간 비교 매트릭스 -->
+      <h3 style="font-family: var(--font-display); font-size: 1.25rem; color: #fff; margin: 28px 0 12px;">📊 상호연결 패브릭 성능 비교: NVLink vs InfiniBand vs Liqid PCIe (NTB)</h3>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 18%;">패브릭 규격</th>
+              <th style="width: 22%;">양방향 대역폭 (Bandwidth)</th>
+              <th style="width: 18%;">전송 지연 (Latency)</th>
+              <th style="width: 22%;">핵심 특징 및 메커니즘</th>
+              <th style="width: 20%;">워크로드 적합성 평가</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>NVIDIA NVLink 5</strong><br><span style="color: var(--nv-green); font-size: 0.78rem;">(B200 / NVL-72)</span></td>
+              <td style="color: var(--nv-green); font-weight: 700;">1,800 GB/s (1.8 TB/s)<br><span style="font-size: 0.75rem; color: var(--text-dim);">(Liqid 대비 약 28배)</span></td>
+              <td><strong>~100 ns</strong> (초저지연)</td>
+              <td>GPU 간 전용 직접 연결, All-to-All 통신 메모리 맵핑</td>
+              <td><strong>초거대 LLM 분산 사전학습(Pre-training) 및 텐서 병렬화(TP) 필수</strong></td>
+            </tr>
+            <tr>
+              <td><strong>NVIDIA InfiniBand</strong><br><span style="color: #4dabf7; font-size: 0.78rem;">(NDR 400G / XDR 800G)</span></td>
+              <td><strong>50 ~ 100 GB/s</strong><br><span style="font-size: 0.75rem; color: var(--text-dim);">(Port당 400G~800G)</span></td>
+              <td><strong>~600 ns ~ 1 µs</strong></td>
+              <td>RDMA 기반 커널 바이패스 네트워크, 무제한 스케일아웃</td>
+              <td><strong>멀티 노드/멀티 랙 대규모 분산 클러스터링의 글로벌 표준</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Liqid PCIe Gen5 x16</strong><br><span style="color: var(--cyan); font-size: 0.78rem;">(NTB Fabric Pooling)</span></td>
+              <td style="color: var(--cyan); font-weight: 700;"><strong>~64 GB/s</strong><br><span style="font-size: 0.75rem; color: var(--text-dim);">(단방향 32 GB/s)</span></td>
+              <td><strong>~200 ~ 400 ns</strong><br><span style="font-size: 0.75rem; color: var(--text-dim);">(NTB 맵핑 오버헤드)</span></td>
+              <td>PCIe 스위치 & NTB 기반 이종 서버 간 자원 공유/풀링</td>
+              <td><strong>❌ 대규모 분산 학습 부적합<br>✅ 독립 추론 서빙 & 대용량 KV Cache 공유 최적</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">💡 기술적 평가 결론: 용도별 명확한 워크로드 타깃팅 필요</div>
+        <p style="font-size: 0.9rem; color: var(--text-main); line-height: 1.75;">
+          • <strong>대규모 LLM 사전학습(Pre-training) 및 텐서 병렬화(Tensor Parallelism)</strong>: GPU 간 초고속 파라미터 동기화(AllReduce)가 필수이므로, <strong>대역폭이 1/28 수준인 PCIe/NTB 기반 Liqid로는 대체가 불가능</strong>하며 NVIDIA NVLink/InfiniBand가 반드시 요구됩니다.<br>
+          • <strong>엔터프라이즈 추론(Inference Serving) 및 RAG / LoRA 서빙</strong>: 개별 노드가 독립적인 요청을 처리하거나 파이프라인 병렬화(PP)를 사용하는 추론 워크로드에서는, <strong>Liqid의 200TB DRAM KV Cache 가속과 GPU 동적 풀링이 NVL-72 대비 7배의 TCO 절감 효과</strong>를 확실하게 제공합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: 엔터프라이즈 하드웨어 토탈 패키지 제안 모델 -->
+    <section class="section-wrap" id="sec5">
+      <div class="section-header">
+        <span class="section-tag">Section 05</span>
+        <h2 class="section-title">엔터프라이즈 프라이빗 AI 하드웨어 토탈 패키지 제안 모델 (Turnkey Total Package)</h2>
+      </div>
+
+      <p class="narrative-p">
+        엔터프라이즈 고객에게 Liqid를 개별 부품이나 단품 카드로 제안할 경우 도입 및 검증 장벽이 높아지므로, 
+        <strong>"서버(Dell) + 가속기(NVIDIA) + 풀링 섀시(Liqid) + 플랫폼(RHOAI) + 올인원 랙"이 결합된 '엔터프라이즈 프라이빗 AI 하드웨어 토탈 패키지' 형태의 턴키 오퍼링</strong>으로 제안합니다.
+      </p>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">구성 영역</th>
+              <th style="width: 48%;">토탈 패키지 표준 하드웨어 & 소프트웨어 규격</th>
+              <th style="width: 30%;">조달 및 수행 주체</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>호스트 컴퓨팅<br>(Compute Host)</strong></td>
+              <td><strong>Dell PowerEdge R760 / R660</strong> (Dual Intel Xeon, 4~8 노드)<br>• PCIe Gen5 HIC(Host Interface Card) 기본 탑재</td>
+              <td style="color: #4dabf7;"><strong>델(Dell) 총판 파트너사</strong><br>(물리 서버 조달 및 H/W 보증)</td>
+            </tr>
+            <tr>
+              <td><strong>컴포저블 풀링<br>(CDI Chassis)</strong></td>
+              <td><strong>Liqid UltraStack PCIe Gen5 Expansion Chassis</strong> (1~2대)<br>• 섀시당 10~30x GPU 수용, 최대 200TB DRAM 메모리 풀링 지원</td>
+              <td style="color: var(--cyan);"><strong>MZC ISSU (총판 라이선스)</strong><br>+ H/W 파트너 랙 마운팅</td>
+            </tr>
+            <tr>
+              <td><strong>AI 가속기<br>(GPU Acceleration)</strong></td>
+              <td><strong>NVIDIA RTX 6000 Ada (48GB) 또는 L40S (48GB) PCIe 16~32대</strong><br>• 공랭식 데이터센터 최적화 가속기 팩</td>
+              <td style="color: var(--nv-green);"><strong>엔비디아(NVIDIA) 파트너사</strong><br>(GPU 공급 및 엔비디아 엔터프라이즈 지원)</td>
+            </tr>
+            <tr>
+              <td><strong>사내 지식 스토리지<br>(Enterprise Storage)</strong></td>
+              <td><strong>Dell PowerScale / All-Flash NVMe 스토리지</strong> (100TB~)<br>• RAG 문서 파이프라인 및 고속 임베딩 벡터 저장소</td>
+              <td style="color: #4dabf7;"><strong>델(Dell) 파트너사</strong></td>
+            </tr>
+            <tr>
+              <td><strong>플랫폼 & 솔루션<br>(AI Software Stack)</strong></td>
+              <td><strong>Liqid Matrix SW + Red Hat OpenShift AI (RHOAI)</strong><br>• MZC 엔터프라이즈 문서 파이프라인 및 코딩 에이전트 사전 탑재</td>
+              <td style="color: var(--accent-gold); font-weight: 700;"><strong>MZC ISSU</strong><br>(AI 아키텍처 SI & 통합 플랫폼 구축)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2">
+        <div class="feature-card" style="border-left: 4px solid var(--mzc-blue);">
+          <h4 style="color: var(--mzc-blue);">🏢 1. 턴키 랙(Turnkey Rack) 공급 및 원스톱 책임 운영</h4>
+          <p>
+            • 고객 전산실에 <strong>단일 공랭식 42U 랙 단위로 사전 배선·조립 완료된 턴키 패키지</strong>로 납품되어 즉시 전원만 인가하면 운영 가능<br>
+            • H/W 조달은 검증된 델/엔비디아 파트너를 통하고, <strong>AI 플랫폼 통합 및 기술 지원(SLA)은 메가존클라우드가 단일 창구(Single Point of Contact)</strong>로 총괄
+          </p>
+        </div>
+
+        <div class="feature-card" style="border-left: 4px solid var(--nv-green);">
+          <h4 style="color: var(--nv-green);">💰 2. TCO 극대화 및 단계적 확장(Scale-out)</h4>
+          <p>
+            • 수십억 원의 수랭 설비 공사 없이 <strong>일반 공랭식 전산실에 16~32개 GPU를 동적 운용</strong>하므로 초기 도입 비용 60% 이상 절감<br>
+            • 사내 AI 사용량 증가 시 <strong>서버 교체 없이 Liqid 섀시에 GPU/DRAM만 추가 핫플러그 증설</strong>하는 유연한 확장성 확보
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 엔터프라이즈 비용 분석 및 TCO 경제성 검토 -->
+    <section class="section-wrap" id="sec6">
+      <div class="section-header">
+        <span class="section-tag">Section 06</span>
+        <h2 class="section-title">엔터프라이즈 비용 분석 및 TCO 경제성 검토 (Cost & TCO Feasibility)</h2>
+      </div>
+
+      <p class="narrative-p">
+        Liqid CDI 기반 솔루션의 사업성 평가에서 가장 중요한 요소는 <strong>초기 하드웨어 투자(CapEx), 소프트웨어 라이선스 비용, 그리고 데이터센터 운영비(OpEx)를 종합한 3개년 TCO 경제성</strong>입니다.
+      </p>
+
+      <!-- 1. 비용 구성 요소 분석 -->
+      <div class="grid-3">
+        <div class="feature-card">
+          <h4 style="color: var(--cyan);"><span>🖥️</span> 1. CapEx (초기 하드웨어)</h4>
+          <p>
+            • <strong>호스트 서버 수 75% 축소</strong>: 4대의 8-GPU 서버 대신 1~2대의 호스트 서버만 필요<br>
+            • <strong>CDI 섀시 오버헤드</strong>: Liqid 섀시, PCIe Gen5 패브릭 스위치 및 HIC 카드 추가 비용 발생 (약 1억~1.5억 원 내외)<br>
+            • <strong>GPU 유연 구성</strong>: 고가의 B200 대신 L40S / RTX 6000 Ada 선택 가능
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h4 style="color: var(--accent-gold);"><span>📜</span> 2. Software License</h4>
+          <p>
+            • <strong>Liqid Matrix SW 라이선스</strong>: 노드/섀시 단위 라이선스 및 연간 서브스크립션<br>
+            • <strong>OS 및 RHOAI 라이선스 대폭 절감</strong>: 호스트 서버 소켓/코어 수 감소에 따라 <strong>Red Hat OpenShift AI 및 가상화 OS 라이선스 비용 50~75% 절감</strong>
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h4 style="color: var(--nv-green);"><span>⚡</span> 3. OpEx (운영 및 전력)</h4>
+          <p>
+            • <strong>전력비 60% 절감</strong>: 150kW(수랭식 NVL-72) 대비 60kW(공랭식 Liqid PCIe-72)로 연간 수천만 원 전력비 방어<br>
+            • <strong>상면 비용 75% 절감</strong>: 4랙 분산 배치를 1랙으로 압축<br>
+            • <strong>수랭 설비 공사비 ZERO</strong>: 기존 전산실 즉시 구축
+          </p>
+        </div>
+      </div>
+
+      <!-- 2. 3대 인프라 도입 시나리오별 3개년 TCO 비교표 -->
+      <h3 style="font-family: var(--font-display); font-size: 1.25rem; color: #fff; margin: 28px 0 12px;">📊 3대 인프라 구축 시나리오별 3개년 TCO 비교 매트릭스 (32~72 GPU 규모 기준)</h3>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 18%;">비용 항목</th>
+              <th style="width: 28%;">[시나리오 A] NVIDIA NVL-72<br><span style="font-size: 0.75rem; color: var(--text-dim);">(B200 수랭 턴키 팩토리)</span></th>
+              <th style="width: 27%;">[시나리오 B] 전통적 고정형 서버<br><span style="font-size: 0.75rem; color: var(--text-dim);">(4x 8-GPU Dell R760, 32x L40S)</span></th>
+              <th style="width: 27%;">[시나리오 C] MZC Composable AI<br><span style="font-size: 0.75rem; color: var(--cyan);">(1x Liqid 섀시 + 32x L40S 풀링)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>초기 H/W 도입비 (CapEx)</strong></td>
+              <td>약 35억 ~ 45억 원</td>
+              <td>약 12억 ~ 14억 원 (서버 4대 + GPU 32개)</td>
+              <td><strong>약 7억 ~ 9억 원</strong> (서버 1~2대 + Liqid + GPU 32개)</td>
+            </tr>
+            <tr>
+              <td><strong>특수 설비 공사비</strong></td>
+              <td><strong>수십억 원</strong> (수랭 배관/냉각탑 신축 필수)</td>
+              <td>없음 (일반 공랭 전산실)</td>
+              <td><strong>없음 (일반 공랭 전산실 즉시 구축)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>3개년 S/W 라이선스</strong></td>
+              <td>NVIDIA AI Enterprise 포함</td>
+              <td>RHOAI 4노드분 (상대적 고비용)</td>
+              <td><strong>RHOAI 1~2노드분 + Liqid Matrix (약 40% 절감)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>3개년 전력 및 상면비</strong></td>
+              <td>약 4.5억 ~ 6억 원 (150kW 수랭)</td>
+              <td>약 2.5억 ~ 3.5억 원 (서버 4대 분산)</td>
+              <td><strong>약 1.5억 ~ 2억 원 (단일 랙 60kW, 약 40% 절감)</strong></td>
+            </tr>
+            <tr style="background: rgba(0, 229, 255, 0.05); font-weight: 700;">
+              <td style="color: #fff;"><strong>3개년 총 TCO 합계</strong></td>
+              <td style="color: var(--accent-coral);"><strong>50억 원 이상</strong> (특수 연구소용)</td>
+              <td style="color: var(--text-muted);"><strong>약 16억 ~ 19억 원</strong></td>
+              <td style="color: var(--cyan);"><strong>약 10억 ~ 12억 원 (약 35~40% 절감)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3. 신규 비즈니스 인력/조직 셋업 비용 및 BEP(손익분기점) 시뮬레이션 -->
+      <h3 style="font-family: var(--font-display); font-size: 1.25rem; color: #fff; margin: 28px 0 12px;">📈 신규 비즈니스 인력/조직 셋업 비용 및 BEP(손익분기점) 시뮬레이션</h3>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">비즈니스 셋업 & 수익 항목</th>
+              <th style="width: 45%;">비용 및 시장 현실 산정 근거</th>
+              <th style="width: 30%;">연간 재무 영향 (Financial Impact)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>전담 조직 셋업 비용<br>(5인 전담팀 구성)</strong></td>
+              <td>• 전담 세일즈/프리세일즈 2명 + 전문 CDI 엔지니어 2명 + PM 1명<br>• 엔지니어링 교육/공인 인증 및 데모 랩 운영비</td>
+              <td style="color: var(--accent-coral); font-weight: 700;">연간 고정비 <strong>약 7억 ~ 9억 원</strong></td>
+            </tr>
+            <tr>
+              <td><strong>건당 사업 마진<br>(Unit Margin)</strong></td>
+              <td>• Liqid S/W 라이선스 유통 마진 + 아키텍처 SI 용역비<br>• 건당 평균 마진 약 3,000만 ~ 5,000만 원 수준</td>
+              <td style="color: var(--cyan);">건당 순마진 <strong>약 4,000만 원</strong></td>
+            </tr>
+            <tr>
+              <td><strong>국내 시장 수주 현실<br>(Annual Pipeline)</strong></td>
+              <td>• 국내 엔터프라이즈 CDI 시장은 초기 니치 단계로 연간 수요 1~3건 미만<br>• 1차년도 보수적 예상 수주: <strong>연간 1~2건</strong></td>
+              <td style="color: var(--accent-coral);">1차년도 매출 이익 <strong>약 6,000만 ~ 1억 원</strong></td>
+            </tr>
+            <tr style="background: rgba(255, 107, 107, 0.08); font-weight: 700;">
+              <td style="color: #fff;"><strong>예상 BEP(손익분기점) 기간</strong></td>
+              <td style="color: var(--text-main);">연간 고정비(8억) 회수를 위해 연간 20건 이상 수주 필요 ➔ <strong>단기간 달성 불가</strong></td>
+              <td style="color: var(--accent-coral); font-size: 1.05rem;"><strong>최소 2.5년 ~ 3년 소요 (1년 내 불가)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="border-left: 4px solid var(--accent-coral); background: rgba(255, 107, 107, 0.06);">
+        <div class="callout-title" style="color: var(--accent-coral);">🚫 비즈니스 평가 기준에 따른 최종 판정: '공식 솔루션 편입 부정적 (No-Go)'</div>
+        <p style="font-size: 0.9rem; color: var(--text-main); line-height: 1.75;">
+          • <strong>200여 가지 ISV 파트너 재평가 기준 적용</strong>: 경쟁력, 시장 성장성, 매출 기여도를 기준으로 200여 개 파트너십을 엄격히 정예화했듯이, 기술적으로 문제가 없더라도 <strong>BEP가 1년 단위 이상 소요(2.5~3년)되는 신규 솔루션은 비즈니스 편입에 대해 부정적으로 평가</strong>합니다.<br>
+          • <strong>현재 상태 규정</strong>: 현재 Liqid는 <strong>'단순 기술적 검토(Technical Exploration)' 단계로 동결</strong>하며, 신규 전담 조직 셋업이나 공식 솔루션 추가는 전면 보류합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 7: AI Full Stack 합류 및 Private Cloud 총판 사업 타당성 -->
+    <section class="section-wrap" id="sec7">
+      <div class="section-header">
+        <span class="section-tag">Section 07</span>
+        <h2 class="section-title">MZC AI Full Stack 합류 및 Private Cloud 총판 사업 타당성 판단</h2>
+      </div>
+
+      <p class="narrative-p">
+        솔루션 프레임워크 파편화 방지 및 Dell/NVIDIA 공인 총판 비즈니스 집중 원칙에 입각한 <strong>사업화 타당성 평가 결과는 다음과 같습니다.</strong>
+      </p>
+
+      <div class="grid-2">
+        <div class="feature-card" style="border-left: 4px solid var(--accent-coral);">
+          <h4 style="color: var(--accent-coral);">🚫 1. 솔루션 프레임워크 파편화 방지 & 공식 편입 부정적</h4>
+          <p>
+            • <strong>프레임워크 파편화 방지</strong>: 기술적으로 가능하다고 무분별하게 신규 H/W를 추가할 경우, 솔루션 프레임워크가 파편화되고 사후 지원 부담이 가중되므로 공식 편입을 지양합니다.<br>
+            • <strong>분기 100억 원 총판 허들 미달</strong>: MZC 총판 비즈니스 편입 기준(분기 100억 원 이상)에 크게 미달하며, <strong>BEP 도달 기간이 1년 이상 소요되므로 총판 사업 편입은 불가</strong>합니다.<br>
+            • <strong>하드웨어 직접 핸들링 배제</strong>: MZC가 H/W 수입·재고·AS를 직접 담당하는 위험은 원천 차단합니다.
+          </p>
+        </div>
+
+        <div class="feature-card" style="border-left: 4px solid var(--nv-green);">
+          <h4 style="color: var(--nv-green);">🏛️ 2. Dell / NVIDIA 공인 총판 지위 활용에 집중</h4>
+          <p>
+            • <strong>기존 핵심 총판 역량 레버리지</strong>: MZC가 이미 공인 총판 지위를 확보하고 있는 <strong>Dell PowerEdge 서버 및 NVIDIA GPU 표준 라인업</strong>에 모든 영업 및 엔지니어링 역량을 집중합니다.<br>
+            • <strong>특수 고객 제한적 연계</strong>: 사내 기존 서버 재활용을 강력히 요구하는 특수 사이트에 한하여, 물리 섀시는 H/W 파트너가 납품하고 MZC는 S/W SI로만 선별 대응합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: 결론 및 제언 -->
+    <section class="section-wrap" id="sec8">
+      <div class="section-header">
+        <span class="section-tag">Section 08</span>
+        <h2 class="section-title">종합 결론 및 전략적 의사결정 가이드라인</h2>
+      </div>
+
+      <ul class="bullet-list">
+        <li>
+          <strong>1. 현재 상태 규정: '단순 기술적 검토' 단계로 유지</strong>: 기술적 가능성은 확인하였으나, BEP 1년 초과(2.5~3년) 및 전담 조직 셋업 부담으로 인해 <strong>MZC 공식 솔루션 편입은 부정적(보류)으로 결론</strong>
+        </li>
+        <li>
+          <strong>2. Dell / NVIDIA 공인 총판 사업에 집중 (Core Business First)</strong>: 솔루션 프레임워크 파편화를 방지하고, 메가존클라우드의 핵심 강점인 <strong>Dell PowerEdge + NVIDIA 표준 엔터프라이즈 인프라 비즈니스에 전사 역량 집중</strong>
+        </li>
+        <li>
+          <strong>3. H/W 직접 핸들링 배제 원칙 준수</strong>: 분기 100억 원 미달 및 재고·AS 리스크에 따라 Liqid 하드웨어 직접 총판/유통은 추진하지 않음
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <p style="font-weight: 700; color: #fff; margin-bottom: 6px;">MEGAZONECLOUD Integrated Solution Sales Unit (ISSU)</p>
+      <p>© 2026 MEGAZONECLOUD CORP. ALL RIGHTS RESERVED. | CONFIDENTIAL - FOR STRATEGIC & SALES USE ONLY</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
