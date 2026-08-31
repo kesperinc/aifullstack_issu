@@ -155,40 +155,47 @@
       <thead>
         <tr>
           <th>구분 항목</th>
-          <th>Option A: Intel Gaudi 2/3 기반 고가성비 구성</th>
-          <th>Option B: NVIDIA RTX 6000 Blackwell 구성</th>
+          <th>Option 01: Small (2x GPU)</th>
+          <th>Option 02: Medium (Articul8 실측 견적)</th>
+          <th>Option 03: Large (PowerEdge XE9780 쿠팡 실측)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><strong>하드웨어 모델</strong></td>
-          <td>Dell PowerEdge (8x Intel Gaudi 2/3 Accelerator)</td>
-          <td>Dell PowerEdge R760xa (4x RTX 6000 Blackwell 60GB)</td>
+          <td>Dell PowerEdge R760/R770 (1대)</td>
+          <td>Dell PowerEdge XE7740 (GPU 1대) + R770 (Compact 3대) + R570 (Bastion 1대)</td>
+          <td>Dell PowerEdge XE9780 10U (2대 클러스터 패키지)</td>
         </tr>
         <tr>
           <td><strong>AI 가속기 & VRAM</strong></td>
-          <td>8x Intel Gaudi 2 (총 768GB Mezzanine VRAM)</td>
-          <td>4x RTX 6000 Blackwell 60GB (총 240GB VRAM)</td>
+          <td>2x RTX 6000 Ada (96GB) / RTX PRO Blackwell (192GB)</td>
+          <td>4x NVIDIA H200 NVL 141GB (총 564GB VRAM)</td>
+          <td>16x NVIDIA Blackwell B300 NVL8 SXM5 (총 2,304GB VRAM)</td>
         </tr>
         <tr>
-          <td><strong>HW CAPEX</strong></td>
-          <td><span class="price-tag" style="color:#76b900;">160,000,000 원</span></td>
-          <td><span class="price-tag">125,000,000 원</span></td>
+          <td><strong>HW CAPEX (VAT 별도)</strong></td>
+          <td><span class="price-tag" style="color:#76b900;">45,000,000 ~ 74,000,000 원</span></td>
+          <td><span class="price-tag" style="color:#ffb700;">515,000,000 ~ 817,930,000 원<br>(51,500만 ~ 81,800만 원)</span></td>
+          <td><span class="price-tag" style="color:#00aeef;">4,571,802,000 원 (2대 실측가 / 대당 22.86억)</span></td>
         </tr>
         <tr>
           <td><strong>SW OPEX (연간)</strong></td>
-          <td>180,000,000 원 (Articul8 Enterprise + RHOAI)</td>
-          <td>210,000,000 원 (Articul8 + NVAIE + RHOAI)</td>
+          <td>60,000,000 원 (사내 코딩 에이전트 + OpenShift SNO)</td>
+          <td>210,000,000 원 (Articul8 Model Mesh + NVAIE + OpenShift)</td>
+          <td>450,000,000 원 (Articul8 전사 + Cohere + Multi-OpenShift)</td>
         </tr>
         <tr>
           <td><strong>구축 SI 비용 (1회성)</strong></td>
-          <td>50,000,000 원 (Model Mesh 파이프라인)</td>
-          <td>45,000,000 원</td>
+          <td>30,000,000 원</td>
+          <td>50,000,000 원 (지식 그래프 / RAG 구축)</td>
+          <td>120,000,000 원 (전사 AI Factory 통합 SI)</td>
         </tr>
         <tr style="background: rgba(0,113,197,0.1); font-weight: bold;">
           <td><strong>1년 차 총 TCO 예산</strong></td>
-          <td><span class="price-tag" style="color:#76b900; font-size:1.2rem;">390,000,000 원 (~3.9억 원)</span></td>
-          <td><span class="price-tag" style="color:#00aeef; font-size:1.2rem;">380,000,000 원 (~3.8억 원)</span></td>
+          <td><span class="price-tag" style="color:#76b900; font-size:1.0rem;">약 1.3억 ~ 1.45억 원</span></td>
+          <td><span class="price-tag" style="color:#ffb700; font-size:1.1rem;">1,077,930,000 원 (~10.78억 원)</span></td>
+          <td><span class="price-tag" style="color:#00aeef; font-size:1.1rem;">5,141,802,000 원 (~51.4억 원)</span></td>
         </tr>
       </tbody>
     </table>

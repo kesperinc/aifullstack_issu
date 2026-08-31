@@ -573,24 +573,24 @@ def build_coe_report(output_path):
         (
             "Option 01\nSmall 티어\n(팀/스타트업)",
             "• 50인 이하 조직 / 개발팀\n• 코딩 에이전트 전용 PoC\n• 단일 부서 파일럿",
-            "• Dell PowerEdge R760 (2 GPU)\n• 2x RTX 6000 Ada or 리벨리온 NPU\n• NVMe SSD (2~4TB) + 10/25GbE\n• OpenShift SNO or Nutanix 1-Node",
-            "약 4,500만 ~\n6,000만 원\n(서버/GPU)",
+            "• Dell PowerEdge R760/R770 (2 GPU)\n• 2x RTX 6000 Ada (96GB)\n  or 2x RTX Blackwell (192GB)\n• NVMe SSD (2~4TB) + 10/25GbE\n• OpenShift SNO or Nutanix 1-Node",
+            "약 4,500만 ~\n7,400만 원\n(Ada~4.5천/Blackwell~7.4천)",
             "• GitLab CI/CD + 사내 코딩 에이전트\n• 오픈소스 Qwen2.5-Coder-32B\n• vLLM 초고속 서빙",
             "약 5,000만 ~\n6,000만 원\n(1억 미만 턴키)"
         ),
         (
             "Option 02\nMedium 티어\n(중견/사업부)",
             "• 50인 ~ 200인 중견기업\n• 대기업 제조/금융 사업부\n• Articul8 + 코딩 에이전트",
-            "• Dell PowerEdge R760xa / XE9640 (4 GPU)\n• 4x L40S 48GB or 퓨리오사AI NPU\n• 올플래시 NVMe (20~50TB) + 100GbE\n• OpenShift 3-Node / Nutanix NCI",
-            "약 1.5억 ~\n2.2억 원\n(H/W 별도)",
+            "• Dell PowerEdge XE7740 (4x H200 NVL 1대)\n• Dell PowerEdge R770 (Compact 3대)\n• Dell PowerEdge R570 (Bastion 1대)\n• 올플래시 NVMe + 25GbE SFP28",
+            "약 5.15억 ~\n8.18억 원\n(51,500만~81,800만)",
             "• Articul8 Model Mesh (지식 그래프)\n• Cohere Command R+\n• vLLM / NVIDIA NIM 이중화\n• MinIO + Redis Enterprise 캐시",
             "약 1.8억 ~\n2.5억 원\n(SW 라이선스)"
         ),
         (
             "Option 03\nLarge 티어\n(대기업/그룹사)",
             "• 200인 ~ 500인+ 전사 규모\n• 엔터프라이즈 AI Factory\n• 제조/MRO/금융 복합 워크로드",
-            "• Dell PowerEdge XE9680 (8x H100/B200)\n• Dell PowerScale F900/F710 (100TB~PB)\n• 400GbE Spectrum-X / InfiniBand\n• Multi-Cluster OpenShift / Nutanix NKP",
-            "약 6억 ~\n10억+ 원\n(사양별 산정)",
+            "• Dell PowerEdge XE9780 / XE9680 (8x GPU)\n• 8x H100/H200 or 8x B200/B300 NVL8\n• Dell PowerScale F710/F900 NVMe\n• 400GbE BlueField-3 / InfiniBand",
+            "약 15억 ~\n30억+ 원/랙\n(XE9780 B300 실측22.86억)",
             "• Articul8 엔터프라이즈 (제조/MRO/금융)\n• Cohere Suite / 전사 코딩에이전트 + GitLab\n• MinIO + Confluent + Dynatrace",
             "약 3.5억 ~\n5.5억+ 원\n(전사 라이선스)"
         )
@@ -1311,6 +1311,76 @@ def build_coe_report(output_path):
             r_id.font.name = FONT_MAIN
             r_id.font.size = Pt(8.5)
             r_id.font.color.rgb = COLOR_TEXT_MAIN
+
+    # --- 부록 (Appendix): Articul8 하드웨어 구성 다이어트 및 비용 절감 3가지 방안 ---
+    doc.add_page_break()
+    add_section_header(doc, "Appendix", "부록: Articul8 (A8) 하드웨어 구성 다이어트 및 비용 절감 3가지 방안")
+    
+    p_app_intro = doc.add_paragraph()
+    p_app_intro.paragraph_format.space_before = Pt(4)
+    p_app_intro.paragraph_format.space_after = Pt(8)
+    r_app_intro = p_app_intro.add_run(
+        "Articul8 엔터프라이즈 LLM 구축 시, 초기 도입 예산 부담을 줄이고 고객사의 가상화 인프라 환경에 맞춰 "
+        "Bastion 노드(1대, 4,020만 원) 및 OpenShift Compact Control 노드(3대, 2억 6,388만 원)를 선택적으로 줄이거나 통합하여 "
+        "최대 3억 408만 원(약 37%)의 H/W 비용을 절감하는 3가지 아키텍처 다이어트 옵션을 제공합니다."
+    )
+    r_app_intro.font.name = FONT_MAIN
+    r_app_intro.font.size = Pt(9.0)
+    r_app_intro.font.color.rgb = COLOR_TEXT_MAIN
+
+    # 부록 테이블
+    t_app = doc.add_table(rows=5, cols=5)
+    t_app.alignment = WD_TABLE_ALIGNMENT.CENTER
+    app_headers = ["구분 옵션", "물리 서버 구성 사양", "H/W 견적가 (VAT별도)", "비용 절감액", "특징 및 권장 적용 워크로드"]
+    app_widths = [Cm(2.6), Cm(3.8), Cm(2.8), Cm(2.4), Cm(4.0)]
+
+    for idx, (h_text, w_val) in enumerate(zip(app_headers, app_widths)):
+        cell = t_app.rows[0].cells[idx]
+        cell.width = w_val
+        set_cell_margins(cell, top=100, bottom=100, left=80, right=80)
+        set_cell_shading(cell, "1F497D")
+        p = cell.paragraphs[0]
+        r = p.add_run(h_text)
+        r.font.name = FONT_MAIN
+        r.font.size = Pt(8.0)
+        r.bold = True
+        r.font.color.rgb = COLOR_WHITE
+
+    app_rows = [
+        ("기준: Full HA 구성\n(풀 패키지)", "• Dell XE7740 (4x H200) 1대\n• Dell R770 Compact 3대\n• Dell R570 Bastion 1대 (총 5대)", "8억 1,793만 원\n(81,793만 원)", "기준가 (0원)", "• 24x7 미션 크리티컬 무중단\n• Control Plane 물리 완전 이중화"),
+        ("방안 1: SNO 통합\n(1-Server 최적) ★추천", "• Dell XE7740 1대 단일 물리서버\n• Single Node OpenShift (SNO)\n• RHOAI + Articul8 + Bastion 통합", "5억 1,385만 원\n(51,385만 원)", "▼ 3억 408만 원\n(37%↓ 절감)", "• Small-Start / PoC / 초가성비\n• 4U 소형화, 랙/전력 최소화"),
+        ("방안 2: 사내 VM 활용\n(Virtual Control)", "• Dell XE7740 (4x H200) 1대\n• 고객사 기존 VM (vSphere/Nutanix)\n  Control VM 3대 + Bastion VM 1대", "5억 1,385만 원\n(51,385만 원)", "▼ 3억 408만 원\n(37%↓ 절감)", "• 기존 가상화 인프라 보유 고객사\n• H/W 신규구매 최소화 + SW HA"),
+        ("방안 3: Control 노드\n다운사이징", "• Dell XE7740 (4x H200) 1대\n• Dell R570 에센셜 3대 (Control)\n• Bastion 사내 VM 대체 (총 4대)", "6억 1,885만 원\n(61,885만 원)", "▼ 1억 9,908만 원\n(24%↓ 절감)", "• Control 물리 노드 분리 유지\n• 제온 서버 축소로 비용 다이어트")
+    ]
+
+    for row_idx, r_data in enumerate(app_rows, start=1):
+        row_cells = t_app.rows[row_idx].cells
+        for col_idx, (text, w_val) in enumerate(zip(r_data, app_widths)):
+            cell = row_cells[col_idx]
+            cell.width = w_val
+            set_cell_margins(cell, top=80, bottom=80, left=60, right=60)
+            if row_idx % 2 == 1: set_cell_shading(cell, HEX_BG_LIGHT_GRAY)
+            p = cell.paragraphs[0]
+            r = p.add_run(text)
+            r.font.name = FONT_MAIN
+            r.font.size = Pt(7.5)
+            r.font.color.rgb = COLOR_TEXT_MAIN
+            if col_idx == 0: r.bold = True
+            elif col_idx == 3 and "절감" in text:
+                r.bold = True
+                r.font.color.rgb = COLOR_NVIDIA_GREEN
+
+    # 가이드 박스
+    p_guide = doc.add_paragraph()
+    p_guide.paragraph_format.space_before = Pt(8)
+    p_guide.paragraph_format.space_after = Pt(8)
+    r_g = p_guide.add_run(
+        "💡 제안 전략 가이드라인: Option 02 (Medium 티어) 제안 시 고객사의 예산 사정에 따라 "
+        "최소 사양(SNO / 기존 VM 연동 1-Server: 51,500만 원)부터 풀 사양(Full HA 5-Server: 81,800만 원)까지 유연한 H/W 선택 범위를 제공하여 영업 성공률을 극대화할 수 있습니다."
+    )
+    r_g.font.name = FONT_MAIN
+    r_g.font.size = Pt(8.5)
+    r_g.font.color.rgb = COLOR_TEXT_MAIN
 
     # 저장 실행
     doc.save(str(output_path))

@@ -881,24 +881,24 @@
             <tr>
               <td><strong style="color: #00e676;">Option 01<br>Small 티어<br>(팀/스타트업)</strong></td>
               <td>• <strong>50인 이하</strong> 조직 / 개발팀<br>• 코딩 에이전트 전용 PoC<br>• 단일 부서 파일럿</td>
-              <td>• <strong>Dell PowerEdge R760</strong> (2 GPU)<br>• <strong>2x RTX 6000 Ada</strong> or <strong>리벨리온 NPU</strong> (96GB+ VRAM)<br>• 로컬 NVMe SSD (2~4TB) + 10/25GbE<br>• <strong>Red Hat OpenShift SNO</strong> or Nutanix 1-Node</td>
-              <td><span style="color: #00e676; font-weight: 700; font-size: 0.95rem;">약 4,500만 ~ 6,000만 원</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(서버/GPU 구성가)</span></td>
+              <td>• <strong>Dell PowerEdge R760 / R770</strong> (2 GPU)<br>• <strong>2x RTX 6000 Ada (96GB)</strong> or <strong>2x RTX PRO 6000 Blackwell (192GB)</strong><br>• 로컬 NVMe SSD (2~4TB) + 10/25GbE<br>• <strong>Red Hat OpenShift SNO</strong> or Nutanix 1-Node</td>
+              <td><span style="color: #00e676; font-weight: 700; font-size: 0.95rem;">약 4,500만 ~ 7,400만 원</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(Ada 2x: ~4.5천만 / Blackwell 2x: ~7.4천만)</span></td>
               <td>• <strong>GitLab CI/CD</strong> + <strong>사내 코딩 에이전트 (MCP)</strong><br>• <strong>오픈소스 Qwen2.5-Coder-32B</strong> (라이선스 0원)<br>• <strong>vLLM</strong> 초고속 서빙 (OpenAI API 호환)</td>
               <td><span style="color: #00e676; font-weight: 800; font-size: 1.0rem;">약 5,000만 ~ 6,000만 원</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(1억 미만 턴키 오퍼링)</span></td>
             </tr>
             <tr>
               <td><strong style="color: var(--accent-gold);">Option 02<br>Medium 티어<br>(중견/사업부)</strong></td>
               <td>• <strong>50인 ~ 200인 이하</strong> 중견기업<br>• 대기업 제조/금융 사업부<br>• Articul8 + 코딩 에이전트</td>
-              <td>• <strong>Dell PowerEdge R760xa / XE9640</strong> (4 GPU)<br>• <strong>4x L40S 48GB</strong> or <strong>퓨리오사AI NPU</strong><br>• 올플래시 NVMe 스토리지 (20~50TB) + 100GbE<br>• OpenShift 3-Node / Nutanix NCI Cluster</td>
-              <td><span style="color: var(--accent-gold); font-weight: 700; font-size: 0.95rem;">약 1.5억 ~ 2.2억 원</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(H/W 별도 제공)</span></td>
+              <td>• <strong>Dell PowerEdge XE7740</strong> (4x NVIDIA H200 NVL 141GB Worker 1대)<br>• <strong>Dell PowerEdge R770</strong> (OpenShift Compact 노드 3대)<br>• <strong>Dell PowerEdge R570</strong> (Bastion 노드 1대)<br>• 올플래시 NVMe + 25GbE SFP28</td>
+              <td><span style="color: var(--accent-gold); font-weight: 700; font-size: 0.95rem;">약 5억 1,500만 ~ 8억 1,800만 원</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(51,500만 ~ 81,800만 원 / SNO 5.15억~FullHA 8.18억)</span></td>
               <td>• <strong>Articul8 Model Mesh</strong> (도메인 지식 그래프)<br>• <strong>Cohere Command R+</strong><br>• <strong>vLLM / NVIDIA NIM</strong> 이중화 서빙<br>• <strong>MinIO</strong> + <strong>Redis Enterprise</strong> 캐시</td>
               <td><span style="color: var(--accent-gold); font-weight: 800; font-size: 1.0rem;">약 1.8억 ~ 2.5억 원</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(SW 라이선스 & SI)</span></td>
             </tr>
             <tr>
               <td><strong style="color: #4dabf7;">Option 03<br>Large 티어<br>(대기업/그룹사)</strong></td>
               <td>• <strong>200인 ~ 500인 이상</strong> 전사 규모<br>• 엔터프라이즈 AI Factory<br>• 제조/MRO/금융 복합 워크로드</td>
-              <td>• <strong>Dell PowerEdge XE9680</strong> (8x H100/H200/B200)<br>• <strong>Dell PowerScale F900/F710</strong> (100TB~PB급 올플래시)<br>• 400GbE Spectrum-X / InfiniBand<br>• Multi-Cluster OpenShift / Nutanix NKP</td>
-              <td><span style="color: #4dabf7; font-weight: 700; font-size: 0.95rem;">약 6억 ~ 10억+ 원</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(사양별 별도 산정)</span></td>
+              <td>• <strong>Dell PowerEdge XE9780 / XE9680</strong> (8x SXM5 GPU)<br>• <strong>8x H100/H200 SXM5</strong> or <strong>8x Blackwell B200/B300 NVL8</strong><br>• <strong>Dell PowerScale F710/F900</strong> (NVMe 올플래시)<br>• 400GbE BlueField-3 DPU / InfiniBand / OpenShift Cluster</td>
+              <td><span style="color: #4dabf7; font-weight: 700; font-size: 0.95rem;">약 15억 ~ 30억+ 원 / 랙</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(XE9780 B300 8GPU 실측 제안가 22.86억 원/대)</span></td>
               <td>• <strong>Articul8 엔터프라이즈</strong> (제조/MRO/금융 패키지)<br>• <strong>Cohere Suite</strong> / 전사 코딩 에이전트 + GitLab<br>• <strong>MinIO</strong> + <strong>Confluent</strong> + <strong>Dynatrace</strong></td>
               <td><span style="color: #4dabf7; font-weight: 800; font-size: 1.0rem;">약 3.5억 ~ 5.5억+ 원</span><br><span style="font-size: 0.78rem; color: var(--text-dim);">(전사 라이선스/구축)</span></td>
             </tr>
@@ -1549,6 +1549,68 @@
         </li>
       </ul>
 
+    </section>
+
+    <!-- APPENDIX: Articul8 하드웨어 구성 다이어트 및 비용 절감 3가지 방안 -->
+    <section class="section-wrap" id="appendix_a8">
+      <div class="section-header">
+        <span class="section-tag" style="background: rgba(255, 183, 0, 0.2); color: var(--accent-gold); border: 1px solid var(--accent-gold);">Appendix</span>
+        <h2 class="section-title">부록: Articul8 (A8) 하드웨어 구성 다이어트 및 비용 절감 3가지 방안</h2>
+      </div>
+
+      <p class="narrative-p">
+        Articul8 엔터프라이즈 LLM 구축 시, 초기 도입 예산 부담을 줄이고 고객사의 가상화 인프라 환경에 맞춰 
+        <strong>Bastion 노드(1대, 4,020만 원)</strong> 및 <strong>OpenShift Compact Control 노드(3대, 2억 6,388만 원)</strong>를 선택적으로 줄이거나 통합하여 
+        <strong>최대 3억 408만 원(약 37%)의 H/W 비용을 절감하는 3가지 아키텍처 다이어트 옵션을 제공</strong>합니다.
+      </p>
+
+      <div class="table-wrap" style="margin-top: 20px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 15%;">구분 옵션</th>
+              <th style="width: 25%;">물리 서버 구성 사양</th>
+              <th style="width: 18%;">H/W 견적가 (VAT 별도)</th>
+              <th style="width: 16%;">비용 절감액</th>
+              <th style="width: 26%;">특징 및 권장 적용 워크로드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color: #4dabf7;">기준: Full HA 구성<br>(풀 패키지)</strong></td>
+              <td>• Dell XE7740 (4x H200 NVL) 1대<br>• Dell R770 Compact Control 3대<br>• Dell R570 Bastion 1대 (총 5대)</td>
+              <td><strong style="color: #4dabf7; font-size: 1.0rem;">8억 1,793만 원<br>(81,793만 원)</strong></td>
+              <td><span style="color: var(--text-dim);">기준가 (0원)</span></td>
+              <td>• 24x7 미션 크리티컬 무중단 서비스<br>• 컨트롤 플레인 물리 완전 이중화</td>
+            </tr>
+            <tr>
+              <td><strong style="color: #00e676;">방안 1: SNO 통합<br>(1-Server 최적화) ★추천</strong></td>
+              <td>• <strong>Dell XE7740 1대 단일 물리 서버</strong><br>• Single Node OpenShift (SNO)<br>• RHOAI + Articul8 + Bastion 통합</td>
+              <td><strong style="color: #00e676; font-size: 1.0rem;">5억 1,385만 원<br>(51,385만 원)</strong></td>
+              <td><strong style="color: #00e676;">▼ 3억 408만 원 절감<br>(37%↓ 비용 절감)</strong></td>
+              <td>• <strong>Small-Start / PoC / 초가성비 구축</strong><br>• 4U 소형화, 랙 공간 및 전력 최소화</td>
+            </tr>
+            <tr>
+              <td><strong style="color: var(--accent-gold);">방안 2: 사내 VM 활용<br>(Virtual Control Plane)</strong></td>
+              <td>• Dell XE7740 (4x H200 NVL) 1대<br>• <strong>고객사 기존 VM (vSphere/Nutanix)</strong><br>  Control VM 3대 + Bastion VM 1대</td>
+              <td><strong style="color: var(--accent-gold); font-size: 1.0rem;">5억 1,385만 원<br>(51,385만 원)</strong></td>
+              <td><strong style="color: var(--accent-gold);">▼ 3억 408만 원 절감<br>(37%↓ 비용 절감)</strong></td>
+              <td>• <strong>기존 가상화 인프라 보유 고객사</strong><br>• H/W 신규 구매 최소화 + SW HA 유지</td>
+            </tr>
+            <tr>
+              <td><strong style="color: #e040fb;">방안 3: Control 노드<br>다운사이징</strong></td>
+              <td>• Dell XE7740 (4x H200 NVL) 1대<br>• <strong>Dell R570 에센셜 3대</strong> (Control)<br>• Bastion 사내 VM 대체 (총 4대)</td>
+              <td><strong style="color: #e040fb; font-size: 1.0rem;">6억 1,885만 원<br>(61,885만 원)</strong></td>
+              <td><strong style="color: #e040fb;">▼ 1억 9,908만 원 절감<br>(24%↓ 비용 절감)</strong></td>
+              <td>• Control 물리 노드 분리 유지<br>• 가성비 제온 서버 축소로 비용 다이어트</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-box" style="margin-top: 14px; background: rgba(255, 183, 0, 0.08); border-left: 3px solid var(--accent-gold); padding: 12px 16px; border-radius: 6px; font-size: 0.86rem; color: var(--text-main);">
+        💡 <strong>제안 전략 가이드라인</strong>: <strong>Option 02 (Medium 티어)</strong> 제안 시 고객사의 예산 사정에 따라 <strong>최소 사양(SNO / 기존 VM 연동 1-Server: 51,500만 원)부터 풀 사양(Full HA 5-Server: 81,800만 원)까지 유연한 H/W 선택 범위를 제공</strong>함으로써 영업 성공률을 극대화할 수 있습니다.
+      </div>
     </section>
 
     <footer>
