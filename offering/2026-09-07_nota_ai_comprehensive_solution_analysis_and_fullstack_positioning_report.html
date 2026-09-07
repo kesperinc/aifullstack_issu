@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nota.ai 솔루션 종합 분석 및 On-Premises AI Full Stack 전략적 포지셔닝 보고서</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --panel-bg: #0d111d;
+      --card-bg: #131828;
+      --card-hover: #192036;
+      --card-border: #1f2742;
+      --border-light: #2d385e;
+      
+      --mzc-blue: #00abf0;
+      --accent-purple: #9d4edd;
+      --accent-gold: #d4af37;
+      --accent-coral: #ff5252;
+      --accent-emerald: #10b981;
+      --nv-green: #76b900;
+      
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 90px;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 9, 14, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .nav-brand-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, #00abf0, #9d4edd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-tag {
+      background: rgba(157, 78, 221, 0.18);
+      border: 1px solid rgba(157, 78, 221, 0.4);
+      color: #c084fc;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+    }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 171, 240, 0.12);
+      border: 1px solid rgba(0, 171, 240, 0.4);
+      color: #38bdf8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-download:hover {
+      background: rgba(0, 171, 240, 0.25);
+      border-color: #00abf0;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 36px 24px;
+    }
+
+    /* Hero Header */
+    .hero {
+      text-align: center;
+      padding: 56px 20px 42px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 40px;
+      background: radial-gradient(circle at 50% 20%, rgba(157, 78, 221, 0.16) 0%, transparent 70%);
+    }
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 171, 240, 0.1);
+      border: 1px solid rgba(0, 171, 240, 0.3);
+      color: #38bdf8;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 920px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .kpi-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-light);
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+    }
+    .kpi-card.blue::before { background: var(--mzc-blue); }
+    .kpi-card.purple::before { background: var(--accent-purple); }
+    .kpi-card.coral::before { background: var(--accent-coral); }
+    .kpi-card.emerald::before { background: var(--accent-emerald); }
+    
+    .kpi-val {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 5px;
+    }
+    .kpi-card.blue .kpi-val { color: #38bdf8; }
+    .kpi-card.purple .kpi-val { color: #c084fc; }
+    .kpi-card.coral .kpi-val { color: #f87171; }
+    .kpi-card.emerald .kpi-val { color: #34d399; }
+    
+    .kpi-lbl {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+    .kpi-sub {
+      font-size: 0.74rem;
+      color: var(--text-dim);
+    }
+
+    /* Section Styling */
+    .section {
+      margin-bottom: 50px;
+    }
+    .sec-header {
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .sec-tag {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+    }
+    .sec-tag.gold { color: var(--accent-gold); }
+    .sec-title {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .sec-desc {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.65;
+    }
+
+    /* Callout Box */
+    .alert-box {
+      background: rgba(0, 171, 240, 0.06);
+      border-left: 4px solid var(--mzc-blue);
+      border-radius: 0 10px 10px 0;
+      padding: 18px 22px;
+      margin: 22px 0;
+    }
+    .alert-box.purple {
+      background: rgba(157, 78, 221, 0.08);
+      border-left-color: var(--accent-purple);
+    }
+    .alert-box.emerald {
+      background: rgba(16, 185, 129, 0.08);
+      border-left-color: var(--accent-emerald);
+    }
+    .alert-box.coral {
+      background: rgba(255, 82, 82, 0.08);
+      border-left-color: var(--accent-coral);
+    }
+    .alert-title {
+      font-weight: 700;
+      font-size: 1.02rem;
+      color: #fff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Missing Link Grid */
+    .missing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin: 20px 0 28px;
+    }
+    .missing-card {
+      background: rgba(255, 82, 82, 0.04);
+      border: 1px solid rgba(255, 82, 82, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .missing-card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fca5a5;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .solution-match {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      font-size: 0.86rem;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* Strength Cards */
+    .strength-card {
+      background: linear-gradient(135deg, rgba(19, 24, 40, 0.95) 0%, rgba(13, 17, 29, 0.98) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 14px;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .strength-card:hover {
+      border-color: var(--mzc-blue);
+      box-shadow: 0 6px 20px -8px rgba(0, 171, 240, 0.25);
+    }
+    .strength-num {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.05);
+    }
+    .strength-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .strength-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+    .icon-blue { background: rgba(0, 171, 240, 0.15); color: #38bdf8; }
+    .icon-purple { background: rgba(157, 78, 221, 0.15); color: #c084fc; }
+    .icon-emerald { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .icon-coral { background: rgba(255, 82, 82, 0.15); color: #f87171; }
+    .icon-gold { background: rgba(212, 175, 55, 0.15); color: #fbbf24; }
+
+    /* Interactive Tabs */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-main);
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .tab-btn:hover { color: #fff; }
+    .tab-btn.active { color: var(--mzc-blue); }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0; height: 2px;
+      background: var(--mzc-blue);
+    }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* Card & Table */
+    .card {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .badge-purple { background: rgba(157, 78, 221, 0.2); color: #c084fc; border: 1px solid rgba(157, 78, 221, 0.4); }
+    .badge-blue { background: rgba(0, 171, 240, 0.2); color: #38bdf8; border: 1px solid rgba(0, 171, 240, 0.4); }
+    .badge-coral { background: rgba(255, 82, 82, 0.2); color: #f87171; border: 1px solid rgba(255, 82, 82, 0.4); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+    .table-wrap {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 22px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+    th {
+      background: #101524;
+      color: var(--text-muted);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--card-border);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    /* Appendix Divider */
+    .appendix-divider {
+      margin: 60px 0 40px;
+      padding: 24px 0 16px;
+      border-top: 2px dashed var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .appendix-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-dim);
+      font-size: 0.84rem;
+      border-top: 1px solid var(--card-border);
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Nav -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <span class="nav-brand-logo">MZC AI FULL STACK</span>
+      <span class="nav-tag">EXECUTIVE STRATEGY</span>
+    </div>
+    <div class="nav-actions">
+      <a href="docx/2026-09-07_Nota_AI_Comprehensive_Fullstack_Positioning_Report.docx" class="btn-download" download>
+        <span>📄</span> 공식 DOCX 다운로드
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Hero Header -->
+    <header class="hero">
+      <div class="meta-pill">SPEC-20260907-NOTA-ONPREM-01 · 두괄식 경영보고서</div>
+      <h1 class="hero-title">Nota.ai 솔루션 종합 분석 및<br>On-Premises AI Full Stack 전략적 포지셔닝</h1>
+      <p class="hero-sub">
+        AI Full Stack 4대 레이어 구성, 온프레미스 구축 시의 <strong>치명적 Missing Link 분석</strong>,<br>
+        GPU Capex 75% 절감 강점 및 <strong>[서버 주력 2종] vs [Physical/Edge 탐색 2종]</strong> 턴키 제언
+      </p>
+
+      <!-- 4대 KPI 카드 -->
+      <div class="kpi-grid">
+        <div class="kpi-card blue">
+          <div class="kpi-val">-75%</div>
+          <div class="kpi-lbl">초대형 MoE GPU 절감</div>
+          <div class="kpi-sub">H100 8장 ➔ 2장 단일 서버 서빙</div>
+        </div>
+        <div class="kpi-card coral">
+          <div class="kpi-val">3.2 kW</div>
+          <div class="kpi-lbl">랙 소비전력 급감</div>
+          <div class="kpi-sub">HGX 10.2kW ➔ 전산실 랙 한계(10kW) 충족</div>
+        </div>
+        <div class="kpi-card purple">
+          <div class="kpi-val">-0.40%</div>
+          <div class="kpi-lbl">지능 무손실 보존</div>
+          <div class="kpi-sub">Solar 250B 15개 태스크 평균</div>
+        </div>
+        <div class="kpi-card emerald">
+          <div class="kpi-val">200+</div>
+          <div class="kpi-lbl">글로벌 상용 레퍼런스</div>
+          <div class="kpi-sub">대전시 200교차로 / 두바이 RTA VLM 계약</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Executive Summary Alert -->
+    <div class="alert-box purple">
+      <div class="alert-title">
+        <span>💡</span> 두괄식 요약 (EXECUTIVE SUMMARY): ON-PREM 구축의 MISSING LINK를 완결하는 NOTA.AI
+      </div>
+      <p style="color: #cbd5e1; font-size: 0.94rem; line-height: 1.7;">
+        현재 메가존클라우드가 정의한 'MZC AI Full Stack'은 완벽한 4대 계층을 갖추고 있으나, 실제 고객의 사내 전산실(On-Premises)에 도입할 때
+        <strong>① 막대한 GPU 서버 Capex(대당 5~6억 원), ② 랙 전력 한계(10kW 초과), ③ 100% 폐쇄망 소버린 보안, ④ 국산 NPU 컴파일러 부재</strong>라는 치명적인 'Missing Link(결손 고리)'에 직면합니다.
+        Nota.ai는 2,500억 매개변수 초대형 MoE 모델을 H100 8장에서 단 2장으로 서빙(Capex 75% 절감, 소비전력 3.2kW)하여 이 결손 고리를 완벽히 메워주는 핵심 엔진입니다.
+        본 보고서는 MZC 핵심 역량과 연계된 <strong>[서버 AI 인프라 주력 오퍼링 2종]</strong>을 최우선 제안하고, MZC 역량이 초기 단계인 Embedded/Edge/Physical AI는 <strong>[전략적 시장 탐색 2종]</strong>으로 명확히 구분하여 제안합니다.
+      </p>
+    </div>
+
+    <!-- 본문 제 1 장: AI Full Stack 구성 및 On-Prem 구축의 Missing Link -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag">CHAPTER 01</span>
+        <h2 class="sec-title">MZC AI Full Stack 구성 및 On-Prem 구축의 Missing Link</h2>
+      </div>
+      <p class="sec-desc">
+        메가존클라우드는 하드웨어부터 최상위 애플리케이션까지 엔터프라이즈 AI의 모든 여정을 턴키로 제공하는 표준 4대 레이어 구조를 완비하였습니다.
+        그러나 온프레미스 실구축 시 발생하는 4대 결손 고리가 프로젝트 성사의 최대 난관입니다.
+      </p>
+
+      <!-- 4대 레이어 카드 -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px;">
+        <div class="card" style="padding:16px;">
+          <div style="font-size:0.75rem; font-weight:800; color:var(--mzc-blue); margin-bottom:4px;">LAYER 01</div>
+          <div style="font-weight:700; color:#fff; font-size:0.95rem; margin-bottom:6px;">하드웨어 인프라</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Dell PowerEdge R760, Cisco, NVIDIA GPU 및 국산 NPU 서버</div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div style="font-size:0.75rem; font-weight:800; color:var(--mzc-blue); margin-bottom:4px;">LAYER 02</div>
+          <div style="font-weight:700; color:#fff; font-size:0.95rem; margin-bottom:6px;">플랫폼 & 오케스트레이션</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Red Hat OpenShift AI (RHOAI), Nutanix AHV/Kubernetes 클러스터</div>
+        </div>
+        <div class="card" style="padding:16px; border-color:var(--accent-purple); background:rgba(157,78,221,0.08);">
+          <div style="font-size:0.75rem; font-weight:800; color:#c084fc; margin-bottom:4px;">LAYER 03 (Missing Link 발생)</div>
+          <div style="font-weight:700; color:#fff; font-size:0.95rem; margin-bottom:6px;">모델 최적화 & 서빙</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">vLLM, Triton, KServe 및 <strong>NetsPresso 최적화 엔진 (해결책)</strong></div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div style="font-size:0.75rem; font-weight:800; color:var(--mzc-blue); margin-bottom:4px;">LAYER 04</div>
+          <div style="font-weight:700; color:#fff; font-size:0.95rem; margin-bottom:6px;">비즈니스 AI 앱</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">사내 폐쇄망 RAG, 프라이빗 코딩 에이전트, 버티컬 관제 솔루션</div>
+        </div>
+      </div>
+
+      <!-- 4대 Missing Link 그리드 -->
+      <div class="missing-grid">
+        <div class="missing-card">
+          <div class="missing-card-title"><span>⚠️</span> Missing Link 1: 천문학적 GPU 서버 Capex & 조달 납기</div>
+          <p style="font-size:0.88rem; color:var(--text-muted);">
+            250B급 MoE 모델 도입 시 대당 5~6억 원에 달하는 H100 8-GPU 서버 1~2대가 필수적이며, 발주 후 수개월의 조달 리드타임으로 프로젝트 예산 승인이 좌초됨.
+          </p>
+          <div class="solution-match">➔ Nota 해결책: 단일 2-GPU 서버로 서빙 가능하여 하드웨어 Capex 75% 즉시 절감</div>
+        </div>
+        <div class="missing-card">
+          <div class="missing-card-title"><span>⚡</span> Missing Link 2: 기업 전산실 랙 전력 10kW 한계 초과</div>
+          <p style="font-size:0.88rem; color:var(--text-muted);">
+            국내 일반 기업 전산실 랙 전력 허용량은 10~15kW인데, H100 8-GPU 랙 서버 1대는 단독 피크 소비전력만 10.2kW에 달해 전산실 전기/수냉 공조 재공사 없이는 설치 불가.
+          </p>
+          <div class="solution-match">➔ Nota 해결책: 2-GPU 최적화 구성 시 3.2kW로 급감, 기존 전산실 즉시 랙 마운트</div>
+        </div>
+        <div class="missing-card">
+          <div class="missing-card-title"><span>🧩</span> Missing Link 3: 국산 NPU 소프트웨어 컴파일러 부재</div>
+          <p style="font-size:0.88rem; color:var(--text-muted);">
+            탈 엔비디아를 위해 리벨리온, 딥엑스, 모빌린트 등 국산 NPU 도입을 희망하나, 파이토치 모델을 NPU에서 고속 구동할 엔터프라이즈 컴파일러 부재로 실도입 실패.
+          </p>
+          <div class="solution-match">➔ Nota 해결책: 국산 NPU 맞춤형 자동 컴파일러 및 연산자 치환 100% 지원</div>
+        </div>
+        <div class="missing-card">
+          <div class="missing-card-title"><span>🛡️</span> Missing Link 4: 100% 완전 폐쇄망 소버린 보안 결핍</div>
+          <p style="font-size:0.88rem; color:var(--text-muted);">
+            금융·방산·공공 고객은 인터넷과 차단된 에어갭(Air-Gap) 환경을 요구하나, 외부 클라우드 통신 없는 완전 오프라인 압축·서빙 파이프라인의 부재.
+          </p>
+          <div class="solution-match">➔ Nota 해결책: OpenShift/Nutanix 컨테이너 Appliance 및 오프라인 인증 지원</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 본문 제 2 장: [핵심 제언 1] On-Premises AI Full Stack 구축 시 6대 강점 -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag">CHAPTER 02</span>
+        <h2 class="sec-title">[핵심 제언 1] On-Prem AI Full Stack 구축 시 6대 압도적 강점</h2>
+      </div>
+      <p class="sec-desc">
+        Nota.ai의 NetsPresso 최적화 엔진을 MZC 온프레미스 AI Full Stack Layer 03에 탑재할 때 확보되는 6대 핵심 차별화 요소입니다.
+      </p>
+
+      <div class="strength-card">
+        <span class="strength-num">01</span>
+        <div class="strength-header">
+          <div class="strength-icon icon-coral">💰</div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:700;">온프레미스 GPU 서버 Capex 75% 절감 및 조달 리드타임 파괴</h3>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.92rem;">
+          2,500억 매개변수(250B)급 MoE 모델을 기존 H100 8-GPU 서버(약 5~6억 원) 대신 <strong>단 2-GPU 서버(약 1.5억 원)로 서빙 가능</strong>하게 하여 하드웨어 Capex를 75% 절감하고 조달 리드타임을 수개월 단축합니다.
+        </p>
+      </div>
+
+      <div class="strength-card">
+        <span class="strength-num">02</span>
+        <div class="strength-header">
+          <div class="strength-icon icon-gold">⚡</div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:700;">사내 전산실 랙 전력(10kW) 및 쿨링 공조 한계 완벽 극복</h3>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.92rem;">
+          H100 8-GPU 서버의 10.2kW 피크 소비전력을 <strong>2-GPU 구성 시 3.2kW로 급감</strong>시켜, 수억 원의 수냉/전기 증설 공사 없이 기존 기업 전산실 랙에 즉시 안전하게 마운트할 수 있습니다.
+        </p>
+      </div>
+
+      <div class="strength-card">
+        <span class="strength-num">03</span>
+        <div class="strength-header">
+          <div class="strength-icon icon-blue">🛡️</div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:700;">100% 완전 폐쇄망(Air-Gap) 소버린 AI 보안 완결</h3>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.92rem;">
+          금융, 방산, 제조 R&D의 사내 폐쇄망에 온프레미스 컨테이너 Appliance 및 오프라인 에어갭 인증을 지원하여 데이터 외부 유출 위험을 0%로 차단합니다.
+        </p>
+      </div>
+
+      <div class="strength-card">
+        <span class="strength-num">04</span>
+        <div class="strength-header">
+          <div class="strength-icon icon-purple">🚀</div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:700;">국산 AI 반도체(NPU) 온프레미스 조기 상용화 및 외산 락인 탈피</h3>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.92rem;">
+          리벨리온, 딥엑스, 모빌린트 등 국산 NPU에 특화된 자동 연산자 분해/치환 및 타깃 컴파일을 지원하여, 외산 GPU 의존을 탈피하고 소버린 데이터센터 시장을 선점합니다.
+        </p>
+      </div>
+
+      <div class="strength-card">
+        <span class="strength-num">05</span>
+        <div class="strength-header">
+          <div class="strength-icon icon-emerald">🏭</div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:700;">현장(Edge) ➔ 사내 전산실(Core)을 연결하는 하이브리드 온프레미스 스택</h3>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.92rem;">
+          스마트팩토리 현장 단말에서는 30FPS 실시간 불량을 검출하고, 특이 결함 발생 시 사내 중앙 MoE로 라우팅하는 유기적인 온프레미스 하이브리드 아키텍처를 완성합니다.
+        </p>
+      </div>
+
+      <div class="strength-card">
+        <span class="strength-num">06</span>
+        <div class="strength-header">
+          <div class="strength-icon icon-blue">🔄</div>
+          <h3 style="color:#fff; font-size:1.1rem; font-weight:700;">기업 보유 기존 레거시/중급 GPU 인프라의 파운데이션 모델 재활용</h3>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.92rem;">
+          신규 H100 구매가 어려운 고객도 이미 보유 중인 RTX 6000 Ada, L40S, 구형 A100(80GB) 2~4장 환경에서 100B~250B 파운데이션 모델을 60+ TPS로 서빙할 수 있도록 재탄생시킵니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- 본문 제 3 장: [핵심 제언 2] MZC On-Prem AI Full Stack x Nota 4대 턴키 솔루션 -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag">CHAPTER 03</span>
+        <h2 class="sec-title">[핵심 제언 2] MZC On-Prem AI Full Stack x Nota 4대 턴키 솔루션 패키지</h2>
+      </div>
+      <p class="sec-desc">
+        MZC의 엔터프라이즈 인프라 역량이 집중된 <strong>서버 AI 인프라 솔루션(1·2번)을 최우선 핵심 주력 오퍼링</strong>으로 전진 배치하고,
+        MZC의 자체 역량이 아직 성숙 전인 <strong>Embedded / Edge / Physical AI 영역(3·4번)은 Nota의 기술력을 레버리지하는 '전략적 시장 탐색(Market Exploration)'</strong> 오퍼링으로 명확히 구분하여 추진합니다.
+      </p>
+
+      <!-- 탭 인터랙션 -->
+      <div class="tabs-nav">
+        <button class="tab-btn active" onclick="switchTab('pkg1', this)">[서버 주력] 1. 소버린 MoE 패키지</button>
+        <button class="tab-btn" onclick="switchTab('pkg2', this)">[서버 주력] 2. 소버린 국산 NPU 패키지</button>
+        <button class="tab-btn" onclick="switchTab('pkg3', this)">[시장 탐색] 3. 스마트팩토리 & Physical AI</button>
+        <button class="tab-btn" onclick="switchTab('pkg4', this)">[시장 탐색] 4. 스마트시티 ITS 턴키</button>
+      </div>
+
+      <!-- 1. 소버린 MoE (서버 주력) -->
+      <div id="pkg1" class="tab-pane active">
+        <div class="card" style="border-left: 4px solid var(--accent-purple);">
+          <div class="card-title">
+            <span>🏛️</span> [핵심 주력] 소버린 파운데이션 MoE 온프레미스 패키지
+            <span class="badge badge-purple">MZC 핵심 인프라 직접 연계</span>
+          </div>
+          <p><strong>타깃 고객:</strong> 사내 기밀 문서 RAG, 프라이빗 코딩 에이전트 구축을 원하는 금융, 방산, 공공, 대기업 그룹사</p>
+          <p><strong>하드웨어 구성:</strong> Dell PowerEdge R760 (2x NVIDIA H100 NVL 또는 4x L40S) + Nutanix 온프레미스 HCI</p>
+          <p><strong>소프트웨어 스택:</strong> NetsPresso MoE INT4/NVFP4 압축 엔진 + vLLM 초저지연 서빙 + RHOAI Workbench</p>
+          <p><strong>핵심 셀링 포인트:</strong> 기존 8-GPU 대형 클러스터 대비 <strong>하드웨어 Capex 75% 절감</strong> (H100 8장 ➔ 2장). 랙 소비전력 3.2kW로 전산실 증설 공사 불필요. 단일 2U 서버로 2,500억 매개변수 MoE 모델을 60+ TPS로 완벽 서빙.</p>
+        </div>
+      </div>
+
+      <!-- 2. 소버린 국산 NPU (서버 주력) -->
+      <div id="pkg2" class="tab-pane">
+        <div class="card" style="border-left: 4px solid var(--accent-coral);">
+          <div class="card-title">
+            <span>🧩</span> [핵심 주력] 소버린 국산 NPU 온프레미스 데이터센터 패키지
+            <span class="badge badge-coral">탈 엔비디아 / 소버린 AI 인프라</span>
+          </div>
+          <p><strong>타깃 고객:</strong> 공공 클라우드 사업자, 국가 AI 연구센터, 탈 엔비디아 소버린 AI 인프라 구축 희망 엔터프라이즈</p>
+          <p><strong>하드웨어 구성:</strong> 리벨리온 ATOM / 딥엑스 M1 / 모빌린트 ARIES NPU 탑재 온프레미스 데이터센터 서버</p>
+          <p><strong>소프트웨어 스택:</strong> NetsPresso NPU 맞춤형 자동 타깃 컴파일러 + PyTorch 연산자 자동 분해/치환 모듈</p>
+          <p><strong>핵심 셀링 포인트:</strong> 국산 NPU 도입의 최대 걸림돌인 소프트웨어/컴파일러 호환성 100% 해결. 외산 GPU 대비 전력 및 도입 비용 60% 절감 및 국가 전략 소버린 AI 주도권 확보.</p>
+        </div>
+      </div>
+
+      <!-- 3. 스마트팩토리 & Physical AI (시장 탐색) -->
+      <div id="pkg3" class="tab-pane">
+        <div class="card" style="border-left: 4px solid var(--accent-emerald);">
+          <div class="card-title">
+            <span>🏭</span> [전략적 시장 탐색] 스마트팩토리 하이브리드 비전 & Physical AI 패키지
+            <span class="badge badge-emerald">제조 / 로보틱스 시장 탐색형</span>
+          </div>
+          <p><strong>타깃 고객:</strong> 제조 공정 불량 검출, 작업장 안전 관제, 조작 로봇(VLA) 도입 희망 스마트공장</p>
+          <p><strong>하드웨어 구성:</strong> Advantech / NVIDIA Jetson Orin NX 엣지 박스 + 공장 내 온프레미스 R760 서버</p>
+          <p><strong>소프트웨어 스택:</strong> NetsPresso 엣지 비전 경량화(YOLOX-s INT8) + SmolVLA 로봇 조작 제어 모델</p>
+          <p><strong>전략적 포지셔닝:</strong> MZC의 임베디드 직접 투자 대신 Nota의 검증된 엣지 비전 및 로보틱스 기술을 활용하여 제조 현장 고객 수요를 발굴하고 시장 기회를 검증하는 탐색형 오퍼링.</p>
+        </div>
+      </div>
+
+      <!-- 4. 스마트시티 ITS 턴키 (시장 탐색) -->
+      <div id="pkg4" class="tab-pane">
+        <div class="card" style="border-left: 4px solid var(--mzc-blue);">
+          <div class="card-title">
+            <span>🚦</span> [전략적 시장 탐색] 공공/지자체 스마트교통 & 스마트시티 턴키 패키지
+            <span class="badge badge-blue">지자체 / 공공 인프라 탐색형</span>
+          </div>
+          <p><strong>타깃 고객:</strong> 스마트 교차로 현대화, 터널/고속도로 돌발 상황 관제, 항만 자율주행 지자체 및 공공기관</p>
+          <p><strong>하드웨어 구성:</strong> 도로변 엣지 AI 제어기 + 지자체 통합관제센터 온프레미스 서버</p>
+          <p><strong>소프트웨어 스택:</strong> Nota ITS 스마트 교차로 솔루션 + VLM 자동 돌발 검지(AID) + V2X 통신</p>
+          <p><strong>전략적 포지셔닝:</strong> 대전시 200개 교차로 운영 실적 및 두바이 RTA 납품 레퍼런스를 앞세워, MZC의 공공 대형 SI 입찰 시 차별화 파트너 솔루션으로 타당성을 타진하는 확장형 오퍼링.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 본문 제 4 장: 비즈니스 협력 모델 및 최종 포지셔닝 선언 -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag">CHAPTER 04</span>
+        <h2 class="sec-title">비즈니스 협력 모델, 실행 로드맵 및 최종 포지셔닝 선언</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span>🤝</span> 온프레미스 상용 라이선스 & 공동 3단계 실행 로드맵</div>
+        <p>• <strong>라이선스 모델:</strong> 하드웨어 어플라이언스 번들링(Perpetual + 연간 유지보수 15~20%) 및 엔터프라이즈 Core/Socket 구독 체계 확립</p>
+        <p>• <strong>[1단계] 사내 랩 실측 PoC (즉시):</strong> MZC 온프레미스 랩에서 Solar-Open2-250B NetsPresso INT4 압축 실측 및 2-GPU 서빙 벤치마크 백서 발간</p>
+        <p>• <strong>[2단계] 공동 상품화 (1개월 내):</strong> Dell/Nutanix 결합 'MZC Sovereign AI Appliance with Nota' 표준 카탈로그 및 제안서 완성</p>
+        <p>• <strong>[3단계] 대형 고객 턴키 제안 (2~3개월 내):</strong> 금융/방산 폐쇄망 RAG 구축, 제조 스마트공장, 공공 스마트시티 사업 공동 입찰</p>
+      </div>
+
+      <div class="alert-box emerald" style="padding: 24px; margin-top: 24px;">
+        <div class="alert-title" style="font-size: 1.15rem; color: #34d399;">
+          <span>🎯</span> 최종 전략적 포지셔닝 확정 선언 (FINAL POSITIONING DECLARATION)
+        </div>
+        <p style="color: #e2e8f0; font-size: 1.0rem; margin-top: 8px; line-height: 1.7;">
+          Nota.ai는 MZC AI Full Stack에서 단순한 '경량화 도구 후보군'이 아니며,
+          <strong>① 온프레미스 대규모 AI 도입 시 GPU Capex 75%와 전산실 랙 전력 한계를 파괴하는 [인프라 TCO 혁신 엔진],</strong>
+          <strong>② 국산 NPU 조기 상용화를 실현하는 [소버린 반도체 소프트웨어 허브],</strong>
+          <strong>③ 스마트팩토리 및 로보틱스 현장 수요를 타진하는 [Physical AI 탐색 엔진],</strong>
+          <strong>④ 대전시/두바이 RTA 검증 레퍼런스를 보유한 [스마트 인프라 솔루션]</strong>으로서,
+          MZC 온프레미스 AI Full Stack 사업의 실질적 수주와 수익성을 결정짓는 <strong>최상위 핵심 전략 파트너</strong>로 공식 격상 확정합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- [부록 및 상세 기술 참조 자료] -->
+    <div class="appendix-divider">
+      <span class="appendix-title">━━━━━━━━ [부록 및 상세 기술 참조 자료 (APPENDIX)] ━━━━━━━━</span>
+    </div>
+
+    <!-- 부록 1. 회사 개요 및 글로벌 입지 -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag gold">APPENDIX 01</span>
+        <h2 class="sec-title">Nota.ai 최신 개요 및 글로벌 사업 위상</h2>
+      </div>
+      <div class="card">
+        <p>
+          주식회사 노타(Nota.ai)는 150억 달러 규모 글로벌 Stargate AI 프로젝트에 삼성전자, 현대자동차그룹과 함께 <strong>AI 스타트업으로서는 유일하게 공식 참여</strong>한 글로벌 AI 최적화 전문 기업입니다.
+          한국 본사를 거점으로 미국 실리콘밸리(San Jose), 독일(베를린), UAE(두바이)에 법인을 운영 중이며, Arm, Qualcomm, NVIDIA, STMicroelectronics, NXP 등 글로벌 100개 이상의 반도체 및 완성차 기업과 양산 최적화 파이프라인을 구축하고 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- 부록 2. NetsPresso 차세대 MoE 최적화 상세 및 벤치마크 -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag gold">APPENDIX 02</span>
+        <h2 class="sec-title">NetsPresso 차세대 MoE 최적화 기술 상세 및 벤치마크 데이터 시트</h2>
+      </div>
+      <p class="sec-desc">
+        PASCAL-MoE 데이터 기반 양자화, Router 인지형 양자화, 비균일 전역 프루닝의 3단계 파이프라인을 통해 지능 손실 없이 GPU 메모리와 비용을 50~75% 절감한 실측 벤치마크 데이터입니다.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>대상 파운데이션 모델</th>
+              <th>최적화 구성</th>
+              <th>Weight 크기</th>
+              <th>총 VRAM 점유</th>
+              <th>필요 GPU 서버</th>
+              <th>성능 및 지능 보존율</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Upstage Solar-Open2 (250B MoE)</strong></td>
+              <td>BF16 (원본 베이스라인)</td>
+              <td>500.6 GB</td>
+              <td>520.6 GB</td>
+              <td>H100 x8 (대형 클러스터)</td>
+              <td>기준 성능</td>
+            </tr>
+            <tr style="background: rgba(0, 171, 240, 0.05);">
+              <td><strong>Upstage Solar-Open2 (250B MoE)</strong></td>
+              <td><span style="color:#38bdf8; font-weight:700;">Nota INT4 Global-Pruned</span></td>
+              <td><strong>117.8 GB</strong></td>
+              <td><strong>137.8 GB</strong></td>
+              <td><span style="color:#f87171; font-weight:700;">H100 x2 (-75% 절감)</span></td>
+              <td><span style="color:#34d399; font-weight:700;">15개 태스크 평균 지능 손실 -0.40% (무손실급)</span></td>
+            </tr>
+            <tr>
+              <td><strong>Upstage Solar-Open2 (250B MoE)</strong></td>
+              <td>Nota NVFP4 Global-Pruned</td>
+              <td>126.1 GB</td>
+              <td>146.1 GB</td>
+              <td>H100 x2 (-75% 절감)</td>
+              <td>지능 손실 -0.22% 보존 (H100 2장 서빙)</td>
+            </tr>
+            <tr>
+              <td><strong>Upstage Solar-Open (100B MoE)</strong></td>
+              <td>Nota INT4 양자화</td>
+              <td>51.9 GB (-72.8%)</td>
+              <td>51.9 GB</td>
+              <td>A100 x2 (-50% 절감)</td>
+              <td>MMLU 한국어 51.84 (기존 AWQ 6.19 대비 8배 우수)</td>
+            </tr>
+            <tr>
+              <td><strong>Kimi K3 (문샷AI, 2.8T MoE)</strong></td>
+              <td>Nota 50% 비균일 프루닝</td>
+              <td>1.4T Params</td>
+              <td>VRAM -50%</td>
+              <td>B300 x4 (-50% 절감)</td>
+              <td>GPQA-D +2.52pt, IFEval +2.22pt (SOTA 상회)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+        <div class="card">
+          <div class="card-title"><span>📊</span> Solar-Open2-250B VRAM 및 GPU 요구량 비교</div>
+          <canvas id="moeGpuChart" height="210"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title"><span>⚡</span> 온프레미스 랙 전력 소모(kW) 비교</div>
+          <canvas id="powerChart" height="210"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- 부록 3. On-Device / Multimodal & 엣지 실측 -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag gold">APPENDIX 03</span>
+        <h2 class="sec-title">On-Device / Multimodal & 엣지/임베디드 실측 데이터</h2>
+      </div>
+      <div class="card">
+        <p>• <strong>Qualcomm IQ-9075: Llava-1.5-7B (VLM):</strong> 7.6 ➔ <strong>15.6 FPS (2.05배 가속)</strong>, VRAM 13.9GB ➔ 4.3GB (-69% 절감)</p>
+        <p>• <strong>NVIDIA RTX 3090: SmolVLA 0.5B (로보틱스 Action):</strong> 621ms ➔ <strong>357ms (1.74배 가속)</strong>, 로봇 작업 성공률 <strong>+4.6% 향상</strong></p>
+        <p>• <strong>NVIDIA RTX 3090: Qwen3-ASR-0.6B (음성인식):</strong> 429ms ➔ <strong>7ms (61.3배 가속)</strong>, CER -0.3% 지능 유지</p>
+        <p>• <strong>모빌린트 ARIES NPU (80TOPS):</strong> VLM 객체탐지 DETR 구조 재설계 ➔ 1,601ms ➔ <strong>89.97ms (94% 단축)</strong></p>
+        <p>• <strong>텔레칩스 Dolphin5 차량용 NPU:</strong> 구동 불가 비전 4종(AdaFace, MiDaS 등) ➔ <strong>100% 온보드 구동 성공</strong></p>
+      </div>
+    </section>
+
+    <!-- 부록 4. 독자 버티컬 솔루션 Nota ITS -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag gold">APPENDIX 04</span>
+        <h2 class="sec-title">독자 버티컬 솔루션: Nota ITS 상세 분석</h2>
+      </div>
+      <div class="card">
+        <p>• <strong>스마트 교차로 시스템:</strong> 대전광역시 200개 교차로(800ch) 실구축 운영 (최상급 99% 공인 정확도), 케냐 나이로비 스마트 교차로 25개 지점 수출 계약 체결</p>
+        <p>• <strong>VLM 기반 자동 돌발 검지(AID):</strong> 한국 국도 ITS 혁신기술공모사업 선정, <strong>UAE 두바이 교통국(RTA) VLM 기반 도로 영상 관제 계약 체결</strong></p>
+        <p>• <strong>V2X 협력 자율주행:</strong> 제주/인천 항만 자율주행 인프라 가이던스, UAE 아부다비 사디야트 섬 보행자/자율주행 V2X PoC 완료</p>
+        <p>• <strong>Green ITS:</strong> 도로변 엣지 박스 실시간 처리로 클라우드/회선 비용 90% 이상 절감 및 개인정보 완벽 보호</p>
+      </div>
+    </section>
+
+    <!-- 부록 5. 참고 문헌 및 원천 자료 출처 -->
+    <section class="section">
+      <div class="sec-header">
+        <span class="sec-tag gold">APPENDIX 05</span>
+        <h2 class="sec-title">참고 문헌 및 공식 전달 기술 자료 출처</h2>
+      </div>
+      <div class="card">
+        <p>1. <strong>Nota_ITS_FCD_2026.pdf:</strong> 주식회사 노타 공식 ITS 솔루션 및 글로벌 사례 소개서 (2026, 19p)</p>
+        <p>2. <strong>Nota_NetsPresso_FCD_한글_2026_H1.pdf:</strong> NetsPresso 기반 AI 모델 최적화 서비스 공식 기술 문서 (2026 H1, 40p)</p>
+        <p>3. <strong>Nota_NetsPresso_UseCases_2026H2_v1.0.pdf:</strong> NetsPresso 고객 성공 사례집 (SKT, Arm, 삼성, 업스테이지, 모빌린트, 텔레칩스 등, 2026 H2, 14p)</p>
+        <p>4. <strong>Nota_NetsPresso_기사내용.pdf:</strong> 대규모 MoE LLM(Solar-Open-100B, Solar-Open2-250B, Kimi K3) 최적화 기술 분석 기사 (2026, 6p)</p>
+        <p>5. <strong>양자화_최적화_사례.pdf:</strong> NVIDIA H100/A100, Qualcomm IQ, RTX 3090 및 국산 NPU 실측 데이터 시트 (2026, 7p)</p>
+        <p>6. <strong>e4ds News (2026):</strong> 노타, 과기정통부 국가 파운데이션 모델 100B 최적화로 GPU 50% 절감 보도</p>
+        <p>7. <strong>The AI News (2026):</strong> 노타, 2500억 파라미터 거대 모델 4비트 양자화 및 비균일 프루닝 성공 보도</p>
+        <p>8. <strong>ZDNet Korea (2026):</strong> 노타, 2.8조 매개변수 Kimi K3 최신 모델 B300 4장으로 서빙 최적화 보도</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 MEGAZONECLOUD Corp. AI Full Stack Strategy & ISV Engineering Team. Confidential & Proprietary.</p>
+      <p style="margin-top: 6px; font-size: 0.78rem;">Executive-First Reporting Structure. Built in compliance with AGENTS.md Plan-Code-Doc workflow.</p>
+    </footer>
+  </div>
+
+  <script>
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // Chart 1: MoE GPU and VRAM
+    const ctxGpu = document.getElementById('moeGpuChart').getContext('2d');
+    new Chart(ctxGpu, {
+      type: 'bar',
+      data: {
+        labels: ['원본 (BF16)', 'Nota INT4 (최적화)'],
+        datasets: [
+          {
+            label: '필요 H100 GPU (장)',
+            data: [8, 2],
+            backgroundColor: ['#f87171', '#00abf0'],
+            borderRadius: 6
+          },
+          {
+            label: '총 VRAM 점유 (GB)',
+            data: [520.6, 137.8],
+            backgroundColor: ['#475569', '#9d4edd'],
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#94a3b8' } }
+        },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } }
+        }
+      }
+    });
+
+    // Chart 2: Rack Power
+    const ctxPower = document.getElementById('powerChart').getContext('2d');
+    new Chart(ctxPower, {
+      type: 'bar',
+      data: {
+        labels: ['H100 8-GPU 서버', 'Nota 2-GPU 최적화', '기업 전산실 랙 한계'],
+        datasets: [{
+          label: '소비전력 (kW)',
+          data: [10.2, 3.2, 10.0],
+          backgroundColor: ['#ef4444', '#10b981', '#f59e0b'],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+          y: { 
+            ticks: { color: '#94a3b8' }, 
+            grid: { color: '#1e293b' },
+            title: { display: true, text: '소비전력 (kW)', color: '#94a3b8' }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
