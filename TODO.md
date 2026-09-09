@@ -24,6 +24,8 @@
   - [x] Pillar 4 (Service): 삼성/아모레퍼시픽 등 Chaebol 실도입, 2시간 턴키 어플라이언스, 75% Capex 절감 실측, 대국민 AI
   - [x] Part 6 (MZC Vision): 클라우드 유니콘 성장사, 미국/일본/동남아 글로벌 확장, EMBA 리더 4대 제언
 - [x] **산출물 3종(MD, DOCX, HTML) 및 명세서 구축 (`K-AI/`)**:
+  - [x] 공식 PowerPoint 프레젠테이션 덱: [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.pptx`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.pptx) (16:9 와이드, 4.55 MB, 스피커 대본 완비)
+  - [x] PPTX 자동 빌드 엔진: [`K-AI/build_k_sovereign_ai_pptx.py`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/build_k_sovereign_ai_pptx.py)
   - [x] 영문 마크다운 슬라이드 및 스피커 노트 전문: [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.md`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.md)
   - [x] DOCX 자동 생성 엔진: [`K-AI/generate_k_sovereign_ai_deck_docx.py`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/generate_k_sovereign_ai_deck_docx.py)
   - [x] 공식 Word 제안서 산출물: [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.docx`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.docx) (47.5 KB)

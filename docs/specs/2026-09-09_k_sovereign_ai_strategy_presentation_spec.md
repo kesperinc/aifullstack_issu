@@ -83,10 +83,12 @@
 
 | 구분 | 파일 경로 | 형식 | 역할 및 상세 내용 |
 | :--- | :--- | :---: | :--- |
+| **공식 파워포인트** | [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.pptx`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.pptx) | PPTX | 16:9 와이드스크린(13.33x7.5"), 30슬라이드 공식 덱, 5대 16:9 고화질 이미지 및 발표자 대본(Notes) 완비 (4.55 MB) |
+| **PPTX 생성기** | [`K-AI/build_k_sovereign_ai_pptx.py`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/build_k_sovereign_ai_pptx.py) | Python | Dell 총판 제안서 템플릿의 디자인 시스템을 반영한 자동 PPTX 빌더 |
 | **마크다운** | [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.md`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.md) | MD | 30장 슬라이드 전문, 불릿 포인트, 비주얼 가이드, 스피커 대본(Notes) |
 | **문서 생성기** | [`K-AI/generate_k_sovereign_ai_deck_docx.py`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/generate_k_sovereign_ai_deck_docx.py) | Python | 고급 스타일링(UCLA Navy/Gold, MZC Blue) 적용 DOCX 생성 스크립트 |
-| **공식 워드** | [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.docx`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.docx) | DOCX | 47.5KB 규격의 인쇄 및 배포용 프레젠테이션 브리프 자료집 |
-| **인터랙티브 웹** | [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.html`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.html) | HTML | 키보드 탐색, 전체화면(F), 대본 토글(S), 전체보기(G), 15분 타이머 탑재 슬라이드 뷰어 |
+| **공식 워드** | [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.docx`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.docx) | DOCX | 5대 고해상도 이미지가 포함된 4.5MB 인쇄 및 배포용 프레젠테이션 브리프 |
+| **인터랙티브 웹** | [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.html`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.html) | HTML | 키보드 탐색, 전체화면(F), 대본 토글(S), 전체보기(G), 15분 타이머 및 2열 이미지 그리드 탑재 |
 | **상세 명세서** | [`docs/specs/2026-09-09_k_sovereign_ai_strategy_presentation_spec.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/specs/2026-09-09_k_sovereign_ai_strategy_presentation_spec.md) | MD | 본 표준 작업 명세서 |
 
 ---
