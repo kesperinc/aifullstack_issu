@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Korea's Sovereign AI Strategy | UCLA Anderson EMBA Session Deck</title>
+  <meta name="description" content="30-Slide Executive Presentation Deck for UCLA Anderson Executive MBA Delegation Visit at MegazoneCloud Gwacheon HQ.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ucla-blue: #003B5C;
+      --ucla-dark-blue: #002B49;
+      --ucla-gold: #FFD100;
+      --mzc-blue: #0066FF;
+      --mzc-cyan: #00C2FF;
+      --bg-dark: #080E18;
+      --surface-dark: #0E1726;
+      --surface-glass: rgba(14, 23, 38, 0.75);
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --border-accent: rgba(0, 194, 255, 0.35);
+      --text-white: #FFFFFF;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --accent-green: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-purple: #8B5CF6;
+      --shadow-elevated: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 102, 255, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Background Ambient Glows */
+    .ambient-glow {
+      position: fixed;
+      top: -20%;
+      left: -10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(0, 59, 92, 0.45) 0%, rgba(8, 14, 24, 0) 70%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ambient-glow-2 {
+      position: fixed;
+      bottom: -20%;
+      right: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(0, 102, 255, 0.25) 0%, rgba(8, 14, 24, 0) 70%);
+      filter: blur(90px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Top Navigation Header */
+    header.deck-header {
+      position: relative;
+      z-index: 10;
+      height: 60px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-glass);
+      background: rgba(8, 14, 24, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-ucla {
+      color: var(--ucla-gold);
+      background: var(--ucla-dark-blue);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 209, 0, 0.3);
+    }
+
+    .badge-mzc {
+      color: #FFF;
+      background: linear-gradient(135deg, #0066FF, #00C2FF);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .session-title-head {
+      font-size: 13px;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-glass);
+      padding-left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .session-title-head span.live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .timer-box {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      padding: 4px 12px;
+      border-radius: 6px;
+      color: var(--ucla-gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-header {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: var(--text-white);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-header:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: var(--mzc-cyan);
+    }
+
+    /* Main Slide Stage Area */
+    main.stage-container {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      perspective: 1000px;
+    }
+
+    .slide-viewport {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      box-shadow: var(--shadow-elevated);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+
+    /* Slide Header Area */
+    .slide-top-bar {
+      padding: 24px 36px 14px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .part-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--mzc-cyan);
+      background: rgba(0, 194, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 194, 255, 0.25);
+    }
+
+    .slide-counter-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--ucla-gold);
+      font-weight: 600;
+    }
+
+    /* Slide Content Core */
+    .slide-body {
+      flex: 1;
+      padding: 28px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    h1.slide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+    }
+
+    p.slide-subtitle {
+      font-size: 16px;
+      font-weight: 500;
+      color: #93C5FD;
+      margin-top: -8px;
+    }
+
+    .bullet-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px 20px;
+      border-radius: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .bullet-item:hover {
+      background: rgba(0, 102, 255, 0.08);
+      border-color: rgba(0, 194, 255, 0.3);
+      transform: translateX(4px);
+    }
+
+    .bullet-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--mzc-blue), var(--mzc-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+      box-shadow: 0 0 10px rgba(0, 194, 255, 0.4);
+    }
+
+    .bullet-text {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #E2E8F0;
+    }
+
+    .bullet-text strong {
+      color: #FFF;
+      font-weight: 600;
+    }
+
+    /* Visual Footnote Card */
+    .visual-card {
+      background: rgba(0, 43, 73, 0.45);
+      border: 1px solid rgba(0, 194, 255, 0.2);
+      border-radius: 8px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .visual-card span.v-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ucla-gold);
+      background: rgba(255, 209, 0, 0.15);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 209, 0, 0.3);
+    }
+
+    .visual-card span.v-desc {
+      font-size: 12px;
+      color: #CBD5E1;
+      font-style: italic;
+    }
+
+    /* Bottom Control Bar */
+    footer.deck-footer {
+      position: relative;
+      z-index: 10;
+      height: 64px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-glass);
+      background: rgba(8, 14, 24, 0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      background: var(--ucla-blue);
+      border: 1px solid rgba(0, 194, 255, 0.3);
+      color: #FFF;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--mzc-blue);
+      border-color: var(--mzc-cyan);
+      box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Progress Track */
+    .progress-track-wrapper {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .progress-bar-bg {
+      height: 6px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--ucla-gold), var(--mzc-cyan));
+      width: 3.33%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Speaker Notes Drawer */
+    .notes-drawer {
+      position: fixed;
+      bottom: 64px;
+      left: 0;
+      right: 0;
+      background: rgba(14, 23, 38, 0.96);
+      border-top: 1px solid var(--ucla-gold);
+      backdrop-filter: blur(20px);
+      padding: 20px 48px;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+      z-index: 20;
+      transform: translateY(110%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .notes-drawer.open {
+      transform: translateY(0);
+    }
+
+    .notes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .notes-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ucla-gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notes-pacing {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--mzc-cyan);
+    }
+
+    .notes-content {
+      font-family: Georgia, serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #E2E8F0;
+      font-style: italic;
+    }
+
+    /* Grid Overview Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 15, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .grid-modal {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 1200px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .grid-header {
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--border-glass);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-body {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .grid-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .grid-card:hover {
+      background: rgba(0, 102, 255, 0.15);
+      border-color: var(--mzc-cyan);
+      transform: translateY(-2px);
+    }
+
+    .grid-card.current {
+      border-color: var(--ucla-gold);
+      background: rgba(255, 209, 0, 0.1);
+    }
+
+    .grid-card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--ucla-gold);
+      font-weight: 700;
+    }
+
+    .grid-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #FFF;
+    }
+
+    /* Key Shortcuts Help */
+    .keyboard-guide {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #FFF;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- Header -->
+  <header class="deck-header">
+    <div class="header-left">
+      <div class="logo-badge">
+        <span class="badge-ucla">UCLA Anderson EMBA</span>
+        <span class="badge-mzc">MegazoneCloud</span>
+      </div>
+      <div class="session-title-head">
+        <span class="live-dot"></span>
+        <span>Session 3: Korea's Sovereign AI Strategy (Andy | ISV Business Unit)</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="timer-box" id="sessionTimer">⏱ 15:00 REMAINING</div>
+      <button class="btn-header" id="btnNotesToggle" title="Toggle Speaker Notes (Key: S)">
+        📝 <span>Notes</span>
+      </button>
+      <button class="btn-header" id="btnGridToggle" title="View All Slides Grid (Key: G)">
+        🗂 <span>All Slides</span>
+      </button>
+      <button class="btn-header" id="btnFullscreen" title="Toggle Fullscreen (Key: F)">
+        ⛶ <span>Fullscreen</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slide Stage -->
+  <main class="stage-container">
+    <div class="slide-viewport" id="slideViewport">
+      <!-- Injected by JS -->
+    </div>
+  </main>
+
+  <!-- Speaker Notes Drawer -->
+  <div class="notes-drawer" id="notesDrawer">
+    <div class="notes-header">
+      <div class="notes-title">🎙 Speaker Delivery Notes & Executive Pacing</div>
+      <div class="notes-pacing" id="notesPacing">[0:00 - 0:30]</div>
+    </div>
+    <div class="notes-content" id="notesContent">
+      "Good morning, faculty and executives of UCLA Anderson EMBA..."
+    </div>
+  </div>
+
+  <!-- Footer Navigation -->
+  <footer class="deck-footer">
+    <div class="nav-controls">
+      <button class="btn-nav" id="btnPrev" title="Previous Slide (Arrow Left)">
+        ◀ Previous
+      </button>
+      <button class="btn-nav" id="btnNext" title="Next Slide (Arrow Right or Space)">
+        Next ▶
+      </button>
+    </div>
+
+    <div class="progress-track-wrapper">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+      <div class="progress-text-label">
+        <span id="slideProgressText">Slide 1 of 30</span>
+        <span id="partProgressText">Part 1: Macro Context & Imperative</span>
+      </div>
+    </div>
+
+    <div class="keyboard-guide">
+      <span>Navigate: <kbd>◀</kbd> <kbd>▶</kbd> <kbd>Space</kbd></span>
+      <span>Notes: <kbd>S</kbd></span>
+      <span>Grid: <kbd>G</kbd></span>
+      <span>Full: <kbd>F</kbd></span>
+    </div>
+  </footer>
+
+  <!-- Grid Overview Modal -->
+  <div class="modal-backdrop" id="gridModal">
+    <div class="grid-modal">
+      <div class="grid-header">
+        <h2 style="font-size: 18px; font-weight: 700; color: #FFF;">Executive Slide Deck Overview (30 Slides)</h2>
+        <button class="btn-header" id="btnCloseGrid">✕ Close</button>
+      </div>
+      <div class="grid-body" id="gridBody">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 30 Slides Master Data
+    const slides = [
+      {
+        num: 1,
+        part: "PART 1: MACRO CONTEXT & IMPERATIVE",
+        title: "Korea's Sovereign AI Strategy: From Silicon to Enterprise Applications",
+        subtitle: "Unlocking Strategic Autonomy, Native Infrastructure, and Scalable Enterprise Transformation",
+        bullets: [
+          "<strong>Warm Welcome to UCLA Anderson EMBA:</strong> Executive visit to MegazoneCloud Gwacheon HQ, Seoul Immersion 2026.",
+          "<strong>One of Only 3 Global AI Powerhouses:</strong> South Korea is uniquely positioned alongside the US and China with an end-to-end full stack.",
+          "<strong>Beyond Models to Operational Sovereignty:</strong> Orchestrating domestic NPU silicon, specialized foundation models, and enterprise middleware."
+        ],
+        visual: "Futuristic Seoul smart skyline intertwined with neural network nodes, silicon wafer patterns (K-NPU), and enterprise datacenter racks.",
+        notes: "Good morning, faculty, staff, and distinguished executives of the UCLA Anderson Executive MBA delegation. On behalf of MegazoneCloud, welcome to our Gwacheon Headquarters. Today, I am thrilled to share South Korea's sovereign AI playbook—how our nation is navigating the global AI race by building independent silicon, specialized models, and full-stack enterprise solutions.",
+        duration: "0:00 - 0:30"
+      },
+      {
+        num: 2,
+        part: "PART 1: MACRO CONTEXT & IMPERATIVE",
+        title: "Welcome UCLA Anderson EMBA: Session Objectives & Agenda",
+        subtitle: "Today's 15-Minute Executive Briefing & Collaborative Exchange",
+        bullets: [
+          "<strong>Strategic Understanding:</strong> Deconstruct the geopolitical, financial, and technical forces driving Sovereign AI in 2026.",
+          "<strong>The 4-Pillar Playbook:</strong> Deep-dive into Infrastructure, Models, Software Solutions, and Enterprise Services.",
+          "<strong>MegazoneCloud's Role:</strong> Scaling from Korea's #1 Cloud Unicorn to the master orchestrator of domestic and global ISVs.",
+          "<strong>Connecting Your Itinerary:</strong> Direct relevance to your Seoul immersion (Samsung, DEEPX, Amorepacific, and Invest Seoul)."
+        ],
+        visual: "Flow diagram showing 3-stage presentation breakdown and interactive Q&A roadmap.",
+        notes: "Over the next 15 minutes, we will unpack why sovereign AI is an urgent commercial reality and how Korea provides an actionable template for global enterprise leaders.",
+        duration: "0:30 - 1:00"
+      },
+      {
+        num: 3,
+        part: "PART 1: MACRO CONTEXT & IMPERATIVE",
+        title: "The Geopolitics of AI: Why 'Sovereignty' Matters in 2026",
+        subtitle: "From AI Experimentation to Strategic Operational Autonomy",
+        bullets: [
+          "<strong>The AI Duopoly Threat:</strong> Over-reliance on foreign hyperscalers exposes enterprises to price spikes, outage risks, and lock-in.",
+          "<strong>Sovereign AI 2.0 Defined:</strong> Shifting to 'Operational Sovereignty' and 'Access Autonomy'—ensuring mission-critical systems run offline.",
+          "<strong>Regulatory Compliance:</strong> Stringent cross-border data residency mandates (EU AI Act, Korea PIPA, Financial Cloud Directives)."
+        ],
+        visual: "Comparison matrix: Cloud SaaS API Risks vs. Air-Gapped Sovereign AI Enterprise Benefits.",
+        notes: "In 2026, the question is no longer 'Which API is smartest?' but 'Who owns our intelligence? If cross-border connections drop, can our business still operate?'",
+        duration: "1:00 - 1:30"
+      },
+      {
+        num: 4,
+        part: "PART 1: MACRO CONTEXT & IMPERATIVE",
+        title: "South Korea’s Unique Position: The World’s 3rd AI Powerhouse",
+        subtitle: "A Rare Convergence of Semiconductor, Software, and Heavy Industry",
+        bullets: [
+          "<strong>Elite Global Trio:</strong> Alongside the US and China, South Korea possesses the complete physical and digital vertical stack.",
+          "<strong>Hardware Dominance:</strong> Global leader in memory and HBM manufacturing (Samsung Electronics, SK Hynix).",
+          "<strong>Digital Platforms & Models:</strong> Domestic tech giants (Naver, Kakao) beating global platforms locally with native search engines.",
+          "<strong>The 'G3 Ambition':</strong> Formal presidential roadmap targeting Global Top 3 AI leadership by 2027."
+        ],
+        visual: "Global map highlighting US, China, and Korea with 4-layer full-stack capability indicators.",
+        notes: "Korea possesses the entire physical and digital vertical stack. We build the memory chips, host native search engines, and manufacture ships, cars, and consumer electronics.",
+        duration: "1:30 - 2:00"
+      },
+      {
+        num: 5,
+        part: "PART 1: MACRO CONTEXT & IMPERATIVE",
+        title: "The Enterprise Trilemma: Capex, Power, and Data Sovereignty",
+        subtitle: "The Hard Physical Bottlenecks Stalling On-Premises Deployments",
+        bullets: [
+          "<strong>Financial Shock (Capex):</strong> 8-GPU high-density servers cost $400K-$500K each with unpredictable delivery cycles.",
+          "<strong>Physical Power Cap:</strong> 90% of corporate datacenter racks are limited to 8-10kW; standard 8-GPU servers draw 10.2kW peak.",
+          "<strong>Data Exfiltration Risk:</strong> Defense, banking, and semiconductor fabs strictly forbid transmitting IP to public clouds."
+        ],
+        visual: "Trilemma diagram: High Capex vs. 10kW Rack Power Limit vs. Air-Gapped Security Requirements.",
+        notes: "When enterprise CTOs attempt to run 250B parameter models on-premises, they hit an electrical brick wall. Overcoming this physical trilemma is our primary engineering focus.",
+        duration: "2:00 - 2:30"
+      },
+      {
+        num: 6,
+        part: "PART 1: MACRO CONTEXT & IMPERATIVE",
+        title: "The 4-Pillar Framework: Infra, Model, Solution, Service",
+        subtitle: "The Unified Architecture of National & Enterprise AI Independence",
+        bullets: [
+          "<strong>Pillar 1 (Infrastructure):</strong> Compute clusters, public AI highway, and native NPU semiconductors.",
+          "<strong>Pillar 2 (Model):</strong> Sovereign Korean foundation models, domain sLLMs, and Mixture-of-Experts (MoE).",
+          "<strong>Pillar 3 (Solution):</strong> Full-stack orchestration, air-gapped security, and model optimization compilers.",
+          "<strong>Pillar 4 (Service):</strong> Cross-industry deployment across Chaebols, SMEs, and public administrative sectors."
+        ],
+        visual: "4-Layer architectural pyramid highlighting synchronized execution across government and private sector.",
+        notes: "Sovereignty fails if any single layer is missing. Korea's strategy coordinates all 4 pillars synchronously to deliver commercial and operational success.",
+        duration: "2:30 - 3:00"
+      },
+      {
+        num: 7,
+        part: "PART 2: PILLAR 1 - INFRASTRUCTURE & SILICON",
+        title: "National AI Computing Center: The Public-Private 'AI Highway'",
+        subtitle: "A Multi-Billion Dollar Sovereign Compute Megaproject",
+        bullets: [
+          "<strong>Solaseado Datacenter Park:</strong> Officially broken ground in August 2026 in Haenam, South Jeolla Province.",
+          "<strong>Public-Private Consortium:</strong> Spearheaded by MSIT and Samsung SDS via a dedicated Special Purpose Company (SPC).",
+          "<strong>National Compute Bedrock:</strong> Subsidizing massive compute access for universities, startups, and domestic industry."
+        ],
+        visual: "Architectural rendering of Haenam Solaseado datacenter campus with green energy grid connections.",
+        notes: "Pillar 1 begins with compute. In August 2026, Korea broke ground on the National AI Computing Center in Haenam, ensuring domestic industry is protected from international GPU supply crunches.",
+        duration: "3:00 - 3:30"
+      },
+      {
+        num: 8,
+        part: "PART 2: PILLAR 1 - INFRASTRUCTURE & SILICON",
+        title: "Compute Capacity Scaling: 15,000 GPUs to 50,000 GPUs",
+        subtitle: "The Exponential Trajectory of Public Compute Infrastructure",
+        bullets: [
+          "<strong>Phase 1 (2026 - 2028):</strong> Initial deployment of 15,000 top-tier AI accelerators (H100/B200 tier).",
+          "<strong>Phase 2 (2029 - 2030+):</strong> Expansion to 50,000+ accelerators integrated with coastal offshore wind power.",
+          "<strong>Sovereign Resource Allocation:</strong> Tiered vouchers enabling rapid model training without predatory cloud pricing."
+        ],
+        visual: "Growth chart showing GPU capacity scaling from 15K to 50K units by 2030 with power efficiency curves.",
+        notes: "Reaching 15,000 accelerators by 2028 and 50,000 by 2030 establishes a fortress of compute capacity that underpins national digital sovereignty.",
+        duration: "3:30 - 4:00"
+      },
+      {
+        num: 9,
+        part: "PART 2: PILLAR 1 - INFRASTRUCTURE & SILICON",
+        title: "The Rise of K-NPU: The 'K-Cloud' Initiative & NPU Farms",
+        subtitle: "Disrupting the AI Inference Landscape with High-Efficiency Silicon",
+        bullets: [
+          "<strong>K-Cloud Initiative:</strong> Over $600M in national backing to develop ultra-low-power AI semiconductors.",
+          "<strong>The 80/20 Rule:</strong> While model training requires GPUs, over 80% of operational enterprise TCO is inference.",
+          "<strong>NPU Farms in Action:</strong> Live multi-petaflop clusters deployed across Naver, KT, and NHN Cloud datacenters."
+        ],
+        visual: "Inference TCO comparison: K-NPU vs. Traditional GPU showing power and cost savings.",
+        notes: "Up to 80% of enterprise AI costs are inference. Korea's K-Cloud project deploys native NPUs specifically engineered to execute inference at a fraction of standard GPU power.",
+        duration: "4:00 - 4:30"
+      },
+      {
+        num: 10,
+        part: "PART 2: PILLAR 1 - INFRASTRUCTURE & SILICON",
+        title: "Korea's Fabless Champions: Rebellions, FuriosaAI, DEEPX, Mobilint",
+        subtitle: "Purpose-Built Silicon Across Datacenter, Edge, and Robotics",
+        bullets: [
+          "<strong>Rebellions (ATOM / ATOM-MAX):</strong> High-throughput datacenter inference and financial algorithmic trading.",
+          "<strong>FuriosaAI (WARBOY / RENEGADE):</strong> High-efficiency computer vision and Transformer model acceleration.",
+          "<strong>DEEPX (All-in-4 AI Series):</strong> Ultra-low-power on-device NPU for smart mobility, IoT, and industrial robotics (On UCLA Itinerary!).",
+          "<strong>Mobilint (ARIES / REGULUS):</strong> Edge AI solutions for industrial automation."
+        ],
+        visual: "Silicon ecosystem landscape mapping Korean fabless startups across Datacenter, Edge, and On-Device tiers.",
+        notes: "Many of you are visiting DEEPX this week. DEEPX, Rebellions, and FuriosaAI are not mimicking GPUs; they are building purpose-driven architectures that win on efficiency.",
+        duration: "4:30 - 5:00"
+      },
+      {
+        num: 11,
+        part: "PART 2: PILLAR 1 - INFRASTRUCTURE & SILICON",
+        title: "Enterprise Hybrid Cloud & GPUaaS: Dell, NVIDIA, and Akamai",
+        subtitle: "Balancing Tier-1 Global Standards with Modular Sovereign Clouds",
+        bullets: [
+          "<strong>Mainstream Enterprise Track:</strong> Dell PowerEdge R760 + NVIDIA GPUs for on-premise high performance.",
+          "<strong>Cost-Optimized GPUaaS:</strong> Partnership with Akamai Distributed Cloud for sub-millisecond edge inferencing at 40% lower egress.",
+          "<strong>Hybrid Topology:</strong> Sensitive proprietary IP kept strictly on-premises; public workloads burst to sovereign cloud."
+        ],
+        visual: "Hybrid network architecture showing Dell On-Premises core connected to Akamai GPUaaS edge nodes.",
+        notes: "Sovereignty is not isolation. MegazoneCloud delivers certified Dell and NVIDIA enterprise stacks while leveraging distributed GPUaaS partnerships like Akamai to optimize client TCO.",
+        duration: "5:00 - 5:30"
+      },
+      {
+        num: 12,
+        part: "PART 2: PILLAR 1 - INFRASTRUCTURE & SILICON",
+        title: "Overcoming Data Center Bottlenecks: 10kW Rack Power & Cooling",
+        subtitle: "Engineering Feasibility in Existing Corporate Server Rooms",
+        bullets: [
+          "<strong>The Datacenter Bottleneck:</strong> Retrofitting legacy server rooms with liquid cooling costs millions and causes downtime.",
+          "<strong>Dense 2-GPU Form Factor:</strong> High-efficiency 2U dual-GPU architecture delivering enterprise-grade throughput.",
+          "<strong>Power Feasibility:</strong> Operating power capped at 3.2kW, safely within standard 10kW datacenter rack limits."
+        ],
+        visual: "Server rack diagram showing 3.2kW 2-GPU server fitting comfortably into standard 10kW rack space.",
+        notes: "Our dual-GPU dense form factor caps power draw at 3.2kW. Enterprises can deploy sovereign AI in their existing server rooms tomorrow without electrical rewiring.",
+        duration: "5:30 - 6:00"
+      },
+      {
+        num: 13,
+        part: "PART 3: PILLAR 2 - FOUNDATION MODELS",
+        title: "Korea's Foundation Model Landscape",
+        subtitle: "Native Linguistic Mastery and Frontier Enterprise Intelligence",
+        bullets: [
+          "<strong>Naver HyperCLOVA X:</strong> Dominant commercial hyper-scale model trained on 6,500x more Korean data than GPT-3.",
+          "<strong>LG AI Research EXAONE 3.0:</strong> High-performance bilingual open-weight model engineered for chemistry, patents, and manufacturing.",
+          "<strong>Upstage Solar:</strong> Globally acclaimed sLLM leading HuggingFace benchmarks via innovative Depth-Up Scaling (DUS)."
+        ],
+        visual: "Logo and performance matrix comparing HyperCLOVA X, EXAONE 3.0, and Solar across enterprise benchmarks.",
+        notes: "Pillar 2: Models. Korea does not rely solely on translated foreign LLMs. Naver, LG, and Upstage engineer native models with deep linguistic and contextual nuance.",
+        duration: "6:00 - 6:30"
+      },
+      {
+        num: 14,
+        part: "PART 3: PILLAR 2 - FOUNDATION MODELS",
+        title: "The Shift from Frontier Monoliths to Domain-Specific sLLM & MoE",
+        subtitle: "Why Smaller, Specialized Models are Winning the Enterprise War",
+        bullets: [
+          "<strong>The Death of Monoliths:</strong> 1-Trillion parameter models are too slow and costly for private on-premises hosting.",
+          "<strong>Mixture-of-Experts (MoE):</strong> Activating only 20B-30B parameters out of 250B per token query.",
+          "<strong>Enterprise Advantages:</strong> Deterministic latency (<50ms), lower compute overhead, and complete lifecycle ownership."
+        ],
+        visual: "Diagram contrasting Monolithic Dense Activation vs. Efficient Mixture-of-Experts (MoE) Routing.",
+        notes: "While public headlines celebrate trillion-parameter models, enterprise CFOs look at transaction costs. Domain sLLMs and MoE architectures deliver higher accuracy at a fraction of the cost.",
+        duration: "6:30 - 7:00"
+      },
+      {
+        num: 15,
+        part: "PART 3: PILLAR 2 - FOUNDATION MODELS",
+        title: "Cultural, Linguistic & Regulatory Alignment: The Sovereign Moat",
+        subtitle: "The Severe Cost of Cultural Hallucination in Corporate Workflows",
+        bullets: [
+          "<strong>Honorific Precision (Jondaetmal):</strong> Korean corporate communication requires exact contextual politeness.",
+          "<strong>Statutory Exactness:</strong> Korean Commercial Code, labor laws, and tax regulations require precise citation.",
+          "<strong>Compliance Verification:</strong> Sovereign models achieve 99.2% regulatory accuracy vs. ~71% for off-the-shelf global APIs."
+        ],
+        visual: "Side-by-side comparison of cultural and legal output accuracy: Global API vs. Sovereign Korean Model.",
+        notes: "In corporate Korea, an inappropriate honorific can jeopardize client relationships. Sovereign models are trained natively in Korean corporate etiquette and statutory legal codes.",
+        duration: "7:00 - 7:30"
+      },
+      {
+        num: 16,
+        part: "PART 3: PILLAR 2 - FOUNDATION MODELS",
+        title: "Model Optimization: INT4/NVFP4 Quantization & Pruning",
+        subtitle: "Compressing Frontier Models into Compact Workstation Footprints",
+        bullets: [
+          "<strong>Lossless Quantization:</strong> Compressing FP16 weights down to INT4 and NVFP4 with under 1.5% perplexity loss.",
+          "<strong>Non-Uniform Pruning:</strong> Surgically eliminating inactive attention heads tailored to specific enterprise domains.",
+          "<strong>Measurable Impact:</strong> Memory footprint slashed by 70%, token generation increased from 18 to 65+ tokens/second."
+        ],
+        visual: "Performance graph showing throughput jump (tokens/sec) and VRAM reduction across INT4/FP16 formats.",
+        notes: "By applying INT4 and NVFP4 quantization, we shrink model memory requirements by 70% and triple throughput, allowing large models to run on affordable dual-GPU servers.",
+        duration: "7:30 - 8:00"
+      },
+      {
+        num: 17,
+        part: "PART 3: PILLAR 2 - FOUNDATION MODELS",
+        title: "Physical & Edge AI: Small Vision-Language-Action (VLA) Models",
+        subtitle: "Extending Sovereign Intelligence into Manufacturing and Smart Cities",
+        bullets: [
+          "<strong>SmolVLA & Compact Multimodal:</strong> Enabling robotic arms and AGVs to interpret physical environments locally.",
+          "<strong>Intelligent Transport Systems (ITS):</strong> Nota.ai smart traffic edge controllers deployed across 200 intersections in Daejeon and Dubai RTA.",
+          "<strong>Zero Cloud Latency:</strong> Real-time visual defect detection and signal optimization at 30 FPS."
+        ],
+        visual: "Case illustration: Edge AI controller in smart factory robotic arm and smart city intersection.",
+        notes: "Sovereign AI extends into the physical world. By embedding Small Vision-Language-Action models into edge hardware, we automate factory robotics and smart city traffic in real time.",
+        duration: "8:00 - 8:30"
+      },
+      {
+        num: 18,
+        part: "PART 4: PILLAR 3 - SOLUTIONS & ORCHESTRATION",
+        title: "The Enterprise Missing Link: Why 85% of AI PoCs Stall",
+        subtitle: "Bridging the Chasm Between Prototype Demos and Production Workflows",
+        bullets: [
+          "<strong>Hardware Mismatch:</strong> Cloud-built prototypes fail when transitioned to corporate datacenter servers.",
+          "<strong>Data Silos:</strong> Fragmented corporate data locked in legacy ERPs, internal PDFs, and legacy databases.",
+          "<strong>Security Void:</strong> Absence of enterprise-grade hallucination guardrails, audit logging, and role-based access control."
+        ],
+        visual: "Pipeline diagram showing PoC failure points and MegazoneCloud's end-to-end bridge to production.",
+        notes: "85% of enterprise AI projects stall in prototype phase because integrating chips, models, databases, and compliance is overwhelming. That is the missing link MegazoneCloud resolves.",
+        duration: "8:30 - 9:00"
+      },
+      {
+        num: 19,
+        part: "PART 4: PILLAR 3 - SOLUTIONS & ORCHESTRATION",
+        title: "MegazoneCloud's 4-Layer Enterprise AI Full-Stack Architecture",
+        subtitle: "The Standardized, Modular Operating Blueprint for Enterprise AI",
+        bullets: [
+          "<strong>Layer 4 (Applications):</strong> Air-Gapped RAG, AI Coding Agents, Executive Decision Portals.",
+          "<strong>Layer 3 (Model Serving):</strong> Nota NetsPresso optimization engine, vLLM, and Triton inference.",
+          "<strong>Layer 2 (Platform):</strong> Red Hat OpenShift AI (RHOAI) and Nutanix Cloud Infrastructure (NCI).",
+          "<strong>Layer 1 (Hardware):</strong> Dell PowerEdge R760, NVIDIA H100 GPUs, and certified K-NPU servers."
+        ],
+        visual: "Detailed 4-Layer architectural diagram displaying software logos and interface protocols.",
+        notes: "Our 4-Layer Full-Stack architecture integrates certified hardware, virtualization, optimization compilers, and business applications into a single turnkey solution with one enterprise SLA.",
+        duration: "9:00 - 9:30"
+      },
+      {
+        num: 20,
+        part: "PART 4: PILLAR 3 - SOLUTIONS & ORCHESTRATION",
+        title: "Deep-Dive: From Nutanix/RHOAI (L2) to vLLM & Nota (L3)",
+        subtitle: "The Engine Room of Low-Latency, High-Density Model Serving",
+        bullets: [
+          "<strong>Layer 2 Virtualization:</strong> Nutanix AHV and OpenShift AI automate GPU resource slicing (vGPU) across departments.",
+          "<strong>Layer 3 Compilation:</strong> Nota NetsPresso profiles hardware and optimizes execution graphs automatically.",
+          "<strong>Continuous Batching:</strong> vLLM PagedAttention ensures sub-second multi-tenant response times under high concurrency."
+        ],
+        visual: "Dataflow diagram tracing user query through Nutanix hypervisor to vLLM paged attention cache.",
+        notes: "At Layers 2 and 3, Nutanix and OpenShift virtualize GPU power across departments, while Nota and vLLM maximize inference density, extracting peak performance from minimum hardware.",
+        duration: "9:30 - 10:00"
+      },
+      {
+        num: 21,
+        part: "PART 4: PILLAR 3 - SOLUTIONS & ORCHESTRATION",
+        title: "Air-Gapped Security & Advanced Graph RAG (Mem0 + Graphify)",
+        subtitle: "True Data Moats: Zero Exfiltration Meets Deep Structural Context",
+        bullets: [
+          "<strong>100% Air-Gapped Isolation:</strong> Zero external bytes transmitted; internal HSM key encryption.",
+          "<strong>Mem0 Memory Architecture:</strong> Multi-session personalized context tracking user security clearance levels.",
+          "<strong>Graphify AST RAG:</strong> Abstract Syntax Tree semantic parsing of enterprise source code and complex manuals."
+        ],
+        visual: "Security architecture diagram: Air-Gapped perimeter shield surrounding Mem0 context engine and Graph RAG.",
+        notes: "For banking and defense clients, we build completely air-gapped systems. Using Mem0 memory layers and Graphify knowledge graphs, our AI reasons across corporate manuals without hallucination.",
+        duration: "10:00 - 10:30"
+      },
+      {
+        num: 22,
+        part: "PART 4: PILLAR 3 - SOLUTIONS & ORCHESTRATION",
+        title: "The ISV Ecosystem: Orchestrating Global & Domestic Innovators",
+        subtitle: "The Power of the MegazoneCloud Multi-Vendor Aggregator Model",
+        bullets: [
+          "<strong>Global Category Leaders:</strong> Articul8 (Autonomous GenAI) and Cohere (Multilingual Enterprise Embeddings).",
+          "<strong>Domestic Specialist Champions:</strong> Nota.ai (Edge Optimization), PuzzleData (Process Mining), QuantumAI (Air-Gapped AICC).",
+          "<strong>Single Enterprise SLA:</strong> Clients get multi-vendor best-of-breed software without contract chaos."
+        ],
+        visual: "Partner ecosystem wheel showing MegazoneCloud at center orchestrating global and domestic ISVs.",
+        notes: "We curate the world's finest ISVs. Whether bringing in Silicon Valley's Articul8 and Cohere or domestic champions like Nota and PuzzleData, we orchestrate them into one harmonious platform.",
+        duration: "10:30 - 11:00"
+      },
+      {
+        num: 23,
+        part: "PART 5: PILLAR 4 - SERVICE & ENTERPRISE ADOPTION",
+        title: "Korea Inc. in Action: Enterprise AI Adoption Across Chaebols",
+        subtitle: "Real-World Deployments Across South Korea's Industrial Giants",
+        bullets: [
+          "<strong>Semiconductor & High-Tech:</strong> Yield prediction, wafer defect inspection, and fab telemetry analytics.",
+          "<strong>Financial Services:</strong> On-premise credit underwriting, automated compliance checks, and private analyst copilots.",
+          "<strong>Consumer Goods & Beauty (Amorepacific Context):</strong> Hyper-personalized beauty formulation compliant with PII laws.",
+          "<strong>Heavy Industry & Automotive:</strong> Assembly line predictive maintenance and CAD engineering assistance."
+        ],
+        visual: "Industry mosaic illustrating live deployments across Manufacturing, Banking, Beauty, and Automotive.",
+        notes: "Pillar 4: Real enterprise adoption. In chip manufacturing, AI inspects wafers at line speed. In banking, private LLMs parse regulatory audits. In cosmetics, beauty algorithms run locally on customer data.",
+        duration: "11:00 - 11:30"
+      },
+      {
+        num: 24,
+        part: "PART 5: PILLAR 4 - SERVICE & ENTERPRISE ADOPTION",
+        title: "Sovereign AI Turnkey Appliance: 1-Click On-Premises Deployment",
+        subtitle: "Delivering Enterprise AI as a Pre-Integrated, Plug-and-Play Appliance",
+        bullets: [
+          "<strong>Pre-Integrated Hardware:</strong> Pre-racked Dell R760 2U server with certified NVIDIA GPUs or K-NPUs.",
+          "<strong>Rapid Time-to-Value:</strong> From power-on to first internal query in under 2 hours (vs. 6 months of consulting).",
+          "<strong>Built-In Governance:</strong> Pre-loaded with Nutanix AHV, Nota NetsPresso INT4, and sovereign domain models."
+        ],
+        visual: "Product rendering of the 2U rack appliance showing pre-installed software layers and plug-in setup.",
+        notes: "We package sovereign AI into a plug-and-play 2U appliance. Arrives pre-tested; you connect power and ethernet, and your company has an air-gapped private intelligence platform running in 2 hours.",
+        duration: "11:30 - 12:00"
+      },
+      {
+        num: 25,
+        part: "PART 5: PILLAR 4 - SERVICE & ENTERPRISE ADOPTION",
+        title: "Measurable Business ROI: 75% Capex Cut & 3.2kW Power Feasibility",
+        subtitle: "The Hard Financial and Operational Metrics of Success",
+        bullets: [
+          "<strong>Capex Slashed by 75%:</strong> $120,000 USD dual-GPU appliance replaces standard $480,000 USD 8-GPU cluster.",
+          "<strong>Power Draw at 3.2kW:</strong> Safely fits standard 10kW datacenter racks, eliminating costly room retrofits.",
+          "<strong>Latency Reduced 3x:</strong> Deterministic sub-50ms token generation for seamless user experience.",
+          "<strong>Zero Data Exfiltration:</strong> 100% compliance with strict national banking and defense security mandates."
+        ],
+        visual: "Executive ROI scorecard with side-by-side metric tables and large callout badges (75% SAVINGS).",
+        notes: "These are the metrics that win boardroom approval: 75% Capex savings, 3.2kW power consumption that avoids facility reconstruction, and sub-50ms latency with zero data leakage.",
+        duration: "12:00 - 12:30"
+      },
+      {
+        num: 26,
+        part: "PART 5: PILLAR 4 - SERVICE & ENTERPRISE ADOPTION",
+        title: "Public Sector & 'AI for All Citizens': National Transformation",
+        subtitle: "Democratizing Artificial Intelligence Across Civil Administration and Healthcare",
+        bullets: [
+          "<strong>AI Civil Servants:</strong> Automating routine civic administration, tax filings, and municipal inquiries.",
+          "<strong>Universal AI Compute Vouchers:</strong> Subsidizing AI compute for 10,000+ domestic SMEs and technology startups.",
+          "<strong>Healthcare & Rural Equity:</strong> Deploying sovereign diagnostic assistants to regional clinics to bridge medical gaps."
+        ],
+        visual: "Infographic showing government civic portal, regional hospital diagnostic network, and SME grant flow.",
+        notes: "Sovereign AI is also a public good. Korea's 'AI for All' initiative delivers AI assistants to municipal offices and regional clinics, ensuring technological advancement benefits all citizens.",
+        duration: "12:30 - 13:00"
+      },
+      {
+        num: 27,
+        part: "PART 6: MZC PLAYBOOK & GLOBAL VISION",
+        title: "MegazoneCloud's Growth Story: From Cloud Pioneer to AI Unicorn",
+        subtitle: "The Operational Architect Behind Korea's Digital Infrastructure",
+        bullets: [
+          "<strong>1998 to Present:</strong> Early digital agency evolved into Korea's first AWS Premier Consulting Partner in 2012.",
+          "<strong>Official Unicorn (2022):</strong> Valuation exceeded $1.8B USD, leading the Korean cloud MSP market.",
+          "<strong>Scale Today:</strong> Over 2,700 enterprise clients, 1,500+ specialized engineers, and multi-cloud market dominance.",
+          "<strong>The Strategic Evolution:</strong> Cloud MSP -> AI MSP -> Global Full-Stack Sovereign AI Orchestrator."
+        ],
+        visual: "Milestone timeline spanning 1998, 2012, 2022, and 2026 showing revenue and client expansion trajectory.",
+        notes: "MegazoneCloud pioneered cloud computing in Korea over a decade ago as the country's first AWS Premier Partner. Today, as a multi-billion dollar tech unicorn, we are leading the AI transformation wave.",
+        duration: "13:00 - 13:30"
+      },
+      {
+        num: 28,
+        part: "PART 6: MZC PLAYBOOK & GLOBAL VISION",
+        title: "Global Expansion Playbook: Bridging Korea, US, Japan & SE Asia",
+        subtitle: "Exporting Sovereign AI Methodologies to High-Growth Asian Markets",
+        bullets: [
+          "<strong>Silicon Valley Hub (Palo Alto):</strong> Venture partnerships, co-innovation with frontier AI ISVs.",
+          "<strong>Japan Expansion (Tokyo):</strong> Delivering sovereign on-premise AI to Japanese financial and enterprise leaders.",
+          "<strong>Southeast Asia (Singapore, Vietnam):</strong> Scaling low-power NPU inference appliances and cloud software.",
+          "<strong>The Strategic Bridge:</strong> Connecting Western software innovation with Asian enterprise operational execution."
+        ],
+        visual: "Global map linking Silicon Valley, Seoul, Tokyo, and Singapore with active business flows.",
+        notes: "We are expanding globally. Through offices in Palo Alto, Tokyo, and Singapore, we export the sovereign AI methodologies proven in Korea to enterprises across the Asia-Pacific region.",
+        duration: "13:30 - 14:00"
+      },
+      {
+        num: 29,
+        part: "PART 6: MZC PLAYBOOK & GLOBAL VISION",
+        title: "Strategic Takeaways for Global Business Leaders",
+        subtitle: "Key Insights for UCLA Anderson Executive MBA Delegates",
+        bullets: [
+          "<strong>1. Sovereignty != Isolation:</strong> True strategic autonomy combines global technological standards with local control.",
+          "<strong>2. Datacenter Physics Rule:</strong> Power, rack limits, and thermal constraints dictate AI feasibility faster than ambition.",
+          "<strong>3. Defend Your Proprietary Moat:</strong> Internal domain knowledge and proprietary data graphs are your core balance sheet assets.",
+          "<strong>4. Modular Architectural Agility:</strong> Decouple silicon, foundation models, and middleware to prevent future vendor lock-in."
+        ],
+        visual: "4 quadrant strategic framework summarizing executive recommendations for global leaders.",
+        notes: "As you return to your executive roles, remember: true sovereignty is about agility, not isolation. Respect datacenter physics early, guard your corporate data, and build modular systems.",
+        duration: "14:00 - 14:30"
+      },
+      {
+        num: 30,
+        part: "PART 6: MZC PLAYBOOK & GLOBAL VISION",
+        title: "Conclusion & Open Q&A Discussion",
+        subtitle: "Shaping the Future of Enterprise AI Together",
+        bullets: [
+          "<strong>Presenter:</strong> Andy | ISV Business Unit & AI Architecture Group, MegazoneCloud",
+          "<strong>Official Email:</strong> andy@megazone.com | contact@megazone.com",
+          "<strong>Headquarters:</strong> MegazoneCloud Gwacheon Smart Tower, Gwacheon-si, Gyeonggi-do, Korea",
+          "<strong>Suggested Discussion Topics:</strong> Regulatory divergence (US vs. Korea vs. EU), NPU vs. GPU economics, scaling across global subsidiaries."
+        ],
+        visual: "Collaborative closing slide with MegazoneCloud and UCLA Anderson logos and live Q&A floor open banner.",
+        notes: "Thank you for your time, leadership, and attention. The future of AI will be shaped by strategic autonomy and global collaboration. The floor is now open for your questions.",
+        duration: "14:30 - 15:00"
+      }
+    ];
+
+    let currentSlideIndex = 0;
+    const totalSlides = slides.length;
+    let notesOpen = false;
+
+    // DOM Elements
+    const viewport = document.getElementById('slideViewport');
+    const progressBarFill = document.getElementById('progressBarFill');
+    const slideProgressText = document.getElementById('slideProgressText');
+    const partProgressText = document.getElementById('partProgressText');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const notesDrawer = document.getElementById('notesDrawer');
+    const notesContent = document.getElementById('notesContent');
+    const notesPacing = document.getElementById('notesPacing');
+    const btnNotesToggle = document.getElementById('btnNotesToggle');
+    const btnGridToggle = document.getElementById('btnGridToggle');
+    const btnCloseGrid = document.getElementById('btnCloseGrid');
+    const gridModal = document.getElementById('gridModal');
+    const gridBody = document.getElementById('gridBody');
+    const btnFullscreen = document.getElementById('btnFullscreen');
+
+    function renderSlide(index) {
+      const s = slides[index];
+      
+      let bulletsHtml = s.bullets.map((b, i) => `
+        <div class="bullet-item">
+          <div class="bullet-icon">${i + 1}</div>
+          <div class="bullet-text">${b}</div>
+        </div>
+      `).join('');
+
+      viewport.innerHTML = `
+        <div class="slide-top-bar">
+          <span class="part-tag">${s.part}</span>
+          <span class="slide-counter-badge">SLIDE ${String(s.num).padStart(2, '0')} / ${totalSlides}</span>
+        </div>
+        <div class="slide-body">
+          <div>
+            <h1 class="slide-title">${s.title}</h1>
+            <p class="slide-subtitle">${s.subtitle}</p>
+          </div>
+          <div class="bullet-container">
+            ${bulletsHtml}
+          </div>
+          <div class="visual-card">
+            <span class="v-label">Visual Concept</span>
+            <span class="v-desc">${s.visual}</span>
+          </div>
+        </div>
+      `;
+
+      // Update progress bar
+      const pct = ((index + 1) / totalSlides) * 100;
+      progressBarFill.style.width = pct + '%';
+      slideProgressText.textContent = `Slide ${index + 1} of ${totalSlides}`;
+      partProgressText.textContent = s.part;
+
+      // Update Notes
+      notesContent.textContent = `"${s.notes}"`;
+      notesPacing.textContent = `[${s.duration}]`;
+
+      // Update Nav Buttons
+      btnPrev.disabled = index === 0;
+      btnNext.disabled = index === totalSlides - 1;
+
+      // Update Grid current
+      document.querySelectorAll('.grid-card').forEach((el, idx) => {
+        if (idx === index) el.classList.add('current');
+        else el.classList.remove('current');
+      });
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        currentSlideIndex = index;
+        renderSlide(currentSlideIndex);
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlideIndex < totalSlides - 1) {
+        goToSlide(currentSlideIndex + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        goToSlide(currentSlideIndex - 1);
+      }
+    }
+
+    function toggleNotes() {
+      notesOpen = !notesOpen;
+      if (notesOpen) {
+        notesDrawer.classList.add('open');
+      } else {
+        notesDrawer.classList.remove('open');
+      }
+    }
+
+    function toggleGrid() {
+      gridModal.classList.toggle('active');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => alert(err.message));
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Populate Grid Modal
+    function buildGrid() {
+      gridBody.innerHTML = '';
+      slides.forEach((s, i) => {
+        const card = document.createElement('div');
+        card.className = `grid-card ${i === currentSlideIndex ? 'current' : ''}`;
+        card.innerHTML = `
+          <div class="grid-card-num">SLIDE ${String(s.num).padStart(2, '0')}</div>
+          <div class="grid-card-title">${s.title}</div>
+        `;
+        card.addEventListener('click', () => {
+          goToSlide(i);
+          gridModal.classList.remove('active');
+        });
+        gridBody.appendChild(card);
+      });
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (gridModal.classList.contains('active')) {
+        if (e.key === 'Escape') gridModal.classList.remove('active');
+        return;
+      }
+
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 's' || e.key === 'S') {
+        toggleNotes();
+      } else if (e.key === 'g' || e.key === 'G') {
+        toggleGrid();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === 'Escape') {
+        if (notesOpen) toggleNotes();
+      }
+    });
+
+    // Event Listeners
+    btnPrev.addEventListener('click', prevSlide);
+    btnNext.addEventListener('click', nextSlide);
+    btnNotesToggle.addEventListener('click', toggleNotes);
+    btnGridToggle.addEventListener('click', toggleGrid);
+    btnCloseGrid.addEventListener('click', toggleGrid);
+    btnFullscreen.addEventListener('click', toggleFullscreen);
+
+    // Presentation Countdown Timer (15 Minutes)
+    let timeLeftSeconds = 15 * 60;
+    const timerElem = document.getElementById('sessionTimer');
+    const countdownInterval = setInterval(() => {
+      if (timeLeftSeconds <= 0) {
+        timerElem.textContent = "⏱ 00:00 (Q&A TIME)";
+        timerElem.style.color = "var(--accent-amber)";
+        clearInterval(countdownInterval);
+        return;
+      }
+      timeLeftSeconds--;
+      const m = Math.floor(timeLeftSeconds / 60);
+      const s = timeLeftSeconds % 60;
+      timerElem.textContent = `⏱ ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')} REMAINING`;
+    }, 1000);
+
+    // Initial Init
+    buildGrid();
+    renderSlide(currentSlideIndex);
+  </script>
+</body>
+</html>

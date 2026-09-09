@@ -13,6 +13,23 @@
 
 ---
 
+## 🎯 [완료] UCLA Anderson Executive MBA 내방 세션 "Korea Sovereign AI Strategy" 30슬라이드 덱 구축 (2026-09-09)
+- [x] **정부 과기정통부 소버린 AI 2.0 및 K-클라우드 프로젝트 정책 조사/수집**:
+  - [x] 국가 AI 컴퓨팅 센터 (해남 솔라시도 2028년 1.5만 장 -> 2030년 5만 장) 민관합작(SPC) 정책 반영
+  - [x] K-클라우드 프로젝트 & NPU 팜 (Rebellions, FuriosaAI, DEEPX, Mobilint) 추론 칩 생태계 분석
+- [x] **4대 관점(Infra, Model, Solution, Service) 체계화 및 15분 발표용 30슬라이드 데크 설계**:
+  - [x] Pillar 1 (Infra): 해남 컴퓨팅 센터, 국산 NPU 팹리스, Dell/NVIDIA/Akamai 하이브리드, 10kW 랙 전력(3.2kW) 한계 돌파
+  - [x] Pillar 2 (Model): 하이퍼클로바X/엑사원/솔라, 도메인 sLLM & MoE, 한국어 문화/상법/금융 정밀도, INT4 양자화
+  - [x] Pillar 3 (Solution): 85% PoC 단절 Missing Link 해소, MZC 4-Layer 풀스택, 에어갭 그래프 RAG, 글로벌/국내 ISV 오케스트레이션
+  - [x] Pillar 4 (Service): 삼성/아모레퍼시픽 등 Chaebol 실도입, 2시간 턴키 어플라이언스, 75% Capex 절감 실측, 대국민 AI
+  - [x] Part 6 (MZC Vision): 클라우드 유니콘 성장사, 미국/일본/동남아 글로벌 확장, EMBA 리더 4대 제언
+- [x] **산출물 3종(MD, DOCX, HTML) 및 명세서 구축 (`K-AI/`)**:
+  - [x] 영문 마크다운 슬라이드 및 스피커 노트 전문: [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.md`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.md)
+  - [x] DOCX 자동 생성 엔진: [`K-AI/generate_k_sovereign_ai_deck_docx.py`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/generate_k_sovereign_ai_deck_docx.py)
+  - [x] 공식 Word 제안서 산출물: [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.docx`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.docx) (47.5 KB)
+  - [x] 인터랙티브 HTML 슬라이드 쇼: [`K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.html`](file:///c:/dev/antigravity-workspace/aifullstack/K-AI/2026-09-09_Korea_Sovereign_AI_Strategy_Deck.html) (15분 타이머, 키보드 조작, 대본 모달)
+  - [x] 상세 작업 명세서: [`docs/specs/2026-09-09_k_sovereign_ai_strategy_presentation_spec.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/specs/2026-09-09_k_sovereign_ai_strategy_presentation_spec.md)
+
 ## 🎯 [완료] 타 PC 작업내역 인계 및 워크스페이스 현행화 (2026-09-09)
 - [x] **원격 깃허브 및 Git 버전 관리 정상화**:
   - [x] `kesperinc/aifullstack_issu.git`의 `feature/vibe-coding-agent` 브랜치 연동 및 추적 설정
