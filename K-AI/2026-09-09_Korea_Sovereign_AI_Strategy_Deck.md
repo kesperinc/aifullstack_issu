@@ -56,6 +56,8 @@
 - **Subtitle**: Unlocking Strategic Autonomy, Native Infrastructure, and Scalable Enterprise Transformation
 - **Event Callout**: Welcome UCLA Anderson Executive MBA Delegation to MegazoneCloud Gwacheon HQ
 - **Presenter**: Andy | ISV Business Unit & AI Architecture Group, MegazoneCloud
+- **Visual Graphic**:
+  ![Korea Sovereign AI Strategy](images/slide01_cover_sovereign_ai.jpg)
 - **Visual Concept**: Split visual featuring Seoul's futuristic smart skyline intertwined with neural network nodes, silicon wafer patterns (NPU/GPU), and enterprise datacenter racks.
 - **Key Message**: South Korea is forging a unique, comprehensive Sovereign AI blueprint—not merely building domestic models, but orchestrating the entire value chain from custom silicon (NPU) to enterprise full-stack software.
 - **Speaker Notes [0:00 - 0:30]**:
@@ -149,6 +151,8 @@
 
 ### Slide 07: National AI Computing Center: The Public-Private "AI Highway"
 - **Headline**: A Multi-Billion Dollar Sovereign Compute Megaproject
+- **Visual Graphic**:
+  ![National AI Computing Center & K-NPU](images/slide07_infra_knpu_datacenter.jpg)
 - **Key Highlights**:
   - **Location & Scale**: Officially broken ground in August 2026 at the Solaseado Datacenter Park in Haenam, South Jeolla Province.
   - **Public-Private Partnership (PPP)**: Jointly spearheaded by MSIT, local governments, and a private consortium led by Samsung SDS via a dedicated Special Purpose Company (SPC).
@@ -307,6 +311,8 @@
 
 ### Slide 19: MegazoneCloud's 4-Layer Enterprise AI Full-Stack Architecture
 - **Headline**: The Standardized, Modular Operating Blueprint for Enterprise AI
+- **Visual Graphic**:
+  ![MegazoneCloud 4-Layer AI Full-Stack Architecture](images/slide19_solution_4layer_architecture.jpg)
 - **The 4-Layer Stack Overview**:
   ```
   ┌─────────────────────────────────────────────────────────────────┐
@@ -383,6 +389,8 @@
 
 ### Slide 24: Sovereign AI Turnkey Appliance: 1-Click On-Premises Deployment
 - **Headline**: Delivering Enterprise AI as a Pre-Integrated, Plug-and-Play Appliance
+- **Visual Graphic**:
+  ![Sovereign AI Turnkey Appliance](images/slide24_service_turnkey_appliance.jpg)
 - **The Turnkey Experience**:
   - Pre-racked, pre-cabled, pre-flashed with certified Linux, Kubernetes, and LLM stacks.
   - Power-on to first internal query in **less than 2 hours** (compared to traditional 6-month consulting engagements).
@@ -440,6 +448,8 @@
 
 ### Slide 28: Global Expansion Playbook: Bridging Korea, US, Japan & SE Asia
 - **Headline**: Taking Korea’s Sovereign AI Expertise to International Markets
+- **Visual Graphic**:
+  ![MegazoneCloud Global AI Expansion Bridge](images/slide28_mzc_global_ai_bridge.jpg)
 - **The Global Playbook**:
   - **United States (Silicon Valley / Palo Alto)**: Sourcing frontier AI technologies, venture partnerships, and enterprise co-development.
   - **Japan (Tokyo)**: Expanding sovereign AI full-stack offerings to Japanese financial, manufacturing, and gaming leaders facing similar data localization rules.

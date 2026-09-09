@@ -94,12 +94,14 @@ def create_sovereign_ai_deck_docx():
     doc.add_paragraph().paragraph_format.space_after = Pt(12)
 
     # 슬라이드 데이터 30개 정의
+    img_dir = os.path.join(os.path.dirname(__file__), "images")
     slides = [
         {
             "num": "01",
             "part": "PART 1: MACRO CONTEXT & IMPERATIVE",
             "title": "Title & Welcome: Korea Sovereign AI Strategy",
             "subtitle": "Unlocking Strategic Autonomy, Native Infrastructure, and Scalable Transformation",
+            "image": os.path.join(img_dir, "slide01_cover_sovereign_ai.jpg"),
             "bullets": [
                 "Welcome to MegazoneCloud Gwacheon HQ for the UCLA Anderson EMBA Seoul Immersion.",
                 "South Korea is one of only three countries with an end-to-end native AI full stack.",
@@ -187,6 +189,7 @@ def create_sovereign_ai_deck_docx():
             "part": "PART 2: PILLAR 1 - INFRASTRUCTURE & SILICON",
             "title": "National AI Computing Center: The Public-Private 'AI Highway'",
             "subtitle": "A Multi-Billion Dollar Sovereign Compute Megaproject",
+            "image": os.path.join(img_dir, "slide07_infra_knpu_datacenter.jpg"),
             "bullets": [
                 "Solaseado Datacenter Park: Broken ground in August 2026 in Haenam, South Jeolla Province.",
                 "Public-Private Consortium: Led by MSIT and Samsung SDS via a dedicated Special Purpose Company (SPC).",
@@ -356,6 +359,7 @@ def create_sovereign_ai_deck_docx():
             "part": "PART 4: PILLAR 3 - SOLUTIONS & ORCHESTRATION",
             "title": "MegazoneCloud's 4-Layer Enterprise AI Full-Stack Architecture",
             "subtitle": "The Standardized, Modular Operating Blueprint for Enterprise AI",
+            "image": os.path.join(img_dir, "slide19_solution_4layer_architecture.jpg"),
             "bullets": [
                 "Layer 4 (Applications): Air-Gapped RAG, AI Coding Agents, Executive Decision Portals.",
                 "Layer 3 (Model Serving): Nota NetsPresso optimization engine, vLLM, and Triton inference.",
@@ -428,6 +432,7 @@ def create_sovereign_ai_deck_docx():
             "part": "PART 5: PILLAR 4 - SERVICE & ENTERPRISE ADOPTION",
             "title": "Sovereign AI Turnkey Appliance: 1-Click On-Premises Deployment",
             "subtitle": "Delivering Enterprise AI as a Pre-Integrated, Plug-and-Play Appliance",
+            "image": os.path.join(img_dir, "slide24_service_turnkey_appliance.jpg"),
             "bullets": [
                 "Pre-Integrated Hardware: Pre-racked Dell R760 2U server with certified NVIDIA GPUs or K-NPUs.",
                 "Rapid Time-to-Value: From power-on to first internal query in under 2 hours (vs. 6 months of consulting).",
@@ -486,6 +491,7 @@ def create_sovereign_ai_deck_docx():
             "part": "PART 6: MZC PLAYBOOK & GLOBAL VISION",
             "title": "Global Expansion Playbook: Bridging Korea, US, Japan & SE Asia",
             "subtitle": "Exporting Sovereign AI Methodologies to High-Growth Asian Markets",
+            "image": os.path.join(img_dir, "slide28_mzc_global_ai_bridge.jpg"),
             "bullets": [
                 "Silicon Valley Hub (Palo Alto): Venture partnerships, co-innovation with frontier AI ISVs.",
                 "Japan Expansion (Tokyo): Delivering sovereign on-premise AI to Japanese financial and enterprise leaders.",
@@ -593,6 +599,15 @@ def create_sovereign_ai_deck_docx():
         r_v_txt = p_v.add_run(s['visual'])
         r_v_txt.font.italic = True
         r_v_txt.font.size = Pt(8.5)
+
+        # 실제 이미지가 매핑되어 있다면 비주얼 셀 내 삽입
+        if "image" in s and os.path.exists(s["image"]):
+            p_img = v_cell.add_paragraph()
+            p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p_img.paragraph_format.space_before = Pt(6)
+            p_img.paragraph_format.space_after = Pt(4)
+            run_img = p_img.add_run()
+            run_img.add_picture(s["image"], width=Inches(5.4))
 
         # 행 4: 스피커 노트 & 타이밍
         sn_cell = card_table.cell(4, 0)
