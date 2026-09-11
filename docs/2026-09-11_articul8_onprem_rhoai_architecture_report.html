@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Articul8 산출물 분석 및 On-Premise HW 기반 RHOAI 설치·구성 전략 보고서</title>
+  <!-- Google Fonts: Inter & Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0f1d;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(59, 130, 246, 0.3);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-blue: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+      padding-bottom: 80px;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(139, 92, 246, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Top Navigation Header */
+    header.hero-banner {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .badge-wrap {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-purple {
+      background: rgba(139, 92, 246, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .badge-emerald {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    h1.main-title {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.25;
+      background: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 980px;
+      margin-bottom: 24px;
+    }
+
+    .meta-bar {
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .meta-bar span strong {
+      color: var(--text-muted);
+    }
+
+    /* Executive KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin: 36px 0;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px 24px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-glow);
+      border-color: var(--border-accent);
+    }
+
+    .kpi-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .kpi-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .kpi-unit {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .kpi-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 8px;
+    }
+
+    /* Tabs Navigation */
+    .tab-nav {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color);
+      margin: 40px 0 28px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn.active {
+      color: #fff;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+    }
+
+    /* Content Sections */
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 32px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .section-card h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-card h2 .icon-bubble {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    p.sec-intro {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* Architecture Visual Canvas */
+    .arch-diagram-card {
+      background: #0d1322;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .arch-block {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px 18px;
+      position: relative;
+    }
+
+    .arch-block.col-12 { grid-column: span 12; }
+    .arch-block.col-8 { grid-column: span 8; }
+    .arch-block.col-6 { grid-column: span 6; }
+    .arch-block.col-4 { grid-column: span 4; }
+    .arch-block.col-3 { grid-column: span 3; }
+
+    .arch-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .arch-item-list {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .arch-item-list li {
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .arch-item-list li::before {
+      content: '•';
+      color: var(--accent-blue);
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    thead {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    th {
+      padding: 14px 16px;
+      font-weight: 600;
+      color: #fff;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-main);
+    }
+
+    /* Interactive Search Box */
+    .search-wrapper {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      max-width: 480px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 14px;
+      color: #fff;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.25);
+    }
+
+    /* Comparison Code View */
+    .code-comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 24px 0;
+    }
+
+    .code-box {
+      background: #090e17;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .code-box-header {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .code-box pre {
+      padding: 16px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #d1d5db;
+      overflow-x: auto;
+    }
+
+    .highlight-del {
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.15);
+      display: block;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    .highlight-add {
+      color: #4ade80;
+      background: rgba(34, 197, 94, 0.15);
+      display: block;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      padding: 18px 22px;
+      border-radius: 12px;
+      margin: 20px 0;
+      font-size: 14px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .callout-blue {
+      background: rgba(59, 130, 246, 0.08);
+      border-left: 4px solid var(--accent-blue);
+      color: #bfdbfe;
+    }
+
+    .callout-amber {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 4px solid var(--accent-amber);
+      color: #fde68a;
+    }
+
+    .callout-rose {
+      background: rgba(244, 63, 94, 0.08);
+      border-left: 4px solid var(--accent-rose);
+      color: #fecdd3;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .code-comparison-grid {
+        grid-template-columns: 1fr;
+      }
+      .arch-block.col-8, .arch-block.col-6, .arch-block.col-4, .arch-block.col-3 {
+        grid-column: span 12;
+      }
+      h1.main-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Header -->
+  <header class="hero-banner">
+    <div class="container">
+      <div class="badge-wrap">
+        <span class="badge badge-blue">🏢 Enterprise Architecture</span>
+        <span class="badge badge-purple">⚡ Red Hat OpenShift AI (RHOAI)</span>
+        <span class="badge badge-emerald">🚀 Articul8 26.06 Hybrid/On-Prem</span>
+      </div>
+      <h1 class="main-title">Articul8 산출물 분석 및 On-Premise RHOAI 설치·구성 전략</h1>
+      <p class="subtitle">
+        수집된 55건의 Articul8 기술 산출물, AWS 실측 인프라(22노드/316파드), Dell 온프레미스 서버 견적을 종합 분석하여 도출한 온프레미스 RHOAI 아키텍처 및 설정 치환 보고서입니다.
+      </p>
+      <div class="meta-bar">
+        <span><strong>작성일자:</strong> 2026-09-11</span>
+        <span><strong>작성주체:</strong> AI Full Stack 아키텍처 TF</span>
+        <span><strong>대상 폴더:</strong> OneDrive\2026\ISSU\Articul8 (산출물)</span>
+        <span><strong>HW 타깃:</strong> Dell PowerEdge R570 / R770 / XE7740 (H200 NVL 4GPU)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Executive KPI Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">수집 산출물 전수 분석</div>
+        <div class="kpi-val">55 <span class="kpi-unit">개 파일</span></div>
+        <div class="kpi-desc">기술문서 23건, 원천플레이북 19건, 제안 10건, 견적 3건</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">온프레미스 가용 연산 자원</div>
+        <div class="kpi-val">256 <span class="kpi-unit">vCPU Core</span></div>
+        <div class="kpi-desc">R770 Compact 192C + XE7740 64C (총 512 스레드)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">GPU 가속기 VRAM 용량</div>
+        <div class="kpi-val">564 <span class="kpi-unit">GB HBM3e</span></div>
+        <div class="kpi-desc">NVIDIA H200 NVL 4장 (A100 8장 성능을 능가)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">AWS 매니지드 치환율</div>
+        <div class="kpi-val">100 <span class="kpi-unit">% 매핑 완결</span></div>
+        <div class="kpi-desc">ALB, S3, RDS, EBS, IRSA를 RHOAI 생태계로 1:1 대체</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(event, 'tab-summary')">📑 1. 산출물 요약 (55건)</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-onprem-arch')">🏗️ 2. 온프레미스 HW & RHOAI 구성 추정</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-prereq')">🔍 3. 사전 파악 필요 자료</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-yaml-mapping')">⚙️ 4. YAML 옵션 대체 검토</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab-playbook')">🚀 5. 배포 절차 & 로드맵</button>
+    </div>
+
+    <!-- TAB 1: 산출물 전체 요약 -->
+    <div id="tab-summary" class="tab-pane active">
+      <div class="section-card">
+        <h2><span class="icon-bubble">📚</span> Articul8 전체 수집 산출물 전수 조사 및 한 줄 요약</h2>
+        <p class="sec-intro">
+          산출물 폴더에 수집된 총 55개 파일의 성격과 역할을 명확히 파악할 수 있도록 분류별 목록과 한 줄 핵심 요약을 제공합니다. 실시간 검색을 지원합니다.
+        </p>
+        
+        <div class="search-wrapper">
+          <input type="text" id="fileSearchInput" class="search-input" placeholder="파일명 또는 키워드로 검색 (예: 견적, Playbook, HD현대, SOW, 회의)..." onkeyup="filterFileTable()">
+        </div>
+
+        <div class="table-container">
+          <table id="fileTable">
+            <thead>
+              <tr>
+                <th style="width: 25%;">분류 / 폴더</th>
+                <th style="width: 35%;">파일명</th>
+                <th style="width: 10%;">용량</th>
+                <th style="width: 30%;">핵심 내용 및 한 줄 요약</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- HW 견적 -->
+              <tr>
+                <td><span class="badge badge-emerald">HW 견적 / 루트</span></td>
+                <td><strong>MZ_SY_260828_008-AI Full Stack 서버 견적 건.xlsx</strong></td>
+                <td>26 KB</td>
+                <td>온프레미스 AI Full Stack용 Dell PowerEdge R570(Bastion), R770(OpenShift Compact 3노드), XE7740(H200 4GPU 1노드)의 세부 견적 및 사양서 (약 8.18억 원).</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-emerald">HW 견적</span></td>
+                <td><strong>견적서_260731_1_메가존클라우드(쿠팡)_PowerEdge XE9780.xlsx</strong></td>
+                <td>22 KB</td>
+                <td>대규모 AI 파운데이션 모델 학습/추론을 위한 Dell PowerEdge XE9780 (HGX B300 8 GPU x 2대 = 16 GPU) 고사양 서버 견적서 (약 45.7억 원).</td>
+              </tr>
+
+              <!-- 05. 메가존 기술자료 -->
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>Articul8_Installation_Operations_Playbook_v2.0.html</strong></td>
+                <td>24 KB</td>
+                <td>Articul8 26.06 표준 설치 순서, 사전점검, 수용검사, ECR 403 장애 대응, 일상 운영 절차를 집대성한 웹 기반 운영 매뉴얼.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>Articul8_System_Reference_Book_v2.0.html</strong></td>
+                <td>26 KB</td>
+                <td>38개 Helm Chart, 98개 이미지, 22개 EKS 노드, 47개 PVC 등 AWS 실측 아키텍처 인벤토리와 A8 CLI 전체 명령어를 정리한 기술 사전.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>Articul8_megazone_기술명세_가이드_v1.1_2026-07-26.docx</strong></td>
+                <td>74 KB</td>
+                <td>실제 배포된 a8.yaml 설정값, AWS 리소스 세부 구성, 배포 순서 및 관리 서버(EC2) 상태를 기술한 최신 기술명세서.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>A8 회의 - 2026_08_31 11_01 KST - Notes by Gemini.pdf</strong></td>
+                <td>94 KB</td>
+                <td>김성호 님, 신준용 님 등이 참석하여 A8 현황 진단, 에어갭(폐쇄망) 환경 라마 기반 모델 적용, 풀스택 AI 아키텍처 수립을 논의한 회의록.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>A8-Arch-CustomerFacing-August2026.pdf</strong></td>
+                <td>428 KB</td>
+                <td>고객용 Articul8 아키텍처 다이어그램으로 UI, API Gateway, Agent Orchestrator, Model Serving, Warp Data Layer 구조 요약.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>Articul8_ModelMesh_Pilot_수행계획서_SOW_WBS_예시본_v2.docx</strong></td>
+                <td>95 KB</td>
+                <td>Articul8 ModelMesh 파일럿 프로젝트의 작업 범위(SOW), 추진 일정, WBS 및 산출물 정의 예시 문서.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>Articul8_vs_SemiKong_상세비교_원익IPS_폐쇄망분석.pptx</strong></td>
+                <td>227 KB</td>
+                <td>원익IPS 대상 Articul8과 SemiKong 솔루션의 아키텍처, 성능, 폐쇄망 구축 역량을 비교 분석한 보고서.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>Articul8_실무자_기술_내재화_가이드_2026-07-26.docx</strong></td>
+                <td>26 KB</td>
+                <td>메가존클라우드 엔지니어가 Articul8 설치, CLI 조작, GitOps 및 트러블슈팅 역량을 내재화하기 위한 실무 가이드.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>Articul8_AI_기술자료집_v1.1(한화시스템).pptx</strong></td>
+                <td>8.12 MB</td>
+                <td>한화시스템을 대상으로 Articul8의 생성형 AI 플랫폼 아키텍처와 엔터프라이즈 적용 방안을 제시한 최신 기술 자료집.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>[Mirae Life] Articul8 Platform Overview For FSI.pptx</strong></td>
+                <td>76.8 MB</td>
+                <td>미래에셋생명 등 금융권(FSI) 대상 규제 준수, 보안, 금융 도메인 지식 그래프 및 생성형 AI 구축 방안 소개.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-blue">05. 메가존 기술자료</span></td>
+                <td><strong>한화오션_AI문서인텔리전스_4주파일럿제안서_v2.0.docx</strong></td>
+                <td>256 KB</td>
+                <td>한화오션 대상 도면/기술문서 분석을 위한 Articul8 4주 파일럿(PoC) 구축 제안서.</td>
+              </tr>
+
+              <!-- 04. 원천 기술자료 -->
+              <tr>
+                <td><span class="badge badge-purple">04. Articul8 기술자료</span></td>
+                <td><strong>Workshop\Articul8 a8 CLI — Comprehensive Training.pdf</strong></td>
+                <td>1.68 MB</td>
+                <td>a8 CLI 구조, 설치/설정 플래그, Kubernetes 디버깅, 백업/복구 실습을 다룬 심층 교육 워크숍 교재.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">04. Articul8 기술자료</span></td>
+                <td><strong>A8_Platform_Fundamentals (4).pptx</strong></td>
+                <td>9.85 MB</td>
+                <td>Articul8의 데이터 계층(Warp), 모델 서빙(ModelMesh), 에이전트 오케스트레이션 기초 원리 설명서.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">04. Articul8 기술자료</span></td>
+                <td><strong>Playbook\A8_Manufacturing_Sales_Playbook (2).pptx</strong></td>
+                <td>9.76 MB</td>
+                <td>제조업 스마트 팩토리, 품질 관리, 생산성 향상을 위한 전문 세일즈 플레이북.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">04. Articul8 기술자료</span></td>
+                <td><strong>Playbook\A8_Financial_Services_Sales_Playbook (1).pptx</strong></td>
+                <td>9.76 MB</td>
+                <td>금융권 영업을 위한 리스크 관리 및 규제 준수 특화 세일즈 가이드.</td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-purple">04. Articul8 기술자료</span></td>
+                <td><strong>Playbook\A8_Aerospace_Defense_Sales_Playbook (1).pptx</strong></td>
+                <td>9.76 MB</td>
+                <td>항공·우주·방위산업 고객 대상 영업 플레이북 (보안 및 폐쇄망 요구 대응).</td>
+              </tr>
+
+              <!-- 01 & 03 고객사 및 프로젝트 -->
+              <tr>
+                <td><span class="badge">01. 고객사 Optty</span></td>
+                <td><strong>01.경동나비엔\경동나비엔_CopilotCredits_비용관리_기술방안.pptx</strong></td>
+                <td>1.04 MB</td>
+                <td>경동나비엔 대상 M365 Copilot 크레딧 사용량 및 비용 관리 기술 방안.</td>
+              </tr>
+              <tr>
+                <td><span class="badge">01. 고객사 Optty</span></td>
+                <td><strong>02.HD현대\HD현대 Articul8에 대한 6가지 DEMO 동영상 설명서.docx</strong></td>
+                <td>3.06 MB</td>
+                <td>HD현대 경영진 시연용 6대 AI 데모 시나리오 및 기능 설명서.</td>
+              </tr>
+              <tr>
+                <td><span class="badge">01. 고객사 Optty</span></td>
+                <td><strong>06.현대글로비스\현대글로비스_2027년사업계획 제안(AI) (1).pptx</strong></td>
+                <td>7.11 MB</td>
+                <td>현대글로비스 2027 사업계획 연계 물류 AI 지능화 제안서.</td>
+              </tr>
+              <tr>
+                <td><span class="badge">03. Project</span></td>
+                <td><strong>01. Proposal\메가존클라우드_NH 투자증권 AI 플랫폼 구축 _제안서_260810 (1).pdf</strong></td>
+                <td>25.02 MB</td>
+                <td>NH투자증권 AI 통합 플랫폼 구축 사업의 공식 기술 제안서 (대규모 금융 구축 사례).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: 온프레미스 HW & RHOAI 구성 추정 -->
+    <div id="tab-onprem-arch" class="tab-pane">
+      <div class="section-card">
+        <h2><span class="icon-bubble">🏗️</span> On-Premise HW 스펙 및 RHOAI 기반 Articul8 구성 추정</h2>
+        <p class="sec-intro">
+          `MZ_SY_260828_008-AI Full Stack 서버 견적 건.xlsx`의 물리 장비와 AWS 실측 아키텍처를 대조하여, 온프레미스 환경에서의 서버 역할 및 워크로드 분배를 추정했습니다.
+        </p>
+
+        <!-- Visual Architecture Canvas -->
+        <div class="arch-diagram-card">
+          <div class="arch-grid">
+            <!-- Bastion -->
+            <div class="arch-block col-3" style="border-top: 3px solid var(--accent-cyan);">
+              <div class="arch-title" style="color: var(--accent-cyan);">🖥️ Bastion / Installer</div>
+              <p style="font-weight: 700; color: #fff; font-size: 14px;">Dell PowerEdge R570 (1대)</p>
+              <ul class="arch-item-list" style="margin-top: 8px;">
+                <li>Xeon 6 6507P (8C/16T) | 32GB RAM</li>
+                <li>960GB SSD x 3 (RAID 1) | 25GbE</li>
+                <li><strong>a8 CLI 26.06 실행 환경</strong></li>
+                <li>OpenShift IPI/UPI 배포 관리자</li>
+                <li>폐쇄망 Mirror Registry (Quay)</li>
+              </ul>
+            </div>
+
+            <!-- OpenShift Compact Cluster -->
+            <div class="arch-block col-6" style="border-top: 3px solid var(--accent-blue);">
+              <div class="arch-title" style="color: var(--accent-blue);">☸️ OpenShift Compact HA Cluster (3대)</div>
+              <p style="font-weight: 700; color: #fff; font-size: 14px;">Dell PowerEdge R770 (3대 Compact Node)</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
+                <div>
+                  <span style="font-size: 11px; color: var(--accent-blue); font-weight: 700;">하드웨어 총합</span>
+                  <ul class="arch-item-list">
+                    <li>192 Core / 384 Thread</li>
+                    <li>768GB RDIMM 6400MT/s</li>
+                    <li>960GB SSD x 12 (약 11.5TB)</li>
+                    <li>25GbE 듀얼 본딩 (고속 패브릭)</li>
+                  </ul>
+                </div>
+                <div>
+                  <span style="font-size: 11px; color: var(--accent-blue); font-weight: 700;">탑재 플랫폼 워크로드</span>
+                  <ul class="arch-item-list">
+                    <li>OCP Core & RHOAI Dashboard</li>
+                    <li>Articul8 UI, Auth, API, Agent</li>
+                    <li>Claw, Jobs Scheduler, Tool Manager</li>
+                    <li>CloudNativePG, Redis, ArangoDB</li>
+                    <li>ODF Ceph-RBD & MinIO S3</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- GPU Node -->
+            <div class="arch-block col-3" style="border-top: 3px solid var(--accent-purple);">
+              <div class="arch-title" style="color: var(--accent-purple);">⚡ GPU Accelerated Worker</div>
+              <p style="font-weight: 700; color: #fff; font-size: 14px;">Dell PowerEdge XE7740 (1대)</p>
+              <ul class="arch-item-list" style="margin-top: 8px;">
+                <li>Dual Xeon 6 6737P (64C/128T) | 512GB</li>
+                <li>3.84TB NVMe SSD | 25GbE 쿼드</li>
+                <li><strong>NVIDIA H200 NVL 4장 (564GB VRAM)</strong></li>
+                <li>RHOAI KServe / vLLM 런타임</li>
+                <li>Llama-3-70B FP16 / SOLAR 서빙</li>
+                <li>Articul8 ModelMesh & 임베딩</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-blue">
+          <div>💡</div>
+          <div>
+            <strong>추정의 상세 근거:</strong><br>
+            1. <strong>컴팩트 클러스터 집약 타당성:</strong> AWS 실측 22대 노드/316개 파드는 대부분 0.2~0.5 Core 수준의 소형 마이크로서비스였습니다. R770 3대의 총 192코어/768GB 메모리는 316개 파드를 여유 있게 집약 수용(Consolidation)할 수 있습니다.<br>
+            2. <strong>H200 NVL vs A100-MIG:</strong> AWS 실측 환경은 `p4de.24xlarge`(A100 80GB x 8 = 640GB VRAM)를 MIG로 분할 사용했으나, 견적서의 **H200 NVL 4장(총 564GB VRAM)**은 HBM3e 메모리와 4.8TB/s 대역폭 덕분에 A100 8장을 능가하는 초고속 동시 추론 성능을 보장합니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: 사전 파악 필요 자료 -->
+    <div id="tab-prereq" class="tab-pane">
+      <div class="section-card">
+        <h2><span class="icon-bubble">🔍</span> AWS 대비 RHOAI(On-Prem) 설치 시 사전 파악 필요 자료</h2>
+        <p class="sec-intro">
+          AWS EKS 환경은 완전관리형 서비스(RDS, ElastiCache, S3, ALB, IAM)가 지원되었으나, 온프레미스 RHOAI에 배포하려면 아래 7대 영역의 기술 자료 및 제조사 사양이 사전에 반드시 확인되어야 합니다.
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 20%;">영역</th>
+                <th style="width: 40%;">사전 파악 및 검토 필요 항목</th>
+                <th style="width: 40%;">파악 목적 및 온프레미스 영향도</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Articul8 공식 온프레미스 스펙</strong></td>
+                <td>• a8 CLI의 온프레미스 provider 지원 여부 (`provider: onprem` 또는 `openshift`)<br>• Terraform 생략 플래그(`--skip-terraform`) 시 온프레미스용 Helm Chart 및 mustache 템플릿 제공 여부</td>
+                <td>AWS IaC 코드를 우회하고 순수 쿠버네티스/OpenShift 매니페스트로 배포 가능한지 확인 필수.</td>
+              </tr>
+              <tr>
+                <td><strong>2. 폐쇄망 오프라인 패키징</strong></td>
+                <td>• 98개 컨테이너 이미지의 오프라인 Tarball 및 SHA-256 체크섬<br>• 모델 가중치(Weights) 파일 직접 다운로드 URL 또는 번들<br>• 외부 ECR 인증 토큰 종속성 제거 방안 (과거 403 오류 차단)</td>
+                <td>인터넷이 차단된 사내망에서 Articul8 Hub 인증 없이 로컬 레지스트리로 배포할 수 있는 유일한 경로.</td>
+              </tr>
+              <tr>
+                <td><strong>3. S3 오브젝트 스토리지 요구 규격</strong></td>
+                <td>• 10개 S3 버킷(ModelMesh, VectorDB, Flyte, Loki 등)의 API 호환성<br>• MinIO / ODF NooBaa 사용 시 Presigned URL 및 Multipart 업로드 지원 여부</td>
+                <td>AWS S3 버킷 10개를 사내 오브젝트 스토리지로 100% 매핑하기 위한 사전 검증.</td>
+              </tr>
+              <tr>
+                <td><strong>4. 인-클러스터 DB 사양</strong></td>
+                <td>• PostgreSQL 요구 버전(14/15/16) 및 필수 Extension (pgvector, pg_trgm 등)<br>• Redis Sentinel 클러스터링 및 암호화/비밀번호 주입 형식</td>
+                <td>AWS RDS와 ElastiCache를 대체할 CloudNativePG 및 Redis Operator의 배포 스펙 확정.</td>
+              </tr>
+              <tr>
+                <td><strong>5. GPU 드라이버 & RHOAI 서빙</strong></td>
+                <td>• Red Hat Enterprise Linux CoreOS(RHCOS)와 NVIDIA H200 NVL 드라이버 호환성<br>• RHOAI KServe/vLLM과 Articul8 ModelMesh 간의 인터페이스 연동 방식</td>
+                <td>GPU 가속기가 KServe 및 A8 모델 관리자에 정상 노출되어 대형 모델이 구동되도록 보장.</td>
+              </tr>
+              <tr>
+                <td><strong>6. 네트워크 인그레스 & 도메인</strong></td>
+                <td>• 사내 사설 FQDN(예: `a8.internal.company.com`) 등록 및 DNS 연동<br>• OpenShift Route(HAProxy) TLS Edge Termination 및 사내 사설 Root CA 배포</td>
+                <td>인터넷 공개 ALB 대신 사내 인트라넷 보안망 안에서 웹 UI와 API를 안전하게 서비스하기 위함.</td>
+              </tr>
+              <tr>
+                <td><strong>7. 지식 그래프 백업 체계</strong></td>
+                <td>• ArangoDB Enterprise 핫백업 명령(`--upload`) 시 온프레미스 S3 엔드포인트 지원 여부</td>
+                <td>AWS S3가 없는 환경에서 클러스터 장애 시 지식 그래프 영구 보존을 위한 필수 조건.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: YAML 옵션 대체 검토 -->
+    <div id="tab-yaml-mapping" class="tab-pane">
+      <div class="section-card">
+        <h2><span class="icon-bubble">⚙️</span> YAML 상의 AWS 전용 옵션 분석 및 RHOAI 대체 검토</h2>
+        <p class="sec-intro">
+          현재 `a8.yaml` 설정 파일에 하드코딩된 AWS 전용 파라미터들을 OpenShift/RHOAI 환경에 맞게 완벽히 치환하는 매핑 전략입니다.
+        </p>
+
+        <div class="code-comparison-grid">
+          <div class="code-box">
+            <div class="code-box-header">
+              <span>[기존] AWS EKS 기반 a8.yaml</span>
+              <span class="badge badge-rose">AWS Managed</span>
+            </div>
+            <pre><code>apiVersion: v1
+metadata:
+  name: "Infra configs aws manifest"
+deploymentConfig:
+  cluster:
+    name: megazone
+  dns:
+    ui_external_dns: megazone.articul8.ai
+  provider:
+<span class="highlight-del">    aws:</span>
+<span class="highlight-del">      account: "678342631305"</span>
+<span class="highlight-del">      cidr: 10.10.0.0/16</span>
+<span class="highlight-del">      eks:</span>
+<span class="highlight-del">        model_inference_large_group_instance_type: p4de.24xlarge</span>
+<span class="highlight-del">      loadBalancer:</span>
+<span class="highlight-del">        scheme: internet-facing</span>
+<span class="highlight-del">      region: us-east-1</span>
+  release:
+    version: "26.06"
+  platform:
+    modelmesh:
+      profile: scorpio
+    models:
+<span class="highlight-del">      gpuProfile: a100-mig</span>
+      enableNer: false
+    monitoring:
+      enabled: true
+      managedGrafana:
+        enabled: false
+    ui:
+      enabled: true</code></pre>
+          </div>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span>[치환] On-Prem RHOAI 기반 a8-onprem.yaml</span>
+              <span class="badge badge-emerald">On-Prem RHOAI</span>
+            </div>
+            <pre><code>apiVersion: v1
+metadata:
+  name: "Infra configs onprem rhoai manifest"
+deploymentConfig:
+  cluster:
+    name: aifullstack-onprem
+  dns:
+    ui_external_dns: a8.onprem.internal.net
+  provider:
+<span class="highlight-add">    onprem:</span>
+<span class="highlight-add">      datacenter: "datacenter-1"</span>
+<span class="highlight-add">      network:</span>
+<span class="highlight-add">        ingress_vip: "192.168.10.100"</span>
+<span class="highlight-add">        cluster_cidr: "10.128.0.0/14"</span>
+<span class="highlight-add">      rhoai:</span>
+<span class="highlight-add">        serving_engine: "kserve-vllm"</span>
+<span class="highlight-add">        gpu_target: "h200-nvl"</span>
+<span class="highlight-add">      loadBalancer:</span>
+<span class="highlight-add">        type: "openshift-route"</span>
+<span class="highlight-add">        tls_termination: "edge"</span>
+  release:
+    version: "26.06"
+  platform:
+    modelmesh:
+      profile: scorpio
+    models:
+<span class="highlight-add">      gpuProfile: h200-nvl-full</span>
+      enableNer: false
+    monitoring:
+      enabled: true
+      managedGrafana:
+        enabled: false
+    ui:
+      enabled: true
+<span class="highlight-add">    storage:</span>
+<span class="highlight-add">      storageClass: "ocs-storagecluster-ceph-rbd"</span>
+<span class="highlight-add">      s3Endpoint: "http://minio.storage.svc:9000"</span></code></pre>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>AWS 설정 항목</th>
+                <th>AWS 환경 동작</th>
+                <th>RHOAI / 온프레미스 대체 기술</th>
+                <th>구체적 대체 구현 방식</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>provider.aws.account / region</code></td>
+                <td>AWS 계정 및 리전 태깅</td>
+                <td><strong>사내 테넌트 ID & Node Topology</strong></td>
+                <td>계정 필드 제거, <code>topology.kubernetes.io/zone: dc1-rack1</code> 라벨 적용</td>
+              </tr>
+              <tr>
+                <td><code>eks.model_inference_large_group_instance_type</code></td>
+                <td>AWS P4de VM 자동 프로비저닝</td>
+                <td><strong>RHOAI AcceleratorProfile + NodeSelector</strong></td>
+                <td><code>nodeSelector: node-role.kubernetes.io/gpu: ""</code> 및 H200 4장 직접 할당</td>
+              </tr>
+              <tr>
+                <td><code>loadBalancer.scheme: internet-facing</code></td>
+                <td>AWS ALB 생성 (megazone.articul8.ai)</td>
+                <td><strong>OpenShift Route / MetalLB</strong></td>
+                <td>OpenShift HAProxy Ingress Route (Edge TLS) 생성 및 사내 L4 VIP 할당</td>
+              </tr>
+              <tr>
+                <td><code>StorageClass: ebs-sc (gp3)</code></td>
+                <td>AWS EBS 볼륨 동적 생성 (47개 PVC)</td>
+                <td><strong>OpenShift Data Foundation (ODF)</strong></td>
+                <td><code>ocs-storagecluster-ceph-rbd</code> (블록) 및 <code>cephfs</code> (공유 볼륨)로 매핑</td>
+              </tr>
+              <tr>
+                <td><code>AWS S3 Buckets (10개)</code></td>
+                <td>비정형 데이터, 모델, 로그 저장</td>
+                <td><strong>MinIO Enterprise 또는 ODF NooBaa</strong></td>
+                <td>인-클러스터 MinIO S3 호환 엔드포인트 주입 및 ObjectBucketClaim(OBC) 활용</td>
+              </tr>
+              <tr>
+                <td><code>AWS RDS & ElastiCache</code></td>
+                <td>완전관리형 PostgreSQL 및 Redis</td>
+                <td><strong>CloudNativePG & Redis Operator</strong></td>
+                <td>오픈소스 Operator 기반 3노드 HA 클러스터를 OpenShift 내에 직접 배포</td>
+              </tr>
+              <tr>
+                <td><code>AWS IAM / IRSA / Pod Identity</code></td>
+                <td>AWS 리소스 접근 임시 토큰 발급</td>
+                <td><strong>HashiCorp Vault + External Secrets</strong></td>
+                <td>External Secrets Operator의 백엔드를 사내 HashiCorp Vault로 지정</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: 배포 절차 & 로드맵 -->
+    <div id="tab-playbook" class="tab-pane">
+      <div class="section-card">
+        <h2><span class="icon-bubble">🚀</span> On-Premise RHOAI 배포 절차 가이드 (Playbook)</h2>
+        <p class="sec-intro">
+          하드웨어 도입부터 OpenShift 설치, RHOAI 가속기 활성화, Articul8 배포 및 검증까지의 6단계 표준 이행 절차입니다.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+          <div class="arch-block" style="border-left: 4px solid var(--accent-cyan);">
+            <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">Step 1. 하드웨어 및 OS 부트스트래핑</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">
+              • Bastion(R570)에 RHEL 9 설치 및 네트워크 본딩(25GbE LACP).<br>
+              • iDRAC10을 통한 R770/XE7740 BIOS 최적화 및 고정 IP/DNS 설정.
+            </p>
+          </div>
+
+          <div class="arch-block" style="border-left: 4px solid var(--accent-blue);">
+            <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">Step 2. OpenShift Compact 클러스터 설치</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">
+              • OpenShift 4.16+ IPI/UPI로 R770 3대를 Compact HA 클러스터로 구성.<br>
+              • XE7740을 별도 GPU 전용 워커 노드로 클러스터에 조인.
+            </p>
+          </div>
+
+          <div class="arch-block" style="border-left: 4px solid var(--accent-purple);">
+            <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">Step 3. 인프라 Operator 및 스토리지 구성</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">
+              • ODF(Ceph) 또는 LSO 배포 → <code>ocs-storagecluster-ceph-rbd</code> 생성.<br>
+              • MinIO 배포(10개 S3 버킷), CloudNativePG(PostgreSQL), Redis Operator 배포.
+            </p>
+          </div>
+
+          <div class="arch-block" style="border-left: 4px solid var(--accent-emerald);">
+            <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">Step 4. RHOAI 및 NVIDIA 가속기 배포</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">
+              • Red Hat OpenShift AI Operator 및 Node Feature Discovery(NFD) 설치.<br>
+              • NVIDIA GPU Operator 설치 후 H200 NVL 4장 드라이버 인식 검증.
+            </p>
+          </div>
+
+          <div class="arch-block" style="border-left: 4px solid var(--accent-amber);">
+            <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">Step 5. 오프라인 이미지 미러링 & Articul8 설치</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">
+              • Bastion에서 폐쇄망 레지스트리로 98개 이미지 푸시.<br>
+              • <code>./a8 configure -c a8-onprem.yaml</code> 실행 후<br>
+              • <code>./a8 install -c a8-onprem.yaml --skip-terraform</code> 실행.
+            </p>
+          </div>
+
+          <div class="arch-block" style="border-left: 4px solid var(--accent-rose);">
+            <h3 style="color: #fff; font-size: 15px; margin-bottom: 8px;">Step 6. 수용 검사 및 스모크 테스트</h3>
+            <p style="font-size: 13px; color: var(--text-muted);">
+              • <code>./a8 healthcheck</code>로 38개 Helm 릴리스 정상 동기화 확인.<br>
+              • <code>./a8 smoketest -c a8-onprem.yaml</code>로 LLM 추론 및 Warp 쿼리 검증.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-rose" style="margin-top: 24px;">
+          <div>⚠️</div>
+          <div>
+            <strong>치명적 위험 방지 (ECR 403 재발 방지):</strong> 과거 AWS 환경에서 발생했던 "공급사 ECR 403 Forbidden" 장애는 온프레미스 구축 시 반드시 사전에 공급사로부터 <strong>오프라인 컨테이너 이미지 Tarball 패키지</strong>를 인계받아 사내 프라이빗 레지스트리에 푸시해 두어야 100% 예방할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Tab Switching Logic
+    function switchTab(evt, tabId) {
+      const tabPanes = document.querySelectorAll('.tab-pane');
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      
+      tabPanes.forEach(pane => pane.classList.remove('active'));
+      tabBtns.forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+
+    // Search Filter for File Table
+    function filterFileTable() {
+      const input = document.getElementById('fileSearchInput');
+      const filter = input.value.toLowerCase();
+      const table = document.getElementById('fileTable');
+      const tr = table.getElementsByTagName('tr');
+
+      for (let i = 1; i < tr.length; i++) {
+        const rowText = tr[i].textContent.toLowerCase();
+        if (rowText.indexOf(filter) > -1) {
+          tr[i].style.display = '';
+        } else {
+          tr[i].style.display = 'none';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

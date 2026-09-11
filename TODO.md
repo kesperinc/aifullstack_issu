@@ -2,7 +2,7 @@
 
 본 문서는 **MEGAZONECLOUD Integrated Solution Sales Unit (ISSU)**의 **AI Full Stack 전략 수립, 글로벌 빅테크 비교, 3rd-Party ISV 기술 검토 및 세일즈 오퍼링/아키텍처 패키지** 현행화 로드맵입니다.
 
-* **최종 현행화 일자**: 2026년 9월 10일
+* **최종 현행화 일자**: 2026년 9월 11일
 * **폴더 목적**: **MZC AI Full Stack 전략 수립 및 엔터프라이즈 솔루션 검토/오퍼링 총괄 허브**
 * **핵심 비즈니스 원칙**:
   1. **Dell / NVIDIA 공인 총판 지위 극대화**: 검증된 메인스트림 인프라(Dell PowerEdge + NVIDIA GPU) 중심의 엔터프라이즈 사업 집중
@@ -10,6 +10,26 @@
   3. **총판 사업 편입 허들 (분기 100억 원 이상)**: 규모 미달 및 H/W 직접 핸들링(수입/재고/AS) 리스크 원천 차단
   4. **신규 비즈니스 인력/조직 셋업 비용 & 1년 BEP 기준**: 전담 조직(5인) 고정비 시뮬레이션 기반, BEP가 1년 단위 이상이면 '부정적(보류)' 판정
   5. **객관적 톤앤매너 및 '검토 보고서' 명칭 원칙**: 과장 표현 배제 및 객관성 유지
+
+---
+
+## 🎯 [완료] Articul8 산출물(55건) 전수 분석 및 On-Premise HW 기반 RHOAI 설치·구성 전략 수립 (2026-09-11)
+- [x] **Articul8 수집 자료 55건 전수 조사 및 카테고리별 한 줄 요약**:
+  - [x] HW 견적서(3건), 메가존 기술자료(23건), Articul8 원천자료/플레이북(19건), 고객 기회/제안서(10건) 완전 분석
+  - [x] 과거 ECR 403 장애, 38개 Helm Chart, 98개 이미지, 47개 PVC, 10개 S3 버킷 실측 아키텍처 분석
+- [x] **온프레미스 HW(Dell PowerEdge 5대) 기반 RHOAI 설치 적합성 및 사이징 정밀 검토**:
+  - [x] Dell PowerEdge R570 1대 (Bastion / a8 CLI / Mirror Registry) 단독 전담 구성
+  - [x] Dell PowerEdge R770 3대 (OpenShift 3-Node Compact HA): 192 Core / 768GB RAM으로 AWS 22노드/316파드 완벽 수용 (CPU 여유율 45~53%, RAM 여유율 51~66%)
+  - [x] Dell PowerEdge XE7740 1대 (NVIDIA H200 NVL 4장, 총 564GB VRAM): A100 8장(AWS p4de) 능가하는 Llama-3-70B 및 도메인 모델 동시 추론 입증
+- [x] **AWS 대비 RHOAI 온프레미스 사전 파악 필요 자료 7대 영역 도출**:
+  - [x] a8 CLI 온프레미스 provider 지원, 98개 이미지 오프라인 Tarball, 10개 S3 버킷(MinIO) 호환성, 인클러스터 PostgreSQL/Redis, H200 드라이버, 사내 DNS/TLS, ArangoDB 백업
+- [x] **YAML 상의 AWS 전용 옵션 1:1 온프레미스 치환 가이드 확립**:
+  - [x] `a8.yaml`의 `provider.aws`, `eks p4de`, `ALB`, `ebs gp3`, `S3`, `RDS/ElastiCache`, `IRSA`를 RHOAI 생태계로 1:1 대체 매핑
+- [x] **산출물 및 핸드오버 문서 체계 완비**:
+  - [x] 종합 기술 보고서: [`docs/2026-09-11_articul8_onprem_rhoai_architecture_report.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-09-11_articul8_onprem_rhoai_architecture_report.md)
+  - [x] 인터랙티브 대시보드: [`docs/2026-09-11_articul8_onprem_rhoai_architecture_report.html`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-09-11_articul8_onprem_rhoai_architecture_report.html)
+  - [x] 작업 명세서: [`docs/specs/2026-09-11_articul8_onprem_rhoai_specs.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/specs/2026-09-11_articul8_onprem_rhoai_specs.md)
+  - [x] 인수인계 보고서: [`docs/2026-09-11_articul8_onprem_rhoai_handover_report.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-09-11_articul8_onprem_rhoai_handover_report.md)
 
 ---
 
