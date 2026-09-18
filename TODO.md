@@ -2,7 +2,7 @@
 
 본 문서는 **MEGAZONECLOUD Integrated Solution Sales Unit (ISSU)**의 **AI Full Stack 전략 수립, 글로벌 빅테크 비교, 3rd-Party ISV 기술 검토 및 세일즈 오퍼링/아키텍처 패키지** 현행화 로드맵입니다.
 
-* **최종 현행화 일자**: 2026년 9월 11일
+* **최종 현행화 일자**: 2026년 9월 18일
 * **폴더 목적**: **MZC AI Full Stack 전략 수립 및 엔터프라이즈 솔루션 검토/오퍼링 총괄 허브**
 * **핵심 비즈니스 원칙**:
   1. **Dell / NVIDIA 공인 총판 지위 극대화**: 검증된 메인스트림 인프라(Dell PowerEdge + NVIDIA GPU) 중심의 엔터프라이즈 사업 집중
@@ -10,6 +10,23 @@
   3. **총판 사업 편입 허들 (분기 100억 원 이상)**: 규모 미달 및 H/W 직접 핸들링(수입/재고/AS) 리스크 원천 차단
   4. **신규 비즈니스 인력/조직 셋업 비용 & 1년 BEP 기준**: 전담 조직(5인) 고정비 시뮬레이션 기반, BEP가 1년 단위 이상이면 '부정적(보류)' 판정
   5. **객관적 톤앤매너 및 '검토 보고서' 명칭 원칙**: 과장 표현 배제 및 객관성 유지
+
+---
+
+## 🎯 [완료] NVIDIA DGX Spark 및 공식 OEM 7개사 전수 비교·기술지원 체계 검토 (2026-09-18)
+- [x] **NVIDIA DGX Spark(GB10 Grace Blackwell) 공식 제조사 8개사 전수 비교 분석**:
+  - [x] NVIDIA Founders Edition 및 7대 공식 OEM(Dell Pro Max, HP ZGX Nano, Lenovo ThinkStation PGX, ASUS Ascent GX10, GIGABYTE AI TOP ATOM, MSI EdgeXpert, Acer Veriton GN100) 하드웨어 구성 및 특징 비교
+  - [x] 공통 아키텍처(20코어 Grace CPU + Blackwell GPU, 128GB LPDDR5x 통합 메모리, 1 PFLOPS FP4 AI 성능) 검증
+- [x] **워런티 정책 및 장애 대응 SLA 기반 3대 기술지원 티어 확립**:
+  - [x] Tier 1 (엔터프라이즈 직영): Dell(24x7 4시간 On-site 출동 ProSupport Plus, 최대 5년 보증), HP(Care Pack NBD), Lenovo(Premier Support)
+  - [x] Tier 2 (순정 SW 직통): NVIDIA Founders Edition(최신 DGX OS 0-Day 반영, 공인 총판 파견)
+  - [x] Tier 3 (가성비/연구원 보급): ASUS, GIGABYTE, MSI, Acer(서비스센터 입고/선출고 교체 중심)
+- [x] **다중 포맷 종합 산출물 패키지 구축 및 인수인계 완비**:
+  - [x] 반응형 다크 테마 HTML 보고서: [`docs/2026-09-18_nvidia_dgx_spark_oem_comparison_report.html`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-09-18_nvidia_dgx_spark_oem_comparison_report.html)
+  - [x] 고객사 전달용 A4 서식 DOCX 보고서: [`docs/2026-09-18_nvidia_dgx_spark_oem_comparison_report.docx`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-09-18_nvidia_dgx_spark_oem_comparison_report.docx)
+  - [x] 마크다운 원본 보고서: [`docs/2026-09-18_nvidia_dgx_spark_oem_comparison_report.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-09-18_nvidia_dgx_spark_oem_comparison_report.md)
+  - [x] 산출물 명세서: [`docs/specs/2026-09-18_nvidia_dgx_spark_oem_specs.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/specs/2026-09-18_nvidia_dgx_spark_oem_specs.md)
+  - [x] 핸드오버 보고서: [`docs/2026-09-18_nvidia_dgx_spark_handover_report.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-09-18_nvidia_dgx_spark_handover_report.md)
 
 ---
 

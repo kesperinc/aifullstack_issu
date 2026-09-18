@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NVIDIA DGX Spark 공식 OEM 제조사별(Dell, HP, Lenovo, ASUS, GIGABYTE, MSI, Acer) 전수 비교·기술지원 체계 검토 보고서</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.78);
+      --bg-card-hover: rgba(31, 41, 55, 0.88);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(59, 130, 246, 0.4);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      
+      --nvidia-green: #76b900;
+      --dell-blue: #0076ce;
+      --hp-cyan: #0096d6;
+      --lenovo-red: #e2231a;
+      --asus-purple: #8b5cf6;
+      --giga-orange: #ff6a00;
+      --msi-rose: #f43f5e;
+      --acer-green: #83b81a;
+      
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+      padding-bottom: 90px;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(118, 185, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 40%, rgba(59, 130, 246, 0.09) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.07) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    header.hero-banner {
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.95) 0%, rgba(11, 15, 25, 0.8) 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 48px 0 38px;
+      margin-bottom: 38px;
+    }
+
+    .meta-badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-nvidia { background: rgba(118, 185, 0, 0.15); color: #9be01a; border: 1px solid rgba(118, 185, 0, 0.4); }
+    .badge-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .badge-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+    h1.report-title {
+      font-size: 2.15rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 14px;
+      background: linear-gradient(90deg, #ffffff 0%, #e2e8f0 50%, #9be01a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.report-subtitle {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      max-width: 1000px;
+      margin-bottom: 22px;
+    }
+
+    .meta-info-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 0.88rem;
+    }
+
+    .meta-info-item span.label {
+      color: var(--text-dim);
+      font-weight: 500;
+      margin-right: 6px;
+    }
+    .meta-info-item span.value {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    section.report-section {
+      margin-bottom: 46px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .section-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(118, 185, 0, 0.15);
+      color: var(--nvidia-green);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .callout-box {
+      background: rgba(17, 24, 39, 0.85);
+      border: 1px solid var(--border-accent);
+      border-left: 4px solid var(--accent-blue);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .callout-box h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #93c5fd;
+      margin-bottom: 8px;
+    }
+
+    .callout-box p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    /* Brand Cards 4-Column Grid */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .brand-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .brand-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .brand-card.c-nvidia { border-top: 4px solid var(--nvidia-green); }
+    .brand-card.c-dell { border-top: 4px solid var(--dell-blue); }
+    .brand-card.c-hp { border-top: 4px solid var(--hp-cyan); }
+    .brand-card.c-lenovo { border-top: 4px solid var(--lenovo-red); }
+    .brand-card.c-asus { border-top: 4px solid var(--asus-purple); }
+    .brand-card.c-giga { border-top: 4px solid var(--giga-orange); }
+    .brand-card.c-msi { border-top: 4px solid var(--msi-rose); }
+    .brand-card.c-acer { border-top: 4px solid var(--acer-green); }
+
+    .brand-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .brand-card-title {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .brand-card-model {
+      font-size: 0.85rem;
+      color: var(--accent-emerald);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+    }
+
+    .brand-card-body p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.55;
+    }
+
+    .brand-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .brand-tag {
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #d1d5db;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    /* Data Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    table.data-table th, 
+    table.data-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    table.data-table th {
+      background: rgba(31, 41, 55, 0.95);
+      color: #f3f4f6;
+      font-weight: 700;
+      font-size: 0.84rem;
+      white-space: nowrap;
+    }
+
+    table.data-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge-grade-best { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+    .badge-grade-high { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+    .badge-grade-mid  { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+
+    /* Flow Boxes */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .flow-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .flow-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .flow-desc {
+      font-size: 0.84rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+
+    /* Recommendation Grid */
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .rec-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .rec-card.featured {
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.12);
+    }
+
+    .rec-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #34d399;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .rec-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .rec-model {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #93c5fd;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 10px;
+    }
+
+    .rec-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    footer.report-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 28px;
+      margin-top: 50px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Header -->
+  <header class="hero-banner">
+    <div class="container">
+      <div class="meta-badge-group">
+        <span class="badge badge-nvidia">NVIDIA DGX Spark Platform (GB10)</span>
+        <span class="badge badge-blue">Official 7 OEM Partners + Founders Edition</span>
+        <span class="badge badge-amber">Desktop AI Supercomputer Evaluation</span>
+      </div>
+      <h1 class="report-title">NVIDIA DGX Spark 공식 OEM 제조사별 전수 비교·기술지원 체계 검토 보고서</h1>
+      <p class="report-subtitle">
+        NVIDIA DGX Spark(Founders Edition) 및 7개 공식 OEM 파트너(Dell, HP, Lenovo, ASUS, GIGABYTE, MSI, Acer)의 하드웨어 구성, 워런티 정책, 국내 장애 대응 SLA 및 기술지원 체계를 정밀 분석한 기업 고객용 제안 보고서입니다.
+      </p>
+
+      <div class="meta-info-bar">
+        <div class="meta-info-item">
+          <span class="label">보고서 버전:</span>
+          <span class="value">v2.0 (OEM 전수 검토 완결본)</span>
+        </div>
+        <div class="meta-info-item">
+          <span class="label">발행 일자:</span>
+          <span class="value">2026년 9월 18일</span>
+        </div>
+        <div class="meta-info-item">
+          <span class="label">공통 아키텍처:</span>
+          <span class="value">NVIDIA GB10 Grace Blackwell (128GB Unified)</span>
+        </div>
+        <div class="meta-info-item">
+          <span class="label">검토 주관:</span>
+          <span class="value">MEGAZONECLOUD ISSU</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Executive Summary -->
+    <section class="report-section">
+      <div class="callout-box">
+        <h3>💡 Executive Summary (핵심 요약)</h3>
+        <p>
+          <strong>1. DGX Spark 동일 플랫폼 아키텍처:</strong> 검토 대상인 8개 제조사(NVIDIA 및 7대 OEM) 제품은 모두 <strong>NVIDIA GB10 Grace Blackwell Superchip (20코어 Grace CPU + Blackwell GPU, 128GB LPDDR5x 통합 메모리, 1 PFLOPS FP4 AI 연산 성능)</strong> 레퍼런스 메인보드를 기반으로 합니다. 따라서 AI 추론(최대 200B) 및 경량 파인튜닝(약 70B)의 코어 연산 성능과 기본 DGX OS 구동 환경은 제조사 간 대등합니다.<br><br>
+          <strong>2. 실제 도입 시 차별화의 핵심 (기술지원 & SLA):</strong> 동일한 GB10 칩셋이라도 <strong>① 국내 현장(On-site) 부품 지참 방문 엔지니어 조직 여부</strong>, <strong>② 장애 대응 SLA (24x7 4시간 현장 도착 vs NBD 익일 방문 vs 센터 입고 수리)</strong>, <strong>③ 최대 5년 워런티 연장 보장성</strong>, <strong>④ NVIDIA AI Enterprise(NVAIE) 소프트웨어 기술지원 연계</strong>에서 명확한 3단계 티어가 형성됩니다.<br><br>
+          <strong>3. 제조사별 3대 그룹 분류:</strong><br>
+          • <strong>엔터프라이즈 티어 (Dell, HP, Lenovo):</strong> 24x7 직영 지원, 4시간/익일 On-site 방문, 최대 5년 보증, 미션 크리티컬 연구 전용<br>
+          • <strong>NVIDIA 순정 티어 (Founders Edition):</strong> DGX OS 최신 기능 0-Day 반영, NVIDIA Enterprise Portal 직영 티켓팅, 공인 총판 지원<br>
+          • <strong>가성비/연구원 보급 티어 (ASUS, GIGABYTE, MSI, Acer):</strong> 경제적 단가, 책상 위 1인 1대 대량 배포 최적, 센터 입고/선출고 교체 중심
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 1: Lineup (8 Brands) -->
+    <section class="report-section">
+      <div class="section-header">
+        <div class="section-icon">1</div>
+        <h2>DGX Spark 공식 제조사 라인업 (Founders Edition + 7대 OEM)</h2>
+      </div>
+
+      <div class="brand-grid">
+        <!-- NVIDIA -->
+        <div class="brand-card c-nvidia">
+          <div class="brand-card-header">
+            <div>
+              <div class="brand-card-title">NVIDIA</div>
+              <div class="brand-card-model">DGX Spark (Founders Edition)</div>
+            </div>
+            <span class="badge badge-nvidia">Reference</span>
+          </div>
+          <div class="brand-card-body">
+            <p>NVIDIA 공식 오리지널 레퍼런스 모델. DGX OS 및 NGC AI 소프트웨어 스택이 가장 신속하게 적용되며, NVIDIA Direct Support 체계와 연동됩니다.</p>
+            <div class="brand-tag-list">
+              <span class="brand-tag">GB10 Superchip</span>
+              <span class="brand-tag">순정 레퍼런스</span>
+              <span class="brand-tag">ConnectX-7</span>
+              <span class="brand-tag">DGX OS 최우선</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dell -->
+        <div class="brand-card c-dell">
+          <div class="brand-card-header">
+            <div>
+              <div class="brand-card-title">Dell Technologies</div>
+              <div class="brand-card-model">Dell Pro Max GB10</div>
+            </div>
+            <span class="badge badge-blue">Enterprise 1st</span>
+          </div>
+          <div class="brand-card-body">
+            <p>엔터프라이즈 내구성 설계와 <strong>Dell ProSupport Plus (24x7 4시간 On-site 출동)</strong> 전국 지원 인프라 결합. 기업 전산실 및 연구소에 최적입니다.</p>
+            <div class="brand-tag-list">
+              <span class="brand-tag">4시간 출동 SLA</span>
+              <span class="brand-tag">최대 5년 보증</span>
+              <span class="brand-tag">SupportAssist</span>
+              <span class="brand-tag">기업용 내구성</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- HP -->
+        <div class="brand-card c-hp">
+          <div class="brand-card-header">
+            <div>
+              <div class="brand-card-title">HP (HPE)</div>
+              <div class="brand-card-model">ZGX Nano AI Station (G1n)</div>
+            </div>
+            <span class="badge badge-blue">Workstation</span>
+          </div>
+          <div class="brand-card-body">
+            <p>Z by HP의 워크스테이션 전문 노하우가 적용된 저소음 써멀 챔버 설계. 오피스 환경에 적합하며 <strong>HP Care Pack (익일 방문 수리)</strong>을 지원합니다.</p>
+            <div class="brand-tag-list">
+              <span class="brand-tag">저소음 오피스</span>
+              <span class="brand-tag">HP Care Pack</span>
+              <span class="brand-tag">HP Wolf Security</span>
+              <span class="brand-tag">최대 5년 보증</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lenovo -->
+        <div class="brand-card c-lenovo">
+          <div class="brand-card-header">
+            <div>
+              <div class="brand-card-title">Lenovo</div>
+              <div class="brand-card-model">ThinkStation PGX</div>
+            </div>
+            <span class="badge" style="background: rgba(226,35,26,0.15); color: #f87171; border: 1px solid rgba(226,35,26,0.4);">Premier Support</span>
+          </div>
+          <div class="brand-card-body">
+            <p>전통의 씽크스테이션 브랜드 신뢰성. <strong>Lenovo Premier Support</strong>를 통해 전담 기술 어카운트 매니저 배정 및 익일(NBD) 현장 부품 교체를 제공합니다.</p>
+            <div class="brand-tag-list">
+              <span class="brand-tag">Premier Support</span>
+              <span class="brand-tag">ThinkShield 보안</span>
+              <span class="brand-tag">NBD 현장 방문</span>
+              <span class="brand-tag">자산 관리 용이</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ASUS -->
+        <div class="brand-card c-asus">
+          <div class="brand-card-header">
+            <div>
+              <div class="brand-card-title">ASUS</div>
+              <div class="brand-card-model">Ascent GX10</div>
+            </div>
+            <span class="badge badge-purple">High Efficiency</span>
+          </div>
+          <div class="brand-card-body">
+            <p>약 1.48kg 초소형 고밀도 폼팩터. 글로벌 디자인 어워드 수상 섀시와 ConnectX-7 스마트닉의 대역폭을 강조하여 클러스터링 구성에 유리합니다.</p>
+            <div class="brand-tag-list">
+              <span class="brand-tag">초소형 경량화</span>
+              <span class="brand-tag">ConnectX-7</span>
+              <span class="brand-tag">ASUS Control Center</span>
+              <span class="brand-tag">가성비 우수</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- GIGABYTE -->
+        <div class="brand-card c-giga">
+          <div class="brand-card-header">
+            <div>
+              <div class="brand-card-title">GIGABYTE</div>
+              <div class="brand-card-model">AI TOP ATOM</div>
+            </div>
+            <span class="badge" style="background: rgba(255,106,0,0.15); color: #fb923c; border: 1px solid rgba(255,106,0,0.4);">AI Utility</span>
+          </div>
+          <div class="brand-card-body">
+            <p>기가바이트의 독자 로컬 AI 소프트웨어 스택인 <strong>AI TOP Utility</strong> 탑재. 초보 개발자도 모델 파인튜닝 및 추론 파이프라인을 쉽게 제어할 수 있습니다.</p>
+            <div class="brand-tag-list">
+              <span class="brand-tag">AI TOP 유틸리티</span>
+              <span class="brand-tag">원클릭 튜닝</span>
+              <span class="brand-tag">고효율 방열</span>
+              <span class="brand-tag">가격 경쟁력</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MSI -->
+        <div class="brand-card c-msi">
+          <div class="brand-card-header">
+            <div>
+              <div class="brand-card-title">MSI</div>
+              <div class="brand-card-model">EdgeXpert</div>
+            </div>
+            <span class="badge" style="background: rgba(244,63,94,0.15); color: #fda4af; border: 1px solid rgba(244,63,94,0.4);">Cost Effective</span>
+          </div>
+          <div class="brand-card-body">
+            <p>"Next-Level AI Power, Right at Your Desk" 슬로건의 미니 AI 슈퍼컴퓨터. 고밀도 구리 파이프 냉각과 MSI Center Pro를 통한 높은 가성비를 자랑합니다.</p>
+            <div class="brand-tag-list">
+              <span class="brand-tag">151x151mm 미니</span>
+              <span class="brand-tag">MSI Center Pro</span>
+              <span class="brand-tag">구리 히트파이프</span>
+              <span class="brand-tag">대량 보급 최적</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acer -->
+        <div class="brand-card c-acer">
+          <div class="brand-card-header">
+            <div>
+              <div class="brand-card-title">Acer</div>
+              <div class="brand-card-model">Veriton GN100 AI Mini</div>
+            </div>
+            <span class="badge" style="background: rgba(131,184,26,0.15); color: #bef264; border: 1px solid rgba(131,184,26,0.4);">Budget Mini</span>
+          </div>
+          <div class="brand-card-body">
+            <p>에이서의 기업/교육용 Veriton 라인업에 편입된 미니 워크스테이션. 합리적인 도입 단가로 산학연 교육용 및 엔트리급 AI 실습 환경에 최적화되었습니다.</p>
+            <div class="brand-tag-list">
+              <span class="brand-tag">Veriton 비즈니스</span>
+              <span class="brand-tag">경제적 단가</span>
+              <span class="brand-tag">교육/실습 최적</span>
+              <span class="brand-tag">콤팩트 폼팩터</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Hardware & Operation Comparison -->
+    <section class="report-section">
+      <div class="section-header">
+        <div class="section-icon">2</div>
+        <h2>제조사별 주요 차별화 포인트 비교 (H/W, 확장성, 관리, 운영)</h2>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 14%;">제조사 / 모델</th>
+              <th style="width: 22%;">하드웨어 및 쿨링 구성</th>
+              <th style="width: 21%;">확장성 및 네트워킹</th>
+              <th style="width: 21%;">관리 기능 (Management)</th>
+              <th style="width: 22%;">안정성 및 운영 측면</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>NVIDIA</strong><br><small style="color:var(--text-dim);">DGX Spark (FE)</small></td>
+              <td>• 콤팩트 레퍼런스 (~1.2kg)<br>• 외장 고효율 어댑터<br>• 순정 써멀 히트싱크</td>
+              <td>• 10GbE + ConnectX-7<br>• Wi-Fi 7, USB-C(DP)<br>• 2대 연결 시 405B 구동</td>
+              <td>• NVIDIA Base Command Agent<br>• 순정 DGX OS 기본 탑재<br>• NVML 시스템 텔레메트리</td>
+              <td>• NVIDIA 레퍼런스 표준 안정성<br>• 최신 펌웨어/드라이버 0-Day 즉시 반영</td>
+            </tr>
+            <tr>
+              <td><strong>Dell</strong><br><small style="color:var(--text-dim);">Pro Max GB10</small></td>
+              <td>• 고내구성 Micro 섀시<br>• Dell 독자 쿨링 챔버<br>• 기업용 저소음 팬 설계</td>
+              <td>• 10GbE, Wi-Fi 7, USB-C<br>• 켄싱턴 락 보안<br>• 데스크사이드 마운팅 키트</td>
+              <td>• SupportAssist 원격 진단<br>• OpenManage 엔터프라이즈 연동<br>• BIOS 레벨 자산 보호</td>
+              <td>• 24x7 번인 테스트 통과<br>• 전국 부품망 기반 최고의 무중단 가동률 보장</td>
+            </tr>
+            <tr>
+              <td><strong>HP</strong><br><small style="color:var(--text-dim);">ZGX Nano (G1n)</small></td>
+              <td>• Z-Workstation급 방열 설계<br>• 오피스 환경 저소음 튜닝<br>• 알루미늄 외장 섀시</td>
+              <td>• 10GbE, Wi-Fi 7<br>• 멀티 디스플레이 출력<br>• 고속 스토리지 확장 모듈</td>
+              <td>• HP Anyware 원격 제어<br>• HP Wolf Security 하드웨어 보호<br>• Sure Start 자가치유 BIOS</td>
+              <td>• 소음에 민감한 개인 연구원 룸 및 오픈 오피스 환경에서 최고의 정숙성 유지</td>
+            </tr>
+            <tr>
+              <td><strong>Lenovo</strong><br><small style="color:var(--text-dim);">ThinkStation PGX</small></td>
+              <td>• ThinkStation 표준 섀시<br>• 듀얼 챔버 공랭 써멀<br>• 방진 필터 설계</td>
+              <td>• 10GbE, Wi-Fi 7, USB-C<br>• 엔터프라이즈 I/O 포트<br>• 2대 클러스터링 지원</td>
+              <td>• Lenovo Commercial Vantage<br>• ThinkShield 엔터프라이즈 보안<br>• 원격 시스템 모니터링</td>
+              <td>• 기업 표준 PC/워크스테이션 자산 관리 정책과 100% 통합 운영 가능</td>
+            </tr>
+            <tr>
+              <td><strong>ASUS</strong><br><small style="color:var(--text-dim);">Ascent GX10</small></td>
+              <td>• 150x150x51mm 초소형 (1.48kg)<br>• 디자인 어워드 수상 섀시<br>• 핀 배열 최적화 공랭</td>
+              <td>• 10GbE + ConnectX-7 기본<br>• 초고속 통신 대역폭 확보<br>• 소형 클러스터링 용이</td>
+              <td>• ASUS Control Center (ACC)<br>• 웹/모바일 원격 모니터링<br>• 팬 커스텀 튜닝 프로파일</td>
+              <td>• 책상 위 공간 점유가 극도로 적으며, 하드웨어 빌드 퀄리티 우수</td>
+            </tr>
+            <tr>
+              <td><strong>GIGABYTE</strong><br><small style="color:var(--text-dim);">AI TOP ATOM</small></td>
+              <td>• 고효율 콤팩트 메탈 섀시<br>• 고풍량 저소음 쿨링 팬<br>• 구리 베이스플레이트</td>
+              <td>• 10GbE, Wi-Fi 7<br>• ConnectX-7 지원<br>• NVMe 최대 4TB 지원</td>
+              <td>• <strong>GIGABYTE AI TOP Utility</strong><br>• 로컬 LLM 파인튜닝 전용 GUI<br>• 직관적 워크플로우 관리</td>
+              <td>• 초보 개발자도 GUI 환경에서 즉시 로컬 파인튜닝 수행 가능 (사용자 편의성)</td>
+            </tr>
+            <tr>
+              <td><strong>MSI</strong><br><small style="color:var(--text-dim);">EdgeXpert</small></td>
+              <td>• 151x151x52mm 미니 폼팩터<br>• 고밀도 구리 히트파이프<br>• 저진동 블로워 팬</td>
+              <td>• 10GbE + Wi-Fi 7<br>• ConnectX-7 지원<br>• 듀얼 유닛 연동 지원</td>
+              <td>• MSI Center Pro for AI<br>• 하드웨어 진단 대시보드<br>• DGX OS 구동 환경 최적화</td>
+              <td>• 뛰어난 가격 대비 성능으로, 1인 1대 대량 보급 시 예산 효율 극대화</td>
+            </tr>
+            <tr>
+              <td><strong>Acer</strong><br><small style="color:var(--text-dim);">Veriton GN100</small></td>
+              <td>• 실용적인 Veriton 비즈니스 외장<br>• 표준 저소음 쿨링 구조<br>• 콤팩트 데스크톱</td>
+              <td>• 10GbE, Wi-Fi 7<br>• 다중 USB 포트 구성<br>• ConnectX-7 지원</td>
+              <td>• Acer ControlCenter<br>• 시스템 상태 백업/복구 지원<br>• 기본 원격 진단 툴</td>
+              <td>• 도입 비용이 가장 저렴하여 산학 연구 과제 및 교육 실습실 구축에 최적</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: Warranty Comparison -->
+    <section class="report-section">
+      <div class="section-header">
+        <div class="section-icon">3</div>
+        <h2>제조사별 워런티 정책 (보증 기간, 연장, 범위)</h2>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>제조사</th>
+              <th>기본 워런티 기간</th>
+              <th>워런티 연장 가능 여부</th>
+              <th>보증 적용 범위 및 NVAIE 소프트웨어 연계</th>
+              <th>엔터프라이즈 적합도</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Dell</strong></td>
+              <td><strong>기본 3년 ProSupport</strong></td>
+              <td><strong>최대 5년 보장</strong> (도입 시 번들)</td>
+              <td>• 하드웨어 전 부품 100% 무상 교체 및 온사이트 공임 포함<br>• NVIDIA AI Enterprise(NVAIE) 라이선스 번들 공급 가능</td>
+              <td><span class="badge-grade-best">최상 (5년 보장)</span></td>
+            </tr>
+            <tr>
+              <td><strong>HP (HPE)</strong></td>
+              <td><strong>기본 3년 Care Pack</strong></td>
+              <td><strong>최대 5년 연장 가능</strong></td>
+              <td>• 하드웨어 전 부품 방문 교체 지원<br>• NVAIE 소프트웨어 라이선스 공급 연계</td>
+              <td><span class="badge-grade-best">최상 (5년 보장)</span></td>
+            </tr>
+            <tr>
+              <td><strong>Lenovo</strong></td>
+              <td><strong>기본 3년 Premier Support</strong></td>
+              <td><strong>최대 5년 연장 가능</strong></td>
+              <td>• 하드웨어 및 기본 펌웨어 무상 방문 수리<br>• 전담 기술 계정 관리자 지원, NVAIE 연계</td>
+              <td><span class="badge-grade-best">최상 (5년 보장)</span></td>
+            </tr>
+            <tr>
+              <td><strong>NVIDIA (FE)</strong></td>
+              <td>1년 또는 3년 지정</td>
+              <td>연 단위 갱신 (최대 5년)</td>
+              <td>• 하드웨어 무상 수리/교체<br>• <strong>NVIDIA AI Enterprise (NVAIE) 직영 서포트 연계</strong></td>
+              <td><span class="badge-grade-high">상 (SW 직통)</span></td>
+            </tr>
+            <tr>
+              <td><strong>ASUS</strong></td>
+              <td>기본 1년 ~ 3년</td>
+              <td>최대 3~5년 (B2B 총판 계약)</td>
+              <td>• 하드웨어 본체 무상 수리 (센터 입고 기준)<br>• 온사이트 방문 지원은 B2B 추가 계약 필요</td>
+              <td><span class="badge-grade-mid">중 (계약 옵션)</span></td>
+            </tr>
+            <tr>
+              <td><strong>GIGABYTE</strong></td>
+              <td>기본 1년 ~ 3년</td>
+              <td>최대 3년 (총판 협의)</td>
+              <td>• 하드웨어 수리/교체 (센터 입고 수리 원칙)<br>• AI TOP 소프트웨어 기술지원 연계</td>
+              <td><span class="badge-grade-mid">중 (가성비 중심)</span></td>
+            </tr>
+            <tr>
+              <td><strong>MSI</strong></td>
+              <td>기본 1년 ~ 3년</td>
+              <td>최대 3년 (협의 시 5년 검토)</td>
+              <td>• 하드웨어 부품 무상 수리/교체 (센터 입고 기준)<br>• DGX OS 기본 부팅 보장, NVAIE 라이선스 별도</td>
+              <td><span class="badge-grade-mid">중 (가성비 중심)</span></td>
+            </tr>
+            <tr>
+              <td><strong>Acer</strong></td>
+              <td>기본 1년 ~ 3년</td>
+              <td>최대 3년 (B2B 연장 가능)</td>
+              <td>• 하드웨어 본체 수리 (서비스센터 입고/택배)<br>• 교육/공공 B2B 패키지 적용 가능</td>
+              <td><span class="badge-grade-mid">중 (가성비 중심)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 4: Support Workflow & SLA -->
+    <section class="report-section">
+      <div class="section-header">
+        <div class="section-icon">4</div>
+        <h2>장애 발생 시 지원 프로세스 및 SLA 체계 비교</h2>
+      </div>
+
+      <div class="flow-grid">
+        <div class="flow-card" style="border-left: 3px solid var(--dell-blue);">
+          <div class="flow-title" style="color:#93c5fd;">Tier 1: 엔터프라이즈 직영 On-site (Dell, HP, Lenovo)</div>
+          <div class="flow-desc"><strong>고객 접수 (24x7 콜센터)</strong> ➔ 전문 엔지니어 1차 원격 진단 ➔ <strong>국내 물류 부품 출고 & 공인 엔지니어 동시 출동 (4시간 이내 / NBD)</strong> ➔ 현장 부품 교체 완결</div>
+        </div>
+        <div class="flow-card" style="border-left: 3px solid var(--nvidia-green);">
+          <div class="flow-title" style="color:#86efac;">Tier 2: NVIDIA 직영 포털 & 총판 연계 (Founders Edition)</div>
+          <div class="flow-desc"><strong>고객 접수</strong> ➔ 1차 공인 파트너 점검 ➔ <strong>NVIDIA Enterprise Portal 티켓팅</strong> ➔ NVIDIA 본사 2/3선 엔지니어 원격 진단 ➔ 국내 총판 버퍼 재고로 맞교환 파견</div>
+        </div>
+        <div class="flow-card" style="border-left: 3px solid var(--asus-purple);">
+          <div class="flow-title" style="color:#d8b4fe;">Tier 3: 유통 총판 / 공인 서비스센터 (ASUS, GIGABYTE, MSI, Acer)</div>
+          <div class="flow-desc"><strong>고객 접수</strong> ➔ 1차 공급사 점검 ➔ <strong>공인 서비스센터 입고 또는 택배 접수</strong> ➔ 센터 수리 또는 선출고 RMA 교체 (3~5영업일 소요) ➔ 고객사 재배송</div>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>제조사</th>
+              <th>원격 기술지원</th>
+              <th>현장 방문 지원 (On-site)</th>
+              <th>부품 조달 방식</th>
+              <th>장애 대응 SLA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Dell</strong></td>
+              <td><strong>24x7x365 한국어 직통</strong> 전화/원격</td>
+              <td><strong>전국 Dell 공인 엔지니어 현장 방문 기본</strong></td>
+              <td>서울/수도권 대형 통합 부품 물류센터 직접 지참</td>
+              <td>• <strong>ProSupport Plus: 4시간 이내 현장 도착</strong><br>• 일반 ProSupport: 익일(NBD) 방문</td>
+            </tr>
+            <tr>
+              <td><strong>HP (HPE)</strong></td>
+              <td>24x7 또는 주간 전문 엔지니어 원격</td>
+              <td><strong>전국 HP 공인망을 통한 현장 방문 지원</strong></td>
+              <td>국내 HP 공식 파츠 물류망 조달</td>
+              <td>• 익일(NBD) 현장 방문 수리 원칙<br>• 4시간 긴급 대응 옵션 가능</td>
+            </tr>
+            <tr>
+              <td><strong>Lenovo</strong></td>
+              <td><strong>24x7 Premier 직통</strong> 전화/원격</td>
+              <td><strong>전국 Lenovo 공인 엔지니어 현장 방문 기본</strong></td>
+              <td>국내 Lenovo 파츠 센터 직배송</td>
+              <td>• 익일(NBD) 현장 방문 수리 지원<br>• 우선 기술지원 큐(Queue) 배정</td>
+            </tr>
+            <tr>
+              <td><strong>NVIDIA (FE)</strong></td>
+              <td>24x7 글로벌 포털 티켓팅 지원</td>
+              <td>국내 공인 총판(MDS테크 등) 엔지니어 방문</td>
+              <td>국내 총판 버퍼 재고 (소진 시 해외 RMA)</td>
+              <td>• 원격 2~4시간 이내 응답<br>• 부품 보유 시 익일 교체</td>
+            </tr>
+            <tr>
+              <td><strong>ASUS</strong></td>
+              <td>ASUS B2B 헬프데스크 주간 상담</td>
+              <td>기본 입고 수리 (B2B 특약 시 온사이트)</td>
+              <td>국내 센터 재고 또는 대만 본사 RMA</td>
+              <td>• 입고 후 영업일 기준 3~5일 이내<br>• 부품 결품 시 해외 조달로 지연 가능</td>
+            </tr>
+            <tr>
+              <td><strong>GIGABYTE</strong></td>
+              <td>기가바이트 고객센터 주간 상담</td>
+              <td>기본 서비스센터 입고 수리</td>
+              <td>국내 총판사(피씨디렉트 등) 보유 부품</td>
+              <td>• 입고 후 3~5영업일 이내 처리</td>
+            </tr>
+            <tr>
+              <td><strong>MSI</strong></td>
+              <td>MSI 코리아 고객센터 주간 상담</td>
+              <td>기본 서비스센터 입고/택배 수리</td>
+              <td>MSI 코리아 센터 보유 부품 교체</td>
+              <td>• 입고 후 3~5영업일 이내 처리</td>
+            </tr>
+            <tr>
+              <td><strong>Acer</strong></td>
+              <td>에이서 코리아 고객지원 주간</td>
+              <td>기본 서비스센터 입고/택배 수리</td>
+              <td>국내 공인 서비스망 재고 수리</td>
+              <td>• 입고 후 3~5영업일 이내 처리</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 5: Domestic Support Organization -->
+    <section class="report-section">
+      <div class="section-header">
+        <div class="section-icon">5</div>
+        <h2>국내 기술지원 조직 보유 현황 및 지원 범위 평가</h2>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>제조사</th>
+              <th>국내 직영 조직 및 서비스망</th>
+              <th>지원 범위 및 특징 요약</th>
+              <th>종합 평가</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Dell 코리아</strong></td>
+              <td>국내 직영 엔터프라이즈 본부, 전국 시/도 파트너망, 수도권 대형 부품 물류 허브</td>
+              <td>HW 전 부품, 펌웨어, OS 기동 에러, 원격 텔레메트리 진단 등 완벽한 엔터프라이즈 케어</td>
+              <td><span class="badge-grade-best">★ 5.0 (최상)</span></td>
+            </tr>
+            <tr>
+              <td><strong>HPE / HP 코리아</strong></td>
+              <td>HP 코리아 본사 워크스테이션 전문 엔지니어링, 전국 거점 서비스 센터망</td>
+              <td>워크스테이션 전용 하드웨어 및 펌웨어 장애 수리, Anyware 원격 기술지원 연계</td>
+              <td><span class="badge-grade-best">★ 4.8 (최상)</span></td>
+            </tr>
+            <tr>
+              <td><strong>Lenovo 코리아</strong></td>
+              <td>한국레노버 엔터프라이즈 서비스 본부, 전국 Premier 지원망 구축</td>
+              <td>전담 기술 계정 관리자 지원, HW 부품 교체 및 ThinkShield 시스템 보안 관리</td>
+              <td><span class="badge-grade-best">★ 4.7 (최상)</span></td>
+            </tr>
+            <tr>
+              <td><strong>NVIDIA (FE)</strong></td>
+              <td>엔비디아 코리아 SA 상주, HW 유지보수는 공인 총판(MDS테크 등) 전담</td>
+              <td>최신 AI SW(NGC, Triton, TensorRT) 직통 지원 탁월, 순수 HW 교체는 총판 의존</td>
+              <td><span class="badge-grade-high">★ 4.4 (우수)</span></td>
+            </tr>
+            <tr>
+              <td><strong>ASUS 코리아</strong></td>
+              <td>ASUS 코리아 지사 및 B2B 공인 총판(코잇, 대원CTS 등), 공인 서비스센터</td>
+              <td>제품 단위 HW 교체 수리 중심. 엔터프라이즈 방문 계약은 B2B 총판 계약 조건에 종속</td>
+              <td><span class="badge-grade-mid">★ 3.8 (양호)</span></td>
+            </tr>
+            <tr>
+              <td><strong>GIGABYTE</strong></td>
+              <td>기가바이트 코리아 지사 및 IT 전문 유통 총판(피씨디렉트, 제이씨현)</td>
+              <td>AI TOP 소프트웨어 및 하드웨어 점검. 공인 서비스센터 입고 수리 체계</td>
+              <td><span class="badge-grade-mid">★ 3.7 (양호)</span></td>
+            </tr>
+            <tr>
+              <td><strong>MSI 코리아</strong></td>
+              <td>MSI 코리아 지사 및 지정 서비스 대행망, B2B 유통망</td>
+              <td>제품 결함 발생 시 입고 점검 및 1:1 부품 교체 위주 지원</td>
+              <td><span class="badge-grade-mid">★ 3.6 (양호)</span></td>
+            </tr>
+            <tr>
+              <td><strong>Acer 코리아</strong></td>
+              <td>에이서 코리아 고객지원센터 및 외주 공인 서비스망</td>
+              <td>보급형 비즈니스 PC AS 체계와 동일. 입고 및 택배 수리 위주</td>
+              <td><span class="badge-grade-mid">★ 3.5 (보통)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 6: Customer Decision Guide -->
+    <section class="report-section">
+      <div class="section-header">
+        <div class="section-icon">6</div>
+        <h2>고객 상황별 맞춤형 추천 권고안 (Decision Guide)</h2>
+      </div>
+
+      <div class="rec-grid">
+        <!-- Rec 1 -->
+        <div class="rec-card featured">
+          <div class="rec-badge">Recommendation 1 · 엔터프라이즈 무중단 1순위</div>
+          <div class="rec-title">24x7 4시간 현장 출동 SLA & 최대 5년 보증</div>
+          <div class="rec-model">👉 Dell Pro Max GB10 (또는 HP ZGX / Lenovo PGX)</div>
+          <div class="rec-desc">
+            전산실 또는 사내 핵심 연구 서버로 운영되며 장애 시 비즈니스 다운타임이 치명적인 기업 환경에 가장 적합합니다. 국내 최강의 <strong>Dell ProSupport Plus (4시간 현장 도착, 최대 5년 보증)</strong>로 운영 리스크를 원천 차단할 수 있습니다.
+          </div>
+        </div>
+
+        <!-- Rec 2 -->
+        <div class="rec-card">
+          <div class="rec-badge">Recommendation 2 · 순정 AI 스택 직통</div>
+          <div class="rec-title">최신 DGX OS 선행 반영 & NVIDIA 직영 기술지원</div>
+          <div class="rec-model">👉 NVIDIA DGX Spark (Founders Edition)</div>
+          <div class="rec-desc">
+            NVIDIA의 최신 DGX OS 기능, NGC 컨테이너 환경, NVAIE 소프트웨어 지원을 100% 순정 상태로 누리고자 하는 AI 전문 연구팀에 추천합니다. 국내 공인 DGX 총판 엔지니어의 전문 AI 인프라 기술지원을 받을 수 있습니다.
+          </div>
+        </div>
+
+        <!-- Rec 3 -->
+        <div class="rec-card">
+          <div class="rec-badge">Recommendation 3 · 초보자 친화 GUI 환경</div>
+          <div class="rec-title">원클릭 로컬 파인튜닝 & 직관적 워크플로우</div>
+          <div class="rec-model">👉 GIGABYTE AI TOP ATOM</div>
+          <div class="rec-desc">
+            복잡한 CLI 설정 없이 직관적인 GUI 유틸리티를 통해 로컬 LLM 파인튜닝과 추론 파이프라인을 빠르게 시작하고자 하는 연구원 및 데이터 분석가에게 최적의 사용 편의성을 제공합니다.
+          </div>
+        </div>
+
+        <!-- Rec 4 -->
+        <div class="rec-card">
+          <div class="rec-badge">Recommendation 4 · 연구원 1인 1대 대량 배포</div>
+          <div class="rec-title">예산 효율 극대화 & 책상 위 콤팩트 배치</div>
+          <div class="rec-model">👉 MSI EdgeXpert, ASUS Ascent GX10, Acer Veriton</div>
+          <div class="rec-desc">
+            다수의 개발자/연구원 책상 위에 각각 1대씩 배치하여 로컬 AI 프로토타이핑을 수행하는 용도라면, 동일한 GB10 연산 성능을 가장 경제적인 도입 비용으로 구축할 수 있어 예산 대비 효율이 극대화됩니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="report-footer container">
+    <p>© 2026 MEGAZONECLOUD Integrated Solution Sales Unit (ISSU). All Rights Reserved.</p>
+    <p style="margin-top: 6px; font-size: 0.78rem;">본 문서는 고객사의 비즈니스 의사결정을 돕기 위해 공개된 제조사 기술자료 및 국내 유지보수 실태를 바탕으로 종합 작성된 객관적 기술 검토 보고서입니다.</p>
+  </footer>
+
+</body>
+</html>
