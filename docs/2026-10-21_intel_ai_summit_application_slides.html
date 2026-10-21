@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 Intel AI Summit - 전시신청서 (Google Slides Viewer)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --intel-blue: #0071C5;
+      --intel-navy: #001E50;
+      --intel-cyan: #00C7FD;
+      --bg-canvas: #202124;
+      --slide-bg: #FFFFFF;
+      --text-main: #202124;
+      --table-border: #D1D5DB;
+      --table-header-bg: #0071C5;
+      --table-row-alt: #F0F6FF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background: var(--bg-canvas);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Top Google Slides Style Toolbar */
+    header.slides-toolbar {
+      height: 56px;
+      background: #2D2E30;
+      border-bottom: 1px solid #3C4043;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 10;
+    }
+
+    .doc-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .doc-icon {
+      font-size: 20px;
+    }
+
+    .doc-title-group h1 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #E8EAED;
+    }
+
+    .doc-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #F29900;
+      color: #000;
+      font-weight: 700;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid #5F6368;
+      background: #3C4043;
+      color: #E8EAED;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn:hover { background: #5F6368; }
+    .btn-primary { background: var(--intel-blue); border-color: var(--intel-blue); color: #fff; }
+    .btn-primary:hover { background: #005a9e; }
+
+    /* Main Workspace */
+    .slides-workspace {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Left Thumbnail Filmstrip */
+    .filmstrip {
+      width: 220px;
+      background: #28292C;
+      border-right: 1px solid #3C4043;
+      padding: 16px 12px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .thumb-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .thumb-num {
+      font-size: 12px;
+      color: #9AA0A6;
+      width: 16px;
+      text-align: right;
+    }
+
+    .thumb-card {
+      flex: 1;
+      aspect-ratio: 16 / 9;
+      background: #fff;
+      border-radius: 4px;
+      border: 2px solid transparent;
+      overflow: hidden;
+      padding: 6px;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .thumb-item.active .thumb-card {
+      border-color: #8AB4F8;
+      box-shadow: 0 0 8px rgba(138, 180, 248, 0.4);
+    }
+
+    .thumb-preview-title {
+      font-size: 8px;
+      font-weight: 800;
+      color: var(--intel-blue);
+      line-height: 1.2;
+    }
+
+    /* Center Stage */
+    .stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      background: #171719;
+      overflow: auto;
+    }
+
+    /* 16:9 Slide Canvas */
+    .slide-canvas {
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 16 / 9;
+      background: #FFFFFF;
+      color: var(--text-main);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      border-radius: 6px;
+      padding: 44px 56px;
+      display: none;
+      flex-direction: column;
+      position: relative;
+      user-select: text;
+    }
+
+    .slide-canvas.active {
+      display: flex;
+    }
+
+    /* Slide Header */
+    .slide-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .header-titles .sub-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--intel-blue);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .header-titles .main-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #000;
+      margin-top: 2px;
+    }
+
+    .deadline-badge {
+      background: var(--intel-navy);
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .guidance-text {
+      font-size: 11.5px;
+      color: #4B5563;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    /* Tables */
+    table.app-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      border: 1px solid #CBD5E1;
+      flex: 1;
+    }
+
+    table.app-table th {
+      background: var(--intel-blue);
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 14px;
+      text-align: center;
+      border: 1px solid #CBD5E1;
+    }
+
+    table.app-table td {
+      border: 1px solid #CBD5E1;
+      padding: 10px 14px;
+      color: #1F2937;
+      vertical-align: middle;
+      line-height: 1.5;
+    }
+
+    table.app-table td.header-col {
+      background: var(--intel-blue);
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+      width: 22%;
+    }
+
+    table.app-table tr:nth-child(even) td:not(.header-col) {
+      background: #F8FAFC;
+    }
+
+    table.app-table tr:nth-child(odd) td:not(.header-col) {
+      background: #FFFFFF;
+    }
+
+    /* Cover Slide Specifics */
+    .cover-canvas {
+      background: linear-gradient(135deg, #0071C5 0%, #001E50 100%);
+      color: #fff;
+      justify-content: center;
+      align-items: center;
+      display: none;
+      position: relative;
+    }
+
+    .cover-canvas.active {
+      display: flex;
+    }
+
+    .cover-box {
+      border: 3px solid var(--intel-cyan);
+      background: rgba(0, 140, 235, 0.4);
+      padding: 40px 60px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 199, 253, 0.3);
+    }
+
+    .cover-box h1 {
+      font-size: 44px;
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.2;
+    }
+
+    .cover-right-title {
+      position: absolute;
+      right: 120px;
+      top: 40%;
+      font-size: 52px;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--intel-cyan);
+    }
+
+    /* Footer */
+    .slide-footer {
+      position: absolute;
+      bottom: 16px;
+      left: 56px;
+      right: 56px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #9CA3AF;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Google Slides Style Toolbar -->
+  <header class="slides-toolbar">
+    <div class="doc-info">
+      <span class="doc-icon">📊</span>
+      <div class="doc-title-group">
+        <h1>2026 Intel AI Summit - 전시신청서 및 운영안 (Google Slides)</h1>
+      </div>
+      <span class="doc-badge">Gold Sponsor</span>
+    </div>
+
+    <div class="toolbar-actions">
+      <button class="btn" onclick="prevSlide()">❮ 이전 (←)</button>
+      <button class="btn" onclick="nextSlide()">다음 (→) ❯</button>
+      <button class="btn" id="fsBtn" onclick="toggleFullScreen()">⛶ 1080p 전체화면</button>
+      <a href="2026-10-21_intel_ai_summit_exhibition_application.pptx" download class="btn btn-primary">
+        📥 PPTX 다운로드 (Google Slides 호환)
+      </a>
+      <a href="2026-10-21_intel_summit_articul8_presentation.html" class="btn" style="text-decoration:none;">
+        📽 Articul8 HD 데모 덱
+      </a>
+    </div>
+  </header>
+
+  <!-- Workspace -->
+  <div class="slides-workspace">
+    
+    <!-- Left Filmstrip -->
+    <div class="filmstrip">
+      <div class="thumb-item active" onclick="goToSlide(0)">
+        <span class="thumb-num">1</span>
+        <div class="thumb-card" style="background:#0071C5; color:#fff; display:flex; align-items:center; justify-content:center;">
+          <span style="font-size:10px; font-weight:800; font-style:italic;">Application Form</span>
+        </div>
+      </div>
+
+      <div class="thumb-item" onclick="goToSlide(1)">
+        <span class="thumb-num">2</span>
+        <div class="thumb-card">
+          <div class="thumb-preview-title">전시신청서</div>
+          <div style="font-size:7px; color:#666; margin-top:4px;">공식 회사명 / 부스 타입 / 담당자 / 전시솔루션</div>
+        </div>
+      </div>
+
+      <div class="thumb-item" onclick="goToSlide(2)">
+        <span class="thumb-num">3</span>
+        <div class="thumb-card">
+          <div class="thumb-preview-title">전시운영안</div>
+          <div style="font-size:7px; color:#666; margin-top:4px;">전시 타이틀 / 데모 개요 / 이벤트 / 기념품</div>
+        </div>
+      </div>
+
+      <div class="thumb-item" onclick="goToSlide(3)">
+        <span class="thumb-num">4</span>
+        <div class="thumb-card">
+          <div class="thumb-preview-title">후원사 패스 신청서</div>
+          <div style="font-size:7px; color:#666; margin-top:4px;">Gold 5ea 참석자 명단 및 역할 배정</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Stage -->
+    <div class="stage">
+
+      <!-- Slide 1: Cover -->
+      <div class="slide-canvas cover-canvas active" id="slide0">
+        <div class="cover-box">
+          <h1>Application<br>Form</h1>
+        </div>
+        <div class="cover-right-title">
+          Exhibition<br>Form
+        </div>
+        <div class="slide-footer" style="color:rgba(255,255,255,0.7);">
+          <span>intel</span>
+          <span>Intel Confidential &nbsp;&nbsp;&nbsp;&nbsp; 1</span>
+        </div>
+      </div>
+
+      <!-- Slide 2: 전시신청서 -->
+      <div class="slide-canvas" id="slide1">
+        <div class="slide-top-row">
+          <div class="header-titles">
+            <div class="sub-title">EXHIBITION APPLICATION</div>
+            <div class="main-title">전시신청서</div>
+          </div>
+          <div class="deadline-badge">제출 마감 2026. 10. 6 (화)</div>
+        </div>
+
+        <div class="guidance-text">
+          아래 내용을 기재하신 후 10월 6일(화)까지 운영 사무국에 제출해 주세요.<br>
+          운영사무국 (주)ITBT 이정민 부장 rachel@itbt.co.kr 010-3566-6814
+        </div>
+
+        <table class="app-table">
+          <tr>
+            <td class="header-col">전시사 공식 회사명</td>
+            <td><strong>국문 :</strong> 메가존클라우드(주) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>영문 :</strong> MegazoneCloud Corporation</td>
+          </tr>
+          <tr>
+            <td class="header-col">전시부스 타입 선택</td>
+            <td>
+              <span style="color:var(--intel-blue); font-weight:800;">■ Gold Type A [ V ]</span> &nbsp;&nbsp;&nbsp;&nbsp;
+              □ Gold Type B [ &nbsp; ] &nbsp;&nbsp;&nbsp;&nbsp;
+              □ Silver Type A [ &nbsp; ] &nbsp;&nbsp;&nbsp;&nbsp;
+              □ Silver Type B [ &nbsp; ]
+            </td>
+          </tr>
+          <tr>
+            <td class="header-col">전시 담당자 정보</td>
+            <td>
+              <strong>공식 회사명 :</strong> 메가존클라우드(주) &nbsp;&nbsp;&nbsp;&nbsp; <strong>담당자 이름 :</strong> 김성호 &nbsp;&nbsp;&nbsp;&nbsp; <strong>핸드폰 :</strong> [연락처]<br>
+              <strong>부서명 :</strong> ISSU &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>직함 :</strong> 상무/부서장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>이메일 :</strong> sunkim317@mz.co.kr
+            </td>
+          </tr>
+          <tr>
+            <td class="header-col">전시솔루션</td>
+            <td>
+              <div style="font-weight:700; color:var(--intel-blue); margin-bottom:4px;">
+                • 솔루션명: Articul8 Enterprise GenAI Platform & MegazoneCloud AI Full Stack on OpenShift
+              </div>
+              <div style="font-size:11.5px; color:#374151;">
+                • <strong>간단한 소개 :</strong> 인텔 제온(Xeon) 및 가우디(Gaudi) 가속기와 Red Hat OpenShift AI(RHOAI)를 결합한 엔터프라이즈 전용 Full-Stack 생성형 AI 턴키 솔루션입니다. 엄격한 데이터 보안 및 주권을 요구하는 기업을 위해 100% 에어갭(Air-Gapped) 폐쇄망 환경에서 ModelMesh 멀티 모델 라우팅, Warp 지식그래프 기반 도메인 고정밀 RAG, 그리고 사내 보안 자율 코딩 에이전트(VibeForge)를 실시간으로 제공합니다.
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="slide-footer">
+          <span>intel</span>
+          <span>Intel Confidential &nbsp;&nbsp;&nbsp;&nbsp; 2</span>
+        </div>
+      </div>
+
+      <!-- Slide 3: 전시운영안 -->
+      <div class="slide-canvas" id="slide2">
+        <div class="slide-top-row">
+          <div class="header-titles">
+            <div class="sub-title">EXHIBITION OPERATION</div>
+            <div class="main-title">전시운영안</div>
+          </div>
+          <div class="deadline-badge">제출 마감 2026. 10. 20 (화)</div>
+        </div>
+
+        <div class="guidance-text">
+          아래 내용을 기재하신 후 10월 20일(화)까지 운영 사무국에 제출해 주세요.<br>
+          운영사무국 (주)ITBT 이정민 부장 rachel@itbt.co.kr 010-3566-6814
+        </div>
+
+        <table class="app-table">
+          <tr>
+            <td class="header-col" style="width:20%;">회사명</td>
+            <td><strong>메가존클라우드(주)</strong> (MegazoneCloud Corporation)</td>
+          </tr>
+          <tr>
+            <td class="header-col">솔루션 및 전시 타이틀</td>
+            <td>
+              <strong style="color:var(--intel-blue); font-size:13.5px;">Intel & Red Hat OpenShift 기반의 메가존클라우드 AI Full Stack & Articul8 엔터프라이즈 GenAI 플랫폼</strong><br>
+              <span style="font-size:11px; color:#6B7280;">(부제: 개방형 4-Layer 인프라부터 고객사 검증 폐쇄망 GenAI까지 — 엔터프라이즈 AI 턴키 솔루션)</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="header-col">데모 및 솔루션 개요</td>
+            <td style="font-size:11.5px;">
+              <strong>1. [발표 & 시연] Articul8 엔터프라이즈 GenAI 플랫폼 (고객 사례 중심 라이브 데모)</strong><br>
+              &nbsp;&nbsp;• HD현대/제조/금융 구축 사례 기반 사내 도면·기술문서 지식그래프(Knowledge Graph) RAG 시연 (환각 제로화)<br>
+              &nbsp;&nbsp;• Intel 하드웨어 최적화 ModelMesh™ 지능형 멀티 모델 실시간 라우팅 및 100% 에어갭 폐쇄망 자립 시연<br>
+              <strong>2. [부스 전시 & 키오스크] MegazoneCloud AI Full Stack on Red Hat OpenShift</strong><br>
+              &nbsp;&nbsp;• 단일 노드(SNO) 기반 인프라 비용 60% 절감 & vLLM/KServe 초고속 모델 서빙<br>
+              &nbsp;&nbsp;• 사내 소스코드 유출 없는 폐쇄망 자율 코딩 에이전트(VibeForge) 및 온프레미스-AWS ROSA 하이브리드 확장<br>
+              <strong>3. [부스 디스플레이 상영] 키오스크 모드 자동 반복(Auto-loop) HTML 프레젠테이션 상시 게시</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="header-col">Event<br>(설문, 상담, 기타)</td>
+            <td style="font-size:11.5px;">
+              • <strong>이벤트 1 [부스 방문 설문]:</strong> 부스 비치 QR 코드로 '사내 AI 도입 현황 설문' 참여 시 기념품 100% 증정<br>
+              • <strong>이벤트 2 [1:1 기술상담]:</strong> 폐쇄망 AI 및 RHOAI 도입 검토 기업 대상 1:1 상담 및 '무료 AI 인프라 사이징 리포트' 제공<br>
+              • <strong>이벤트 3 [정기 미니 브리핑]:</strong> 부스 앞 5분 미니 세션 진행 후 명함 추첨 럭키 드로우
+            </td>
+          </tr>
+          <tr>
+            <td class="header-col">기념품 종류 및 수량</td>
+            <td>
+              • <strong>메인 기념품:</strong> 메가존클라우드 & Intel 로고 각인 3in1 맥세이프 고속 무선충전기 (또는 보조배터리) <strong>500개</strong><br>
+              • <strong>상담 고객 선물:</strong> 100W GaN 초고속 멀티 충전기 <strong>50개</strong> &nbsp;|&nbsp; <strong>기본 판촉물:</strong> 고급 볼펜 및 스티커팩 <strong>500세트</strong>
+            </td>
+          </tr>
+        </table>
+
+        <div class="slide-footer">
+          <span>intel</span>
+          <span>Intel Confidential &nbsp;&nbsp;&nbsp;&nbsp; 3</span>
+        </div>
+      </div>
+
+      <!-- Slide 4: 후원사 패스 신청서 -->
+      <div class="slide-canvas" id="slide3">
+        <div class="slide-top-row">
+          <div class="header-titles">
+            <div class="sub-title">SESSION CHECKLIST</div>
+            <div class="main-title">후원사 패스 신청서</div>
+          </div>
+          <div class="deadline-badge">제출 마감 2026. 10. 20 (화)</div>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-bottom:12px;">
+          <span style="background:#0071C5; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px;">Platinum 10ea</span>
+          <span style="background:#F59E0B; color:#000; font-size:11px; font-weight:800; padding:3px 10px; border-radius:4px; box-shadow:0 0 8px rgba(245,158,11,0.5);">★ Gold 5ea</span>
+          <span style="background:#94A3B8; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px;">Silver 5ea</span>
+          <span style="background:#FBBF24; color:#000; font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px;">Start-ups 2ea</span>
+        </div>
+
+        <table class="app-table">
+          <thead>
+            <tr>
+              <th style="width:6%;">NO</th>
+              <th style="width:24%;">회사명</th>
+              <th style="width:16%;">이름</th>
+              <th style="width:14%;">직책</th>
+              <th style="width:24%;">이메일</th>
+              <th style="width:16%;">비고 / 역할</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#F0F6FF; font-weight:700;">
+              <td style="text-align:center;">1</td>
+              <td>메가존클라우드(주)</td>
+              <td>조은정</td>
+              <td style="text-align:center;">Leader</td>
+              <td>ejcho@mz.co.kr</td>
+              <td style="color:var(--intel-blue);">발표 세션 연사</td>
+            </tr>
+            <tr style="background:#FFFFFF; font-weight:700;">
+              <td style="text-align:center;">2</td>
+              <td>메가존클라우드(주)</td>
+              <td>김성호</td>
+              <td style="text-align:center;">상무/부서장</td>
+              <td>sunkim317@mz.co.kr</td>
+              <td style="color:var(--intel-blue);">부스 총괄 & 파트너십</td>
+            </tr>
+            <tr style="background:#FEF3C7; font-weight:700;">
+              <td style="text-align:center;">3</td>
+              <td>메가존클라우드(주)</td>
+              <td style="color:#B45309;">[변경 예정 / TBD]</td>
+              <td style="text-align:center;">수석/아키텍트</td>
+              <td>[조율 중]</td>
+              <td>데모 시연 엔지니어</td>
+            </tr>
+            <tr style="background:#FEF3C7; font-weight:700;">
+              <td style="text-align:center;">4</td>
+              <td>메가존클라우드(주)</td>
+              <td style="color:#B45309;">[변경 예정 / TBD]</td>
+              <td style="text-align:center;">책임/컨설턴트</td>
+              <td>[조율 중]</td>
+              <td>프리세일즈/리드 상담</td>
+            </tr>
+            <tr style="background:#FFFFFF; font-weight:700;">
+              <td style="text-align:center;">5</td>
+              <td>메가존클라우드(주)</td>
+              <td>어형선 (or 박종서)</td>
+              <td style="text-align:center;">매니저</td>
+              <td>janice@mz.co.kr</td>
+              <td style="color:var(--intel-blue);">부스 운영 & 설문 리셉션</td>
+            </tr>
+            <tr style="color:#9CA3AF;"><td style="text-align:center;">6</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr style="color:#9CA3AF;"><td style="text-align:center;">7</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr style="color:#9CA3AF;"><td style="text-align:center;">8</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr style="color:#9CA3AF;"><td style="text-align:center;">9</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr style="color:#9CA3AF;"><td style="text-align:center;">10</td><td></td><td></td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+
+        <div style="font-size:10.5px; color:#4B5563; margin-top:10px; line-height:1.4;">
+          ** 부스 운영자를 포함한 후원사 참석자 리스트를 전달해 주세요. (후원사 패스는 점심 식사 쿠폰이 제공 됩니다.)<br>
+          ** 3번, 4번 참석자는 내부 일정 조율 중으로 [변경 예정(TBD)] 상태이며, 네임택 실물 인쇄 전 최종 확정 예정입니다.<br>
+          ** 부스 운영자께서는 상시 1명 이상 상주 부탁드립니다.
+        </div>
+
+        <div class="slide-footer">
+          <span>intel</span>
+          <span>Intel Confidential &nbsp;&nbsp;&nbsp;&nbsp; 4</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = [
+      document.getElementById('slide0'),
+      document.getElementById('slide1'),
+      document.getElementById('slide2'),
+      document.getElementById('slide3')
+    ];
+    const thumbs = document.querySelectorAll('.thumb-item');
+
+    function updateView() {
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === currentSlide));
+      thumbs.forEach((t, idx) => t.classList.toggle('active', idx === currentSlide));
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateView();
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateView();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateView();
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        document.exitFullscreen().catch(err => console.log(err));
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      if (e.key === 'f' || e.key === 'F') toggleFullScreen();
+    });
+  </script>
+</body>
+</html>

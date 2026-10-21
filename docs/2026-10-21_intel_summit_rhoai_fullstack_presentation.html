@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 Intel AI Summit - MegazoneCloud AI Full Stack on OpenShift (Full HD 1080p)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --redhat-red: #EE0000;
+      --redhat-dark-red: #A30000;
+      --intel-blue: #0071C5;
+      --intel-light-blue: #00C7FD;
+      --bg-dark: #080A10;
+      --bg-card: rgba(18, 22, 32, 0.85);
+      --bg-glass: rgba(255, 255, 255, 0.05);
+      --border-color: rgba(238, 0, 0, 0.3);
+      --border-subtle: rgba(255, 255, 255, 0.12);
+      --text-primary: #FFFFFF;
+      --text-secondary: #94A3B8;
+      --text-accent: #EE0000;
+      --accent-glow: rgba(238, 0, 0, 0.4);
+      --slide-transition: 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background-color: #030406;
+      color: var(--text-primary);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Fixed 1920x1080 HD Stage Container */
+    .hd-stage {
+      width: 1920px;
+      height: 1080px;
+      min-width: 1920px;
+      min-height: 1080px;
+      max-width: 1920px;
+      max-height: 1080px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(238, 0, 0, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(0, 113, 197, 0.2) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(20, 24, 34, 0.65) 0%, transparent 70%);
+      transform-origin: center center;
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Kiosk Top Bar (HD 84px) */
+    header.kiosk-header {
+      height: 84px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(8, 10, 16, 0.92);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .sponsor-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      color: #000;
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 24px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
+    }
+
+    .hd-badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(238, 0, 0, 0.15);
+      border: 1px solid var(--redhat-red);
+      color: #FF6666;
+      font-size: 11px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title span.slash {
+      color: var(--redhat-red);
+      font-weight: 300;
+    }
+
+    .kiosk-controls {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .control-btn {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .control-btn:hover {
+      background: rgba(238, 0, 0, 0.15);
+      color: #FF7777;
+      border-color: var(--redhat-red);
+    }
+
+    .control-btn.active {
+      background: var(--redhat-red);
+      color: #fff;
+      border-color: #FF5555;
+      box-shadow: 0 0 16px rgba(238, 0, 0, 0.5);
+    }
+
+    /* Auto-timer Progress Bar */
+    .progress-container {
+      position: absolute;
+      top: 84px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      z-index: 101;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--redhat-red), #FF4D4D);
+      box-shadow: 0 0 14px #FF4D4D;
+      transition: width 0.1s linear;
+    }
+
+    /* Main Slides Container (HD 1920x918) */
+    main.slider-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 56px 88px;
+      opacity: 0;
+      transform: translateX(80px) scale(0.98);
+      pointer-events: none;
+      transition: opacity var(--slide-transition), transform var(--slide-transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Slide Header */
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #FF6666;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+
+    .slide-title {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.22;
+      letter-spacing: -0.8px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFFFFF 30%, #FFAAAA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 21px;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* Grid Layouts */
+    .cards-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      width: 100%;
+    }
+
+    .cards-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+      width: 100%;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 34px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--redhat-red), transparent);
+      opacity: 0.8;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: #FF5555;
+      box-shadow: 0 18px 50px rgba(238, 0, 0, 0.3);
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(238, 0, 0, 0.12);
+      border: 1px solid rgba(238, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      color: #FF6666;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .card-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .card-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-bullets li {
+      font-size: 15px;
+      color: #E2E8F0;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+
+    .card-bullets li::before {
+      content: '✔';
+      color: #FF5555;
+      font-weight: 800;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    /* Cover Hero Slide */
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 22px;
+      background: rgba(238, 0, 0, 0.12);
+      border: 1px solid var(--redhat-red);
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #FF6666;
+      margin-bottom: 22px;
+    }
+
+    .hero-title {
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1.18;
+      margin-bottom: 22px;
+      letter-spacing: -1.2px;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #FF4D4D 0%, #FFA07A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 21px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .metric-num {
+      font-size: 34px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: #FF5555;
+      margin-bottom: 6px;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* 4-Layer Architecture Visual Card */
+    .arch-stack-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: rgba(14, 18, 28, 0.92);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 34px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .layer-block {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      padding: 16px 22px;
+      transition: all 0.2s ease;
+    }
+
+    .layer-block:hover {
+      background: rgba(238, 0, 0, 0.1);
+      border-color: rgba(238, 0, 0, 0.45);
+    }
+
+    .layer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .layer-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .layer-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 14px;
+      text-transform: uppercase;
+    }
+
+    .layer-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    /* Bottom Kiosk Footer (HD 78px) */
+    footer.kiosk-footer {
+      height: 78px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(8, 10, 16, 0.94);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+
+    .slide-dots {
+      display: flex;
+      gap: 14px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      width: 44px;
+      background: var(--redhat-red);
+      box-shadow: 0 0 14px var(--redhat-red);
+    }
+
+    .nav-arrow-group {
+      display: flex;
+      gap: 16px;
+    }
+
+    .arrow-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .arrow-btn:hover {
+      background: var(--redhat-red);
+      border-color: #FF5555;
+      box-shadow: 0 0 16px rgba(238, 0, 0, 0.5);
+    }
+
+    .slide-number-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full HD 1920x1080 Scaled Stage -->
+  <div class="hd-stage" id="hdStage">
+
+    <!-- Top Kiosk Header -->
+    <header class="kiosk-header">
+      <div class="brand-group">
+        <div class="sponsor-badge">Gold Sponsor</div>
+        <div class="hd-badge">1080p FHD</div>
+        <div class="brand-title">
+          MegazoneCloud <span class="slash">/</span> AI Full Stack on OpenShift
+        </div>
+      </div>
+
+      <div class="kiosk-controls">
+        <button class="control-btn active" id="autoLoopToggle" title="자동 롤링 토글">
+          <span id="loopStatusIcon">⏸</span> Auto-Loop: <strong id="loopStatusText">ON (9s)</strong>
+        </button>
+        <button class="control-btn" id="fullScreenToggle" title="전체화면 전환 (F11)">
+          ⛶ Fullscreen
+        </button>
+        <a href="2026-10-21_intel_summit_articul8_presentation.html" class="control-btn" style="text-decoration:none;">
+          ⇄ Switch to Articul8 Deck
+        </a>
+      </div>
+    </header>
+
+    <!-- Auto-loop Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Slides Viewport -->
+    <main class="slider-viewport" id="sliderViewport">
+
+      <!-- Slide 1: Hero Cover -->
+      <section class="slide active" data-slide="1">
+        <div class="hero-layout">
+          <div>
+            <div class="hero-badge-pill">
+              <span>🔴 Red Hat OpenShift AI Certified</span>
+              <span>|</span>
+              <span>AI Full Stack</span>
+            </div>
+            <h1 class="hero-title">
+              엔터프라이즈 AI의 모든 것,<br>
+              <span class="highlight">AI Full Stack on OpenShift</span>
+            </h1>
+            <p class="hero-desc">
+              온프레미스 폐쇄망부터 하이브리드 클라우드까지 — 하드웨어 사이징, 컨테이너 오케스트레이션, 초고속 모델 서빙, 자율 코딩 에이전트를 아우르는 메가존클라우드의 완벽한 턴키 솔루션
+            </p>
+            <div class="hero-metrics">
+              <div class="metric-card">
+                <div class="metric-num">60% ↓</div>
+                <div class="metric-label">단일노드(SNO) 초기 구축비용 절감</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-num">100%</div>
+                <div class="metric-label">Air-Gapped 에어갭 보안 보장</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-num">Hybrid</div>
+                <div class="metric-label">온프레미스 ➔ AWS ROSA 확장</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-stack-container">
+            <div style="font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; display:flex; justify-content:space-between;">
+              <span>Enterprise 4-Tier Stack</span>
+              <span style="color:#FF6666; font-size:13px; font-weight:800;">Turnkey Ready</span>
+            </div>
+            
+            <div class="layer-block">
+              <div class="layer-header">
+                <span class="layer-title">Layer 4. Application & Agent</span>
+                <span class="layer-badge" style="background:rgba(238,0,0,0.25); color:#FF6666;">VibeForge</span>
+              </div>
+              <div class="layer-desc">자율 코딩 에이전트, 사내 RAG 챗봇, 업무 자동화 Agentic 워크플로우</div>
+            </div>
+
+            <div class="layer-block">
+              <div class="layer-header">
+                <span class="layer-title">Layer 3. AI Serving & MLOps</span>
+                <span class="layer-badge" style="background:rgba(6,182,212,0.25); color:#06B6D4;">vLLM / KServe</span>
+              </div>
+              <div class="layer-desc">고속 추론 엔진, Qdrant Vector DB, 모델 거버넌스 및 파이프라인</div>
+            </div>
+
+            <div class="layer-block">
+              <div class="layer-header">
+                <span class="layer-title">Layer 2. Container Platform</span>
+                <span class="layer-badge" style="background:rgba(238,0,0,0.35); color:#fff;">Red Hat RHOAI</span>
+              </div>
+              <div class="layer-desc">Red Hat OpenShift AI (Single Node SNO / Compact HA 클러스터)</div>
+            </div>
+
+            <div class="layer-block">
+              <div class="layer-header">
+                <span class="layer-title">Layer 1. Hardware Fabric</span>
+                <span class="layer-badge" style="background:rgba(0,113,197,0.3); color:#00C7FD;">Intel & Dell</span>
+              </div>
+              <div class="layer-desc">Intel Xeon 6 & Gaudi 가속기, Dell PowerEdge 서버 및 초고속 패브릭</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: Cost-Optimized Infrastructure -->
+      <section class="slide" data-slide="2">
+        <div class="slide-badge">Cost Optimization</div>
+        <h2 class="slide-title">고성능·비용 최적화 인프라 아키텍처</h2>
+        <p class="slide-subtitle">기존 복잡한 분산 클러스터의 오버헤드를 제거하고 단일 노드(SNO) 및 집약형 Compact HA로 TCO 혁신</p>
+
+        <div class="cards-grid-3">
+          <div class="feature-card">
+            <div class="card-icon">⚡</div>
+            <h3 class="card-title">Single Node SNO 지원</h3>
+            <p class="card-desc">마스터 노드와 워커 노드를 단 1대의 물리 서버에 통합하여 소규모 PoC 및 현장 엣지 환경에 최적화</p>
+            <ul class="card-bullets">
+              <li>초기 하드웨어 투자비용(CAPEX) 60% 이상 절감</li>
+              <li>간소화된 단일 OS 및 컨테이너 관리</li>
+              <li>향후 클러스터 확장이 용이한 구조</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🏎</div>
+            <h3 class="card-title">vLLM & GPU 가상화</h3>
+            <p class="card-desc">PagedAttention 기술 및 OpenShift GPU Operator 연동으로 단일 GPU 내 다중 모델 고속 동시 서빙</p>
+            <ul class="card-bullets">
+              <li>기존 서빙 프레임워크 대비 처리량(Throughput) 3~5배 증대</li>
+              <li>GPU VRAM 메모리 낭비 제로화</li>
+              <li>동적 배치 처리(Continuous Batching) 기본 지원</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🛡</div>
+            <h3 class="card-title">Compact HA 무중단 고가용성</h3>
+            <p class="card-desc">3대 물리 노드로 컨트롤 플레인과 워커를 공용 구성하여 하드웨어 장애 시에도 AI 서비스 중단 방지</p>
+            <ul class="card-bullets">
+              <li>엔터프라이즈 프로덕션 수준의 안정성 확보</li>
+              <li>ODF(Ceph) 기반 분산 스토리지 내장</li>
+              <li>롤링 업데이트 및 자동 장애 복구(Self-Healing)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Enterprise Coding Agent -->
+      <section class="slide" data-slide="3">
+        <div class="slide-badge">Developer Experience</div>
+        <h2 class="slide-title">에어갭 엔터프라이즈 코딩 에이전트 (VibeForge)</h2>
+        <p class="slide-subtitle">사내 소스코드 유출 없이 폐쇄망 온프레미스에서 완결되는 고성능 자율 AI 코딩 & 엔지니어링 플랫폼</p>
+
+        <div class="cards-grid-2">
+          <div class="feature-card">
+            <div class="card-icon">🔐</div>
+            <h3 class="card-title">100% 사내망 완결형 보안</h3>
+            <p class="card-desc">외부 상용 SaaS 코딩 도구 사용 시 발생하는 핵심 IP 및 소스코드 유출 위험을 원천적으로 차단</p>
+            <ul class="card-bullets">
+              <li>모든 인퍼런스가 온프레미스 RHOAI 클러스터 내부에서만 실행</li>
+              <li>사내 Git 저장소 기반 AST 코드 임베딩 & Code-RAG 엔진 탑재</li>
+              <li>감사 로그 및 개발자 권한 기반 접근 통제</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">💡</div>
+            <h3 class="card-title">자연어 기반 바이브 코딩 (Vibe Coding)</h3>
+            <p class="card-desc">개발자가 의도(Vibe)를 제시하면 요구사항 분석부터 멀티 파일 생성, 샌드박스 테스트까지 자율 완성</p>
+            <ul class="card-bullets">
+              <li>VS Code 및 CLI 터미널과의 완벽한 MCP 연동 인터페이스</li>
+              <li>Qwen2.5-Coder 및 최신 코딩 특화 모델 고속 서빙</li>
+              <li>개발자별 격리된 워크스페이스 및 GPU 쿼터 할당</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Hybrid Cloud & Day-2 MLOps -->
+      <section class="slide" data-slide="4">
+        <div class="slide-badge">Hybrid & Operations</div>
+        <h2 class="slide-title">온프레미스부터 AWS ROSA까지 하이브리드 확장</h2>
+        <p class="slide-subtitle">클라우드 종속성 없이 비즈니스 요구에 맞추어 자유롭게 워크로드를 이동하고 24/7 안정적인 운영을 보장</p>
+
+        <div class="cards-grid-3">
+          <div class="feature-card">
+            <div class="card-icon">☁️</div>
+            <h3 class="card-title">AWS ROSA 하이브리드 연계</h3>
+            <p class="card-desc">온프레미스 폐쇄망과 AWS 관리형 OpenShift(ROSA) 간 동일한 컨테이너 규격 및 정책 적용</p>
+            <ul class="card-bullets">
+              <li>트래픽 급증 시 퍼블릭 클라우드로 유연한 버스팅</li>
+              <li>인프라 아키텍처 재설계 없는 1-Click 워크로드 마이그레이션</li>
+              <li>단일 콘솔에서 하이브리드 멀티 클러스터 통합 뷰 제공</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🔄</div>
+            <h3 class="card-title">End-to-End MLOps 파이프라인</h3>
+            <p class="card-desc">데이터 과학자와 엔지니어가 모델 수명주기 전 과정을 자동화할 수 있는 표준화된 파이프라인 제공</p>
+            <ul class="card-bullets">
+              <li>Kubeflow 기반 OpenShift AI 데이터 사이언스 파이프라인</li>
+              <li>모델 버전 관리, 메트릭 추적, 자동 드리프트 감지</li>
+              <li>보안 레지스트리(Quay) 및 GitOps 기반 자동 배포</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🛠</div>
+            <h3 class="card-title">24/7 전문 매니지드 서비스</h3>
+            <p class="card-desc">국내 1위 MSP 메가존클라우드의 숙련된 컨테이너 및 AI 엔지니어가 Day-2 운영을 전담</p>
+            <ul class="card-bullets">
+              <li>인프라 장애 예방 및 실시간 성능 모니터링</li>
+              <li>정기 패치, 보안 취약점 점검 및 SLA 보장</li>
+              <li>고객 맞춤형 인프라 사이징 컨설팅 지속 지원</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Articul8 & Intel Synergy -->
+      <section class="slide" data-slide="5">
+        <div class="slide-badge">Proven Synergy</div>
+        <h2 class="slide-title">Articul8을 가장 완벽하게 지탱하는 OpenShift AI</h2>
+        <p class="slide-subtitle">복잡한 엔터프라이즈 GenAI 소프트웨어(Articul8)와 강력한 컨테이너 플랫폼(RHOAI)의 사전 검증 결합</p>
+
+        <div class="cards-grid-2">
+          <div class="feature-card">
+            <div class="card-icon">🏗</div>
+            <h3 class="card-title">Pre-Validated Architecture</h3>
+            <p class="card-desc">Articul8의 38개 Helm Chart와 분산 데이터 계층을 OpenShift 환경에서 오류 없이 즉각 배포 검증</p>
+            <ul class="card-bullets">
+              <li>OpenShift Route 및 인그레스 컨트롤러 완벽 매핑</li>
+              <li>ODF 분산 블록/오브젝트 스토리지와의 완벽한 입출력 호환</li>
+              <li>에어갭(폐쇄망) 환경을 위한 사전 패키징 이미지 레지스트리 제공</li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🚀</div>
+            <h3 class="card-title">Intel Xeon & Gaudi 가속 극대화</h3>
+            <p class="card-desc">인텔 하드웨어 아키텍처의 성능을 100% 추출할 수 있도록 특화 드라이버 및 연산 라이브러리 탑재</p>
+            <ul class="card-bullets">
+              <li>Intel Device Plugin for Kubernetes 연동</li>
+              <li>대규모 LLM 추론 시 전력 효율성 및 TCO 대폭 개선</li>
+              <li>메가존클라우드 랩스에서 실제 벤치마크 및 검증 완료</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Booth Event & Special Gift -->
+      <section class="slide" data-slide="6">
+        <div class="slide-badge">Exclusive Offer</div>
+        <h2 class="slide-title">부스 방문 이벤트 & 무료 컨설팅 신청</h2>
+        <p class="slide-subtitle">2026 Intel AI Summit 메가존클라우드 부스(Gold A-01)를 찾아주신 분들께 드리는 특별 혜택</p>
+
+        <div class="cards-grid-3">
+          <div class="feature-card" style="border-color: rgba(245, 158, 11, 0.5);">
+            <div class="card-icon" style="background:rgba(245,158,11,0.12); color:#F59E0B; border-color:rgba(245,158,11,0.4);">🎁</div>
+            <h3 class="card-title">이벤트 1. 설문 참여 100% 증정</h3>
+            <p class="card-desc">부스 비치된 QR 코드로 간단한 설문조사에 참여해 주신 모든 분께 <strong>3in1 맥세이프 무선충전기</strong> 증정 (선착순 500명)</p>
+          </div>
+
+          <div class="feature-card" style="border-color: rgba(238, 0, 0, 0.5);">
+            <div class="card-icon">💼</div>
+            <h3 class="card-title">이벤트 2. 1:1 아키텍처 상담</h3>
+            <p class="card-desc">사내 AI 인프라 구축 및 OpenShift 도입을 고민 중인 기업 고객 대상 전문 솔루션 아키텍트의 현장 1:1 상담</p>
+          </div>
+
+          <div class="feature-card" style="border-color: rgba(6, 182, 212, 0.5);">
+            <div class="card-icon" style="background:rgba(6,182,212,0.12); color:#06B6D4; border-color:rgba(6,182,212,0.4);">📊</div>
+            <h3 class="card-title">이벤트 3. 무료 AI 사이징 리포트</h3>
+            <p class="card-desc">현장 PoC 컨설팅을 신청하시는 고객사에 <strong>맞춤형 하드웨어 사이징 및 비용 시뮬레이션 상세 리포트</strong>를 무료 제공</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 36px; background: rgba(238, 0, 0, 0.08); border: 1px solid var(--redhat-red); border-radius: 16px; padding: 22px 36px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff;">부스 담당자에게 명함을 전달하고 전문 상담을 예약하세요!</div>
+            <div style="font-size: 15px; color: var(--text-secondary); margin-top: 6px;">메가존클라우드의 AI 풀스택 전문가가 귀사의 성공적인 엔터프라이즈 AI 여정을 함께합니다.</div>
+          </div>
+          <div style="font-family:'JetBrains Mono'; font-weight:800; color:#FF5555; font-size:18px; background:rgba(0,0,0,0.5); padding:10px 22px; border-radius:10px; border:1px solid rgba(238,0,0,0.4);">
+            Booth: Gold A-01
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Kiosk Footer Navigation -->
+    <footer class="kiosk-footer">
+      <div class="slide-dots" id="slideDots"></div>
+
+      <div class="nav-arrow-group">
+        <button class="arrow-btn" id="prevBtn" title="이전 슬라이드 (←)">❮</button>
+        <button class="arrow-btn" id="nextBtn" title="다음 슬라이드 (→)">❯</button>
+      </div>
+
+      <div class="slide-number-display">
+        <span id="currentSlideIndex">1</span> / <span id="totalSlideCount">6</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // 1920x1080 HD Auto-Scaler
+    function fitHdStage() {
+      const stage = document.getElementById('hdStage');
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const scale = Math.min(w / 1920, h / 1080);
+      stage.style.transform = `scale(${scale})`;
+    }
+    window.addEventListener('resize', fitHdStage);
+    window.addEventListener('DOMContentLoaded', fitHdStage);
+    fitHdStage();
+
+    // Slide Data & Elements
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+    let isAutoLoop = true;
+    let loopDuration = 9000; // 9 seconds
+    let loopTimer = null;
+    let progressInterval = null;
+    let progressStart = 0;
+
+    const progressBar = document.getElementById('progressBar');
+    const autoLoopToggle = document.getElementById('autoLoopToggle');
+    const loopStatusText = document.getElementById('loopStatusText');
+    const loopStatusIcon = document.getElementById('loopStatusIcon');
+    const currentSlideDisplay = document.getElementById('currentSlideIndex');
+    const totalSlideDisplay = document.getElementById('totalSlideCount');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideDotsContainer = document.getElementById('slideDots');
+    const fullScreenToggle = document.getElementById('fullScreenToggle');
+
+    totalSlideDisplay.textContent = totalSlides;
+
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.className = `dot ${idx === 0 ? 'active' : ''}`;
+      dot.addEventListener('click', () => goToSlide(idx));
+      slideDotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentSlide);
+      });
+      currentSlideDisplay.textContent = currentSlide + 1;
+      resetAutoTimer();
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateSlide();
+    }
+
+    function startAutoTimer() {
+      if (!isAutoLoop) return;
+      progressStart = Date.now();
+      clearInterval(progressInterval);
+      clearTimeout(loopTimer);
+
+      progressInterval = setInterval(() => {
+        if (!isAutoLoop) return;
+        const elapsed = Date.now() - progressStart;
+        const pct = Math.min((elapsed / loopDuration) * 100, 100);
+        progressBar.style.width = pct + '%';
+      }, 50);
+
+      loopTimer = setTimeout(() => {
+        nextSlide();
+      }, loopDuration);
+    }
+
+    function resetAutoTimer() {
+      progressBar.style.width = '0%';
+      clearInterval(progressInterval);
+      clearTimeout(loopTimer);
+      if (isAutoLoop) {
+        startAutoTimer();
+      }
+    }
+
+    function toggleAutoLoop() {
+      isAutoLoop = !isAutoLoop;
+      if (isAutoLoop) {
+        autoLoopToggle.classList.add('active');
+        loopStatusIcon.textContent = '⏸';
+        loopStatusText.textContent = 'ON (9s)';
+        startAutoTimer();
+      } else {
+        autoLoopToggle.classList.remove('active');
+        loopStatusIcon.textContent = '▶';
+        loopStatusText.textContent = 'PAUSED';
+        clearInterval(progressInterval);
+        clearTimeout(loopTimer);
+        progressBar.style.width = '0%';
+      }
+    }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    autoLoopToggle.addEventListener('click', toggleAutoLoop);
+
+    fullScreenToggle.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        document.exitFullscreen().catch(err => console.log(err));
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      else if (e.key === 'p' || e.key === 'P') toggleAutoLoop();
+      else if (e.key === 'f' || e.key === 'F') fullScreenToggle.click();
+    });
+
+    const viewport = document.getElementById('sliderViewport');
+    viewport.addEventListener('mouseenter', () => {
+      if (isAutoLoop) {
+        clearInterval(progressInterval);
+        clearTimeout(loopTimer);
+      }
+    });
+    viewport.addEventListener('mouseleave', () => {
+      if (isAutoLoop) resetAutoTimer();
+    });
+
+    let touchStartX = 0;
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+    viewport.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    }, {passive: true});
+
+    startAutoTimer();
+  </script>
+</body>
+</html>
