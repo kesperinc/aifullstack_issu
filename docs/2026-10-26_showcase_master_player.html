@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>MZC Enterprise AI Full Stack Showcase - Master Kiosk Runner</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030408;
+    --panel-bg: rgba(10, 15, 26, 0.94);
+    --border: rgba(255, 255, 255, 0.14);
+    --border-hl: rgba(0, 229, 255, 0.5);
+    --cy: #00e5ff;
+    --mzc-blue: #00abf0;
+    --pu: #a78bfa;
+    --gold: #fbbf24;
+    --text: #edf2f9;
+    --muted: #8c98ad;
+    --font: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'Space Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden; background: #000;
+    font-family: var(--font); color: var(--text); user-select: none;
+  }
+  body.hidecursor, body.hidecursor * { cursor: none !important; }
+
+  /* 전체화면 뷰포트 컨테이너 */
+  #frameContainer {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    background: #000; overflow: hidden;
+  }
+  .show-item {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    border: none; outline: none; opacity: 0; visibility: hidden;
+    transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.5s;
+    background: #000;
+  }
+  .show-item.active {
+    opacity: 1; visibility: visible; z-index: 10;
+  }
+
+  /* 비디오 전용 래퍼 및 플레이어 */
+  #videoWrapper {
+    display: flex; align-items: center; justify-content: center;
+    background: #000;
+  }
+  #articul8Video {
+    width: 100%; height: 100%; object-fit: contain; background: #000;
+  }
+
+  /* 비디오 클릭 오버레이 (클릭 시 재생/정지) */
+  #videoOverlayPlay {
+    position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.45); cursor: pointer; z-index: 20;
+  }
+  #videoOverlayPlay.show { display: flex; }
+  .play-circle {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: rgba(0, 229, 255, 0.2); border: 2px solid var(--cy);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 36px; box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+    transition: transform 0.2s;
+  }
+  .play-circle:hover { transform: scale(1.08); background: rgba(0, 229, 255, 0.35); }
+
+  /* 상단 전체 진행 바 */
+  #topProgressBar {
+    position: fixed; left: 0; top: 0; height: 4px;
+    background: linear-gradient(90deg, #00abf0, #00e5ff, #a78bfa, #fbbf24);
+    z-index: 100; width: 0%; box-shadow: 0 0 16px rgba(0, 229, 255, 0.8);
+    transition: width 0.1s linear;
+  }
+
+  /* 부스 상단 플로팅 컨트롤 바 */
+  #runnerBar {
+    position: fixed; left: 50%; top: 16px; transform: translateX(-50%);
+    background: var(--panel-bg); backdrop-filter: blur(16px);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 14px 6px 20px; display: flex; align-items: center; gap: 16px;
+    z-index: 90; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    opacity: 0.25; transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  #runnerBar:hover, body.hovering #runnerBar {
+    opacity: 1; transform: translateX(-50%) translateY(2px);
+  }
+
+  .runner-brand {
+    display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px;
+  }
+  .runner-brand-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--cy);
+    box-shadow: 0 0 10px var(--cy); animation: blink 1.6s infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .runner-sep { width: 1px; height: 20px; background: var(--border); }
+
+  /* 쇼케이스 탭 목록 */
+  .runner-tabs { display: flex; align-items: center; gap: 6px; }
+  .runner-tab {
+    background: transparent; border: 1px solid transparent; border-radius: 999px;
+    padding: 6px 13px; font-size: 13px; font-weight: 700; color: var(--muted);
+    cursor: pointer; transition: all 0.2s; white-space: nowrap; display: flex; align-items: center; gap: 8px;
+  }
+  .runner-tab:hover {
+    color: #fff; background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.15);
+  }
+  .runner-tab.on {
+    color: #fff; background: rgba(0, 229, 255, 0.16); border-color: var(--border-hl);
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
+  }
+  .runner-tab.video-tab.on {
+    background: rgba(251, 191, 36, 0.18); border-color: rgba(251, 191, 36, 0.5);
+    box-shadow: 0 0 14px rgba(251, 191, 36, 0.3);
+  }
+  .runner-tab .tab-timer {
+    font-family: var(--mono); font-size: 11px; color: var(--cy); opacity: 0.85;
+  }
+  .runner-tab.video-tab .tab-timer { color: var(--gold); }
+
+  /* 조작 버튼 */
+  .runner-ctrls { display: flex; align-items: center; gap: 6px; }
+  .ctrl-btn {
+    width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.06); color: var(--text); font-size: 13px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.16s;
+  }
+  .ctrl-btn:hover {
+    color: #fff; border-color: var(--cy); background: rgba(0, 229, 255, 0.15);
+  }
+  .ctrl-btn.sound-btn { font-size: 14px; }
+
+  /* 부드러운 전환 페이드 오버레이 */
+  #fadeOverlay {
+    position: fixed; inset: 0; background: #000; z-index: 50;
+    pointer-events: none; opacity: 0; transition: opacity 0.45s ease;
+  }
+  #fadeOverlay.active { opacity: 1; }
+
+  /* 토스트 안내 */
+  #toast {
+    position: fixed; left: 50%; bottom: 32px; transform: translateX(-50%);
+    background: rgba(10, 15, 26, 0.9); backdrop-filter: blur(12px);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 8px 22px; font-size: 13px; font-family: var(--mono); color: var(--cy);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 95;
+  }
+  #toast.show { opacity: 1; }
+</style>
+</head>
+<body class="auto">
+
+<!-- 상단 프로그레스 바 -->
+<div id="topProgressBar"></div>
+
+<!-- 플로팅 컨트롤 헤더 -->
+<header id="runnerBar">
+  <div class="runner-brand">
+    <div class="runner-brand-dot"></div>
+    <span>MZC RUNNER</span>
+  </div>
+
+  <div class="runner-sep"></div>
+
+  <!-- 4개 쇼케이스 탭 -->
+  <nav class="runner-tabs" id="runnerTabs">
+    <button class="runner-tab on" data-index="0">
+      <span>① AI Full Stack</span>
+      <span class="tab-timer" id="timer0">01:50</span>
+    </button>
+    <button class="runner-tab" data-index="1">
+      <span>② Nota AI 경량화</span>
+      <span class="tab-timer" id="timer1">02:00</span>
+    </button>
+    <button class="runner-tab" data-index="2">
+      <span>③ Alioth 코더</span>
+      <span class="tab-timer" id="timer2">03:00</span>
+    </button>
+    <button class="runner-tab video-tab" data-index="3">
+      <span>④ Articul8 행사영상</span>
+      <span class="tab-timer" id="timer3">07:03</span>
+    </button>
+  </nav>
+
+  <div class="runner-sep"></div>
+
+  <!-- 컨트롤 버튼 -->
+  <div class="runner-ctrls">
+    <button class="ctrl-btn" id="prevShowBtn" title="이전 쇼케이스 (P / ←)">◀</button>
+    <button class="ctrl-btn" id="pauseShowBtn" title="일시정지 / 재생 (Space)">❚❚</button>
+    <button class="ctrl-btn" id="nextShowBtn" title="다음 쇼케이스 (N / →)">▶</button>
+    <button class="ctrl-btn sound-btn" id="soundBtn" title="음소거 켜기 / 끄기 (M)">🔇</button>
+    <button class="ctrl-btn" id="fsBtn" title="전체화면 (F)">⛶</button>
+  </div>
+</header>
+
+<!-- 뷰포트 컨테이너 -->
+<main id="frameContainer">
+  <iframe class="show-item active" id="frame0" src="MZC_AI_FullStack_Showcase_261026.html"></iframe>
+  <iframe class="show-item" id="frame1" src="Nota_Benchmark_Showcase_261015.html"></iframe>
+  <iframe class="show-item" id="frame2" src="Alioth_Coder_Showcase_261019_단독실행.html"></iframe>
+  
+  <div class="show-item" id="videoWrapper">
+    <video id="articul8Video" playsinline preload="auto" muted controls="false"></video>
+    <div id="videoOverlayPlay" title="클릭하여 영상 재생"><div class="play-circle">▶</div></div>
+  </div>
+</main>
+
+<div id="fadeOverlay"></div>
+<div id="toast">쇼케이스 전환됨</div>
+
+<script>
+/* ═════════════════════════════════════════════════════════════
+   쇼케이스 4단계 재생 목록 및 시간 배분 설정
+   순서: AI Full Stack -> Nota -> Alioth -> Articul8 영상 -> 무한 루프
+   ═════════════════════════════════════════════════════════════ */
+const SHOWS = [
+  {
+    name: 'MZC AI Full Stack',
+    type: 'iframe',
+    file: 'MZC_AI_FullStack_Showcase_261026.html',
+    durationSec: 110,
+    id: 'frame0'
+  },
+  {
+    name: 'Nota AI 경량화 벤치마크',
+    type: 'iframe',
+    file: 'Nota_Benchmark_Showcase_261015.html',
+    durationSec: 120,
+    id: 'frame1'
+  },
+  {
+    name: 'Alioth Coder 자율 코딩 에이전트',
+    type: 'iframe',
+    file: 'Alioth_Coder_Showcase_261019_단독실행.html',
+    durationSec: 180,
+    id: 'frame2'
+  },
+  {
+    name: 'Articul8 Full Stack AI 행사영상',
+    type: 'video',
+    file: 'Articul8_FullstackAI_행사영상_KR_v2.mp4',
+    // 상대경로 및 절대경로 후보군
+    sources: [
+      'Articul8_FullstackAI_행사영상_KR_v2.mp4',
+      '../docs/Articul8_FullstackAI_행사영상_KR_v2.mp4',
+      'C:/Users/MZC01-SUNKIM317/OneDrive/2026/ISSU/Redhat 행사/Articul8_FullstackAI_행사영상_KR_v2.mp4',
+      'C:/dev/antigravity-workspace/aifullstack/docs/Articul8_FullstackAI_행사영상_KR_v2.mp4'
+    ],
+    durationSec: 423,
+    id: 'videoWrapper'
+  }
+];
+
+let curShow = 0;
+let isPlaying = true;
+let isMuted = true;
+let showElapsed = 0;
+let loopTimer = null;
+let toastTimer = null;
+let currentSourceIdx = 0;
+
+const items = [
+  document.getElementById('frame0'),
+  document.getElementById('frame1'),
+  document.getElementById('frame2'),
+  document.getElementById('videoWrapper')
+];
+const videoEl = document.getElementById('articul8Video');
+const playOverlay = document.getElementById('videoOverlayPlay');
+const tabs = document.querySelectorAll('.runner-tab');
+const pbar = document.getElementById('topProgressBar');
+const pauseBtn = document.getElementById('pauseShowBtn');
+const soundBtn = document.getElementById('soundBtn');
+const overlay = document.getElementById('fadeOverlay');
+
+// 비디오 소스 설정 함수 (폴백 지원)
+function loadVideoSource() {
+  const sources = SHOWS[3].sources;
+  if (currentSourceIdx >= sources.length) {
+    showToast('⚠️ 비디오 파일을 찾을 수 없습니다.');
+    return;
+  }
+  const targetSrc = sources[currentSourceIdx];
+  console.log('Trying video source:', targetSrc);
+  videoEl.src = targetSrc;
+  videoEl.load();
+}
+
+// 비디오 에러 발생 시 다음 폴백 소스 시도
+videoEl.addEventListener('error', (e) => {
+  console.warn('Video failed to load from:', videoEl.src, e);
+  currentSourceIdx++;
+  if (currentSourceIdx < SHOWS[3].sources.length) {
+    loadVideoSource();
+  } else {
+    showToast('⚠️ 비디오 로드 오류: 영상 파일 경로를 확인해 주세요.');
+  }
+});
+
+videoEl.addEventListener('loadedmetadata', () => {
+  console.log('Video loaded successfully! Duration:', videoEl.duration);
+  if (videoEl.duration && isFinite(videoEl.duration)) {
+    SHOWS[3].durationSec = Math.round(videoEl.duration);
+  }
+});
+
+// 영상 종료 시 즉시 다음(1부 MZC AI Full Stack)으로 자동 전환!
+videoEl.addEventListener('ended', () => {
+  if (curShow === 3) {
+    nextShow();
+  }
+});
+
+// 오버레이 클릭 시 재생
+playOverlay.addEventListener('click', () => {
+  playOverlay.classList.remove('show');
+  videoEl.play();
+  isPlaying = true;
+  pauseBtn.textContent = '❚❚';
+});
+
+// 비디오 자체 클릭 시 일시정지/재생
+videoEl.addEventListener('click', () => {
+  if (videoEl.paused) {
+    videoEl.play();
+    isPlaying = true;
+    pauseBtn.textContent = '❚❚';
+  } else {
+    videoEl.pause();
+    isPlaying = false;
+    pauseBtn.textContent = '▶';
+  }
+});
+
+function fmtTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// 쇼케이스 전환 함수
+function switchShow(idx) {
+  idx = (idx + SHOWS.length) % SHOWS.length;
+  if (idx === curShow && items[idx].classList.contains('active')) return;
+
+  overlay.classList.add('active');
+
+  setTimeout(() => {
+    // 이전 아이템 정리
+    const prevItem = items[curShow];
+    prevItem.classList.remove('active');
+    if (SHOWS[curShow].type === 'video') {
+      videoEl.pause();
+      playOverlay.classList.remove('show');
+    }
+
+    curShow = idx;
+    const targetConfig = SHOWS[curShow];
+    const targetItem = items[curShow];
+
+    // 새 아이템 활성화
+    if (targetConfig.type === 'iframe') {
+      targetItem.src = targetConfig.file;
+    } else if (targetConfig.type === 'video') {
+      if (!videoEl.src || videoEl.src === window.location.href) {
+        currentSourceIdx = 0;
+        loadVideoSource();
+      }
+      videoEl.currentTime = 0;
+      videoEl.muted = isMuted;
+
+      if (isPlaying) {
+        const playPromise = videoEl.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((err) => {
+            console.warn('Autoplay blocked or waiting user gesture:', err);
+            // 브라우저가 자동재생을 막으면 오버레이 버튼 노출
+            playOverlay.classList.add('show');
+          });
+        }
+      }
+    }
+    targetItem.classList.add('active');
+
+    // 탭 상태 동기화
+    tabs.forEach((tab, i) => {
+      tab.classList.toggle('on', i === curShow);
+    });
+
+    showElapsed = 0;
+    pbar.style.width = '0%';
+    overlay.classList.remove('active');
+
+    showToast(`▶ [${curShow + 1}/4] ${targetConfig.name}`);
+  }, 400);
+}
+
+function nextShow() { switchShow(curShow + 1); }
+function prevShow() { switchShow(curShow - 1); }
+
+// 타이머 루프
+function startLoop() {
+  clearInterval(loopTimer);
+  loopTimer = setInterval(() => {
+    if (!isPlaying) return;
+
+    const currentConfig = SHOWS[curShow];
+    let currentDur = currentConfig.durationSec;
+
+    if (currentConfig.type === 'video' && videoEl.duration > 0) {
+      currentDur = Math.round(videoEl.duration);
+      showElapsed = Math.round(videoEl.currentTime);
+    } else {
+      showElapsed += 1;
+    }
+
+    const remainSec = Math.max(0, currentDur - showElapsed);
+
+    const timerEl = document.getElementById('timer' + curShow);
+    if (timerEl) timerEl.textContent = fmtTime(remainSec);
+
+    const pct = Math.min((showElapsed / currentDur) * 100, 100);
+    pbar.style.width = pct + '%';
+
+    if (showElapsed >= currentDur) {
+      nextShow();
+    }
+  }, 1000);
+}
+
+function togglePlay() {
+  isPlaying = !isPlaying;
+  pauseBtn.textContent = isPlaying ? '❚❚' : '▶';
+
+  if (SHOWS[curShow].type === 'video') {
+    if (isPlaying) {
+      videoEl.play();
+      playOverlay.classList.remove('show');
+    } else {
+      videoEl.pause();
+    }
+  }
+
+  showToast(isPlaying ? '자동 재생 재개' : '일시정지됨');
+}
+
+function toggleMute() {
+  isMuted = !isMuted;
+  videoEl.muted = isMuted;
+  soundBtn.textContent = isMuted ? '🔇' : '🔊';
+  showToast(isMuted ? '음소거 됨' : '소리 켜짐');
+}
+soundBtn.onclick = (e) => { e.stopPropagation(); toggleMute(); };
+
+tabs.forEach(tab => {
+  tab.onclick = (e) => {
+    e.stopPropagation();
+    const idx = parseInt(tab.dataset.index, 10);
+    switchShow(idx);
+  };
+});
+
+document.getElementById('nextShowBtn').onclick = (e) => { e.stopPropagation(); nextShow(); };
+document.getElementById('prevShowBtn').onclick = (e) => { e.stopPropagation(); prevShow(); };
+document.getElementById('pauseShowBtn').onclick = (e) => { e.stopPropagation(); togglePlay(); };
+
+const fsBtn = document.getElementById('fsBtn');
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+fsBtn.onclick = (e) => { e.stopPropagation(); toggleFullScreen(); };
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === '1') { switchShow(0); }
+  else if (e.key === '2') { switchShow(1); }
+  else if (e.key === '3') { switchShow(2); }
+  else if (e.key === '4') { switchShow(3); }
+  else if (e.key === 'n' || e.key === 'N' || e.key === 'ArrowRight') { nextShow(); }
+  else if (e.key === 'p' || e.key === 'P' || e.key === 'ArrowLeft') { prevShow(); }
+  else if (e.key === ' ') { e.preventDefault(); togglePlay(); }
+  else if (e.key === 'm' || e.key === 'M') { toggleMute(); }
+  else if (e.key === 'f' || e.key === 'F') { toggleFullScreen(); }
+});
+
+let hideTimer = null;
+window.addEventListener('mousemove', (e) => {
+  document.body.classList.remove('hidecursor');
+  if (e.clientY < 90) {
+    document.body.classList.add('hovering');
+  } else {
+    document.body.classList.remove('hovering');
+  }
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(() => {
+    document.body.classList.add('hidecursor');
+    document.body.classList.remove('hovering');
+  }, 3500);
+});
+
+// 초기화
+loadVideoSource();
+startLoop();
+</script>
+</body>
+</html>

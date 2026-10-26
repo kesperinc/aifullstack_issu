@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>MegazoneCloud Enterprise AI Full Stack Showcase</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060811;
+    --surface: #0e1320;
+    --surface2: #161e30;
+    --border: #232c42;
+    --border-accent: rgba(0, 229, 255, 0.4);
+    --mzc-blue: #00abf0;
+    --cy: #00e5ff;
+    --rh-red: #ee0000;
+    --pu: #a78bfa;
+    --gr: #34d399;
+    --go: #fbbf24;
+    --text: #edf2f9;
+    --muted: #8c98ad;
+    --dim: #546075;
+    --font: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --mono: 'Space Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden; background: #000;
+    font-family: var(--font); color: var(--text); user-select: none;
+  }
+  body.hidecursor, body.hidecursor * { cursor: none !important; }
+
+  /* 1920x1080 고정 캔버스 자동 스케일 */
+  #stage {
+    position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px;
+    transform-origin: center center;
+    background: radial-gradient(130% 120% at 5% 0%, rgba(0, 171, 240, 0.12), transparent 50%),
+                radial-gradient(110% 110% at 95% 100%, rgba(238, 0, 0, 0.10), transparent 50%),
+                radial-gradient(90% 90% at 50% 50%, rgba(167, 139, 250, 0.05), transparent 60%),
+                var(--bg);
+    overflow: hidden;
+  }
+
+  /* 상단 진행 바 (부스 자동 롤링 시각화) */
+  .pbar {
+    position: absolute; left: 0; top: 0; height: 5px;
+    background: linear-gradient(90deg, var(--mzc-blue), var(--cy), var(--rh-red));
+    z-index: 50; width: 0; box-shadow: 0 0 16px rgba(0, 229, 255, 0.7);
+    transition: width 0.08s linear;
+  }
+
+  /* 상단 탑바 */
+  .topbar {
+    position: absolute; left: 140px; right: 140px; top: 36px; height: 60px;
+    display: flex; align-items: center; gap: 20px; z-index: 40;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+  .brand-logo-badge {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(0, 171, 240, 0.25), rgba(238, 0, 0, 0.25));
+    border: 1px solid rgba(0, 229, 255, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-weight: 800; font-size: 20px; color: #fff;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  }
+  .brand-title { display: flex; flex-direction: column; }
+  .brand-title b { font-size: 21px; font-weight: 800; letter-spacing: -0.01em; color: #fff; line-height: 1.15; }
+  .brand-title span { font-size: 13px; font-family: var(--mono); color: var(--cy); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  .topsep { width: 1px; height: 32px; background: var(--border); margin: 0 4px; }
+  .toptitle {
+    font-family: var(--mono); font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); display: flex; align-items: center; gap: 8px;
+  }
+  .toptitle em { font-style: normal; color: var(--text); font-weight: 700; }
+
+  /* 섹션 탭 네비게이션 */
+  .sectabs { display: flex; gap: 8px; margin-left: auto; align-items: center; }
+  .sectab {
+    background: transparent; border: 1px solid transparent; border-radius: 999px;
+    color: #8c98ad; font-family: var(--font); font-size: 15px; font-weight: 600;
+    padding: 8px 18px; cursor: pointer; white-space: nowrap; transition: all 0.18s;
+  }
+  .sectab:hover { color: #fff; background: var(--surface2); border-color: var(--border); }
+  .sectab.on {
+    color: #fff; background: rgba(0, 229, 255, 0.14); border-color: rgba(0, 229, 255, 0.45);
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.2);
+  }
+
+  /* 자동 뱃지, 시계, 컨트롤 */
+  .topright { display: flex; align-items: center; gap: 14px; }
+  .autobadge {
+    display: none; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px;
+    color: var(--cy); border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.08);
+    border-radius: 999px; padding: 6px 14px;
+  }
+  body.auto .autobadge { display: flex; }
+  .autobadge i {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--cy);
+    box-shadow: 0 0 10px var(--cy); animation: blink 1.6s infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+  .clockchip {
+    font-family: var(--mono); font-size: 15px; color: var(--muted);
+    font-variant-numeric: tabular-nums; min-width: 60px; text-align: center;
+  }
+  .iconbtn {
+    width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--muted); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.16s;
+  }
+  .iconbtn:hover { color: #fff; border-color: var(--cy); background: var(--surface2); }
+
+  /* 슬라이드 컨테이너 */
+  .slide {
+    position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;
+    padding: 130px 140px 110px; opacity: 0; visibility: hidden;
+    transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.5s;
+  }
+  .slide.on { opacity: 1; visibility: visible; }
+
+  /* 진입 애니메이션 */
+  .an { opacity: 0; transform: translateY(24px); }
+  .slide.on .an { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  .slide.on .an1 { animation-delay: 0.06s; }
+  .slide.on .an2 { animation-delay: 0.16s; }
+  .slide.on .an3 { animation-delay: 0.28s; }
+  .slide.on .an4 { animation-delay: 0.40s; }
+  .slide.on .an5 { animation-delay: 0.52s; }
+  .slide.on .an6 { animation-delay: 0.65s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* 타이포그래피 및 배지 */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 15px; letter-spacing: 0.2em; color: var(--cy);
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cy); box-shadow: 0 0 10px var(--cy);
+  }
+  .catchip {
+    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; color: var(--cy);
+    border: 1px solid rgba(0, 229, 255, 0.35); background: rgba(0, 229, 255, 0.08);
+    border-radius: 999px; padding: 6px 16px; text-transform: uppercase;
+  }
+  .catchip.red {
+    color: #ff6b6b; border-color: rgba(238, 0, 0, 0.45); background: rgba(238, 0, 0, 0.1);
+  }
+  .catchip.purple {
+    color: var(--pu); border-color: rgba(167, 139, 250, 0.45); background: rgba(167, 139, 250, 0.1);
+  }
+  .catchip.green {
+    color: var(--gr); border-color: rgba(52, 211, 153, 0.45); background: rgba(52, 211, 153, 0.1);
+  }
+
+  .mname {
+    font-size: 68px; font-weight: 900; letter-spacing: -0.025em; line-height: 1.12; color: #fff;
+  }
+  .mname em {
+    font-style: normal;
+    background: linear-gradient(90deg, #fff 0%, var(--cy) 50%, var(--pu) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .mname em.redheat {
+    background: linear-gradient(90deg, #fff 0%, #ff5252 50%, #ee0000 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .msub {
+    font-size: 24px; color: var(--muted); line-height: 1.45; margin-top: 14px; max-width: 1400px;
+  }
+
+  /* 그리드 레이아웃 */
+  .grid2 {
+    display: grid; grid-template-columns: 760px 1fr; gap: 80px; height: 100%; align-items: center;
+  }
+  .col-l { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+  .col-r { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+
+  /* 카드 및 박스 */
+  .specbox {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+    padding: 26px 32px; font-size: 21px; line-height: 1.62; color: #d6deeb;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+  .specbox b { color: #fff; font-weight: 700; }
+  .specbox em { color: var(--cy); font-style: normal; font-weight: 600; }
+
+  /* 태그 칩 */
+  .hwrow { display: flex; flex-wrap: wrap; gap: 10px; }
+  .hw {
+    display: flex; align-items: center; gap: 10px; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 10px; padding: 7px 14px; font-size: 16px; color: #e2e8f0;
+  }
+  .hw b { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: var(--pu); font-weight: 700; }
+
+  /* 불릿 테크 리스트 */
+  .tech { display: flex; flex-direction: column; gap: 12px; }
+  .techrow {
+    display: flex; gap: 14px; align-items: flex-start; font-size: 19px; line-height: 1.48; color: #cbd5e1;
+  }
+  .techrow i {
+    flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cy); margin-top: 10px; box-shadow: 0 0 10px var(--cy);
+  }
+  .techrow.red i { background: #ff5252; box-shadow: 0 0 10px #ee0000; }
+  .techrow.purple i { background: var(--pu); box-shadow: 0 0 10px var(--pu); }
+
+  /* 메트릭 카드 */
+  .metric {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 22px 28px; position: relative; overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  .metric::before {
+    content: ''; position: absolute; left: 0; top: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--cy), transparent); opacity: 0.7;
+  }
+  .metric.red::before { background: linear-gradient(90deg, #ee0000, transparent); }
+  .metric.green::before { background: linear-gradient(90deg, var(--gr), transparent); }
+  .metric.purple::before { background: linear-gradient(90deg, var(--pu), transparent); }
+
+  .mlab { font-size: 17px; color: var(--muted); font-weight: 500; }
+  .mrow { display: flex; align-items: baseline; gap: 16px; margin-top: 6px; }
+  .big {
+    font-family: var(--mono); font-size: 56px; font-weight: 700; color: var(--cy);
+    letter-spacing: -0.02em; white-space: nowrap; line-height: 1.1;
+  }
+  .big.kr { font-family: var(--font); font-weight: 800; font-size: 46px; }
+  .big.red { color: #ff5252; }
+  .big.green { color: var(--gr); }
+  .big.purple { color: var(--pu); }
+  .note {
+    font-size: 15px; font-weight: 700; color: var(--go);
+    border: 1px solid rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.1);
+    border-radius: 999px; padding: 4px 12px; white-space: nowrap;
+  }
+
+  .ba {
+    display: flex; align-items: center; gap: 10px; margin-top: 10px;
+    font-size: 16px; color: var(--muted);
+  }
+  .ba .to { color: var(--text); font-weight: 600; }
+  .ba .arr { color: var(--cy); font-weight: 700; }
+
+  /* 프로그레스 트랙 */
+  .track {
+    height: 8px; border-radius: 999px; background: #1a2233; margin-top: 12px; overflow: hidden;
+  }
+  .fill {
+    height: 100%; width: 0; border-radius: 999px;
+    background: linear-gradient(90deg, var(--mzc-blue), var(--cy));
+    transition: width 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .fill.red { background: linear-gradient(90deg, #ff5252, #ee0000); }
+  .fill.green { background: linear-gradient(90deg, #10b981, var(--gr)); }
+  .fill.purple { background: linear-gradient(90deg, #8b5cf6, var(--pu)); }
+
+  /* 인트로 허브 전용 스타일 */
+  .introwrap { display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 0 40px; }
+  .introh1 { font-size: 72px; font-weight: 900; line-height: 1.15; letter-spacing: -0.025em; }
+  .introh1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #fff 0%, var(--cy) 50%, #90b8ff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .introh1 .en {
+    display: block; font-family: var(--mono); font-size: 24px; font-weight: 400;
+    letter-spacing: 0.04em; color: var(--muted); margin-top: 18px;
+  }
+  .introh1 .en b { color: #fff; font-weight: 700; }
+  .introsub { font-size: 24px; color: var(--muted); margin-top: 16px; max-width: 1400px; }
+
+  .kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 44px;
+  }
+  .kpi {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 24px 28px; position: relative; overflow: hidden;
+  }
+  .kpi::before {
+    content: ''; position: absolute; left: 0; top: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--cy), transparent); opacity: 0.6;
+  }
+  .kpi .v {
+    font-family: var(--mono); font-size: 46px; font-weight: 700; color: var(--cy);
+    font-variant-numeric: tabular-nums; white-space: nowrap; line-height: 1.1;
+  }
+  .kpi .l { font-size: 18px; color: var(--muted); margin-top: 8px; font-weight: 500; }
+
+  .hubrow {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 26px;
+  }
+  .hubcard {
+    display: flex; align-items: center; gap: 16px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px;
+    cursor: pointer; text-align: left; color: var(--text); transition: all 0.18s;
+    position: relative; overflow: hidden;
+  }
+  .hubcard::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--cy), transparent); opacity: 0.6;
+  }
+  .hubcard:hover {
+    background: #172235; border-color: rgba(0, 229, 255, 0.5); transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 229, 255, 0.15);
+  }
+  .hubno {
+    font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--cy);
+    width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 229, 255, 0.1);
+    border: 1px solid rgba(0, 229, 255, 0.25); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .hubtx b { display: block; font-size: 20px; font-weight: 700; color: #fff; }
+  .hubtx i { display: block; font-style: normal; font-size: 14px; color: var(--muted); margin-top: 3px; }
+
+  /* 아키텍처 4계층 전용 블록 (Slide 2) */
+  .arch-layers { display: flex; flex-direction: column; gap: 16px; width: 100%; margin-top: 20px; }
+  .arch-layer {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 20px 28px; display: grid; grid-template-columns: 240px 1fr 280px; gap: 24px;
+    align-items: center; position: relative; overflow: hidden; transition: all 0.2s;
+  }
+  .arch-layer::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--cy);
+  }
+  .arch-layer.l1::before { background: #3b82f6; }
+  .arch-layer.l2::before { background: #ee0000; }
+  .arch-layer.l3::before { background: var(--pu); }
+  .arch-layer.l4::before { background: var(--gr); }
+  .layer-tag { display: flex; flex-direction: column; }
+  .layer-tag span { font-family: var(--mono); font-size: 12px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+  .layer-tag b { font-size: 22px; font-weight: 800; color: #fff; margin-top: 4px; }
+  .layer-body { display: flex; flex-wrap: wrap; gap: 10px; }
+  .layer-chip {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 14px; font-size: 16px; color: #e2e8f0; font-weight: 600;
+  }
+  .layer-chip em { font-style: normal; color: var(--cy); font-family: var(--mono); font-size: 13px; }
+  .layer-val { text-align: right; font-family: var(--mono); font-size: 16px; color: var(--cy); font-weight: 700; }
+
+  /* 6단계 하네스 다이어그램 (Slide 9) */
+  .harness-steps {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; width: 100%; margin-top: 24px;
+  }
+  .hstep {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px 18px; display: flex; flex-direction: column; gap: 12px; position: relative;
+  }
+  .hstep-num {
+    font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--cy);
+    background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.25);
+    border-radius: 6px; padding: 4px 8px; align-self: flex-start;
+  }
+  .hstep-title { font-size: 19px; font-weight: 800; color: #fff; line-height: 1.3; }
+  .hstep-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .hstep::after {
+    content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+    font-size: 20px; color: var(--dim); z-index: 5;
+  }
+  .hstep:last-child::after { display: none; }
+
+  /* 3단계 로드맵 카드 (Slide 10) */
+  .roadmap-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; margin-top: 30px;
+  }
+  .roadcard {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+    padding: 32px 30px; display: flex; flex-direction: column; gap: 20px; position: relative;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+  }
+  .roadcard::before {
+    content: ''; position: absolute; left: 0; top: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--cy), var(--mzc-blue));
+  }
+  .roadcard.r2::before { background: linear-gradient(90deg, #ff5252, #ee0000); }
+  .roadcard.r3::before { background: linear-gradient(90deg, var(--pu), var(--gr)); }
+  .road-badge {
+    font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    padding: 6px 14px; border-radius: 999px; align-self: flex-start; text-transform: uppercase;
+  }
+  .roadcard.r1 .road-badge { background: rgba(0, 229, 255, 0.1); color: var(--cy); border: 1px solid rgba(0, 229, 255, 0.3); }
+  .roadcard.r2 .road-badge { background: rgba(238, 0, 0, 0.1); color: #ff6b6b; border: 1px solid rgba(238, 0, 0, 0.3); }
+  .roadcard.r3 .road-badge { background: rgba(167, 139, 250, 0.1); color: var(--pu); border: 1px solid rgba(167, 139, 250, 0.3); }
+  .road-title { font-size: 28px; font-weight: 800; color: #fff; }
+  .road-sub { font-size: 16px; color: var(--muted); line-height: 1.5; }
+  .road-list { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+  .road-item { display: flex; gap: 10px; font-size: 16px; color: #cbd5e1; align-items: baseline; }
+  .road-item b { color: var(--cy); font-family: var(--mono); }
+
+  /* 하단 바 */
+  .botbar {
+    position: absolute; left: 140px; right: 140px; bottom: 32px; height: 50px;
+    display: flex; align-items: center; justify-content: space-between; z-index: 40;
+  }
+  .botsec { font-family: var(--mono); font-size: 14px; color: var(--muted); letter-spacing: 0.1em; }
+  .botsec b { color: var(--text); }
+  .dots { display: flex; gap: 8px; align-items: center; }
+  .dot {
+    width: 28px; height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.18);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .dot:hover { background: rgba(255, 255, 255, 0.4); }
+  .dot.on { width: 56px; background: var(--cy); box-shadow: 0 0 12px var(--cy); }
+
+  .ctrls { display: flex; gap: 10px; align-items: center; }
+
+  /* 도움말 모달 */
+  .helpmodal {
+    position: absolute; inset: 0; background: rgba(6, 8, 17, 0.88); backdrop-filter: blur(12px);
+    z-index: 100; display: none; align-items: center; justify-content: center;
+  }
+  .helpmodal.on { display: flex; }
+  .helpbox {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+    padding: 44px 50px; width: 720px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .helpbox h3 { font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 24px; }
+  .helprows { display: flex; flex-direction: column; gap: 14px; font-size: 17px; }
+  .helprow { display: flex; justify-content: space-between; align-items: center; }
+  .kbd {
+    font-family: var(--mono); background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 10px; color: var(--cy); font-size: 14px;
+  }
+  .closebtn {
+    margin-top: 30px; width: 100%; padding: 14px; border-radius: 12px;
+    background: var(--surface2); border: 1px solid var(--border); color: #fff;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+  .closebtn:hover { border-color: var(--cy); background: rgba(0, 229, 255, 0.15); }
+</style>
+</head>
+<body class="auto">
+
+<div id="stage">
+  <!-- 상단 진행률 바 -->
+  <div class="pbar" id="pbar"></div>
+
+  <!-- 상단 탑바 -->
+  <header class="topbar">
+    <div class="brand" id="brandBtn">
+      <div class="brand-logo-badge">M</div>
+      <div class="brand-title">
+        <b>MEGAZONECLOUD</b>
+        <span>Enterprise AI Full Stack</span>
+      </div>
+    </div>
+
+    <div class="topsep"></div>
+    <div class="toptitle">
+      <span>EXHIBITION SHOWCASE</span>
+      <span>·</span>
+      <em id="secLabelText">MZC AI Full Stack</em>
+    </div>
+
+    <!-- 섹션 탭 -->
+    <nav class="sectabs" id="sectabs"></nav>
+
+    <!-- 우측 상태 뱃지 및 시계 -->
+    <div class="topright">
+      <div class="autobadge" title="자동 순환 재생 중">
+        <i></i><span>AUTO PLAY</span>
+      </div>
+      <div class="clockchip" id="clock">12:00</div>
+      <button class="iconbtn" id="helpBtn" title="키보드 단축키 안내 (H)">?</button>
+      <button class="iconbtn" id="fsBtn" title="전체화면 (F)">⛶</button>
+    </div>
+  </header>
+
+  <!-- 슬라이드 마운트 컨테이너 -->
+  <main id="slideHost"></main>
+
+  <!-- 하단 바 -->
+  <footer class="botbar">
+    <div class="botsec">
+      <span id="slideCounter">SLIDE 01 / 10</span>
+      <span style="margin:0 8px; color:var(--dim)">|</span>
+      <b id="slideTopicName">Enterprise AI Full Stack Overview</b>
+    </div>
+
+    <!-- 슬라이드 인디케이터 점 -->
+    <div class="dots" id="dots"></div>
+
+    <!-- 이전 / 다음 컨트롤 버튼 -->
+    <div class="ctrls">
+      <button class="iconbtn" id="prevBtn" title="이전 (←)">◀</button>
+      <button class="iconbtn" id="playBtn" title="자동재생 토글 (Space)">❚❚</button>
+      <button class="iconbtn" id="nextBtn" title="다음 (→)">▶</button>
+    </div>
+  </footer>
+
+  <!-- 단축키 도움말 모달 -->
+  <div class="helpmodal" id="helpModal">
+    <div class="helpbox">
+      <h3>부스 전시 키오스크 조작 안내</h3>
+      <div class="helprows">
+        <div class="helprow"><span>다음 슬라이드</span> <span class="kbd">Space / ▶ / 클릭</span></div>
+        <div class="helprow"><span>이전 슬라이드</span> <span class="kbd">◀ / PageUp</span></div>
+        <div class="helprow"><span>자동 재생 일시정지 / 재개</span> <span class="kbd">Space / A</span></div>
+        <div class="helprow"><span>전체화면 전환 (1080p)</span> <span class="kbd">F / 전체화면 버튼</span></div>
+        <div class="helprow"><span>첫 화면 (허브) 복귀</span> <span class="kbd">Home</span></div>
+        <div class="helprow"><span>섹션 바로가기 (1~5)</span> <span class="kbd">숫자키 1 ~ 5</span></div>
+        <div class="helprow"><span>무조작 시 자동 복귀</span> <span class="kbd">60초 후 자동 플레이 재개</span></div>
+      </div>
+      <button class="closebtn" id="helpCloseBtn">닫기 (Esc)</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═════════════════════════════════════════════════════════════
+   1. 데이터 정의 (MZC AI Full Stack + OpenShift + Nota + Alioth)
+   ═════════════════════════════════════════════════════════════ */
+const SECTAB = {
+  overview: 'AI Full Stack',
+  platform: 'OpenShift AI',
+  nota: 'Nota 경량화',
+  alioth: 'Alioth 코더',
+  roadmap: '도입 패키지'
+};
+
+const SECLABEL = {
+  overview: 'MZC AI Full Stack Architecture',
+  platform: 'Red Hat OpenShift AI Platform',
+  nota: 'Nota NetsPresso Model Optimization',
+  alioth: 'Alioth Enterprise Coding Harness',
+  roadmap: 'Turnkey Solution & Roadmap'
+};
+
+const AUTO_MS = 11000;  // 슬라이드당 11초 노출
+const IDLE_MS = 60000;  // 무조작 60초 후 자동 모드 및 첫 화면 복귀
+
+const SLIDES_DATA = [
+  /* ── 1. 개요 & 인트로 허브 ── */
+  {
+    sec: 'overview',
+    type: 'intro',
+    eyebrow: 'MZC Enterprise AI Full Stack Solution',
+    h1: '<em>엔터프라이즈 AI의 모든 것,</em><br>처음부터 끝까지 하나의 풀스택으로<span class="en">From <b>Accelerated Silicon</b> to <b>Autonomous Coding Agent</b></span>',
+    sub: '하드웨어 인프라부터 Red Hat OpenShift AI 플랫폼, 노타(Nota) 모델 경량화, 알리오스(Alioth) 코딩 에이전트까지 사내망에서 완결합니다.',
+    kpis: [
+      ['50%+', 'GPU 인프라 TCO 절감'],
+      ['100%', '사내 보안 & 폐쇄망 완결'],
+      ['2~5분', '지시문 기반 신속 개발'],
+      ['Turnkey', '검증된 풀스택 패키지']
+    ],
+    hubs: [
+      { sec: 'overview', no: '01', t: 'AI Full Stack', d: '4계층 통합 참조 아키텍처' },
+      { sec: 'platform', no: '02', t: 'OpenShift AI', d: 'RHOAI 엔터프라이즈 오케스트레이션' },
+      { sec: 'nota',     no: '03', t: 'Nota NetsPresso', d: '반값 GPU 모델 경량화 & 서빙' },
+      { sec: 'alioth',   no: '04', t: 'Alioth Coder', d: '폐쇄망 특화 6단계 코딩 하네스' }
+    ]
+  },
+
+  /* ── 2. AI Full Stack 4계층 아키텍처 ── */
+  {
+    sec: 'overview',
+    type: 'arch',
+    cat: 'MZC AI Full Stack · Reference Architecture',
+    name: 'MZC AI Full Stack <em>4계층 아키텍처</em>',
+    sub: '파편화된 AI 도구를 하나로 통합하여 도입 즉시 구동 가능한 엔드투엔드 AI 공장(AI Factory)을 구현합니다.',
+    layers: [
+      {
+        cls: 'l4', lv: 'LAYER 04', name: 'Agent & Services',
+        chips: ['Alioth Coder (코딩 에이전트)', 'Document RAG 파이프라인', '지식그래프 & 제조 예지보전 AI'],
+        val: '업무 생산성 4배 혁신'
+      },
+      {
+        cls: 'l3', lv: 'LAYER 03', name: 'Model Optimization',
+        chips: ['Nota NetsPresso (경량화)', 'NVFP4 / W4A16 초정밀 양자화', 'sLLM 도메인 특화 서빙'],
+        val: 'GPU 8대 → 2대 (75% 절감)'
+      },
+      {
+        cls: 'l2', lv: 'LAYER 02', name: 'Enterprise Platform',
+        chips: ['Red Hat OpenShift AI (RHOAI)', 'vLLM ServingRuntime', 'KubeRay 분산 학습', 'Kueue 스케줄러'],
+        val: 'GPU 가동률 85% 이상'
+      },
+      {
+        cls: 'l1', lv: 'LAYER 01', name: 'Accelerated Infra',
+        chips: ['NVIDIA H100 / RTX 6000 Ada', 'DUBHE AI Workstation', '초저가 1-Node SNO 데모 환경'],
+        val: '사내 온프레미스 · 하이브리드'
+      }
+    ]
+  },
+
+  /* ── 3. 엔터프라이즈 도입 가치 ── */
+  {
+    sec: 'overview',
+    type: 'split',
+    cat: 'Enterprise Value · 도입 가치',
+    name: '왜 메가존클라우드<br><em>AI Full Stack</em>인가?',
+    sub: '사내 핵심 기술 자산 유출을 원천 봉쇄하고, 막대한 인프라 비용 거품을 걷어냅니다.',
+    hw: [['보안 폐쇄망', 'SECURITY'], ['하이브리드 확장', 'PLATFORM'], ['TCO 50% 절감', 'COST']],
+    spec: '단순 모델 도입을 넘어 <b>인프라-플랫폼-경량화-에이전트</b>를 턴키로 통합 공급합니다. 고객은 개발 보일러플레이트 없이 <b>도입 첫날부터 비즈니스 가치</b>에 집중할 수 있습니다.',
+    tech: [
+      '사내 데이터 밖으로 나가지 않는 100% On-Premise / 폐쇄망 완결성',
+      '클라우드 특정 벤더 종속 없이 데스크톱 ➔ 프라이빗 ➔ 멀티클라우드 자유 이식',
+      '메가존클라우드의 3,000+ 클라우드 고객 검증 및 24/7 전문 MMSP 기술지원'
+    ],
+    metrics: [
+      { lab: '사내 기술자산 보안 유출 위험도', big: '0건', note: '100% 완전 격리', from: '외부 API 의존', to: '사내망 완결', pct: 100, green: true },
+      { lab: 'GPU 자원 도입 및 운영 TCO 절감', big: '−50%', note: '인프라 비용 최적화', from: '비용 거품 제거', to: '최적화 패키지', pct: 75, cyan: true }
+    ]
+  },
+
+  /* ── 4. OpenShift AI 코어 플랫폼 ── */
+  {
+    sec: 'platform',
+    type: 'split',
+    cat: 'Red Hat OpenShift AI · Core Platform',
+    name: '엔터프라이즈 표준<br><em class="redheat">Red Hat OpenShift AI</em>',
+    sub: '단일 노드(SNO) 데모부터 대규모 멀티 GPU 클러스터까지 유연하게 확장되는 엔터프라이즈 AI 표준 플랫폼',
+    hw: [['RHOAI (OpenShift AI)', 'ENGINE'], ['vLLM ServingRuntime', 'SERVING'], ['KServe', 'INFERENCE']],
+    spec: '쿠버네티스 표준 기반으로 <b>MLOps 전 라이프사이클</b>을 자동화합니다. <b>vLLM 서빙 런타임</b>을 내장하여 Qwen, Llama, Solar 등 최신 LLM을 최고 속도로 프로덕션 서빙합니다.',
+    tech: [
+      '단일 노드 SNO(Single Node OpenShift) 지원으로 부스/엣지 단독 구동 가능',
+      'KServe 통합으로 동적 트래픽 스케일링(Scale-to-Zero) 및 고가용성 보장',
+      '기업별 보안/접근제어(RBAC) 및 완벽한 감사 추적 로깅 준수'
+    ],
+    metrics: [
+      { lab: '추론 서빙 처리량 (vLLM ServingRuntime)', big: '3.8배', note: '표준 엔진 대비', from: '표준 서빙', to: 'vLLM 가속', pct: 90, red: true },
+      { lab: '클러스터 확장 지원성', big: 'SNO ~ Multi', note: '단일 노드부터 멀티 랙', from: '1대 워크스테이션', to: '수백 대 클러스터', pct: 100, purple: true }
+    ]
+  },
+
+  /* ── 5. GPU 자원 오케스트레이션 & 스케줄링 ── */
+  {
+    sec: 'platform',
+    type: 'split',
+    cat: 'Resource Scheduling · Kueue & vGPU',
+    name: '지능형 GPU 스케줄링<br><em class="redheat">가동률 85% 이상 실현</em>',
+    sub: '고가의 GPU 자원이 방치되지 않도록 Kueue 큐잉과 vGPU/MIG 파티셔닝으로 빈틈없이 최적화합니다.',
+    hw: [['Kueue Batch Scheduler', 'ORCH'], ['NVIDIA MIG / vGPU', 'VIRTUAL']],
+    spec: '개발자별로 독립된 <b>샌드박스 워크스페이스</b>를 제공하며, 유휴 GPU 자원은 <b>배치 작업으로 자동 재할당</b>되어 인프라 투자 효율을 극대화합니다.',
+    tech: [
+      'Kueue 스케줄러로 팀별 GPU 쿼터 및 우선순위 대기열 공정 제어',
+      '하드웨어 레벨 MIG(Multi-Instance GPU) 분할로 하나의 GPU를 다수 팀이 안전 공유',
+      '실시간 GPU 메트릭 모니터링(Prometheus/Grafana) 대시보드 기본 연동'
+    ],
+    metrics: [
+      { lab: '평균 GPU 인프라 가동률', big: '85%+', note: '+45%p 개선', from: '기존 35~40%', to: '최적화 85%+', pct: 85, green: true },
+      { lab: '개발자 테넌트 격리 안정성', big: '100%', note: '장애 확산 차단', from: '자원 충돌 방지', to: '독립 샌드박스', pct: 100, red: true }
+    ]
+  },
+
+  /* ── 6. Nota NetsPresso 모델 경량화 ── */
+  {
+    sec: 'nota',
+    type: 'split',
+    cat: 'Nota NetsPresso · GPU Cost Down',
+    name: '절반의 GPU로<br><em>같은 LLM을 서빙합니다</em>',
+    sub: 'NetsPresso의 독자적인 프루닝 및 양자화 알고리즘으로 모델 크기는 줄이고 서빙 속도는 극대화합니다.',
+    hw: [['NetsPresso Model Slim', 'TECH'], ['VRAM -70% Cut', 'MEMORY'], ['Loss < 1%', 'ACCURACY']],
+    spec: '경량화를 마친 <b>Pre-deployed LLM</b>을 고객 서버에 사전 탑재하여 공급합니다. 비싼 상위 GPU 증설 없이도 <b>기존 장비에서 대형 LLM</b>을 즉각 서빙할 수 있습니다.',
+    tech: [
+      'MoE 비균일 전문가 프루닝(Pruning)으로 연산 불필요 파라미터 사전 제거',
+      'FP8 / INT4 압축을 통해 VRAM 점유율을 70% 이상 다이어트',
+      '정확도 손실 1% 미만으로 비즈니스 품질과 추론 정확도 100% 보존'
+    ],
+    metrics: [
+      { lab: 'H100 GPU 필요 대수 (250B MoE 기준)', big: '8대 → 2대', note: '75% 감축', from: '기존 8대', to: '노타 최적화 2대', pct: 75, cyan: true },
+      { lab: 'VRAM 메모리 절감율', big: '−73.5%', note: '대용량 모델 수용', from: 'Full FP16', to: '경량화 FP8/INT4', pct: 74, purple: true }
+    ]
+  },
+
+  /* ── 7. NVFP4/W4A16 벤치마크 & 엣지 배포 ── */
+  {
+    sec: 'nota',
+    type: 'split',
+    cat: 'Benchmark & Edge NPU · 실측 성능',
+    name: 'NVFP4 초정밀 양자화<br><em>서버부터 온디바이스까지</em>',
+    sub: 'NVIDIA H100/B300 서버 가속부터 스마트폰/엣지 NPU 디바이스까지 원클릭 최적화 배포를 지원합니다.',
+    hw: [['NVIDIA Nemotron 3.5', 'LLM'], ['Solar Open2 250B', 'MoE'], ['Edge NPU Support', 'NPU']],
+    spec: '업스테이지 Solar 250B MoE, Qwen, Nemotron 등 <b>주요 오픈 모델 벤치마크 검증 완료</b>. 서버 가용 처리량을 늘리는 동시에 <b>엣지 단말 오프라인 서빙</b>을 실현합니다.',
+    tech: [
+      'NVFP4 양자화 엔진으로 최신 블랙웰(Blackwell) 및 호퍼 아키텍처 초고속 대응',
+      '스마트폰 AP 및 엣지 임베디드 보드에서 7B VLM 멀티모달 실시간 구동',
+      '모델 압축부터 패키징, 배포까지 1~3주 내 초단기 엔지니어링 완료'
+    ],
+    metrics: [
+      { lab: 'KV 캐시 가용 용량 확장', big: '+36%', note: '동시 접속자 폭증 대응', from: '표준 캐시 한계', to: '최적화 가용량', pct: 86, cyan: true },
+      { lab: '최적화 엔지니어링 리드타임', big: '1~3주', note: '경쟁사 대비 4배 신속', from: '기존 수개월 소요', to: '자동화 파이프라인', pct: 95, green: true }
+    ]
+  },
+
+  /* ── 8. Alioth Coder 코딩 에이전트 개요 ── */
+  {
+    sec: 'alioth',
+    type: 'split',
+    cat: 'Alioth Coder · Intent-Driven Coding',
+    name: '지시문 한 줄로<br><em>화면과 인터페이스 개발</em>',
+    sub: '자연어 요구사항(Vibe)만 제시하면 사내 보안망 안에서 완성도 높은 실동작 코드를 전자동 생성합니다.',
+    hw: [['Closed Network Only', 'SECURITY'], ['2~5min Delivery', 'SPEED'], ['VS Code & CLI', 'TOOL']],
+    spec: '노타 경량화 sLLM 위에서 완결되는 <b>폐쇄망 특화 AI 코딩 서비스</b>입니다. 외부 클라우드 통신 없이 <b>사내 워크스테이션에서 100% 안전</b>하게 동작합니다.',
+    tech: [
+      'Prompt to Working Code: 화면 개발 1본당 2~5분 내 고품질 완성',
+      'Knowledge Data 기반: 고객 사이트의 엄격한 코딩 컨벤션 및 네이밍 룰 준수',
+      'Model-Free 아키텍처: 특정 모델에 구애받지 않고 최신 sLLM 선택적 교체 가능'
+    ],
+    metrics: [
+      { lab: '화면 및 인터페이스 개발 소요 시간', big: '2~5분', note: '1본당 완성 시간', from: '수일 걸리던 작업', to: '실시간 생성', pct: 90, purple: true },
+      { lab: '사내 코드 유출 가능성', big: 'ZERO', note: '100% 폐쇄망 완결', from: '클라우드 유출 위험', to: '로컬/사내망 격리', pct: 100, green: true }
+    ]
+  },
+
+  /* ── 9. Alioth 6단계 코딩 하네스 ── */
+  {
+    sec: 'alioth',
+    type: 'harness',
+    cat: 'Coding Harness Workflow · 자율 개발',
+    name: '자율 품질 보증<br><em>6단계 엔터프라이즈 코딩 하네스</em>',
+    sub: '모델의 크기와 무관하게 안정적인 코딩 결과를 산출하는 체계적인 작업 분할 및 회귀 검증 파이프라인',
+    steps: [
+      { num: 'STEP 01', t: '지시문 입력', d: '자연어 요구사항 및 인터페이스 스펙 입력' },
+      { num: 'STEP 02', t: '코딩 플랜 생성', d: '작업 단위 분할 및 아키텍처 수행 순서 확정' },
+      { num: 'STEP 03', t: '코드 자동 생성', d: '사이트 코딩 컨벤션 기반 다중 소스코드 작성' },
+      { num: 'STEP 04', t: '실시간 구문 진단', d: '컴파일, 린트 및 SAST 보안 가드레일 통과' },
+      { num: 'STEP 05', t: '자동 회귀 검증', d: '샌드박스 빌드 테스트 및 요구사항 충족 판정' },
+      { num: 'STEP 06', t: '완료 보고 & 배포', d: '변경 내역 스펙 요약 및 동작 화면 즉시 확인' }
+    ]
+  },
+
+  /* ── 10. 턴키 패키지 및 3단계 로드맵 ── */
+  {
+    sec: 'roadmap',
+    type: 'roadmap',
+    cat: 'Turnkey Solution & Roadmap · 단계별 도입',
+    name: 'MZC AI Full Stack<br><em>패키지 라인업 & 도입 로드맵</em>',
+    sub: '조직의 예산과 규모에 맞추어 워크스테이션 1대부터 사내 대형 AI 팩토리까지 단계적으로 유연하게 확장합니다.',
+    cards: [
+      {
+        badge: 'STAGE 01 · PoC 데모',
+        cls: 'r1',
+        title: 'Starter PoC Package',
+        sub: '초저비용으로 즉각적인 AI 코딩 및 모델 경량화 체감',
+        items: [
+          'DUBHE AI 워크스테이션 1대 완결형',
+          'Nota 사전 경량화 sLLM 모델 탑재',
+          'Alioth Coder 사내망 전용 에디터 연동',
+          '도입 당일 즉시 개발팀 실무 체감'
+        ]
+      },
+      {
+        badge: 'STAGE 02 · 부서 파일럿',
+        cls: 'r2',
+        title: 'Production Pilot',
+        sub: 'Red Hat OpenShift AI 기반 부서 단위 정식 검증',
+        items: [
+          'OpenShift AI 단일 노드(SNO) 서버 구축',
+          'vLLM 서빙 엔진 기반 고속 추론 파이프라인',
+          '개발자별 독립 워크스페이스 및 권한 제어',
+          '사내 소스코드 RAG 검색 지식베이스 연동'
+        ]
+      },
+      {
+        badge: 'STAGE 03 · 전사 확산',
+        cls: 'r3',
+        title: 'Enterprise AI Factory',
+        sub: '전사적 하이브리드 GPU 오케스트레이션 및 거버넌스',
+        items: [
+          '온프레미스 멀티 GPU 랙 + 하이브리드 클라우드',
+          'Kueue 지능형 스케줄링으로 자원 가동률 85%+',
+          '전사 보안/감사/컴플라이언스 통합 거버넌스',
+          '메가존클라우드 24/7 전담 MMSP 운영 체계'
+        ]
+      }
+    ]
+  }
+];
+
+/* ═════════════════════════════════════════════════════════════
+   2. 렌더링 엔진 (슬라이드 DOM 동적 생성)
+   ═════════════════════════════════════════════════════════════ */
+const slideHost = document.getElementById('slideHost');
+const sectabsEl = document.getElementById('sectabs');
+const dotsEl = document.getElementById('dots');
+
+// 상단 섹션 탭 빌드
+Object.keys(SECTAB).forEach((k, idx) => {
+  const btn = document.createElement('button');
+  btn.className = 'sectab' + (idx === 0 ? ' on' : '');
+  btn.dataset.sec = k;
+  btn.textContent = SECTAB[k];
+  btn.onclick = (e) => {
+    e.stopPropagation();
+    manualInteract();
+    goToSection(k);
+  };
+  sectabsEl.appendChild(btn);
+});
+
+// 슬라이드 마크업 빌드 함수
+function renderSlides() {
+  slideHost.innerHTML = '';
+  SLIDES_DATA.forEach((s, idx) => {
+    const el = document.createElement('section');
+    el.className = 'slide' + (idx === 0 ? ' on' : '');
+    el.id = 'slide-' + idx;
+    el.dataset.idx = idx;
+    el.dataset.sec = s.sec;
+
+    let inner = '';
+    if (s.type === 'intro') {
+      inner = `
+        <div class="introwrap">
+          <div class="eyebrow an an1">${s.eyebrow}</div>
+          <h1 class="introh1 an an2">${s.h1}</h1>
+          <p class="introsub an an3">${s.sub}</p>
+          <div class="kpis an an4">
+            ${s.kpis.map(([v, l]) => `
+              <div class="kpi">
+                <div class="v">${v}</div>
+                <div class="l">${l}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="hubrow an an5">
+            ${s.hubs.map(h => `
+              <div class="hubcard" data-sec="${h.sec}">
+                <div class="hubno">${h.no}</div>
+                <div class="hubtx">
+                  <b>${h.t}</b>
+                  <i>${h.d}</i>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else if (s.type === 'arch') {
+      inner = `
+        <div style="display:flex; flex-direction:column; height:100%; justify-content:center;">
+          <div class="catchip an an1">${s.cat}</div>
+          <h2 class="mname an an2" style="font-size:56px; margin-top:12px;">${s.name}</h2>
+          <p class="msub an an3" style="font-size:22px; margin-top:8px;">${s.sub}</p>
+          <div class="arch-layers an an4">
+            ${s.layers.map(l => `
+              <div class="arch-layer ${l.cls}">
+                <div class="layer-tag">
+                  <span>${l.lv}</span>
+                  <b>${l.name}</b>
+                </div>
+                <div class="layer-body">
+                  ${l.chips.map(c => `<div class="layer-chip">${c}</div>`).join('')}
+                </div>
+                <div class="layer-val">${l.val}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else if (s.type === 'split') {
+      const isRed = s.sec === 'platform';
+      const isPurple = s.sec === 'alioth';
+      const catCls = isRed ? 'red' : (isPurple ? 'purple' : '');
+      const techCls = isRed ? 'red' : (isPurple ? 'purple' : '');
+
+      inner = `
+        <div class="grid2">
+          <div class="col-l">
+            <div class="catchip ${catCls} an an1">${s.cat}</div>
+            <h2 class="mname an an2">${s.name}</h2>
+            <p class="msub an an3">${s.sub}</p>
+            <div class="hwrow an an3">
+              ${s.hw.map(([name, tag]) => `
+                <div class="hw"><b>${tag}</b><span>${name}</span></div>
+              `).join('')}
+            </div>
+            <div class="specbox an an4">${s.spec}</div>
+            <div class="tech an an5">
+              ${s.tech.map(t => `
+                <div class="techrow ${techCls}"><i></i><span>${t}</span></div>
+              `).join('')}
+            </div>
+          </div>
+          <div class="col-r">
+            ${s.metrics.map((m, mIdx) => {
+              const colorCls = m.green ? 'green' : (m.red ? 'red' : (m.purple ? 'purple' : ''));
+              return `
+                <div class="metric ${colorCls} an an${mIdx + 3}">
+                  <div class="mlab">${m.lab}</div>
+                  <div class="mrow">
+                    <div class="big ${colorCls}">${m.big}</div>
+                    <div class="note">${m.note}</div>
+                  </div>
+                  <div class="ba">
+                    <span>${m.from}</span>
+                    <span class="arr">➔</span>
+                    <span class="to">${m.to}</span>
+                  </div>
+                  <div class="track">
+                    <div class="fill ${colorCls}" data-p="${m.pct}" style="width:0%"></div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    } else if (s.type === 'harness') {
+      inner = `
+        <div style="display:flex; flex-direction:column; height:100%; justify-content:center;">
+          <div class="catchip purple an an1">${s.cat}</div>
+          <h2 class="mname an an2" style="font-size:56px; margin-top:12px;">${s.name}</h2>
+          <p class="msub an an3" style="font-size:22px; margin-top:8px;">${s.sub}</p>
+          <div class="harness-steps an an4">
+            ${s.steps.map(st => `
+              <div class="hstep">
+                <div class="hstep-num">${st.num}</div>
+                <div class="hstep-title">${st.t}</div>
+                <div class="hstep-desc">${st.d}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="specbox an an5" style="margin-top:30px; font-size:19px;">
+            <b>사내 컨벤션 완전 준수:</b> 지시문 한 줄에서 소스코드 생성, SAST 정적 보안 검사, 빌드 회귀 테스트까지 <b>사람의 개입 없이 자율 루프</b>로 완결되어 신뢰할 수 있는 엔터프라이즈 코드를 보장합니다.
+          </div>
+        </div>
+      `;
+    } else if (s.type === 'roadmap') {
+      inner = `
+        <div style="display:flex; flex-direction:column; height:100%; justify-content:center;">
+          <div class="catchip an an1">${s.cat}</div>
+          <h2 class="mname an an2" style="font-size:54px; margin-top:10px;">${s.name}</h2>
+          <p class="msub an an3" style="font-size:21px; margin-top:6px;">${s.sub}</p>
+          <div class="roadmap-grid an an4">
+            ${s.cards.map(c => `
+              <div class="roadcard ${c.cls}">
+                <div class="road-badge">${c.badge}</div>
+                <div class="road-title">${c.title}</div>
+                <div class="road-sub">${c.sub}</div>
+                <div class="road-list">
+                  ${c.items.map(it => `
+                    <div class="road-item"><b>✓</b><span>${it}</span></div>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    el.innerHTML = inner;
+    slideHost.appendChild(el);
+  });
+}
+
+renderSlides();
+
+/* ═════════════════════════════════════════════════════════════
+   3. 슬라이드 상태 제어 & 플레이어 엔진
+   ═════════════════════════════════════════════════════════════ */
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let cur = 0;
+let isAuto = true;
+let timerAuto = null;
+let timerProg = null;
+let timerIdle = null;
+let startTime = 0;
+
+// 점 인디케이터 생성
+function buildDots() {
+  dotsEl.innerHTML = '';
+  for (let i = 0; i < totalSlides; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === cur ? ' on' : '');
+    d.onclick = (e) => {
+      e.stopPropagation();
+      manualInteract();
+      goToSlide(i);
+    };
+    dotsEl.appendChild(d);
+  }
+}
+buildDots();
+
+// 슬라이드 이동 함수
+function goToSlide(idx) {
+  idx = (idx + totalSlides) % totalSlides;
+  slides[cur].classList.remove('on');
+  slides[idx].classList.add('on');
+  cur = idx;
+
+  const data = SLIDES_DATA[cur];
+
+  // 상단 탑바 섹션 탭 동기화
+  document.querySelectorAll('.sectab').forEach(t => {
+    t.classList.toggle('on', t.dataset.sec === data.sec);
+  });
+  document.getElementById('secLabelText').textContent = SECLABEL[data.sec] || 'Enterprise AI Full Stack';
+
+  // 하단 텍스트 및 점 동기화
+  document.getElementById('slideCounter').textContent = `SLIDE ${String(cur + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+  document.getElementById('slideTopicName').textContent = (data.name ? data.name.replace(/<[^>]+>/g, ' ') : data.h1.replace(/<[^>]+>/g, ' ')).slice(0, 40);
+
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('on', i === cur);
+  });
+
+  // 애니메이션 재실행
+  const currentSlideEl = slides[cur];
+  currentSlideEl.querySelectorAll('.an').forEach(el => {
+    el.style.animation = 'none';
+    void el.offsetHeight;
+    el.style.animation = '';
+  });
+
+  // 프로그레스 바 애니메이션 채우기
+  currentSlideEl.querySelectorAll('.fill').forEach(f => {
+    f.style.width = '0%';
+    setTimeout(() => {
+      f.style.width = (f.dataset.p || 0) + '%';
+    }, 150);
+  });
+
+  restartAutoTimer();
+}
+
+function nextSlide() { goToSlide(cur + 1); }
+function prevSlide() { goToSlide(cur - 1); }
+
+function goToSection(secKey) {
+  const targetIdx = SLIDES_DATA.findIndex(s => s.sec === secKey);
+  if (targetIdx !== -1) goToSlide(targetIdx);
+}
+
+// 자동 진행 바 타이머
+function restartAutoTimer() {
+  clearInterval(timerProg);
+  clearTimeout(timerAuto);
+  const pbar = document.getElementById('pbar');
+  pbar.style.width = '0%';
+
+  if (!isAuto) return;
+
+  startTime = Date.now();
+  timerProg = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const pct = Math.min((elapsed / AUTO_MS) * 100, 100);
+    pbar.style.width = pct + '%';
+  }, 60);
+
+  timerAuto = setTimeout(() => {
+    nextSlide();
+  }, AUTO_MS);
+}
+
+// 사용자 조작 감지 시 자동 롤링 일시정지 및 60초 후 자동 재개
+function manualInteract() {
+  isAuto = false;
+  document.body.classList.remove('auto');
+  document.getElementById('playBtn').textContent = '▶';
+  clearInterval(timerProg);
+  clearTimeout(timerAuto);
+  document.getElementById('pbar').style.width = '0%';
+
+  clearTimeout(timerIdle);
+  timerIdle = setTimeout(() => {
+    isAuto = true;
+    document.body.classList.add('auto');
+    document.getElementById('playBtn').textContent = '❚❚';
+    goToSlide(0); // 60초 무조작 시 첫 화면 복귀 & 자동 플레이
+  }, IDLE_MS);
+}
+
+function toggleAutoPlay() {
+  isAuto = !isAuto;
+  document.body.classList.toggle('auto', isAuto);
+  document.getElementById('playBtn').textContent = isAuto ? '❚❚' : '▶';
+  if (isAuto) {
+    clearTimeout(timerIdle);
+    restartAutoTimer();
+  } else {
+    manualInteract();
+  }
+}
+
+// 버튼 리스너 바인딩
+document.getElementById('nextBtn').onclick = (e) => { e.stopPropagation(); manualInteract(); nextSlide(); };
+document.getElementById('prevBtn').onclick = (e) => { e.stopPropagation(); manualInteract(); prevSlide(); };
+document.getElementById('playBtn').onclick = (e) => { e.stopPropagation(); toggleAutoPlay(); };
+document.getElementById('brandBtn').onclick = (e) => { e.stopPropagation(); manualInteract(); goToSlide(0); };
+
+// 인트로 허브 카드 클릭 시 바로 해당 섹션으로 이동
+document.body.addEventListener('click', (e) => {
+  const hub = e.target.closest('.hubcard');
+  if (hub && hub.dataset.sec) {
+    e.stopPropagation();
+    manualInteract();
+    goToSection(hub.dataset.sec);
+  }
+});
+
+// 전체화면 토글
+const fsBtn = document.getElementById('fsBtn');
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+fsBtn.onclick = (e) => { e.stopPropagation(); toggleFullScreen(); };
+
+// 도움말 모달
+const helpModal = document.getElementById('helpModal');
+function toggleHelp(open) {
+  const show = (open === undefined) ? !helpModal.classList.contains('on') : open;
+  helpModal.classList.toggle('on', show);
+  if (show) manualInteract();
+}
+document.getElementById('helpBtn').onclick = (e) => { e.stopPropagation(); toggleHelp(true); };
+document.getElementById('helpCloseBtn').onclick = (e) => { e.stopPropagation(); toggleHelp(false); };
+helpModal.onclick = (e) => { if (e.target === helpModal) toggleHelp(false); };
+
+// 키보드 네비게이션
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'h' || e.key === 'H') { e.preventDefault(); toggleHelp(); return; }
+  if (e.key === 'Escape' && helpModal.classList.contains('on')) { toggleHelp(false); return; }
+  if (e.key === 'f' || e.key === 'F') { toggleFullScreen(); return; }
+
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+    e.preventDefault(); manualInteract(); nextSlide();
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault(); manualInteract(); prevSlide();
+  } else if (e.key === ' ') {
+    e.preventDefault(); toggleAutoPlay();
+  } else if (e.key === 'Home') {
+    e.preventDefault(); manualInteract(); goToSlide(0);
+  } else if (e.key >= '1' && e.key <= '5') {
+    const keys = Object.keys(SECTAB);
+    const target = keys[parseInt(e.key, 10) - 1];
+    if (target) { manualInteract(); goToSection(target); }
+  }
+});
+
+// 화면 클릭 시 다음 슬라이드
+document.getElementById('stage').addEventListener('click', (e) => {
+  if (e.target.closest('button, nav, .hubcard, .helpmodal')) return;
+  manualInteract();
+  nextSlide();
+});
+
+// 마우스 휠
+let wheelLock = 0;
+window.addEventListener('wheel', (e) => {
+  if (helpModal.classList.contains('on')) return;
+  const now = Date.now();
+  if (now - wheelLock < 600) return;
+  wheelLock = now;
+  manualInteract();
+  if (e.deltaY > 0) nextSlide();
+  else prevSlide();
+}, { passive: true });
+
+// 마우스 커서 숨김 (3초 정지 시)
+let cursorTimer = null;
+window.addEventListener('mousemove', () => {
+  document.body.classList.remove('hidecursor');
+  clearTimeout(cursorTimer);
+  cursorTimer = setTimeout(() => {
+    document.body.classList.add('hidecursor');
+  }, 3000);
+});
+
+// 실시간 시계
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+}
+setInterval(updateClock, 10000);
+updateClock();
+
+// 스테이지 1920x1080 스케일 맞춤 (fit 함수)
+function fitStage() {
+  const stage = document.getElementById('stage');
+  const sw = 1920, sh = 1080;
+  const ww = window.innerWidth, wh = window.innerHeight;
+  const scale = Math.min(ww / sw, wh / sh);
+  stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+window.addEventListener('resize', fitStage);
+fitStage();
+
+// 초기 실행
+goToSlide(0);
+</script>
+</body>
+</html>
