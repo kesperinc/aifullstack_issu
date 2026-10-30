@@ -39,3 +39,8 @@ tmp/
 
 # Sub-projects
 agentsmith/
+ 
+# Media files
+*.mp4
+*.avi
+*.mov

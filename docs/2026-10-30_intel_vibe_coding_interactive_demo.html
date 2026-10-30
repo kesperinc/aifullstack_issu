@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Intel AI Summit Seoul 2026 - Realtime Vibe Coding & FIM Live Demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --intel-blue: #0071C5;
+      --intel-cyan: #00C7FD;
+      --intel-deep: #001E50;
+      --intel-navy: #040c1a;
+      --bg-dark: #060b13;
+      --panel-bg: rgba(10, 20, 36, 0.88);
+      --border: rgba(0, 199, 253, 0.28);
+      --border-hl: rgba(0, 199, 253, 0.85);
+      --text-primary: #f0f6fc;
+      --text-muted: #8b9bb4;
+      --text-accent: #00C7FD;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --purple: #a855f7;
+      --font-ui: 'Pretendard', 'Inter', -apple-system, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-dark);
+      font-family: var(--font-ui);
+      color: var(--text-primary);
+      user-select: none;
+    }
+
+    /* 배경 인텔 그리드 & 글로우 */
+    .bg-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(0, 113, 197, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(0, 199, 253, 0.12) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    /* 메인 컨테이너 */
+    .app-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      padding: 20px 32px 24px;
+    }
+
+    /* 상단 헤더 */
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .intel-badge {
+      background: linear-gradient(135deg, var(--intel-blue), var(--intel-cyan));
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      box-shadow: 0 0 16px rgba(0, 199, 253, 0.4);
+    }
+
+    .header-titles h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #ffffff, #c7e3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-titles p {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .live-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #34d399;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(1.3);
+      }
+    }
+
+    /* 상단 컨트롤 툴바 */
+    .control-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .tabs-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .lang-btn,
+    .mode-btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-ui);
+    }
+
+    .lang-btn.active,
+    .mode-btn.active {
+      background: rgba(0, 199, 253, 0.18);
+      color: var(--intel-cyan);
+      border: 1px solid var(--border-hl);
+      box-shadow: 0 0 12px rgba(0, 199, 253, 0.2);
+    }
+
+    .preset-select {
+      background: rgba(10, 20, 36, 0.9);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: var(--font-ui);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--intel-blue), #0099ff);
+      color: #fff;
+      border: 1px solid var(--intel-cyan);
+      padding: 8px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 113, 197, 0.5);
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 199, 253, 0.6);
+    }
+
+    .reset-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* 2단 메인 레이아웃 (에디터 & 텔레메트리) */
+    .workspace-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 20px;
+      min-height: 0;
+    }
+
+    /* 좌측 코드 에디터 패널 */
+    .editor-panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .editor-header {
+      background: rgba(5, 12, 22, 0.95);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .file-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-family: var(--font-code);
+      color: var(--intel-cyan);
+      font-weight: 600;
+    }
+
+    .dot-mac {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-r {
+      background: #ff5f56;
+    }
+
+    .dot-y {
+      background: #ffbd2e;
+    }
+
+    .dot-g {
+      background: #27c93f;
+    }
+
+    .editor-body {
+      flex: 1;
+      padding: 20px;
+      overflow: auto;
+      font-family: var(--font-code);
+      font-size: 14px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: #e6edf3;
+      background: rgba(3, 7, 14, 0.6);
+    }
+
+    .editor-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .editor-body::-webkit-scrollbar-thumb {
+      background: rgba(0, 199, 253, 0.2);
+      border-radius: 3px;
+    }
+
+    /* 코드 하이라이트 & FIM 슬롯 */
+    .kw {
+      color: #ff7b72;
+      font-weight: 600;
+    }
+
+    .fn {
+      color: #d2a8ff;
+      font-weight: 600;
+    }
+
+    .str {
+      color: #a5d6ff;
+    }
+
+    .cm {
+      color: #8b949e;
+      font-style: italic;
+    }
+
+    .cls {
+      color: #ffa657;
+      font-weight: 600;
+    }
+
+    .num {
+      color: #79c0ff;
+    }
+
+    /* FIM 영역 강조 박스 */
+    .fim-slot {
+      display: inline-block;
+      min-width: 180px;
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px dashed var(--warning);
+      color: #fbbf24;
+      animation: fimBlink 2s infinite ease-in-out;
+    }
+
+    .fim-slot.filled {
+      animation: none;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10b981;
+      color: #a7f3d0;
+    }
+
+    @keyframes fimBlink {
+
+      0%,
+      100% {
+        border-color: rgba(245, 158, 11, 0.4);
+        box-shadow: 0 0 5px rgba(245, 158, 11, 0.2);
+      }
+
+      50% {
+        border-color: rgba(245, 158, 11, 1);
+        box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+      }
+    }
+
+    /* 타이핑 커서 */
+    .cursor-blink {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      vertical-align: middle;
+      background: var(--intel-cyan);
+      margin-left: 2px;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* 우측 하드웨어 텔레메트리 패널 */
+    .telemetry-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card-metric {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .metric-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .metric-val {
+      font-size: 26px;
+      font-weight: 800;
+      font-family: var(--font-code);
+      color: #fff;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .metric-val span {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .metric-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .metric-bar-fill {
+      height: 100%;
+      width: 75%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--intel-blue), var(--intel-cyan));
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 하드웨어 스펙 배지 리스트 */
+    .hw-spec-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .hw-spec-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 10px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 6px;
+      border-left: 2px solid var(--intel-cyan);
+    }
+
+    .hw-spec-list .label {
+      color: var(--text-muted);
+    }
+
+    .hw-spec-list .val {
+      font-family: var(--font-code);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* 하단 안내 배너 */
+    .footer-tip {
+      margin-top: 14px;
+      background: rgba(0, 113, 197, 0.12);
+      border: 1px solid rgba(0, 199, 253, 0.3);
+      border-radius: 8px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #bae6fd;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-canvas"></div>
+
+  <div class="app-container">
+    <!-- 상단 헤더 -->
+    <header class="header-bar">
+      <div class="brand-group">
+        <div class="intel-badge">INTEL AI SUMMIT 2026</div>
+        <div class="header-titles">
+          <h1>MZC-Intel Enterprise AI FULL STACK Live Demo</h1>
+          <p>Intel Xeon 6 & Gaudi 3 기반 자율 Vibe Coding 및 FIM(Fill-in-the-Middle) 인터랙티브 시연</p>
+        </div>
+      </div>
+      <div class="live-status">
+        <div class="pulse-dot"></div>
+        <span>100% On-Premise Air-Gap Verified</span>
+      </div>
+    </header>
+
+    <!-- 컨트롤 툴바 -->
+    <div class="control-toolbar">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="tabs-group">
+          <button class="lang-btn active" id="btnPy" onclick="switchLang('python')">🐍 Python (FastAPI +
+            OpenVINO)</button>
+          <button class="lang-btn" id="btnJava" onclick="switchLang('java')">☕ Java (Spring AI Gateway)</button>
+        </div>
+        <div class="tabs-group">
+          <button class="mode-btn active" id="btnVibe" onclick="switchMode('vibe')">✨ Vibe Coding 모드</button>
+          <button class="mode-btn" id="btnFim" onclick="switchMode('fim')">🎯 FIM 인필링 모드</button>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <select class="preset-select" id="presetSelect" onchange="onPresetChange(this.value)">
+          <option value="rag">시나리오 1: Intel Gaudi 3 고성능 RAG 파이프라인 생성</option>
+          <option value="guardrail">시나리오 2: 온프레미스 PII 실시간 마스킹 & 보안 가드레일</option>
+          <option value="modelmesh">시나리오 3: Articul8 ModelMesh 에어갭 로드밸런서</option>
+        </select>
+        <button class="action-btn" id="execBtn" onclick="runDemoAction()">
+          <span id="execIcon">⚡</span>
+          <span id="execText">실시간 자율 생성 시작</span>
+        </button>
+        <button class="reset-btn" onclick="resetEditor()">초기화 (Reset)</button>
+      </div>
+    </div>
+
+    <!-- 메인 작업 공간 -->
+    <div class="workspace-grid">
+      <!-- 좌측 코드 에디터 -->
+      <div class="editor-panel">
+        <div class="editor-header">
+          <div class="file-badge">
+            <span class="dot-mac dot-r"></span>
+            <span class="dot-mac dot-y"></span>
+            <span class="dot-mac dot-g"></span>
+            <span style="margin-left: 8px;" id="currentFileName">python_intel_openvino_rag.py</span>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted);">
+            인텔 하드웨어 컴파일 상태: <span style="color: #34d399; font-weight: 700;">OPT_READY</span>
+          </div>
+        </div>
+        <div class="editor-body" id="codeEditor">
+          <!-- 코드 콘텐츠 동적 주입 -->
+        </div>
+      </div>
+
+      <!-- 우측 텔레메트리 패널 -->
+      <div class="telemetry-panel">
+        <!-- 텔레메트리 1: 지연 시간 -->
+        <div class="card-metric">
+          <div class="metric-header">
+            <span>Inference Latency</span>
+            <span style="color: var(--intel-cyan);">Intel AMX</span>
+          </div>
+          <div class="metric-val" id="valLatency">14.2 <span>ms</span></div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="barLatency" style="width: 88%;"></div>
+          </div>
+        </div>
+
+        <!-- 텔레메트리 2: 토큰 처리 속도 -->
+        <div class="card-metric">
+          <div class="metric-header">
+            <span>Throughput (Tokens/s)</span>
+            <span style="color: #34d399;">8x Gaudi 3 OAM</span>
+          </div>
+          <div class="metric-val" id="valTokens">194.5 <span>tok/s</span></div>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="barTokens"
+              style="width: 92%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
+          </div>
+        </div>
+
+        <!-- 텔레메트리 3: 인텔 클러스터 사양 -->
+        <div class="card-metric" style="flex: 1;">
+          <div class="metric-header">
+            <span>Intel Architecture Stack</span>
+            <span style="color: #fbbf24;">Air-Gap</span>
+          </div>
+          <ul class="hw-spec-list">
+            <li>
+              <span class="label">Host CPU</span>
+              <span class="val">Intel Xeon 6980P (128C)</span>
+            </li>
+            <li>
+              <span class="label">AI Accelerator</span>
+              <span class="val">Intel Gaudi 3 (128GB HBM2e)</span>
+            </li>
+            <li>
+              <span class="label">Acceleration SW</span>
+              <span class="val">Intel OpenVINO™ 2026.2</span>
+            </li>
+            <li>
+              <span class="label">Platform OS</span>
+              <span class="val">Red Hat OpenShift (RHOAI)</span>
+            </li>
+            <li>
+              <span class="label">TCO Advantage</span>
+              <span class="val" style="color: #34d399;">-52.4% vs Cloud</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 하단 안내 배너 -->
+    <footer class="footer-tip">
+      <div>
+        💡 <strong>부스 참관객 안내:</strong> 화면의 <strong>[FIM 인필링 모드]</strong> 또는 빈칸 <code>&lt;FILL&gt;</code> 슬롯을 클릭하시면,
+        인텔 가우디 3 가속 모델이 앞뒤 컨텍스트를 분석하여 최적의 코드를 0.05초 만에 채워 넣습니다.
+      </div>
+      <div style="font-family: var(--font-code); font-size: 11px; color: var(--intel-cyan);">
+        Booth: Grand Ballroom 1F Gold #04
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 데모 상태 관리
+    let currentLang = 'python';
+    let currentMode = 'vibe';
+    let isRunning = false;
+
+    // 1. Python 원본 템플릿
+    const pyTemplatePrefix = `<span class="kw">import</span> time
+<span class="kw">from</span> fastapi <span class="kw">import</span> FastAPI
+<span class="kw">from</span> openvino_genai <span class="kw">import</span> LLMPipeline
+
+app = FastAPI(title=<span class="str">"Intel Gaudi 3 RAG Gateway"</span>)
+
+<span class="cm"># [Intel Xeon 6 & Gaudi 3 고성능 추론 엔진 초기화]</span>
+pipeline = LLMPipeline(model_path=<span class="str">"/opt/models/articul8-v2"</span>, device=<span class="str">"HPU"</span>)
+
+@app.post(<span class="str">"/v1/intel/inference"</span>)
+<span class="kw">def</span> <span class="fn">execute_intel_inference</span>(prompt: str):
+    start_time = time.perf_counter()
+`;
+
+    const pyFimSlot = `    <span class="fim-slot" id="pySlot" onclick="triggerFim()"> &lt;FILL: Intel OpenVINO Tensor Pipeline 코드 자동 완성&gt; </span>`;
+
+    const pyTemplateSuffix = `
+    latency_ms = (time.perf_counter() - start_time) * 1000
+    <span class="kw">return</span> {<span class="str">"status"</span>: <span class="str">"SUCCESS"</span>, <span class="str">"hardware"</span>: <span class="str">"Intel Gaudi 3"</span>, <span class="str">"latency"</span>: latency_ms}
+`;
+
+    const pyFilledCode = `    <span class="cm"># [FIM 완성] 인텔 가우디 3 텐서 컴파일 및 비동기 추론 스트림</span>
+    tokens = pipeline.tokenize(prompt)
+    output_tokens = pipeline.generate(tokens, max_new_tokens=256)
+    result_text = pipeline.decode(output_tokens)`;
+
+    // 2. Java 원본 템플릿
+    const javaTemplatePrefix = `<span class="kw">package</span> com.megazone.ai.intel;
+
+<span class="kw">import</span> org.springframework.web.bind.annotation.*;
+<span class="kw">import</span> java.util.concurrent.CompletableFuture;
+
+@RestController
+@RequestMapping(<span class="str">"/api/intel"</span>)
+<span class="kw">public class</span> <span class="cls">IntelAiGatewayController</span> {
+
+    @PostMapping(<span class="str">"/guardrail"</span>)
+    <span class="kw">public</span> CompletableFuture&lt;Response&gt; <span class="fn">processAirgapQuery</span>(@RequestBody String prompt) {
+        <span class="kw">long</span> start = System.currentTimeMillis();
+`;
+
+    const javaFimSlot = `        <span class="fim-slot" id="javaSlot" onclick="triggerFim()"> &lt;FILL: Spring AI & Intel AMX PII 실시간 가드레일&gt; </span>`;
+
+    const javaTemplateSuffix = `
+        <span class="kw">return</span> CompletableFuture.completedFuture(
+            <span class="kw">new</span> <span class="cls">Response</span>(<span class="str">"OK"</span>, <span class="str">"Intel Gaudi 3 / Xeon 6"</span>, System.currentTimeMillis() - start)
+        );
+    }
+}
+`;
+
+    const javaFilledCode = `        <span class="cm">// [FIM 완성] Intel Xeon AMX 행렬 가속을 통한 2ms 미만 PII 마스킹</span>
+        String sanitized = prompt.replaceAll(<span class="str">"(?i)(password|ssn|token)=[\\\\w-]+"</span>, <span class="str">"$1=***MASKED***"</span>);
+        <span class="kw">boolean</span> isApproved = IntelSecurityCore.verifyAirgapPolicy(sanitized);`;
+
+    function renderEditor() {
+      const editor = document.getElementById('codeEditor');
+      const filename = document.getElementById('currentFileName');
+
+      if (currentLang === 'python') {
+        filename.textContent = 'python_intel_openvino_rag.py';
+        if (currentMode === 'fim') {
+          editor.innerHTML = pyTemplatePrefix + pyFimSlot + pyTemplateSuffix;
+        } else {
+          editor.innerHTML = pyTemplatePrefix + `    <span class="cm"># [Vibe Coding 대기 중] '실시간 자율 생성' 버튼을 누르면 인텔 최적화 코드가 생성됩니다...</span>` + pyTemplateSuffix;
+        }
+      } else {
+        filename.textContent = 'IntelEnterpriseAiGateway.java';
+        if (currentMode === 'fim') {
+          editor.innerHTML = javaTemplatePrefix + javaFimSlot + javaTemplateSuffix;
+        } else {
+          editor.innerHTML = javaTemplatePrefix + `        <span class="cm">// [Vibe Coding 대기 중] 자연어 의도 기반으로 Spring Boot AI 코드가 생성됩니다...</span>` + javaTemplateSuffix;
+        }
+      }
+    }
+
+    function switchLang(lang) {
+      if (isRunning) return;
+      currentLang = lang;
+      document.getElementById('btnPy').classList.toggle('active', lang === 'python');
+      document.getElementById('btnJava').classList.toggle('active', lang === 'java');
+      renderEditor();
+    }
+
+    function switchMode(mode) {
+      if (isRunning) return;
+      currentMode = mode;
+      document.getElementById('btnVibe').classList.toggle('active', mode === 'vibe');
+      document.getElementById('btnFim').classList.toggle('active', mode === 'fim');
+
+      const execText = document.getElementById('execText');
+      const execIcon = document.getElementById('execIcon');
+      if (mode === 'vibe') {
+        execText.textContent = '실시간 자율 생성 시작';
+        execIcon.textContent = '⚡';
+      } else {
+        execText.textContent = 'FIM 인필링 즉시 완성';
+        execIcon.textContent = '🎯';
+      }
+      renderEditor();
+    }
+
+    function onPresetChange(val) {
+      resetEditor();
+    }
+
+    function resetEditor() {
+      isRunning = false;
+      renderEditor();
+      // 텔레메트리 원복
+      updateTelemetry(14.2, 194.5);
+    }
+
+    function updateTelemetry(lat, tok) {
+      document.getElementById('valLatency').innerHTML = `${lat.toFixed(1)} <span>ms</span>`;
+      document.getElementById('valTokens').innerHTML = `${tok.toFixed(1)} <span>tok/s</span>`;
+      document.getElementById('barLatency').style.width = `${Math.min(100, Math.max(20, (30 - lat) * 5))}%`;
+      document.getElementById('barTokens').style.width = `${Math.min(100, (tok / 220) * 100)}%`;
+    }
+
+    function triggerFim() {
+      if (isRunning) return;
+      const slot = currentLang === 'python' ? document.getElementById('pySlot') : document.getElementById('javaSlot');
+      if (!slot) return;
+
+      slot.textContent = '인텔 가속 모델 인필링 추론 중...';
+      slot.style.borderColor = '#00C7FD';
+
+      setTimeout(() => {
+        slot.outerHTML = currentLang === 'python' ? pyFilledCode : javaFilledCode;
+        updateTelemetry(9.4, 218.0);
+      }, 120);
+    }
+
+    function runDemoAction() {
+      if (isRunning) return;
+
+      if (currentMode === 'fim') {
+        triggerFim();
+        return;
+      }
+
+      // Vibe 코딩 모드: 타이핑 효과 시뮬레이션
+      isRunning = true;
+      const editor = document.getElementById('codeEditor');
+      const codeToInject = currentLang === 'python' ? pyFilledCode : javaFilledCode;
+
+      let currentHtml = currentLang === 'python' ? pyTemplatePrefix : javaTemplatePrefix;
+      let suffix = currentLang === 'python' ? pyTemplateSuffix : javaTemplateSuffix;
+
+      let step = 0;
+      editor.innerHTML = currentHtml + `<span class="cursor-blink"></span>` + suffix;
+
+      const timer = setInterval(() => {
+        step += 3;
+        const progressText = codeToInject.substring(0, step);
+        editor.innerHTML = currentHtml + progressText + `<span class="cursor-blink"></span>` + suffix;
+
+        // 텔레메트리 지터 효과
+        const simLatency = 12.0 + (Math.random() * 4.0);
+        const simTokens = 180.0 + (Math.random() * 30.0);
+        updateTelemetry(simLatency, simTokens);
+
+        if (step >= codeToInject.length) {
+          clearInterval(timer);
+          editor.innerHTML = currentHtml + codeToInject + suffix;
+          isRunning = false;
+          updateTelemetry(8.9, 215.4);
+        }
+      }, 18);
+    }
+
+    // 초기 로드
+    window.addEventListener('DOMContentLoaded', () => {
+      renderEditor();
+    });
+  </script>
+
+</body>
+
+</html>

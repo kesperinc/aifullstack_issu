@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Intel AI Summit Seoul 2026 - MegazoneCloud Booth Master Kiosk</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --intel-blue: #0071C5;
+    --intel-cyan: #00C7FD;
+    --intel-deep: #001E50;
+    --bg: #02060d;
+    --panel-bg: rgba(6, 15, 29, 0.94);
+    --border: rgba(0, 199, 253, 0.25);
+    --border-hl: rgba(0, 199, 253, 0.8);
+    --text: #edf2f9;
+    --muted: #8c9cb3;
+    --font: 'Pretendard', 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden; background: #000;
+    font-family: var(--font); color: var(--text); user-select: none;
+  }
+  body.hidecursor, body.hidecursor * { cursor: none !important; }
+
+  /* 뷰포트 컨테이너 */
+  #frameContainer {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    background: #000; overflow: hidden;
+  }
+  .show-frame {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    border: none; outline: none; opacity: 0; visibility: hidden;
+    transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.5s;
+    background: #000;
+  }
+  .show-frame.active {
+    opacity: 1; visibility: visible; z-index: 10;
+  }
+
+  /* 상단 플로팅 컨트롤 헤더 */
+  #runnerHeader {
+    position: absolute; top: 0; left: 0; right: 0; height: 56px;
+    background: var(--panel-bg); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; z-index: 100;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  #runnerHeader.minimized {
+    transform: translateY(-90%);
+    opacity: 0.25;
+  }
+  #runnerHeader:hover {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* 프로그레스 바 */
+  #headerProgress {
+    position: absolute; bottom: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--intel-blue), var(--intel-cyan));
+    box-shadow: 0 0 10px var(--intel-cyan);
+    transition: width 0.2s linear;
+  }
+
+  /* 브랜드 로고 */
+  .brand-zone {
+    display: flex; align-items: center; gap: 12px; cursor: pointer;
+  }
+  .intel-pill {
+    background: linear-gradient(135deg, var(--intel-blue), var(--intel-cyan));
+    color: #fff; font-size: 11px; font-weight: 900; letter-spacing: 0.5px;
+    padding: 4px 10px; border-radius: 4px;
+  }
+  .runner-title {
+    font-size: 14px; font-weight: 700; color: #fff;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .booth-tag {
+    font-size: 11px; font-family: var(--mono); color: var(--intel-cyan);
+    border: 1px solid rgba(0, 199, 253, 0.4); padding: 2px 6px; border-radius: 4px;
+  }
+
+  /* 탭 내비게이션 */
+  .runner-nav {
+    display: flex; align-items: center; gap: 6px;
+  }
+  .runner-tab {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 6px; border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.04); color: var(--muted);
+    font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .runner-tab:hover {
+    color: #fff; background: rgba(255, 255, 255, 0.08);
+  }
+  .runner-tab.active {
+    background: rgba(0, 199, 253, 0.16); border-color: var(--border-hl);
+    color: var(--intel-cyan); box-shadow: 0 0 14px rgba(0, 199, 253, 0.25);
+  }
+  .tab-timer {
+    font-family: var(--mono); font-size: 11px; opacity: 0.75;
+  }
+
+  /* 컨트롤 버튼 그룹 */
+  .runner-ctrls {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .ctrl-btn {
+    width: 34px; height: 34px; border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+    color: #fff; font-size: 13px; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; transition: all 0.2s;
+  }
+  .ctrl-btn:hover {
+    background: rgba(0, 199, 253, 0.2); border-color: var(--intel-cyan);
+  }
+
+  /* 토스트 알림 */
+  #toast {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    background: rgba(4, 12, 26, 0.92); border: 1px solid var(--intel-cyan);
+    color: #fff; padding: 10px 24px; border-radius: 999px; font-size: 13px;
+    font-weight: 600; pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8); z-index: 200;
+  }
+  #toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- 상단 헤더 -->
+<header id="runnerHeader">
+  <div id="headerProgress"></div>
+
+  <div class="brand-zone" onclick="togglePause()">
+    <span class="intel-pill">INTEL SUMMIT 2026</span>
+    <span class="runner-title">
+      MZC Enterprise AI Full Stack
+      <span class="booth-tag">Gold #04</span>
+    </span>
+  </div>
+
+  <!-- 파트 탭 버튼 -->
+  <nav class="runner-nav">
+    <button class="runner-tab active" data-index="0">
+      <span>① Articul8 on Intel</span>
+      <span class="tab-timer" id="timer0">02:00</span>
+    </button>
+    <button class="runner-tab" data-index="1">
+      <span>② RHOAI Full Stack</span>
+      <span class="tab-timer" id="timer1">01:50</span>
+    </button>
+    <button class="runner-tab" data-index="2">
+      <span>③ Vibe Coding & FIM</span>
+      <span class="tab-timer" id="timer2">01:30</span>
+    </button>
+    <button class="runner-tab" data-index="3">
+      <span>④ Nota AI 경량화</span>
+      <span class="tab-timer" id="timer3">01:40</span>
+    </button>
+  </nav>
+
+  <!-- 컨트롤 버튼 -->
+  <div class="runner-ctrls">
+    <button class="ctrl-btn" id="prevBtn" title="이전 (P / ←)">◀</button>
+    <button class="ctrl-btn" id="pauseBtn" title="일시정지 / 재생 (Space)">❚❚</button>
+    <button class="ctrl-btn" id="nextBtn" title="다음 (N / →)">▶</button>
+    <button class="ctrl-btn" id="fsBtn" title="전체화면 (F)">⛶</button>
+  </div>
+</header>
+
+<!-- 프레임 컨테이너 -->
+<main id="frameContainer">
+  <iframe class="show-frame active" id="frame0" src="2026-10-21_intel_summit_articul8_presentation.html"></iframe>
+  <iframe class="show-frame" id="frame1" src="2026-10-21_intel_summit_rhoai_fullstack_presentation.html"></iframe>
+  <iframe class="show-frame" id="frame2" src="2026-10-30_intel_vibe_coding_interactive_demo.html"></iframe>
+  <iframe class="show-frame" id="frame3" src="Nota_Benchmark_Showcase_261015.html"></iframe>
+</main>
+
+<div id="toast">쇼케이스 전환됨</div>
+
+<script>
+// 4개 파트 설정 (초 단위 재생 시간)
+const SHOWS = [
+  { name: 'Articul8 on Intel', durationSec: 120, id: 'frame0' },
+  { name: 'RHOAI Full Stack', durationSec: 110, id: 'frame1' },
+  { name: 'Vibe Coding & FIM', durationSec: 90, id: 'frame2' },
+  { name: 'Nota AI 경량화', durationSec: 100, id: 'frame3' }
+];
+
+let currentIndex = 0;
+let isPaused = false;
+let elapsedSec = 0;
+let timerInterval = null;
+let toastTimeout = null;
+
+// 커서 자동 숨김
+let cursorTimeout = null;
+function handleMouseMove() {
+  document.body.classList.remove('hidecursor');
+  document.getElementById('runnerHeader').classList.remove('minimized');
+  clearTimeout(cursorTimeout);
+  cursorTimeout = setTimeout(() => {
+    if (!isPaused) {
+      document.body.classList.add('hidecursor');
+      document.getElementById('runnerHeader').classList.add('minimized');
+    }
+  }, 4000);
+}
+window.addEventListener('mousemove', handleMouseMove);
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+function updateTabs() {
+  const tabs = document.querySelectorAll('.runner-tab');
+  tabs.forEach((tab, idx) => {
+    tab.classList.toggle('active', idx === currentIndex);
+  });
+}
+
+function updateProgress() {
+  const currentShow = SHOWS[currentIndex];
+  const pct = Math.min(100, (elapsedSec / currentShow.durationSec) * 100);
+  document.getElementById('headerProgress').style.width = pct + '%';
+  
+  // 남은 시간 포맷
+  const remainSec = Math.max(0, currentShow.durationSec - elapsedSec);
+  const m = String(Math.floor(remainSec / 60)).padStart(2, '0');
+  const s = String(remainSec % 60).padStart(2, '0');
+  const timerEl = document.getElementById(`timer${currentIndex}`);
+  if (timerEl) timerEl.textContent = `${m}:${s}`;
+}
+
+function switchShow(newIndex, manual = false) {
+  if (newIndex < 0) newIndex = SHOWS.length - 1;
+  if (newIndex >= SHOWS.length) newIndex = 0;
+
+  // 이전 프레임 숨기기
+  document.getElementById(SHOWS[currentIndex].id).classList.remove('active');
+  
+  currentIndex = newIndex;
+  elapsedSec = 0;
+
+  // 신규 프레임 활성화
+  const targetFrame = document.getElementById(SHOWS[currentIndex].id);
+  targetFrame.classList.add('active');
+
+  updateTabs();
+  updateProgress();
+  showToast(`${currentIndex + 1}단계: ${SHOWS[currentIndex].name}`);
+}
+
+function tick() {
+  if (isPaused) return;
+  elapsedSec += 1;
+  updateProgress();
+
+  if (elapsedSec >= SHOWS[currentIndex].durationSec) {
+    switchShow(currentIndex + 1);
+  }
+}
+
+function togglePause() {
+  isPaused = !isPaused;
+  const pauseBtn = document.getElementById('pauseBtn');
+  if (isPaused) {
+    pauseBtn.textContent = '▶';
+    showToast('일시정지됨 (스페이스바로 재개)');
+  } else {
+    pauseBtn.textContent = '❚❚';
+    showToast('재생 시작');
+  }
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+// 탭 클릭 이벤트 바인딩
+document.querySelectorAll('.runner-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const idx = parseInt(btn.getAttribute('data-index'), 10);
+    switchShow(idx, true);
+  });
+});
+
+// 컨트롤 버튼 이벤트 바인딩
+document.getElementById('prevBtn').addEventListener('click', () => switchShow(currentIndex - 1, true));
+document.getElementById('nextBtn').addEventListener('click', () => switchShow(currentIndex + 1, true));
+document.getElementById('pauseBtn').addEventListener('click', togglePause);
+document.getElementById('fsBtn').addEventListener('click', toggleFullscreen);
+
+// 단축키 이벤트 바인딩
+window.addEventListener('keydown', (e) => {
+  if (e.key === ' ' || e.code === 'Space') {
+    e.preventDefault();
+    togglePause();
+  } else if (e.key === 'ArrowRight' || e.key === 'n' || e.key === 'N') {
+    switchShow(currentIndex + 1, true);
+  } else if (e.key === 'ArrowLeft' || e.key === 'p' || e.key === 'P') {
+    switchShow(currentIndex - 1, true);
+  } else if (e.key === 'f' || e.key === 'F') {
+    toggleFullscreen();
+  } else if (['1', '2', '3', '4'].includes(e.key)) {
+    const idx = parseInt(e.key, 10) - 1;
+    switchShow(idx, true);
+  }
+});
+
+// 타이머 시작
+timerInterval = setInterval(tick, 1000);
+updateTabs();
+updateProgress();
+</script>
+
+</body>
+</html>
