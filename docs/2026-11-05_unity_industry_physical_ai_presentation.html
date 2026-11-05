@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Intel AI Summit Seoul 2026 - Unity Industry & Physical AI (Compact Edition)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #030712;
+    --bg-surface: #0a1124;
+    --bg-surface-elevated: #101b38;
+    --bg-card: rgba(13, 23, 48, 0.9);
+    --bg-card-alt: rgba(17, 30, 62, 0.92);
+    --border-subtle: rgba(255, 255, 255, 0.09);
+    --border-bright: rgba(0, 199, 253, 0.55);
+    --border-card: rgba(38, 72, 125, 0.72);
+
+    --mzc-blue: #00abf0;
+    --intel-blue: #0071c5;
+    --intel-cyan: #00c7fd;
+    --unity-neon: #20e3b2;
+    --accent-amber: #f59e0b;
+    --accent-orange: #ff5500;
+    --accent-purple: #a855f7;
+
+    --text-title: #ffffff;
+    --text-body: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+
+    --font-sans: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-mono: 'Space Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    width: 100%; height: 100%; overflow: hidden; background: #000;
+    font-family: var(--font-sans); color: var(--text-body); user-select: none;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* 1920x1080 FHD 표준 캔버스 스테이지 */
+  #stage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1920px;
+    height: 1080px;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center center;
+    background: radial-gradient(120% 100% at 0% 0%, rgba(0, 113, 197, 0.2), transparent 50%),
+                radial-gradient(120% 100% at 100% 100%, rgba(0, 199, 253, 0.14), transparent 55%),
+                radial-gradient(85% 85% at 50% 45%, rgba(0, 32, 85, 0.35), transparent 65%),
+                var(--bg-base);
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+  }
+
+  /* 상단 프로그레스 바 */
+  .pbar {
+    position: absolute; left: 0; top: 0; height: 4px;
+    background: linear-gradient(90deg, var(--intel-blue), var(--intel-cyan), var(--unity-neon));
+    z-index: 60; width: 0; box-shadow: 0 0 16px rgba(0, 199, 253, 0.8);
+    transition: width 0.2s ease;
+  }
+
+  /* 상단 네비게이션 바 */
+  .topbar {
+    position: absolute; left: 64px; right: 64px; top: 20px; height: 48px;
+    display: flex; align-items: center; gap: 16px; z-index: 50;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none;
+  }
+  .brand-badge {
+    height: 36px; padding: 0 14px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--intel-blue), var(--intel-cyan));
+    border: 1px solid rgba(0, 199, 253, 0.65);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-weight: 800; font-size: 13px; color: #fff;
+    box-shadow: 0 0 14px rgba(0, 199, 253, 0.35);
+    letter-spacing: 0.05em;
+  }
+  .brand-title { display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
+  .brand-title b { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+  .brand-title span { font-size: 12.5px; font-family: var(--font-mono); color: var(--intel-cyan); letter-spacing: 0.08em; font-weight: 700; }
+
+  .top-divider { width: 1px; height: 20px; background: rgba(255, 255, 255, 0.16); margin: 0 2px; }
+  .top-subtitle {
+    font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; white-space: nowrap;
+  }
+  .top-subtitle strong { color: #fff; font-weight: 700; }
+
+  /* 상단 섹션 탭 */
+  .sectabs { display: flex; gap: 8px; margin-left: auto; align-items: center; white-space: nowrap; }
+  .sectab {
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px; color: var(--text-muted); font-family: var(--font-sans);
+    font-size: 13px; font-weight: 600; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .sectab:hover { color: #fff; background: rgba(0, 199, 253, 0.12); border-color: rgba(0, 199, 253, 0.4); }
+  .sectab.on {
+    color: #fff; background: rgba(0, 199, 253, 0.22); border-color: rgba(0, 199, 253, 0.75);
+    box-shadow: 0 0 12px rgba(0, 199, 253, 0.28); font-weight: 700;
+  }
+
+  .topright { display: flex; align-items: center; gap: 10px; }
+  .btn-top {
+    background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #fff; border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: var(--font-sans);
+    transition: all 0.2s;
+  }
+  .btn-top:hover { background: rgba(0, 199, 253, 0.2); border-color: var(--intel-cyan); }
+  .btn-top.active-btn {
+    background: var(--intel-blue); border-color: var(--intel-cyan); box-shadow: 0 0 10px rgba(0, 199, 253, 0.35);
+  }
+
+  /* 슬라이드 메인 뷰포트 (빈 공간 없이 꽉 찬 밀도 설계) */
+  #slideHost {
+    position: absolute; left: 64px; right: 64px; top: 82px; bottom: 68px;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease;
+    display: flex; flex-direction: column;
+    gap: 18px;
+  }
+  .slide.active { opacity: 1; visibility: visible; }
+
+  /* 슬라이드 공통 헤더 (컴팩트화) */
+  .slide-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 14px; flex-shrink: 0;
+  }
+  .header-left { display: flex; flex-direction: column; gap: 4px; }
+  .slide-category {
+    display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono);
+    font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.11em;
+    color: var(--intel-cyan);
+  }
+  .slide-category::before {
+    content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--intel-cyan); box-shadow: 0 0 8px var(--intel-cyan);
+  }
+  .slide-title {
+    font-size: 34px; font-weight: 800; color: #fff; line-height: 1.22; letter-spacing: -0.02em;
+  }
+  .slide-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, #fff, var(--intel-cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .slide-subtitle {
+    font-size: 15.5px; color: var(--text-muted); font-weight: 500;
+  }
+  .header-pill {
+    font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+    color: var(--unity-neon); background: rgba(32, 227, 178, 0.1);
+    border: 1px solid rgba(32, 227, 178, 0.38); border-radius: 999px;
+    padding: 6px 16px; white-space: nowrap;
+  }
+
+  /* 메인 바디 컨테이너 */
+  .slide-body {
+    flex: 1; min-height: 0;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  /* 공통 카드 스타일 */
+  .intel-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+    padding: 20px 24px;
+    backdrop-filter: blur(14px);
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    position: relative; overflow: hidden;
+  }
+  .intel-card.card-highlight {
+    border-color: rgba(0, 199, 253, 0.48);
+    background: linear-gradient(165deg, rgba(0, 113, 197, 0.2) 0%, rgba(13, 23, 48, 0.94) 100%);
+  }
+  .intel-card.card-neon {
+    border-color: rgba(32, 227, 178, 0.42);
+    background: linear-gradient(165deg, rgba(32, 227, 178, 0.13) 0%, rgba(13, 23, 48, 0.94) 100%);
+  }
+
+  .card-top { display: flex; flex-direction: column; gap: 8px; }
+  .card-badge-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .card-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+    color: var(--intel-cyan); background: rgba(0, 199, 253, 0.13);
+    border: 1px solid rgba(0, 199, 253, 0.35); border-radius: 6px;
+    padding: 3px 10px; width: fit-content;
+  }
+  .card-badge.neon {
+    color: var(--unity-neon); background: rgba(32, 227, 178, 0.13); border-color: rgba(32, 227, 178, 0.38);
+  }
+  .card-badge.amber {
+    color: var(--accent-amber); background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4);
+  }
+  .card-headline {
+    font-size: 21px; font-weight: 800; color: #fff; letter-spacing: -0.01em; line-height: 1.3;
+  }
+  .card-desc {
+    font-size: 14.5px; color: var(--text-body); line-height: 1.55;
+  }
+
+  /* 리스트 & 칩 */
+  .intel-list {
+    list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 8px;
+  }
+  .intel-list li {
+    font-size: 14.5px; line-height: 1.5; color: #cbd5e1; position: relative; padding-left: 18px;
+  }
+  .intel-list li::before {
+    content: '▹'; position: absolute; left: 0; top: 0; color: var(--intel-cyan); font-size: 14px;
+  }
+  .intel-list li strong { color: #fff; font-weight: 700; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip-tag {
+    font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+    color: var(--intel-cyan); background: rgba(0, 199, 253, 0.09);
+    border: 1px solid rgba(0, 199, 253, 0.28); border-radius: 6px;
+    padding: 4px 10px;
+  }
+  .chip-tag.neon {
+    color: var(--unity-neon); background: rgba(32, 227, 178, 0.1); border-color: rgba(32, 227, 178, 0.35);
+  }
+  .chip-tag.white {
+    color: #fff; background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* 영상/이미지 스테이지 박스 */
+  .media-box {
+    background: #02050e;
+    border: 1px solid var(--border-bright);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 26px rgba(0, 199, 253, 0.22);
+    min-height: 0;
+  }
+  .media-box img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .media-box img.contain {
+    object-fit: contain; background: #000;
+  }
+  .media-tag {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(3, 7, 18, 0.88); backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 199, 253, 0.55); border-radius: 6px;
+    padding: 4px 10px; font-family: var(--font-mono); font-size: 11px;
+    color: var(--intel-cyan); font-weight: 700; z-index: 5;
+  }
+  .media-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(0deg, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.7) 75%, transparent 100%);
+    padding: 18px 16px 10px; font-size: 13px; color: #e2e8f0;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  /* 좌우 분할 레이아웃 (텍스트 카드 스택 + 대형 미디어) */
+  .split-layout {
+    display: grid; grid-template-columns: 1fr 1.25fr; gap: 20px;
+    flex: 1; min-height: 0;
+  }
+  .stack-col {
+    display: flex; flex-direction: column; gap: 14px;
+    height: 100%; min-height: 0;
+  }
+  .stack-col > .intel-card {
+    flex: 1;
+  }
+
+  /* Slide 1 전용: 상단 6열 파이프라인 + 하단 3층 Product Solution */
+  .pipeline-6 {
+    display: grid; grid-template-columns: 1.15fr 1fr 1fr 1fr 1fr 1.15fr; gap: 12px;
+  }
+  .p-box {
+    background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px;
+    padding: 14px 16px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .p-box.convert { border-top: 4px solid #ff5500; }
+  .p-box.access  { border-top: 4px solid #f59e0b; }
+  .p-box.render  { border-top: 4px solid #10b981; }
+  .p-box.deploy  { border-top: 4px solid #00abf0; }
+  .p-box.output  { border-top: 4px solid var(--unity-neon); background: rgba(32, 227, 178, 0.08); }
+  .p-step { font-family: var(--font-mono); font-size: 11px; font-weight: 800; color: var(--intel-cyan); }
+  .p-title { font-size: 17px; font-weight: 800; color: #fff; }
+  .p-sub { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
+
+  .automate-bar {
+    background: linear-gradient(90deg, rgba(0, 113, 197, 0.25), rgba(0, 199, 253, 0.2), rgba(32, 227, 178, 0.2));
+    border: 1px solid rgba(0, 199, 253, 0.45);
+    border-radius: 10px; padding: 10px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px; font-weight: 700; color: #fff;
+  }
+
+  .solution-layers {
+    flex: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0;
+  }
+  .sol-layer {
+    flex: 1; background: var(--bg-card); border: 1px solid var(--border-card);
+    border-radius: 12px; padding: 14px 20px;
+    display: grid; grid-template-columns: 170px 1fr; gap: 18px; align-items: center;
+  }
+  .sol-layer-head {
+    display: flex; flex-direction: column; gap: 4px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12); padding-right: 14px;
+  }
+  .sol-pill {
+    font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+    padding: 4px 12px; border-radius: 999px; width: fit-content; color: #fff;
+  }
+  .sol-pill.author  { background: #2563eb; }
+  .sol-pill.run     { background: #ea580c; }
+  .sol-pill.measure { background: #16a34a; }
+  .sol-items-grid {
+    display: grid; gap: 10px;
+  }
+  .sol-item {
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px; padding: 10px 14px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .sol-item.in-dev {
+    border-style: dashed; border-color: rgba(0, 199, 253, 0.45);
+    background: rgba(0, 199, 253, 0.07);
+  }
+  .sol-item strong { font-size: 15px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
+  .sol-item span { font-size: 12.5px; color: var(--text-muted); }
+
+  /* KPI 메트릭 미니 박스 */
+  .kpi-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  }
+  .kpi-box {
+    background: rgba(0, 199, 253, 0.08); border: 1px solid rgba(0, 199, 253, 0.3);
+    border-radius: 10px; padding: 12px 14px; text-align: center;
+  }
+  .kpi-val {
+    font-family: var(--font-mono); font-size: 24px; font-weight: 800; color: var(--intel-cyan);
+  }
+  .kpi-lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* 하단 컨트롤 바 */
+  .bottombar {
+    position: absolute; left: 64px; right: 64px; bottom: 16px; height: 40px;
+    display: flex; align-items: center; justify-content: space-between; z-index: 50;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 6px;
+  }
+  .bottom-info {
+    display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 13px;
+  }
+  .summit-badge {
+    color: #fff; background: rgba(0, 113, 197, 0.35); border: 1px solid rgba(0, 199, 253, 0.4);
+    padding: 3px 10px; border-radius: 4px; font-size: 11px; letter-spacing: 0.06em; font-weight: 700;
+  }
+  .counter { color: var(--intel-cyan); font-weight: 700; letter-spacing: 0.08em; }
+  .topic-name { color: var(--text-muted); font-family: var(--font-sans); font-size: 14px; font-weight: 500; }
+
+  .dots-nav { display: flex; gap: 8px; align-items: center; }
+  .dot-btn {
+    width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, 0.22);
+    border: none; cursor: pointer; transition: all 0.2s ease;
+  }
+  .dot-btn:hover { background: rgba(0, 199, 253, 0.6); transform: scale(1.3); }
+  .dot-btn.on {
+    width: 28px; border-radius: 999px; background: var(--intel-cyan);
+    box-shadow: 0 0 12px var(--intel-cyan);
+  }
+
+  .nav-arrows { display: flex; align-items: center; gap: 10px; }
+  .arrow-btn {
+    width: 32px; height: 32px; border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 13px; transition: all 0.2s;
+  }
+  .arrow-btn:hover {
+    background: var(--intel-cyan); color: #030712; border-color: var(--intel-cyan);
+    box-shadow: 0 0 10px rgba(0, 199, 253, 0.5);
+  }
+  .kbd-help {
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+    display: flex; gap: 8px; margin-left: 10px;
+  }
+  .kbd-key {
+    background: rgba(255, 255, 255, 0.1); padding: 1px 5px; border-radius: 3px; color: var(--text-muted);
+  }
+
+  /* 목차 모달 */
+  #thumbModal {
+    position: absolute; inset: 0;
+    background: rgba(3, 7, 18, 0.96);
+    backdrop-filter: blur(20px);
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+    padding: 48px 70px;
+    overflow-y: auto;
+  }
+  #thumbModal.open { display: flex; }
+  .thumb-top {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 16px;
+  }
+  .thumb-heading { font-size: 26px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 12px; }
+  .thumb-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .thumb-card {
+    background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 10px;
+    padding: 18px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; gap: 8px;
+  }
+  .thumb-card:hover {
+    border-color: var(--intel-cyan); transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 199, 253, 0.25);
+  }
+  .thumb-card.active-card {
+    border: 2px solid var(--intel-cyan); box-shadow: 0 0 16px rgba(0, 199, 253, 0.45);
+  }
+  .thumb-num { font-family: var(--font-mono); font-size: 13px; font-weight: 800; color: var(--intel-cyan); }
+  .thumb-title-text { color: #fff; font-size: 17px; font-weight: 800; line-height: 1.35; }
+  .thumb-sub-text { color: var(--text-muted); font-size: 13px; line-height: 1.45; }
+
+  </style>
+</head>
+<body>
+
+  <div id="stage">
+    <div class="pbar" id="progressBar"></div>
+
+    <!-- 상단 네비게이션 헤더 -->
+    <header class="topbar">
+      <a class="brand" href="#" onclick="goToSlide(1); return false;">
+        <div class="brand-badge">INTEL × UNITY</div>
+        <div class="brand-title">
+          <b>Unity Industry</b>
+          <span>PHYSICAL AI &amp; 3D PIPELINE</span>
+        </div>
+      </a>
+
+      <div class="top-divider"></div>
+      <div class="top-subtitle"><span><strong>엔터프라이즈 3D 데이터 최적화</strong>부터 <strong>인텔 온디바이스 Physical AI</strong>까지</span></div>
+
+      <div class="sectabs">
+        <button class="sectab on" data-sec="all">전체 아젠다</button>
+        <button class="sectab" data-sec="asset">3D 파이프라인 &amp; 에셋 최적화</button>
+        <button class="sectab" data-sec="ai">Physical AI &amp; 로보틱스</button>
+        <button class="sectab" data-sec="partner">파트너십 &amp; 도입 로드맵</button>
+      </div>
+
+      <div class="topright">
+                <button class="btn-top" id="btnGrid" title="전체 목차 [G]">
+          <span>▦ 목차</span>
+        </button>
+        <button class="btn-top" id="btnAuto" title="자동 재생 / 일시정지 [Space]">
+          <span id="autoText">▶ 수동</span>
+        </button>
+        <button class="btn-top" id="btnFullscreen" title="전체화면 [F]">
+          <span>⛶ 전체화면</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 슬라이드 메인 뷰포트 -->
+    <main id="slideHost">
+
+      <!-- =====================================================================
+           SLIDE 01: 엔드투엔드 3D 파이프라인 & Product Solution 체계 (PPT 1 + 2 + 3 통합)
+           ===================================================================== -->
+      <div class="slide active" data-idx="1" data-sec="asset" data-category="OVERVIEW · 3D PIPELINE & PRODUCT SUITE" data-title="Unity Industry: <em>3D 에셋 파이프라인 &amp; Product Solution 체계</em>" data-subtitle="보유 CAD/PLM 수집부터 자동 변환·관리·렌더링·배포 및 AI 시뮬레이션(Author·Run·Measure) 통합 아키텍처">
+        <div class="slide-header">
+          <div class="header-left">
+            <div class="slide-category">01 · OVERVIEW &amp; ARCHITECTURE</div>
+            <h2 class="slide-title">Unity Industry: <em>3D 에셋 파이프라인 &amp; Product Solution 체계</em></h2>
+            <p class="slide-subtitle">보유 3D 모델·PLM 수집(Ingest)부터 변환·관리·렌더링·배포 및 저작(Author)·실행(Run)·계측(Measure) 풀스택</p>
+          </div>
+          <span class="header-pill">END-TO-END 3D &amp; PHYSICAL AI STACK</span>
+        </div>
+
+        <div class="slide-body">
+          <!-- 상단: PPT Slide 2 (3D 에셋 활용 넓히기 5단계 파이프라인 + OUTPUT) -->
+          <div class="pipeline-6">
+            <div class="p-box">
+              <span class="p-step">01 · INGEST (수집)</span>
+              <div class="p-title">보유 3D 모델 &amp; PLM</div>
+              <div class="p-sub">SolidWorks · Inventor · CATIA · Siemens NX · Creo · Fusion 360 · Revit · ENOVIA · Teamcenter · Windchill · Navisworks</div>
+            </div>
+            <div class="p-box convert">
+              <span class="p-step" style="color:#ff7a33;">02 · 3D 데이터 관리 ①</span>
+              <div class="p-title">Convert (변환)</div>
+              <div class="p-sub"><strong style="color:#fff;">Asset Transformer</strong><br>70+ CAD/BIM 포맷 수작업 없는 자동 경량화·레시피 표준화</div>
+            </div>
+            <div class="p-box access">
+              <span class="p-step" style="color:var(--accent-amber);">03 · 3D 데이터 관리 ②</span>
+              <div class="p-title">Access (접근)</div>
+              <div class="p-sub"><strong style="color:#fff;">Asset Manager</strong><br>3D 프리뷰, 버전·종속성 관리, 3DDS 실시간 스트리밍</div>
+            </div>
+            <div class="p-box render">
+              <span class="p-step" style="color:#34d399;">04 · 3D 앱 구축 ①</span>
+              <div class="p-title">Render (렌더링)</div>
+              <div class="p-sub"><strong style="color:#fff;">Editor / Studio</strong><br>시뮬레이션 씬 구성, 물리 엔진(PhysX) 및 센서/조명 저작</div>
+            </div>
+            <div class="p-box deploy">
+              <span class="p-step" style="color:var(--mzc-blue);">05 · 3D 앱 구축 ②</span>
+              <div class="p-title">Deploy (배포)</div>
+              <div class="p-sub"><strong style="color:#fff;">Cross-Platform</strong><br>Web app · Desktop app · Mobile app · VR / AR / XR · HMI</div>
+            </div>
+            <div class="p-box output">
+              <span class="p-step" style="color:var(--unity-neon);">06 · OUTPUT (현장 산출물)</span>
+              <div class="p-title">엔터프라이즈 활용</div>
+              <div class="p-sub" style="color:#e2e8f0;">• 디지털 트윈 &amp; 로보틱스 시뮬레이션<br>• 작업자 트레이닝 &amp; 프로토타이핑<br>• 제품 컨피규레이터 &amp; 고객 경험</div>
+            </div>
+          </div>
+
+          <div class="automate-bar">
+            <span>⇄ Automate (자동화) — Pipeline + Pipeline Automation + AI</span>
+            <span style="color:var(--intel-cyan); font-family:var(--font-mono); font-size:12.5px;">SDK &amp; 배치 처리로 설계 변경부터 시뮬레이션·AI 학습까지 무인 파이프라인 연결</span>
+          </div>
+
+          <!-- 하단: PPT Slide 3 (Unity Product Solution — AUTHOR / RUN / MEASURE) -->
+          <div class="solution-layers">
+            <!-- AUTHOR -->
+            <div class="sol-layer">
+              <div class="sol-layer-head">
+                <span class="sol-pill author">AUTHOR (저작)</span>
+                <span style="font-size:12.5px; color:var(--text-muted); margin-top:4px;">시뮬레이션 및 AI 학습 환경 구축</span>
+              </div>
+              <div class="sol-items-grid" style="grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1.15fr;">
+                <div class="sol-item">
+                  <strong>🛠️ Unity Editor</strong>
+                  <span>시뮬레이션 로직·설정·시나리오 기획용 샌드박스</span>
+                </div>
+                <div class="sol-item">
+                  <strong>🗂️ Asset Manager</strong>
+                  <span>시뮬레이션 에셋과 컴포넌트 중앙 관리</span>
+                </div>
+                <div class="sol-item">
+                  <strong>🖼️ Rendering</strong>
+                  <span>저품질부터 고품질까지 자유로운 설정</span>
+                </div>
+                <div class="sol-item">
+                  <strong>⚛️ Physics</strong>
+                  <span>가볍고 커스터마이징 가능한 물리 엔진</span>
+                </div>
+                <div class="sol-item">
+                  <strong>🥽 XR Features</strong>
+                  <span>원격 조작·Sim2Real 업계 선두 XR 툴킷</span>
+                </div>
+                <div class="sol-item">
+                  <strong>🧠 ML-Agents</strong>
+                  <span>PyTorch 기반 강화학습·모방학습 툴킷</span>
+                </div>
+                <div class="sol-item in-dev">
+                  <strong>🧰 Simulation Pro</strong>
+                  <span>센서 모델, URDF 임포터, ROS2 연동</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RUN -->
+            <div class="sol-layer">
+              <div class="sol-layer-head">
+                <span class="sol-pill run">RUN (실행)</span>
+                <span style="font-size:12.5px; color:var(--text-muted); margin-top:4px;">온디바이스 AI &amp; 멀티 플랫폼 구동</span>
+              </div>
+              <div class="sol-items-grid" style="grid-template-columns: 1fr 1.8fr 1fr;">
+                <div class="sol-item">
+                  <strong>✨ Unity Sentis (온디바이스 AI)</strong>
+                  <span>클라우드 인프라 없이 런타임에서 ONNX AI 모델 직접 실행</span>
+                </div>
+                <div class="sol-item">
+                  <strong>🌐 Multi-Platform Runtime Layer</strong>
+                  <span>단일 프로젝트로 <b>Web · Mobile · XR · Desktop · 임베디드</b> 동시 배포</span>
+                </div>
+                <div class="sol-item in-dev">
+                  <strong>🖥️ Linux Headless Build</strong>
+                  <span>렌더링 부하를 제거한 대규모 병렬 시뮬레이션 전용 빌드 타겟</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- MEASURE -->
+            <div class="sol-layer">
+              <div class="sol-layer-head">
+                <span class="sol-pill measure">MEASURE (계측)</span>
+                <span style="font-size:12.5px; color:var(--text-muted); margin-top:4px;">라이브러리 &amp; 프로파일링 검증</span>
+              </div>
+              <div class="sol-items-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="sol-item">
+                  <strong>🛍️ Unity Asset Store (현재 제공 중)</strong>
+                  <span>즉시 시뮬레이션에 투입 가능한 상용 3D 에셋 및 산업용 환경 대규모 라이브러리</span>
+                </div>
+                <div class="sol-item in-dev">
+                  <strong>📊 Troubleshoot and Replay (개발/검토 중)</strong>
+                  <span>시뮬레이션 정밀 프로파일링 도구와 결정론적 시뮬레이션 리플레이 로그 분석</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           SLIDE 02: Asset Transformer
+           ===================================================================== -->
+      <div class="slide" data-idx="2" data-sec="asset" data-category="3D DATA OPTIMIZATION · ASSET TRANSFORMER" data-title="Asset Transformer: <em>복잡한 3D·CAD 데이터 자동 최적화</em>" data-subtitle="복잡한 3D·CAD 데이터를 수작업 정리 없이 가볍고 바로 쓸 수 있는 실시간 모델로 자동 변환">
+        <div class="slide-header">
+          <div class="header-left">
+            <div class="slide-category">02 · CORE ENGINE — ASSET TRANSFORMER</div>
+            <h2 class="slide-title">Asset Transformer: <em>복잡한 3D·CAD 데이터 자동 최적화</em></h2>
+            <p class="slide-subtitle">수백만 폴리곤의 원본 설계 데이터를 수작업 리토폴로지 없이 시뮬레이션·디지털 트윈용 경량 모델로 즉시 변환</p>
+          </div>
+          <span class="header-pill">AVAILABLE NOW</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="split-layout">
+            <!-- 좌측: 빈 공간 없이 꽉 차는 3단 카드 스택 + KPI 스트립 -->
+            <div class="stack-col">
+              <div class="intel-card card-highlight">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge">01 · 70+ CAD &amp; BIM FORMATS</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--intel-cyan);">Direct Import &amp; Export</span>
+                  </div>
+                  <h3 class="card-headline">CAD부터 BIM까지 70종 이상 포맷 다이렉트 처리</h3>
+                  <p class="card-desc">CATIA, SolidWorks, Siemens NX, Creo, Inventor, Revit, IFC, STEP, JT 등 산업 현장의 원본 엔지니어링 포맷을 중간 변환 손실 없이 직접 임포트·최적화·익스포트합니다.</p>
+                </div>
+                <div class="chip-row">
+                  <span class="chip-tag">메타데이터 &amp; 계층구조 보존</span>
+                  <span class="chip-tag">NURBS ➔ 정밀 테셀레이션</span>
+                </div>
+              </div>
+
+              <div class="intel-card">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge neon">02 · REUSABLE RECIPE STANDARDIZATION</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--unity-neon);">Rule-Based Pipeline</span>
+                  </div>
+                  <h3 class="card-headline">재사용 가능한 레시피(Recipe)로 모델 준비 표준화</h3>
+                  <p class="card-desc">폴리곤 감축(Decimation), 보이지 않는 내부 부품 제거(Hidden Removal), 떨어져 있는 메쉬 병합, 자동 LOD 생성 규칙을 <strong>레시피로 템플릿화</strong>하여 작업자 숙련도와 무관하게 동일한 품질로 자동화합니다.</p>
+                </div>
+                <div class="chip-row">
+                  <span class="chip-tag neon">드로우콜(Draw Call) 대폭 절감</span>
+                  <span class="chip-tag">결함 메쉬 자동 복구</span>
+                </div>
+              </div>
+
+              <div class="intel-card">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge amber">03 · SDK &amp; BATCH PROCESSING</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--accent-amber);">Headless CLI / Python</span>
+                  </div>
+                  <h3 class="card-headline">SDK와 배치(Batch) 처리로 대규모 3D 데이터 무인 가공</h3>
+                  <p class="card-desc">PLM/PDM 저장소에 설계 변경본이 업로드되면 SDK 및 무인 배치 파이프라인이 자동으로 경량 런타임 에셋으로 변환하여 Asset Manager 및 시뮬레이터에 즉시 공급합니다.</p>
+                </div>
+                <div class="kpi-strip" style="margin-top: 10px;">
+                  <div class="kpi-box"><div class="kpi-val">70+</div><div class="kpi-lbl">지원 CAD/BIM 포맷</div></div>
+                  <div class="kpi-box"><div class="kpi-val">3.5M➔경량</div><div class="kpi-lbl">실시간 폴리곤 최적화</div></div>
+                  <div class="kpi-box"><div class="kpi-val">100%</div><div class="kpi-lbl">레시피 기반 무인 배치</div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 우측: 원본 PPT Slide 4 라이브 비디오 GIF -->
+            <div class="media-box">
+              <span class="media-tag">LIVE DEMO · ASSET TRANSFORMER (3,530,237 POLYGONS OPTIMIZATION)</span>
+              <img src="unity_presentation_assets/media/image24.gif" alt="Asset Transformer Wireframe Optimization Demo">
+              <div class="media-caption">
+                <span><strong>실시간 폴리곤 감축 시연:</strong> 형상 왜곡 없이 353만 폴리곤 산업 설비를 경량 메쉬로 자동 변환</span>
+                <span style="font-family:var(--font-mono); color:var(--intel-cyan);">Available Now</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           SLIDE 03: Asset Manager & Simulations
+           ===================================================================== -->
+      <div class="slide" data-idx="3" data-sec="asset" data-category="ENTERPRISE ASSET HUB · 3DDS & DYNAMIC LOADING" data-title="Asset Manager &amp; Simulations: <em>3DDS 스트리밍과 동적 에셋 로딩</em>" data-subtitle="3D 프리뷰·버전·종속성 관리 및 저작 단계와 런타임 양쪽에서 시뮬레이션 에셋 실시간 동적 주입">
+        <div class="slide-header">
+          <div class="header-left">
+            <div class="slide-category">03 · ASSET HUB &amp; DYNAMIC INGESTION</div>
+            <h2 class="slide-title">Asset Manager &amp; Simulations: <em>3DDS 스트리밍과 동적 에셋 로딩</em></h2>
+            <p class="slide-subtitle">중앙 집중형 시뮬레이션 에셋 관리(3DDS 지원)부터 재빌드 없는 저작·런타임 양방향 동적 로딩까지 단일 파이프라인 통합</p>
+          </div>
+          <span class="header-pill">AVAILABLE NOW</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="split-layout" style="grid-template-columns: 0.95fr 1.3fr;">
+            <!-- 좌측: PPT 5P(Asset Manager) + PPT 6P(Asset Manager for Simulations) 통합 카드 스택 -->
+            <div class="stack-col">
+              <div class="intel-card card-highlight">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge">PART A · ASSET MANAGER</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--intel-cyan);">3DDS Streaming</span>
+                  </div>
+                  <h3 class="card-headline">시뮬레이션에 바로 쓸 수 있는 중앙 에셋 허브</h3>
+                  <p class="card-desc">산재된 3D 모델·센서(LiDAR 등)·로봇 프리팹을 단일 플랫폼에서 검색·검수·버전 관리하고 대용량 환경을 실시간 스트리밍합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>3D 인터랙티브 프리뷰:</strong> 별도 DCC 툴 없이 웹/클라우드에서 3D 형상과 메타데이터 즉시 검수</li>
+                    <li><strong>버전 관리 &amp; 종속성 뷰:</strong> 부품·어셈블리 간 참조 관계(Dependency) 추적 및 히스토리 관리</li>
+                    <li><strong>3DDS (3D Data Streaming):</strong> 기가바이트급 공장·도시 데이터를 로컬 다운로드 없이 시야 기반 실시간 스트리밍</li>
+                  </ul>
+                </div>
+                <div class="chip-row">
+                  <span class="chip-tag neon">3D 프리뷰</span>
+                  <span class="chip-tag">버전·종속성 뷰</span>
+                  <span class="chip-tag">3DDS 스트리밍</span>
+                </div>
+              </div>
+
+              <div class="intel-card card-neon">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge neon">PART B · ASSET MANAGER FOR SIMULATIONS</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--unity-neon);">Authoring + Runtime</span>
+                  </div>
+                  <h3 class="card-headline">저작 단계와 런타임 양쪽에서 시뮬레이션 에셋 동적 로딩</h3>
+                  <p class="card-desc">애플리케이션을 재빌드·재배포하지 않아도, 클라우드 Asset Manager에 등록된 최신 로봇·센서·환경 에셋을 시뮬레이션에 즉시 주입합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>저작 단계(Authoring) 직결:</strong> CAD/BIM 변환 모델이 Asset Manager에 올라오면 Unity Editor에서 클릭 한 번으로 임포트</li>
+                    <li><strong>런타임 동적 로딩(Runtime Injection):</strong> 실행 중인 시뮬레이터 내부에서 신규 센서(SICK LiDAR 등)·적재물·로봇 에셋을 실시간 교체·테스트</li>
+                  </ul>
+                </div>
+                <div class="chip-row">
+                  <span class="chip-tag neon">재빌드 없는 Hot-Swap</span>
+                  <span class="chip-tag">클라우드 ➔ 시뮬레이터 직결</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 우측: PPT 5P + 6P의 3개 라이브 비디오 GIF 벤토 그리드 -->
+            <div style="display: grid; grid-template-rows: 1.05fr 1fr; gap: 14px; height: 100%; min-height: 0;">
+              <div class="media-box">
+                <span class="media-tag">01 · ASSET MANAGER HUB (3D 프리뷰 · 버전 · 종속성 · 3DDS)</span>
+                <img src="unity_presentation_assets/media/image25.gif" alt="Asset Manager UI Demo">
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; min-height: 0;">
+                <div class="media-box">
+                  <span class="media-tag">02 · 클라우드 에셋 업로드 &amp; 배포</span>
+                  <img src="unity_presentation_assets/media/image27.gif" alt="Asset Manager Cloud Upload Demo">
+                </div>
+                <div class="media-box">
+                  <span class="media-tag">03 · 시뮬레이션 런타임 동적 에셋 로딩</span>
+                  <img src="unity_presentation_assets/media/image26.gif" alt="Simulation Dynamic Loading Demo">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           SLIDE 04: Physical AI 학습 — Unity XR Solutions & ML-Agents
+           ===================================================================== -->
+      <div class="slide" data-idx="4" data-sec="ai" data-category="PHYSICAL AI TRAINING · TELEOPERATION & REINFORCEMENT LEARNING" data-title="Physical AI 학습: <em>Unity XR Solutions &amp; ML-Agents</em>" data-subtitle="원격 조작·사람 개입 모방학습(XR Toolkit/Hands)부터 PyTorch 기반 다중 에이전트 강화학습(ML-Agents)까지">
+        <div class="slide-header">
+          <div class="header-left">
+            <div class="slide-category">04 · TELEOPERATION &amp; AI TRAINING</div>
+            <h2 class="slide-title">Physical AI 학습: <em>Unity XR Solutions &amp; ML-Agents</em></h2>
+            <p class="slide-subtitle">XR 기반 원격 조작(Teleoperation)·인간 시연 캡처와 PyTorch 기반 강화학습을 결합한 Sim2Real 학습 파이프라인</p>
+          </div>
+          <span class="header-pill">AVAILABLE NOW</span>
+        </div>
+
+        <div class="slide-body">
+          <!-- 좌우 2열 벤토 그리드: 각 컬럼 상단에 원본 PPT 고해상도 비주얼 + 하단에 핵심 아키텍처 카드 배치 (빈 공간 제로) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; min-height: 0;">
+
+            <!-- 좌측: PPT Slide 7 (Unity XR Solutions + image28.png) -->
+            <div class="intel-card card-highlight" style="padding: 18px 22px; gap: 14px;">
+              <div class="media-box" style="height: 360px; flex-shrink: 0;">
+                <span class="media-tag">UNITY XR SOLUTIONS · TELEOPERATION &amp; SIM2REAL</span>
+                <img src="unity_presentation_assets/media/image28.png" alt="Unity XR Solutions Locomotion & Teleoperation">
+              </div>
+              <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+                <div>
+                  <div class="card-badge-row" style="margin-bottom: 6px;">
+                    <span class="card-badge">PART A · UNITY XR SOLUTIONS</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--intel-cyan);">Human-in-the-Loop</span>
+                  </div>
+                  <h3 class="card-headline">원격 조작, 사람이 개입하는 강화학습, Sim2Real 파이프라인</h3>
+                  <p class="card-desc">로보틱스·시뮬레이션 활용 범위를 넓히는 업계 선두 XR 툴킷으로 인간의 정교한 조작 데이터를 로봇 학습에 직결합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>XR Interaction Toolkit:</strong> 원격 조작(Teleoperation)에 필요한 그랩·조작 상호작용을 상위 레벨에서 다루는 프레임워크</li>
+                    <li><strong>XR Hands:</strong> 모방 학습(Imitation Learning)과 정밀 원격 조작을 위한 손·관절 움직임 입력 캡처</li>
+                    <li><strong>OpenXR 지원:</strong> 특정 기기에 종속되지 않고 주요 상용 XR 헤드셋 전반 완벽 호환</li>
+                  </ul>
+                </div>
+                <div class="chip-row">
+                  <span class="chip-tag neon">XR Interaction Toolkit</span>
+                  <span class="chip-tag">XR Hands 모방학습 캡처</span>
+                  <span class="chip-tag">OpenXR 표준 호환</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 우측: PPT Slide 8 (Unity ML-Agents + image29.png) -->
+            <div class="intel-card card-neon" style="padding: 18px 22px; gap: 14px;">
+              <div class="media-box" style="height: 360px; flex-shrink: 0;">
+                <span class="media-tag">UNITY ML-AGENTS · PYTORCH PARALLEL TRAINING</span>
+                <img src="unity_presentation_assets/media/image29.png" alt="Unity ML-Agents Multi-Agent Training Grid">
+              </div>
+              <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+                <div>
+                  <div class="card-badge-row" style="margin-bottom: 6px;">
+                    <span class="card-badge neon">PART B · UNITY ML-AGENTS</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--unity-neon);">PyTorch + Python API</span>
+                  </div>
+                  <h3 class="card-headline">Unity 씬을 그대로 AI 학습 환경으로 바꿔주는 PyTorch 기반 툴킷</h3>
+                  <p class="card-desc">주요 머신러닝 알고리즘(PPO, SAC 등)을 기본 제공하고, Python API로 직접 만든 커스텀 신경망 학습 방식도 즉시 연결합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>관찰·행동·학습 에이전트 정의:</strong> 어떤 Unity 물리 씬에서든 센서로 관찰하고, 행동하고, 보상으로 학습하는 에이전트 구성</li>
+                    <li><strong>다중 에이전트 행동 공유:</strong> 한 번 정의한 행동 정책(Policy)을 수십~수백 개의 에이전트가 동시에 공유하며 고속 병렬 학습</li>
+                    <li><strong>에디터 시연 녹화 유도:</strong> 에디터에서 사람의 시연을 녹화해 복잡한 로봇 태스크의 초기 에이전트 학습을 빠르게 유도</li>
+                  </ul>
+                </div>
+                <div class="chip-row">
+                  <span class="chip-tag neon">PyTorch 기본 내장</span>
+                  <span class="chip-tag">Python API 커스텀 연동</span>
+                  <span class="chip-tag">ONNX 모델 즉시 출력</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           SLIDE 05: 온디바이스 AI 추론 — Unity Sentis (PPT Slide 9 + image30.png)
+           ===================================================================== -->
+      <div class="slide" data-idx="5" data-sec="ai" data-category="ON-DEVICE AI INFERENCE · UNITY SENTIS ON INTEL" data-title="Unity Sentis: <em>ONNX 기반 온디바이스 AI 실시간 추론</em>" data-subtitle="학습된 로봇 모션·객체 인식·경로 탐색 모델을 클라우드 인프라 없이 모든 플랫폼에서 로컬 직접 실행">
+        <div class="slide-header">
+          <div class="header-left">
+            <div class="slide-category">05 · ON-DEVICE AI RUNTIME — UNITY SENTIS</div>
+            <h2 class="slide-title">Unity Sentis: <em>ONNX 기반 온디바이스 AI 실시간 추론</em></h2>
+            <p class="slide-subtitle">학습된 로봇 모션, 객체 인식, 경로 탐색 기능을 AI 모델 그대로 시뮬레이션과 엣지 런타임 안에 들여오는 도구</p>
+          </div>
+          <span class="header-pill">AVAILABLE NOW · ON-DEVICE AI</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="split-layout" style="grid-template-columns: 0.95fr 1.3fr;">
+            <!-- 좌측: 수직 빈 공간 없이 꽉 차는 3단 수평 카드 스택 -->
+            <div class="stack-col">
+              <div class="intel-card card-highlight">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge">01 · IN-ENGINE AI MODEL EXECUTION</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--intel-cyan);">Zero Cloud Latency</span>
+                  </div>
+                  <h3 class="card-headline">로봇 모션 · 객체 인식 · 경로 탐색 모델의 엔진 내 직결</h3>
+                  <p class="card-desc">ML-Agents나 PyTorch에서 학습된 신경망 모델을 외부 추론 서버 호출 없이 Unity 시뮬레이션 루프 및 로봇 런타임 내부에서 직접 구동합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>실시간 제어 루프:</strong> 물리 프레임과 동기화된 밀리초(ms) 단위 충돌 회피 및 동적 경로 탐색(NavMesh + Neural Policy)</li>
+                    <li><strong>비전/센서 추론:</strong> 가상·실제 카메라 피드에서 객체 인식 및 작업 대상 자세 추정(Pose Estimation) 즉시 수행</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="intel-card card-neon">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge neon">02 · ONNX STANDARD &amp; CLOUD-FREE</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--unity-neon);">100% Local Execution</span>
+                  </div>
+                  <h3 class="card-headline">ONNX 표준 지원 — 클라우드 인프라 없이 모든 플랫폼 직접 실행</h3>
+                  <p class="card-desc">개방형 <strong>ONNX(Open Neural Network Exchange)</strong> 표준을 완벽 지원하여 네트워크 지연이나 클라우드 비용·보안 우려 없이 완전한 온디바이스 AI(On-Device AI)를 구현합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>크로스 플랫폼 단일 배포:</strong> Windows, Linux, 임베디드 컨트롤러, XR, 웹/모바일 어디서든 동일 C# 코드로 실행</li>
+                    <li><strong>폐쇄망·현장 자율 동작:</strong> 통신이 단절된 제조 라인·물류 창고·국방 환경에서도 100% 로컬 자율 추론 보장</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="intel-card">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge amber">03 · INTEL ARCHITECTURE ACCELERATION</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--accent-amber);">CPU · Arc GPU · NPU</span>
+                  </div>
+                  <h3 class="card-headline">Intel® Core™ Ultra &amp; Xeon 온프레미스/엣지 하드웨어 시너지</h3>
+                  <p class="card-desc">인텔 CPU/GPU/NPU 아키텍처 위에서 컴퓨트 셰이더 및 멀티코어 백엔드를 통해 별도 고가 전용 가속기 없이도 고효율 로컬 AI 추론을 달성합니다.</p>
+                </div>
+                <div class="chip-row">
+                  <span class="chip-tag neon">ONNX 표준 호환</span>
+                  <span class="chip-tag">클라우드 비용 $0</span>
+                  <span class="chip-tag">Intel Edge &amp; Workstation</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 우측: 원본 PPT Slide 9의 Unity 6 창고 로봇 시뮬레이션 스크린샷 (image30.png) -->
+            <div class="media-box">
+              <span class="media-tag">UNITY 6 WAREHOUSE ROBOTICS · SENTIS ON-DEVICE AI INFERENCE</span>
+              <img src="unity_presentation_assets/media/image30.png" alt="Unity Sentis Warehouse Robot Simulation">
+              <div class="media-caption">
+                <span><strong>Unity 6 물류 창고 AMR 시뮬레이션:</strong> 로봇 주행 제어·충돌 설정·배터리/열 시뮬레이션과 온디바이스 AI 에이전트 동시 구동</span>
+                <span style="font-family:var(--font-mono); color:var(--unity-neon);">ONNX On-Device AI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           SLIDE 06: 로보틱스 시뮬레이션 — Simulation Pro (PPT Slide 10 + image31.gif)
+           ===================================================================== -->
+      <div class="slide" data-idx="6" data-sec="ai" data-category="ROBOTICS SIMULATION · ROS2, URDF & LINUX HEADLESS" data-title="Simulation Pro: <em>센서 모델부터 ROS2 로보틱스 연동까지</em>" data-subtitle="Linux Headless 빌드 타겟, ROS2 실시간 양방향 통신, URDF Importer 및 커스텀 센서 모델 제작 도구">
+        <div class="slide-header">
+          <div class="header-left">
+            <div class="slide-category">06 · FULL-SPECTRUM ROBOTICS — SIMULATION PRO</div>
+            <h2 class="slide-title">Simulation Pro: <em>센서 모델부터 ROS2 로보틱스 연동까지</em></h2>
+            <p class="slide-subtitle">기본 물리 시뮬레이션 메커니즘부터 개별 센서 모델링과 실제 로봇 제어기(ROS2) 연동까지 전 범위를 다루는 핵심 기능</p>
+          </div>
+          <span class="header-pill">AVAILABLE NOW &amp; IN DISCOVERY</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="split-layout" style="grid-template-columns: 0.95fr 1.3fr;">
+            <!-- 좌측: PPT Slide 10의 4대 핵심 기능 2x2 고밀도 그리드 + 하단 Sim2Real 요약 카드 -->
+            <div class="stack-col">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1.4;">
+                <div class="intel-card card-highlight">
+                  <div class="card-top">
+                    <span class="card-badge">01 · LINUX HEADLESS</span>
+                    <h3 class="card-headline" style="font-size:19px;">Linux Headless 시뮬레이션 빌드 타겟</h3>
+                    <p class="card-desc">화면 렌더링(GUI) 오버헤드를 제거하고 순수 물리·센서 시뮬레이션만 리눅스 서버/컨테이너에서 초고속 병렬 실행하여 클라우드·온프렘 연산 효율을 극대화합니다.</p>
+                  </div>
+                  <span class="chip-tag" style="width:fit-content;">대규모 병렬 시뮬레이션</span>
+                </div>
+
+                <div class="intel-card card-neon">
+                  <div class="card-top">
+                    <span class="card-badge neon">02 · ROS2 INTEGRATION</span>
+                    <h3 class="card-headline" style="font-size:19px;">ROS2 실시간 양방향 연동</h3>
+                    <p class="card-desc">표준 로보틱스 미들웨어인 <strong>ROS2</strong>와 네이티브 통신하여 가상 센서 토픽(LiDAR, 카메라, Odometry)을 발행하고 실제 로봇 제어 노드의 명령을 실시간 수신합니다.</p>
+                  </div>
+                  <span class="chip-tag neon" style="width:fit-content;">Hardware-in-the-Loop (HIL)</span>
+                </div>
+
+                <div class="intel-card">
+                  <div class="card-top">
+                    <span class="card-badge">03 · URDF IMPORTER</span>
+                    <h3 class="card-headline" style="font-size:19px;">URDF Importer 기구학 자동 변환</h3>
+                    <p class="card-desc">로봇 제조사의 표준 <strong>URDF(Unified Robot Description Format)</strong> 파일을 불러와 링크, 조인트 관절 제약, 관성·충돌 속성을 Unity ArticulationBody로 즉시 구성합니다.</p>
+                  </div>
+                  <span class="chip-tag" style="width:fit-content;">정밀 다관절 동역학</span>
+                </div>
+
+                <div class="intel-card">
+                  <div class="card-top">
+                    <span class="card-badge amber">04 · SENSOR MODELING</span>
+                    <h3 class="card-headline" style="font-size:19px;">기본 제공 센서 &amp; 커스텀 센서 제작 도구</h3>
+                    <p class="card-desc">3D LiDAR 포인트클라우드, RGB-D 심도 카메라, IMU 등 기본 제공 센서 모델과 더불어 현장의 특수 산업용 센서를 직접 정의할 수 있는 커스텀 센서 제작 도구를 제공합니다.</p>
+                  </div>
+                  <span class="chip-tag" style="width:fit-content;">실시간 레이캐스트/센서 노이즈</span>
+                </div>
+              </div>
+
+              <div class="intel-card" style="flex: 0.55; justify-content: center; background: linear-gradient(90deg, rgba(0, 113, 197, 0.22), rgba(32, 227, 178, 0.14)); border-color: rgba(0, 199, 253, 0.45);">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+                  <div>
+                    <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--unity-neon); font-weight:700; margin-bottom:4px;">SIM-TO-REAL CONTINUITY</div>
+                    <div style="font-size:17px; font-weight:800; color:#fff;">가상 검증부터 실물 로봇 배포까지 단일 코드베이스 유지</div>
+                    <div style="font-size:13.5px; color:var(--text-body); margin-top:2px;">Asset Transformer로 변환한 디지털 트윈 공장에서 URDF 로봇과 LiDAR 센서를 시뮬레이션하고 ROS2 제어기를 즉시 검증합니다.</div>
+                  </div>
+                  <div class="kpi-box" style="min-width: 150px; flex-shrink: 0;">
+                    <div class="kpi-val">1:1</div>
+                    <div class="kpi-lbl">ROS2 제어 스택 호환</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 우측: 원본 PPT Slide 10의 대형 32MB LiDAR/ROS2 시뮬레이션 비디오 GIF (image31.gif) -->
+            <div class="media-box">
+              <span class="media-tag">LIVE DEMO · SIMULATION PRO (3D LIDAR POINT CLOUD &amp; ROS2 NAVIGATION)</span>
+              <img src="unity_presentation_assets/media/image31.gif" alt="Simulation Pro LiDAR & ROS2 Demo">
+              <div class="media-caption">
+                <span><strong>실시간 3D LiDAR 센서 &amp; 자율주행 시뮬레이션:</strong> 로봇 주행에 따른 동적 포인트클라우드 생성 및 장애물 인지</span>
+                <span style="font-family:var(--font-mono); color:var(--intel-cyan);">ROS2 + URDF + Custom Sensors</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           SLIDE 07: 메가존클라우드(공식 총판) 파트너십 & 4단계 도입 로드맵
+           ===================================================================== -->
+      <div class="slide" data-idx="7" data-sec="partner" data-category="MEGAZONE CLOUD · OFFICIAL PARTNER & ENGAGEMENT ROADMAP" data-title="메가존클라우드: <em>Unity 기술의 산업 현장 연결과 도입 로드맵</em>" data-subtitle="Unity 국내 공식 총판 메가존클라우드의 3대 결합 역량과 과제 정의부터 현장 확산까지의 4단계 실행 체계">
+        <div class="slide-header">
+          <div class="header-left">
+            <div class="slide-category">07 · OFFICIAL PARTNER &amp; ROADMAP</div>
+            <h2 class="slide-title">메가존클라우드: <em>Unity 기술의 산업 현장 연결과 도입 로드맵</em></h2>
+            <p class="slide-subtitle">클라우드·데이터·AI 역량을 바탕으로 고객의 과제에 적합한 제품·기술·전문 인력을 연결하고 도입 전 과정을 함께합니다</p>
+          </div>
+          <span class="header-pill">MEGAZONE CLOUD │ UNITY 국내 공식 총판</span>
+        </div>
+
+        <div class="slide-body" style="justify-content: space-between;">
+          <!-- 상단 절반: PPT Slide 11 (Unity의 기술을 산업 현장과 연결합니다 — 3대 지원 역량) -->
+          <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 16px; font-weight: 800; color: var(--intel-cyan); display: flex; align-items: center; gap: 8px;">
+                <span>◈ PART 1 · 메가존클라우드 3대 핵심 지원 체계</span>
+                <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">— 고객의 과제에 맞는 기술과 실행 방안을 함께 찾습니다</span>
+              </span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; flex: 1;">
+              <div class="intel-card card-highlight">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge">01 · UNITY JOINT SUPPORT</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--intel-cyan);">Unity × MZC</span>
+                  </div>
+                  <h3 class="card-headline">Unity 공동 지원</h3>
+                  <p class="card-desc">Unity 코리아/본사 엔지니어와 메가존클라우드 전담 팀이 초기 과제 검토부터 기술 검증까지 원팀으로 지원합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>고객 과제에 맞춘 적용 검토</strong> 및 아키텍처 가이드</li>
+                    <li><strong>Unity 영업·기술 공동 미팅</strong> 주선 및 레퍼런스 브리핑</li>
+                    <li><strong>맞춤형 데모·전문 서비스(PS)</strong> 협의 연결</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="intel-card card-neon">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge neon">02 · CLOUD · DATA · AI SYNERGY</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--unity-neon);">Full-Stack Integration</span>
+                  </div>
+                  <h3 class="card-headline">클라우드 · AI 역량 결합</h3>
+                  <p class="card-desc">단순 3D 툴 도입을 넘어 기업 내 PLM 데이터 파이프라인, 클라우드/온프렘 GPU·인텔 인프라, AI 모델을 통합 설계합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>3D · 데이터 · AI 연계 아키텍처</strong> 통합 검토</li>
+                    <li><strong>구축·운영 환경 요구사항</strong>(온프렘/클라우드/폐쇄망) 확인</li>
+                    <li><strong>사내 AI·클라우드 전문 조직</strong>과의 유기적 협업 연결</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="intel-card">
+                <div class="card-top">
+                  <div class="card-badge-row">
+                    <span class="card-badge amber">03 · SPECIALIZED SI ECOSYSTEM</span>
+                    <span style="font-family:var(--font-mono); font-size:12px; color:var(--accent-amber);">Partner Matching</span>
+                  </div>
+                  <h3 class="card-headline">전문 파트너 협업</h3>
+                  <p class="card-desc">고객사의 내부 개발 역량과 프로젝트 범위에 맞춰 검증된 3D·디지털 트윈·로보틱스 전문 개발 파트너를 연결합니다.</p>
+                  <ul class="intel-list">
+                    <li><strong>고객 내부 역량 및 외부 지원 필요 범위</strong> 정밀 확인</li>
+                    <li><strong>검증된 개발·SI 전문 파트너</strong> 협의 및 매칭</li>
+                    <li><strong>참여 조직 간 역할(R&amp;R)·일정 조율</strong> 및 사업 관리</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 하단 절반: PPT Slide 12 (도입 검토부터 활용 확대까지 4단계 로드맵) + PPT Slide 13 (Thank You & 부스 안내) -->
+          <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 16px; font-weight: 800; color: var(--unity-neon); display: flex; align-items: center; gap: 8px;">
+                <span>◈ PART 2 · 도입 검토부터 활용 확대까지 4단계 추진 로드맵</span>
+                <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">— 적용하려는 업무와 보유 자료를 바탕으로 검토 범위와 다음 단계를 제안합니다</span>
+              </span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; flex: 1;">
+              <div class="intel-card" style="padding: 16px 18px;">
+                <div class="card-top">
+                  <span class="card-badge">STEP 01</span>
+                  <h3 class="card-headline" style="font-size:18.5px;">과제 정의 · 적용 검토</h3>
+                  <ul class="intel-list">
+                    <li>업무 과제와 보유 CAD/PLM 데이터·시스템 확인</li>
+                    <li>Unity 적용 범위 및 우선 검토 과제 정리</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="intel-card card-highlight" style="padding: 16px 18px;">
+                <div class="card-top">
+                  <span class="card-badge neon">STEP 02</span>
+                  <h3 class="card-headline" style="font-size:18.5px;">기술 검증 · 실무 역량</h3>
+                  <ul class="intel-list">
+                    <li>사례·데모 기반의 기술 미팅 진행</li>
+                    <li>핸즈온·전문 서비스·PoC 범위 협의 및 검증</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="intel-card" style="padding: 16px 18px;">
+                <div class="card-top">
+                  <span class="card-badge">STEP 03</span>
+                  <h3 class="card-headline" style="font-size:18.5px;">라이선스 도입 · 사용 준비</h3>
+                  <ul class="intel-list">
+                    <li>사용 목적에 맞는 제품·라이선스 안내</li>
+                    <li>견적·발주 및 라이선스 활성화 원스톱 지원</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="intel-card" style="padding: 16px 18px;">
+                <div class="card-top">
+                  <span class="card-badge amber">STEP 04</span>
+                  <h3 class="card-headline" style="font-size:18.5px;">활용 확대 · 후속 지원</h3>
+                  <ul class="intel-list">
+                    <li>기술 문의 접수 및 전담 지원 조직 연결</li>
+                    <li>사용 확대·갱신, 데이터·AI·인프라 확장 협의</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- 하단 클로징 배너 (PPT 13P Thank You 통합) -->
+            <div class="automate-bar" style="padding: 12px 24px; background: linear-gradient(90deg, rgba(0, 113, 197, 0.35), rgba(32, 227, 178, 0.25));">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <span class="brand-badge" style="height: 30px; font-size: 12px;">THANK YOU</span>
+                <span style="font-size: 15px;"><strong>메가존클라우드 × Intel × Unity 현장 부스 안내:</strong> 보유하신 CAD/3D 데이터 변환(Asset Transformer) 및 Physical AI · 로보틱스 PoC 상담을 부스에서 바로 신청하실 수 있습니다.</span>
+              </div>
+              <span style="font-family:var(--font-mono); font-size:13px; color:var(--unity-neon); white-space:nowrap;">MEGAZONE CLOUD │ UNITY OFFICIAL PARTNER</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const totalSlides = slides.length;
+  let currentIndex = 1;
+  let isAutoplay = false; // 발표자 주도의 간결한 진행을 위해 기본 수동 모드 (Space로 언제든 자동 전환 가능)
+  let progressInterval = null;
+  let currentElapsed = 0;
+  const slideDuration = 45;
+
+  const stage = document.getElementById('stage');
+  const progressBar = document.getElementById('progressBar');
+  const slideCounter = document.getElementById('slideCounter');
+  const bottomTopic = document.getElementById('bottomTopic');
+  const btnAuto = document.getElementById('btnAuto');
+  const autoText = document.getElementById('autoText');
+  const btnFullscreen = document.getElementById('btnFullscreen');
+  const btnGrid = document.getElementById('btnGrid');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const thumbModal = document.getElementById('thumbModal');
+  const closeThumbBtn = document.getElementById('closeThumbBtn');
+  const thumbGridContainer = document.getElementById('thumbGridContainer');
+  const dotsContainer = document.getElementById('dotsContainer');
+
+  
+
+
+  function autoScale() {
+    if (!stage) return;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const scale = Math.min(w / 1920, h / 1080);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+
+  const slidesMeta = slides.map((s, idx) => ({
+    index: idx + 1,
+    category: s.getAttribute('data-category'),
+    title: s.getAttribute('data-title').replace(/<[^>]*>?/gm, ''),
+    subtitle: s.getAttribute('data-subtitle'),
+    sec: s.getAttribute('data-sec')
+  }));
+
+  function initDots() {
+    dotsContainer.innerHTML = '';
+    for (let i = 1; i <= totalSlides; i++) {
+      const btn = document.createElement('button');
+      btn.className = `dot-btn ${i === 1 ? 'on' : ''}`;
+      btn.title = `슬라이드 ${i}로 이동`;
+      btn.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(btn);
+    }
+  }
+
+  function initThumbGrid() {
+    thumbGridContainer.innerHTML = '';
+    slidesMeta.forEach(m => {
+      const card = document.createElement('div');
+      card.className = `thumb-card ${m.index === currentIndex ? 'active-card' : ''}`;
+      card.setAttribute('data-target-idx', m.index);
+      const numStr = String(m.index).padStart(2, '0');
+      card.innerHTML = `
+        <div class="thumb-num">SLIDE ${numStr} · ${m.category}</div>
+        <div class="thumb-title-text">${m.title}</div>
+        <div class="thumb-sub-text">${m.subtitle}</div>
+      `;
+      card.addEventListener('click', () => {
+        goToSlide(m.index);
+        toggleThumbModal(false);
+      });
+      thumbGridContainer.appendChild(card);
+    });
+  }
+
+  function updateSecTabs(sec) {
+    document.querySelectorAll('.sectab').forEach(t => {
+      t.classList.toggle('on', t.getAttribute('data-sec') === sec);
+    });
+  }
+
+  function goToSlide(idx) {
+    if (idx < 1) idx = totalSlides;
+    if (idx > totalSlides) idx = 1;
+    currentIndex = idx;
+
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i + 1 === currentIndex);
+    });
+
+    const meta = slidesMeta[currentIndex - 1];
+    slideCounter.textContent = `${String(currentIndex).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+    bottomTopic.textContent = meta.title;
+
+    document.querySelectorAll('.dot-btn').forEach((dot, i) => {
+      dot.classList.toggle('on', i + 1 === currentIndex);
+    });
+
+    document.querySelectorAll('.thumb-card').forEach(card => {
+      const cIdx = parseInt(card.getAttribute('data-target-idx'));
+      card.classList.toggle('active-card', cIdx === currentIndex);
+    });
+
+    currentElapsed = 0;
+    updateProgress();
+  }
+
+  function nextSlide() { goToSlide(currentIndex + 1); }
+  function prevSlide() { goToSlide(currentIndex - 1); }
+
+  function updateProgress() {
+    if (!isAutoplay) {
+      progressBar.style.width = `${(currentIndex / totalSlides) * 100}%`;
+      return;
+    }
+    const percent = Math.min(100, (currentElapsed / slideDuration) * 100);
+    progressBar.style.width = `${percent}%`;
+  }
+
+  function startTimerLoop() {
+    if (progressInterval) clearInterval(progressInterval);
+    progressInterval = setInterval(() => {
+      if (isAutoplay) {
+        currentElapsed += 0.2;
+        updateProgress();
+        if (currentElapsed >= slideDuration) {
+          nextSlide();
+        }
+      }
+    }, 200);
+  }
+
+  function toggleAutoplay() {
+    isAutoplay = !isAutoplay;
+    btnAuto.classList.toggle('active-btn', isAutoplay);
+    autoText.textContent = isAutoplay ? '⏸ 자동' : '▶ 수동';
+    currentElapsed = 0;
+    updateProgress();
+  }
+
+  function toggleThumbModal(show) {
+    if (typeof show === 'boolean') {
+      thumbModal.classList.toggle('open', show);
+    } else {
+      thumbModal.classList.toggle('open');
+    }
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(e => console.warn(e));
+      btnFullscreen.innerHTML = '<span>⛶ 해제</span>';
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+      btnFullscreen.innerHTML = '<span>⛶ 전체화면</span>';
+    }
+  }
+
+  document.querySelectorAll('.sectab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const sec = tab.getAttribute('data-sec');
+      updateSecTabs(sec);
+      if (sec === 'all' || sec === 'asset') {
+        goToSlide(1);
+      } else if (sec === 'ai') {
+        goToSlide(4);
+      } else if (sec === 'partner') {
+        goToSlide(7);
+      }
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'PageDown':
+      case 'Enter':
+        nextSlide();
+        break;
+      case 'ArrowLeft':
+      case 'PageUp':
+        prevSlide();
+        break;
+      case ' ':
+        e.preventDefault();
+        toggleAutoplay();
+        break;
+      case 'g':
+      case 'G':
+        toggleThumbModal();
+        break;
+      case 'f':
+      case 'F':
+        toggleFullscreen();
+        break;
+      case 'Escape':
+        toggleThumbModal(false);
+        break;
+    }
+  });
+
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+  btnAuto.addEventListener('click', toggleAutoplay);
+  btnGrid.addEventListener('click', () => toggleThumbModal());
+  closeThumbBtn.addEventListener('click', () => toggleThumbModal(false));
+  btnFullscreen.addEventListener('click', toggleFullscreen);
+
+  window.addEventListener('resize', autoScale);
+
+  autoScale();
+  initDots();
+  initThumbGrid();
+  goToSlide(1);
+  startTimerLoop();
+
+  // URL 파라미터(?autoplay=1) 또는 부스 iframe 임베드 시 자동재생 활성화
+  const urlParams = new URLSearchParams(window.location.search);
+  const isEmbed = window.self !== window.top;
+  if (urlParams.get('autoplay') === '1' || urlParams.get('kiosk') === '1' || isEmbed) {
+    if (!isAutoplay) {
+      toggleAutoplay();
+    }
+  }
+
+</script>
+</body>
+</html>
