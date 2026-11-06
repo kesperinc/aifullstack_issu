@@ -56,7 +56,7 @@
   - `docs` 폴더 하위의 HTML 문서들에 대칭되는 `.docx` 문서 파일들을 모두 생성 및 동기화 완료했습니다.
 
 ### 7) CortexOS 가드레일 및 이중 저장 규칙 수립
-- **[.agents/AGENTS.md](file:///c:/dev/antigravity-workspace/akamai_ncp/.agents/AGENTS.md)**에 **이중 저장 정책 (MD & HTML 동시 저장)** 가드레일을 추가하여, 에이전트가 마크다운을 갱신할 때마다 빌드 스크립트를 재실행해 HTML 산출물이 완벽히 동기화되도록 안전장치를 수립하고 `CLAUDE.md`에도 이중 저장 정책 및 실행 명령어를 동기화 완료.
+- **[.agents/AGENTS.md](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/.agents/AGENTS.md)**에 **이중 저장 정책 (MD & HTML 동시 저장)** 가드레일을 추가하여, 에이전트가 마크다운을 갱신할 때마다 빌드 스크립트를 재실행해 HTML 산출물이 완벽히 동기화되도록 안전장치를 수립하고 `CLAUDE.md`에도 이중 저장 정책 및 실행 명령어를 동기화 완료.
 
 ---
 

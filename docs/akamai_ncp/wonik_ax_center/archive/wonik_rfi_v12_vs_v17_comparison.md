@@ -98,8 +98,8 @@ flowchart TD
 
 원익로보틱스 RFI v1.7은 사업 추진 의지와 구체성이 대폭 향상된 최종 본선 규격입니다. 메가존클라우드는 본 비교 분석을 토대로 제안서를 완벽히 현행화하였으며, 회신 마감일인 **2026년 11월 04일** 이전에 최상의 완성도로 제출을 완료할 예정입니다.
 
-* **관련 제안서 원문**: [wonik_robotics_ax_center_proposal.md](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_proposal.md)
-* **관련 웹 리포트**: [wonik_robotics_ax_center_proposal.html](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_proposal.html)
+* **관련 제안서 원문**: [wonik_robotics_ax_center_proposal.md](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_proposal.md)
+* **관련 웹 리포트**: [wonik_robotics_ax_center_proposal.html](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_proposal.html)
 
 ---
 *본 문서는 워크스페이스 표준 가이드라인에 따라 마크다운(.md) 및 프리미엄 스타일링 HTML(.html), 워드(.docx)로 상호 동기화 보존됩니다.*
