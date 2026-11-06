@@ -58,12 +58,38 @@
 ### 7) CortexOS 가드레일 및 이중 저장 규칙 수립
 - **[.agents/AGENTS.md](file:///c:/dev/antigravity-workspace/akamai_ncp/.agents/AGENTS.md)**에 **이중 저장 정책 (MD & HTML 동시 저장)** 가드레일을 추가하여, 에이전트가 마크다운을 갱신할 때마다 빌드 스크립트를 재실행해 HTML 산출물이 완벽히 동기화되도록 안전장치를 수립하고 `CLAUDE.md`에도 이중 저장 정책 및 실행 명령어를 동기화 완료.
 
+### 8) 원익로보틱스 AX Center (피지컬 AI 로봇 트레이닝 센터) 제안 및 RFI 비교 분석 완료
+- **원익로보틱스 맞춤형 AX Center 구축 제안서** (`docs/wonik_ax_center/wonik_robotics_ax_center_proposal.md`):
+  - 메가존클라우드(MZC) & 메이머스트(Maymust) 연합 기반 H200 400장 규모의 피지컬 AI 로봇 트레이닝 센터 및 AIDC 구축/운영 전략 수립.
+  - 트랙 A(데이터센터 인프라) - B(컴퓨트/플랫폼) - C(데이터 파이프라인/Isaac Sim 가상 트레이닝) 전 주기 턴키 제안.
+- **RFI v1.2 vs v1.7 변경점 심층 비교 분석** (`docs/wonik_ax_center/wonik_rfi_v12_vs_v17_comparison.md`):
+  - RFI 최신 개정판(v1.7)의 실질적 변경 요건 분석 및 질의(Q&A) 대응 전략 문서화.
+- **팀 합의 및 산출물 정비** (`docs/wonik_ax_center/scratch/teamwork_review_consensus.md`):
+  - 크로스 팀 리뷰 컨센서스 도출 및 디렉토리 구조 최적화(`docs/wonik_ax_center/` 전용 분리, 구버전은 `docs/proposal/archive/`로 이동).
+
+### 9) 대구 수성알파시티 피지컬 AI 로봇 트레이닝 센터 제안서 수립
+- **대구 수성알파시티 제안서** (`docs/proposal/daegu_suseong_robot_training_center_proposal.md` / `daegu_physical_ai_robot_training_center_proposal.md`):
+  - 대구 AIDC 및 수성알파시티 거점 피지컬 AI 로봇 훈련/검증 센터 구축 제안 완성.
+  - Akamai 분산 엣지 추론망과의 하이브리드 연계 모델 제시.
+
+### 10) OpenUSD 표준 기술 정의 및 각주 스타일 엔진 고도화
+- **선행 연구 보고서 OpenUSD 표준 용어 보강** (`docs/research/daegu_aidc_physical_ai_preliminary_study.md`):
+  - Pixar/NVIDIA 주도의 OpenUSD(Universal Scene Description) 표준 정의 및 NVIDIA Omniverse/Isaac Sim 데이터 파이프라인(CAD Ingestion/Tessellation) 해설 각주 추가.
+- **마크다운 변환 엔진 내 각주(Footnotes) 확장 기능 및 전용 CSS 스타일링 반영** (`scripts/convert_all_md.py`).
+
+### 11) ISV BU Hybrid Cloud 팀 마스터 방향성, 영업 퍼널(%)·MPN 판매채널화 및 7인 멤버별 R&R 통합 제안서 (v3.2) 수립
+- **통합 전략 제안서 구축** (`docs/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.md` / `.html` / `.docx`):
+  - 7인 코어 멤버(김성호, 최재규, 안재우, 이성표, 장필성, 박경률[박경륜], 최성호) + 협업 라인의 역할 분담(R&R 카드 및 RACI 매트릭스) 확정.
+  - 6대 비즈니스 파트 균형 요약 및 22개 전체 영업기회(Opty)에 대한 5단계 영업 퍼널(Sales Funnel)·추정 진행률(`10% ~ 90%`) 정량 진단 반영 (대구 AIDC `55%`, KG ICT `50%`, 현대로템 `50%` 등 사업제안 단계 반영).
+  - MPN(메가존 파트너 네트워크)을 양방향 전략 판매채널(Sell-Through)로 활용하고, 수시로 개최되는 `MPN C-Level 미팅`을 레버리지하여 Top-Down 공동 영업 기회(Give & Take)를 창출하는 실행 전략 수립.
+
 ---
 
 ## 2. 현재 저장소 및 자산 상태 (Current Status)
 
-- **Git 상태**: 새로이 개발된 DOCX 변환 스크립트와 이를 통해 일괄 추출된 모든 `.docx` 보고서들이 `git status` 변경 목록에 포함되어 있으며, 최종 커밋 및 원격 깃허브 레포지토리 연동 푸시 작업을 진행 중입니다.
-- **의존성 상태**: 로컬 가상환경 `.venv` 내에 기존 패키지들 외에 Word 문서 변환 작업을 위해 `htmldocx`, `python-docx`, `beautifulsoup4`, `lxml` 패키지가 정상적으로 추가 배포 및 연동되었습니다.
+- **Git 상태**: 원익로보틱스 AX Center 및 대구 수성알파시티 피지컬 AI 로봇 트레이닝 센터 제안서, RFI 비교 분석 보고서, OpenUSD 각주 보강 및 모든 MD ➡ HTML ➡ DOCX 동기화 완료 후 GitHub 원격 커밋 및 푸시 대기 상태.
+- **문서 포맷 동기화**: 모든 산출물이 Markdown(.md), 프리미엄 테마 HTML(.html), 실무용 워드(.docx) 3종 세트로 완전 동기화 보존됨.
+
 
 ---
 

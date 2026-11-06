@@ -204,6 +204,41 @@
             margin: 20px 0;
         }
 
+        /* 각주 / 미주 (Footnotes) 스타일 */
+        .footnote {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .footnote ol {
+            padding-left: 20px;
+        }
+
+        .footnote li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .footnote-ref {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 2px;
+        }
+
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+
+        .footnote-backref {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
         /* 꼬리말 */
         footer {
             text-align: center;
@@ -240,7 +275,7 @@
 <hr />
 <h2>2. 삼사(AKAMAI - NVIDIA - MZC) 파트너십 협력 구조</h2>
 <p>본 기획안은 <strong>"아카마이의 자본력/글로벌 인프라 + 엔비디아의 AI 플랫폼 + MZC의 로컬 하드웨어 및 운영 역량"</strong>을 결합한 하이브리드 위탁 운영 모델을 제안합니다.</p>
-<pre><code class="language-mermaid">graph TD
+<div class="mermaid">graph TD
     MZC[MZC 메가존클라우드] -- &quot;1. GPU 하드웨어 자산 공급&quot; --&gt; Akamai[AKAMAI Connected Cloud]
     Akamai -- &quot;2. CapEx 매입 &amp; IDC 구축 투자&quot; --&gt; Edge[한국 내 분산 GPUaaS 노드 구축]
     NVIDIA[NVIDIA AI 플랫폼 기술] -- &quot;3. NIM, Triton, NCP 플랫폼 제공&quot; --&gt; Edge
@@ -248,7 +283,7 @@
     MZC -- &quot;5. 국내 영업 및 MSP 관리&quot; --&gt; Customer[국내 AI 연구소 / 기업 고객]
     Customer -- &quot;6. GPUaaS 사용 및 비용 지불&quot; --&gt; Edge
     Edge -- &quot;7. 수익 배분 (Revenue Share)&quot; --&gt; MZC
-</code></pre>
+</div>
 <h3>파트너별 세부 역할:</h3>
 <ul>
 <li><strong>AKAMAI (투자 및 글로벌 인프라)</strong><ul>
@@ -277,13 +312,34 @@
 │   ├── AGENTS.md          # AI 에이전트 전역 준수 규칙 (비즈니스 타당성 감사 기준)
 │   └── skills/            # 기획 검토를 위한 전문 스킬 모음
 ├── docs/
-│   ├── research/          # 아카마이-엔비디아 협력 분석 및 NCP 시장 분석 보고서
+│   ├── research/          # 아카마이-엔비디아 협력 분석, NCP 시장 분석, 대구 수성알파시티 AIDC &amp; 피지컬 AI 선행조사 보고서
 │   ├── proposal/          # MZC-아카마이 공동 사업 제안서
 │   └── feasibility/       # 기술, 경제성(BEP 시뮬레이션 결과 포함), 보안 분석 보고서
 ├── scripts/
-│   └── bep_simulation.py  # 가동률 및 비용 모델링용 파이썬 시뮬레이션 스크립트
+│   ├── bep_simulation.py  # 가동률 및 비용 모델링용 파이썬 시뮬레이션 스크립트
+│   └── convert_all_md.py  # 마크다운 -&gt; 프리미엄 HTML &amp; DOCX 일괄 변환 스크립트
 └── CLAUDE.md              # 로컬 개발 및 실행 환경 가이드라인
 </code></pre>
+<h3>📄 ISV BU Hybrid Cloud 팀 마스터 전략 및 R&amp;R 통합 제안서 (v3.2):</h3>
+<ul>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.html">ISV BU Hybrid Cloud 팀 마스터 방향성, 매출 극대화(영업 퍼널/MPN 판매채널화) 및 7인 멤버별 R&amp;R 통합 제안서 (v3.2)</a></strong> (<a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.docx">Word 다운로드</a>)</li>
+</ul>
+<h3>📄 원익로보틱스 AX Center 3대 핵심 산출물:</h3>
+<ul>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.html">원익로보틱스 AX Center RFI 공식 서면 질의서</a></strong> (<a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.docx">Word 다운로드</a>)</li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.html">원익로보틱스 AX Center RFI 공식 회신서 (MZC 구축 + 삼성 SCP 임대 브릿지)</a></strong> (<a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.docx">Word 다운로드</a>)</li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_proposal.html">원익로보틱스 AX Center (피지컬 AI 로봇 트레이닝 센터) 구축 사업제안서</a></strong> (<a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_proposal.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_proposal.docx">Word 다운로드</a>)</li>
+</ul>
+<h3>📄 기타 프로젝트 산출물 바로가기:</h3>
+<ul>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/daegu_suseong_robot_training_center_proposal.html">대구 수성알파시티 피지컬 AI 로봇 트레이닝 센터 및 AIDC 구축·운영 제안서</a></strong> (<a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/daegu_suseong_robot_training_center_proposal.md">Markdown 원본</a>)</li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/research/daegu_aidc_physical_ai_preliminary_study.html">대구 AIDC &amp; 피지컬 AI 선행 조사 보고서</a></strong> (<a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/research/daegu_aidc_physical_ai_preliminary_study.md">Markdown 원본</a>)</li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/research/akamai_nvidia_partnership.html">아카마이-엔비디아 파트너십 분석</a></strong></li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/research/nvidia_ncp_market_analysis.html">NVIDIA NCP 시장 분석</a></strong></li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/mzc_akamai_partnership.html">MZC-아카마이 공동 사업 제안서</a></strong></li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/feasibility/financial_simulation_report.html">재무적 타당성 시뮬레이션 보고서</a></strong></li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/archive/">원익로보틱스 이전 비교/권고 분석 보고서 (Archive)</a></strong></li>
+</ul>
 <hr />
 <h2>4. 타당성 점검 마일스톤</h2>
 <p>본 워크스페이스는 다음과 같은 4단계 타당성 평가 프로세스를 거쳐 기획을 구체화합니다:<br />
@@ -291,6 +347,10 @@
 2. <strong>비즈니스 및 경제성</strong>: 파이썬 시뮬레이션을 활용한 투자 규모별 BEP(손익분기 가동률) 및 ROI 도출.<br />
 3. <strong>시장성</strong>: 하이퍼스케일러(AWS, GCP, Azure) 대비 가격 경쟁력 포지셔닝 분석.<br />
 4. <strong>규제 및 보안</strong>: 망분리, 개인정보보호법 및 데이터 주권 요건 검토.</p>
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+</script>
         </main>
     </div>
 

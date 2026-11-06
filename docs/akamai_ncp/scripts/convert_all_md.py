@@ -216,6 +216,41 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             margin: 20px 0;
         }}
 
+        /* 각주 / 미주 (Footnotes) 스타일 */
+        .footnote {{
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }}
+
+        .footnote ol {{
+            padding-left: 20px;
+        }}
+
+        .footnote li {{
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }}
+
+        .footnote-ref {{
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 2px;
+        }}
+
+        .footnote-ref:hover {{
+            text-decoration: underline;
+        }}
+
+        .footnote-backref {{
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 5px;
+        }}
+
         /* 꼬리말 */
         footer {{
             text-align: center;
@@ -269,11 +304,21 @@ def convert_md_to_html(md_path, html_path):
         md_text = md_text.replace(title_match.group(0), "", 1)
 
     # 2. 마크다운 라이브러리를 이용하여 HTML 바디 파싱
-    # 표(Tables)와 펜스 코드블록(Fenced Code) 등 확장 기능(Extensions) 활성화
-    extensions = ['tables', 'fenced_code', 'nl2br']
+    # 표(Tables), 펜스 코드블록(Fenced Code), 각주(Footnotes) 등 확장 기능(Extensions) 활성화
+    extensions = ['tables', 'fenced_code', 'nl2br', 'footnotes']
     body_content = markdown.markdown(md_text, extensions=extensions)
 
-    # 3. HTML 템플릿에 데이터 주입
+    # mermaid 코드블럭을 div.mermaid 로 변환
+    body_content = re.sub(r'<pre><code class="language-mermaid">([\s\S]*?)</code></pre>', r'<div class="mermaid">\1</div>', body_content)
+
+    # 3. HTML 템플릿에 데이터 주입 (Mermaid CDN 포함)
+    mermaid_script = """<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+</script>"""
+    if '<div class="mermaid">' in body_content:
+        body_content += f"\n{mermaid_script}"
+
     final_html = HTML_TEMPLATE.format(
         title=header_title,
         header_title=header_title,
@@ -290,17 +335,31 @@ def convert_md_to_html(md_path, html_path):
     print(f"완료: {html_path} 생성")
 
 def main():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.abspath(os.path.join(current_dir, '..'))
+    has_docs_subdir = os.path.isdir(os.path.join(base_dir, 'docs'))
+    prefix = 'docs/' if has_docs_subdir else ''
+
     # 변환 대상 마크다운 파일과 출력될 HTML 파일 맵
     # financial_simulation_report.md는 커스텀 대시보드 보존을 위해 단순 자동 변환에서 예외(Skip) 처리
     conversion_targets = {
         'README.md': 'README.html',
         'handover.md': 'handover.html',
-        'docs/research/akamai_nvidia_partnership.md': 'docs/research/akamai_nvidia_partnership.html',
-        'docs/research/nvidia_ncp_market_analysis.md': 'docs/research/nvidia_ncp_market_analysis.html',
-        'docs/proposal/mzc_akamai_partnership.md': 'docs/proposal/mzc_akamai_partnership.html'
+        f'{prefix}research/akamai_nvidia_partnership.md': f'{prefix}research/akamai_nvidia_partnership.html',
+        f'{prefix}research/nvidia_ncp_market_analysis.md': f'{prefix}research/nvidia_ncp_market_analysis.html',
+        f'{prefix}proposal/mzc_akamai_partnership.md': f'{prefix}proposal/mzc_akamai_partnership.html',
+        f'{prefix}research/daegu_aidc_physical_ai_preliminary_study.md': f'{prefix}research/daegu_aidc_physical_ai_preliminary_study.html',
+        f'{prefix}proposal/daegu_suseong_robot_training_center_proposal.md': f'{prefix}proposal/daegu_suseong_robot_training_center_proposal.html',
+        f'{prefix}wonik_ax_center/wonik_robotics_ax_center_proposal.md': f'{prefix}wonik_ax_center/wonik_robotics_ax_center_proposal.html',
+        f'{prefix}wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.md': f'{prefix}wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.html',
+        f'{prefix}wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.md': f'{prefix}wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.html',
+        f'{prefix}wonik_ax_center/archive/wonik_rfi_v12_vs_v17_comparison.md': f'{prefix}wonik_ax_center/archive/wonik_rfi_v12_vs_v17_comparison.html',
+        f'{prefix}wonik_ax_center/archive/wonik_robotics_ax_center_rfp_spec_in_recommendations.md': f'{prefix}wonik_ax_center/archive/wonik_robotics_ax_center_rfp_spec_in_recommendations.html'
     }
 
-    for md, html in conversion_targets.items():
+    for md_rel, html_rel in conversion_targets.items():
+        md = os.path.join(base_dir, md_rel)
+        html = os.path.join(base_dir, html_rel)
         if os.path.exists(md):
             convert_md_to_html(md, html)
         else:

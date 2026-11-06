@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[사업제안서] 원익로보틱스 AX Center (피지컬 AI 로봇 트레이닝 센터) 구축 제안서</title>
+    <!-- 구글 폰트 적용 (Outfit & Noto Sans KR) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(22, 25, 32, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #3b82f6;
+            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --accent: #ef4444;
+            --success: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.12) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 네비게이션 가이드 */
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        
+        .nav-back a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-back a:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        /* 메인 리포트 카드 */
+        .report-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 45px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 타이틀 스타일 */
+        header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 마크다운 요소별 렌더링 스타일링 */
+        h2 {
+            font-size: 1.5rem;
+            color: #93c5fd;
+            margin-top: 35px;
+            margin-bottom: 18px;
+            border-left: 4px solid var(--primary);
+            padding-left: 14px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #a7f3d0;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: #e5e7eb;
+            font-size: 0.98rem;
+        }
+
+        /* 목록 스타일링 (순서 없는 리스트) */
+        ul {
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 22px;
+            color: #d1d5db;
+        }
+
+        li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* 마크다운 표(Table) 스타일링 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.92rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 12px 14px;
+            font-weight: 600;
+            color: #93c5fd;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e5e7eb;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* 인용구(Blockquote) 스타일링 */
+        blockquote {
+            border-left: 4px solid var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+            color: #93c5fd;
+            font-weight: 500;
+        }
+
+        /* 수평선 스타일 */
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 30px 0;
+        }
+
+        /* Mermaid 코드블럭 또는 일반 이미지 렌더링 스타일 */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 20px 0;
+        }
+
+        /* 각주 / 미주 (Footnotes) 스타일 */
+        .footnote {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .footnote ol {
+            padding-left: 20px;
+        }
+
+        .footnote li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .footnote-ref {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 2px;
+        }
+
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+
+        .footnote-backref {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        /* 꼬리말 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="../../README.html">← 메인 README 메인 화면으로 돌아가기</a>
+    </div>
+
+    <div class="report-card">
+        <header>
+            <span class="meta-tag">공동 사업 기획 기획 검토서</span>
+            <h1>[사업제안서] 원익로보틱스 AX Center (피지컬 AI 로봇 트레이닝 센터) 구축 제안서</h1>
+        </header>
+
+        <main>
+            <h2>메가존클라우드 AI Full Stack &amp; Articul8 결합 기반 트랙 A-B-C 통합 실행안</h2>
+<p><strong>문서 번호</strong>: PROP-WNK-AXC-2026-V1.7<br />
+<strong>제출 일자</strong>: 2026년 10월<br />
+<strong>제안 주체</strong>: 메가존클라우드(MZC) 컨소시엄<br />
+<strong>수신 기관</strong>: 원익로보틱스 주식회사 / 원익홀딩스 기획조정실 AX Center 추진위원회<br />
+<strong>참조 문서</strong>: 원익로보틱스 AX Center 구축 MP 사업 사전 정보요청서 (WR-AXC-RFI-2026-001 v1.7)<br />
+<strong>발주 담당</strong>: 원익홀딩스 고두산 부장(ds.ko@wonik.com) / 원익로보틱스 변상규 상무(sg.nius@wonik.com)<br />
+<strong>사업 부지</strong>: 전북 완주 지방 산업단지 내 부지<br />
+<strong>보안 등급</strong>: 대외비 (Confidential)  </p>
+<hr />
+<h2>Executive Summary (제안 요약)</h2>
+<p>본 제안서는 원익로보틱스가 2026년 10월 21일 공식 배포한 <strong>‘AX Center 구축 사전 정보요청서(WR-AXC-RFI-2026-001 v1.7)’</strong>에 대한 메가존클라우드 컨소시엄의 공식 기술 및 사업 실행 제안서입니다.</p>
+<p>원익로보틱스가 정의한 <strong>"로봇 손(Robot Hand) 및 AMR 기반 Physical AI 역량 확보를 위한 데이터 팩토리 + 컴퓨트 인프라 + 생산 공정 복합 시설"</strong>의 요구 흐름에 맞추어, <strong>트랙 A(데이터·학습) → 트랙 B(Data Factory 컴퓨트·플랫폼) → 트랙 C(물리 구축: C-1 건물, C-2 모사 공정, C-3 생산 공장)</strong>의 3대 트랙 및 <strong>10대 계약 패키지(No.0~9)</strong>를 빈틈없이 충족하는 엔드투엔드 솔루션을 제안합니다.</p>
+<p>특히 메가존클라우드는 <strong>원익이 삼성전자 1차 협력사(Tier-1)로서 준수해야 하는 최고 등급의 폐쇄망(Air-Gap) 및 데이터 주권 요건을 완벽히 이해</strong>하고 있으며, 이미 <strong>원익IPS Air-Gap 아키텍처 분석을 통해 38개 Helm Chart 기반 실배포 검증을 마친 유일한 파트너</strong>입니다. 이에 따라 삼성전자 보안 감사상 수용이 불가능한 외부 통신사/CSP 퍼블릭 GPU 클라우드를 원천 배제하고, 당사의 독점 전략 솔루션인 <strong>MZC 엔터프라이즈 AI Full Stack(AIR Stack)</strong>과 <strong>Articul8 Platform(ModelMesh, DPaaS, MTaaS)</strong>, 그리고 보안 규정을 100% 충족하는 <strong>'원익 전용 소버린 Air-Gap Staging Pod'</strong>를 결합하여 조기 R&amp;D 가동 및 무중단 인프라 구축을 제공합니다.</p>
+<div class="mermaid">flowchart TD
+    subgraph Track_A [&quot;트랙 A: 데이터·학습 (핵심 출발점 / No.7 패키지)&quot;]
+        Teleop[&quot;로봇 손(Hand) &amp; AMR 텔레옵 셀&lt;br/&gt;(1kHz 촉각/FT 센서, PTP 마이크로초 동기화)&quot;] --&gt; USD_Pipe[&quot;CAD → OpenUSD 자산화 [1]&lt;br/&gt;(SolidWorks/NX 무손실 테셀레이션)&quot;]
+        USD_Pipe --&gt; A8_DPaaS[&quot;Articul8 DPaaS&lt;br/&gt;(비정형 정제 &amp; 로봇 지식 RAG)&quot;]
+        A8_DPaaS --&gt; Sim_Factory[&quot;NVIDIA Isaac Sim&lt;br/&gt;대규모 합성데이터(Synthetic Data)&quot;]
+        Sim_Factory --&gt; Isaac_Lab[&quot;Isaac Lab 강화학습 &amp;&lt;br/&gt;Articul8 MTaaS (Robot Control LLM)&quot;]
+        Isaac_Lab --&gt; Guardrail[&quot;Articul8 AI Guardrail&lt;br/&gt;(로봇 제어 환각 차단 &amp; 물리적 안전 인터록)&quot;]
+    end
+
+    subgraph Track_B [&quot;트랙 B: Data Factory 컴퓨트 &amp; 플랫폼 (No.6, No.8 패키지)&quot;]
+        Bridge[&quot;[건축 24개월간] 원익 전용&lt;br/&gt;소버린 Air-Gap Staging Pod (조기 R&amp;D)&quot;] -.-&gt;|&quot;완공 시 무진동 차량 랙 단위 물리 이송&quot;| Core_Compute
+        Core_Compute[&quot;H200 400장 고밀도 클러스터 (DLC 액랭 PUE &lt; 1.15)&lt;br/&gt;• 학습 노드: 256장 (FSDP / Megatron-LM 분산학습)&lt;br/&gt;• 물리 시뮬: 80장 (Isaac Sim / Omniverse 레이트레이싱)&lt;br/&gt;• ModelMesh 추론: 64장 (GPU 메모리 공유로 TCO 50% 절감)&quot;]
+        Platform_OS[&quot;Red Hat OpenShift AI (RHOAI) + Slurm&lt;br/&gt;완전 폐쇄망(Air-Gap) 오프라인 패키지 미러링&quot;]
+    end
+
+    subgraph Track_C [&quot;트랙 C: 물리 구축 (전북 완주 산단 / C-1, C-2, C-3)&quot;]
+        C1[&quot;Sub Track C-1: 건물 건축 (No.1~3, No.9)&lt;br/&gt;수전 10MW, 플로팅 아일랜드 패드(진동격리), 클린룸 양압공조&quot;]
+        C2[&quot;Sub Track C-2: 모사 공정 구축 (No.4)&lt;br/&gt;제조업 대표 공정 모사 챔버, Fail-Fast 수용검사 라인&quot;]
+        C3[&quot;Sub Track C-3: 생산 공장 구축 (No.5)&lt;br/&gt;현대차 HMGICS형 로봇 Hand/AMR 스마트 셀 유연 양산&quot;]
+    end
+
+    Track_A --&gt; Track_B
+    Track_B --&gt; Track_C
+    Guardrail --&gt;|&quot;Sim-to-Real 실증&quot;| C2
+    C2 --&gt;|&quot;양산 공정 이관&quot;| C3
+</div>
+<h3>메가존 엔터프라이즈 AI Full Stack (MZC AIR Stack) 아키텍처</h3>
+<div class="mermaid">flowchart TD
+    subgraph Layer4 [&quot;Layer 4: Enterprise Physical AI Solutions &amp; Applications&quot;]
+        L4_1[&quot;Articul8 ModelMesh (동적 GPU 메모리 공유 추론 인프라)&quot;]
+        L4_2[&quot;Articul8 DPaaS (로봇 지식 베이스 RAG &amp; 비정형 데이터 정제)&quot;]
+        L4_3[&quot;Articul8 MTaaS &amp; AI Guardrail (Robot Control LLM 및 안전 인터록)&quot;]
+        L4_4[&quot;원익 로봇 공정 제어 애플리케이션 (핸드 파지 제어, AMR 군집 제어)&quot;]
+    end
+
+    subgraph Layer3 [&quot;Layer 3: Physical AI MLOps &amp; Data Pipeline&quot;]
+        L3_1[&quot;NVIDIA Isaac Sim / Isaac Lab (합성 데이터 및 강화학습)&quot;]
+        L3_2[&quot;CAD to OpenUSD Ingestion Engine (테셀레이션 파이프라인)&quot;]
+        L3_3[&quot;High-Frequency Sensor Ingestion (1kHz 촉각/FT 스트림, PTP)&quot;]
+        L3_4[&quot;LeRobot / RLDS / HDF5 표준 데이터셋 저장소 (10PB Scale)&quot;]
+    end
+
+    subgraph Layer2 [&quot;Layer 2: Sovereign Platform &amp; CaaS / Orchestration&quot;]
+        L2_1[&quot;Red Hat OpenShift AI (완전 폐쇄망 엔터프라이즈 K8s)&quot;]
+        L2_2[&quot;Slurm Workload Manager (대규모 분산 학습 스케줄링)&quot;]
+        L2_3[&quot;38개 검증 Helm Chart 기반 Air-Gap 원클릭 오프라인 배포 체계&quot;]
+        L2_4[&quot;24/7 SRE 무중단 관제 및 Prometheus / Grafana 풀스택 모니터링&quot;]
+    end
+
+    subgraph Layer1 [&quot;Layer 1: Sovereign High-Density Compute &amp; Facility Infrastructure&quot;]
+        L1_1[&quot;Dell PowerEdge XE9640 / XE9680 (NVIDIA H200 400장)&quot;]
+        L1_2[&quot;NVIDIA Quantum-2 800Gbps InfiniBand 패브릭 (Full Bisectional)&quot;]
+        L1_3[&quot;전북 완주 10MW 수전 및 Direct Liquid Cooling (DLC PUE 1.15)&quot;]
+        L1_4[&quot;플로팅 아일랜드 패드 (진동 격리) 및 양압 공조 전산실&quot;]
+    end
+
+    Layer1 --&gt; Layer2
+    Layer2 --&gt; Layer3
+    Layer3 --&gt; Layer4
+</div>
+<hr />
+<h2>1. [R1] 트랙별 단독·파트너 공동 참여 형태 (필수 대응)</h2>
+<p>메가존클라우드 컨소시엄은 RFI 1.3의 이해상충 방지 원칙(PMO의 시공 겸임 제한, 설계-CM 분리, 셀프 검수 금지)을 철저히 준수하면서, 각 트랙별 전문성을 극대화한 컨소시엄 구성을 제안합니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">패키지 No</th>
+<th style="text-align: left;">트랙 / 세부 영역</th>
+<th style="text-align: center;">참여 형태</th>
+<th style="text-align: center;">컨소시엄 파트너</th>
+<th style="text-align: left;">자사 담당 범위 및 핵심 역할</th>
+<th style="text-align: center;">대표사 의향</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>No.0</strong></td>
+<td style="text-align: left;"><strong>마스터플랜(MP) 수립 + PMO (본 RFI 대상)</strong></td>
+<td style="text-align: center;"><strong>① 단독 수행</strong></td>
+<td style="text-align: center;">메가존클라우드 단독</td>
+<td style="text-align: left;">• AX Center 전체 마스터플랜(MP) 총괄 수립<br/>• 사업 타당성 검토 및 9대 패키지 WBS 레벨 2 상세 설계<br/>• 5단계 게이트(G1~G5) 독립적 판정 및 프로젝트 총괄 거버넌스</td>
+<td style="text-align: center;"><strong>유 (대표사)</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.7</strong></td>
+<td style="text-align: left;"><strong>트랙 A: 데이터·학습 파이프라인</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">NVIDIA / Articul8</td>
+<td style="text-align: left;">• Articul8 DPaaS/MTaaS 기반 데이터 정제 및 Robot Control LLM 파인튜닝<br/>• NVIDIA Omniverse / Isaac Lab 학습 환경 구축 및 기술 지원<br/>• 1kHz 고주파 센서 PTP 동기화 및 CAD → OpenUSD 테셀레이션 파이프라인</td>
+<td style="text-align: center;"><strong>유</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.6</strong></td>
+<td style="text-align: left;"><strong>트랙 B: GPU 인프라 설계 및 조달</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">Dell Technologies</td>
+<td style="text-align: left;">• H200 400장 고밀도 랙 및 Quantum-2 InfiniBand 패브릭 설계·조달<br/>• <strong>삼성전자 1차 벤더 보안 규정 준수: 원익 전용 Air-Gap Staging Pod 선구축 및 완공 시 무진동 랙 단위 물리 이송(Rack Migration)</strong></td>
+<td style="text-align: center;"><strong>유</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.8</strong></td>
+<td style="text-align: left;"><strong>트랙 B: 플랫폼 운영 및 MSP</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">Red Hat / Articul8</td>
+<td style="text-align: left;">• Articul8 ModelMesh 기반 GPU 메모리 지능 분할 추론 플랫폼 구축<br/>• Red Hat OpenShift AI 기반 24/7 폐쇄망 SRE 위탁 운영 (가동률 99.9% 보장)<br/>• 원익IPS 검증 자산인 38개 Helm Chart 기반 오프라인 배포 체계 가동</td>
+<td style="text-align: center;"><strong>유</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.1</strong></td>
+<td style="text-align: left;"><strong>트랙 C-1: 건물 건축 CM (건설사업관리)</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">전문 CM사</td>
+<td style="text-align: left;">• 완주 산단 토목·건축 CM 및 공정·품질·안전 총괄 관리<br/><em>(PMO 수행 시 셀프 검수 방지를 위해 독립 전문 CM사 전담)</em></td>
+<td style="text-align: center;"><strong>무 (협력)</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.2</strong></td>
+<td style="text-align: left;"><strong>트랙 C-1: 건물 건축 설계</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">데이터센터 전문 건축사</td>
+<td style="text-align: left;">• 전산실 특화 MEP 설계 및 수전 10MW 한전 인입 도면 설계<br/>• DLC 액랭 배관 및 플로팅 아일랜드 패드 진동 격리 구조 설계</td>
+<td style="text-align: center;"><strong>무 (협력)</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.3</strong></td>
+<td style="text-align: left;"><strong>트랙 C-1: 건물 건축 시공</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">1군 건설 시공사</td>
+<td style="text-align: left;">• 전북 완주 산단 토목 시공, 골조 공사, 클린룸 전산실 마감 공사<br/><em>(PMO 수행 시 시공 겸임 금지 원칙 철저 준수)</em></td>
+<td style="text-align: center;"><strong>무 (협력)</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.4</strong></td>
+<td style="text-align: left;"><strong>트랙 C-2: 모사 공정 구축</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">공정 엔지니어링사</td>
+<td style="text-align: left;">• 텔레옵 수집 챔버 구축 및 고주파 계측 센서 인터페이스 연계<br/>• 로봇 핸드 조작 및 AMR 자율이송 모사 공정 라인 구축 감리</td>
+<td style="text-align: center;"><strong>유</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.5</strong></td>
+<td style="text-align: left;"><strong>트랙 C-3: 생산 공장 구축</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">스마트팩토리 전문사</td>
+<td style="text-align: left;">• 현대차 HMGICS형 스마트 셀 생산 체계 라인 구축 및 시운전 지원</td>
+<td style="text-align: center;"><strong>무 (협력)</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>No.9</strong></td>
+<td style="text-align: left;"><strong>트랙 C-1: 시설 운영(FM)</strong></td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">전문 FM사</td>
+<td style="text-align: left;">• 수전 10MW 특고압 수배전반, 칠러, 비상발전기 24/7 시설 관리</td>
+<td style="text-align: center;"><strong>무 (협력)</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. [R2] AX Center 추진 방안에 대한 종합 의견 (필수 대응)</h2>
+<h3>2.1. [R2-1] 추진 조직 구성, 역할과 책임 및 5대 핵심 리스크 대응</h3>
+<div class="mermaid">flowchart TD
+    subgraph Client [&quot;발주사 (원익로보틱스 &amp; 원익홀딩스 기획조정실)&quot;]
+        Wonik_Steering[&quot;AX Center 추진위원회 (최종 의사결정)&quot;]
+        Wonik_Core[&quot;발주사 내부 전담팀 (수석 AI 아키텍트, 로봇 제어 PM, 인프라 PM)&quot;]
+    end
+
+    subgraph PMO_Org [&quot;전략 PMO (메가존클라우드 단독 총괄)&quot;]
+        Gate_Keeper[&quot;5단계 게이트(Gate) 판정단 &amp; 품질/공정/원가 총괄&quot;]
+        Interface_Mgr[&quot;트랙 A-B-C 패키지 간 물리/논리 인터페이스 조정&quot;]
+        Sec_Audit[&quot;삼성전자 Tier-1 보안 감사 상시 검증실&quot;]
+    end
+
+    subgraph Work_Tracks [&quot;후속 구축 패키지 (분할 발주 컨소시엄)&quot;]
+        T_A[&quot;트랙 A: 데이터·학습 (No.7 / MZC &amp; NVIDIA &amp; Articul8)&quot;]
+        T_B[&quot;트랙 B: 컴퓨트·플랫폼 (No.6, No.8 / MZC &amp; Dell &amp; Red Hat)&quot;]
+        T_C1[&quot;트랙 C-1: 건물 건축 (No.1~3, No.9 / 전문 설계·CM·시공사)&quot;]
+        T_C2[&quot;트랙 C-2: 모사 공정 (No.4 / 공정 엔지니어링사)&quot;]
+        T_C3[&quot;트랙 C-3: 생산 공정 (No.5 / 스마트팩토리 전문사)&quot;]
+    end
+
+    Wonik_Steering --- Wonik_Core
+    Wonik_Core --&gt; PMO_Org
+    PMO_Org --&gt; Work_Tracks
+</div>
+<h4>본 사업의 5대 핵심 리스크 및 기술적 대응 방안</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">리스크 내용</th>
+<th style="text-align: center;">발생 시점</th>
+<th style="text-align: center;">영향도</th>
+<th style="text-align: left;">메가존 컨소시엄 기술적 대응 방안</th>
+<th style="text-align: center;">책임 주체</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 전북 완주 10MW 수전 인입 지연</strong></td>
+<td style="text-align: center;">M02 ~ M08</td>
+<td style="text-align: center;"><strong>상</strong></td>
+<td style="text-align: left;">• 착공 즉시 한전 완주지사와 10MW 전력수급 계약 우선 체결 (154kV 변전소 연계 전용선로 2회선 본선+예비선 패스트트랙 인입)<br/>• 1단계 임시 전력(2MW) 선인입 및 비상 발전기(2,000kW 2대 N+1) 조기 가동 패스트트랙 추진</td>
+<td style="text-align: center;">주관사 / CM</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. GPU(H200) 및 액랭 설비 리드타임 병목</strong></td>
+<td style="text-align: center;">M06 ~ M14</td>
+<td style="text-align: center;"><strong>상</strong></td>
+<td style="text-align: left;">• Dell 직공급 글로벌 우선 할당 라인 및 Tier-1 사전 예약<br/>• <strong>삼성전자 1차 벤더 보안 규정에 부합하는 원익 전용 소버린 Air-Gap Staging Pod 선가동</strong>으로 데이터 외부 반출 리스크 없이 R&amp;D 공백 제로화</td>
+<td style="text-align: center;">메가존클라우드</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 공정 진동/분진의 전산실 유입</strong></td>
+<td style="text-align: center;">M12 ~ M20</td>
+<td style="text-align: center;"><strong>상</strong></td>
+<td style="text-align: left;">• 전산실 하부 <strong>독립 기초 구조(Floating Island Pad, 구조체 슬래브 분리 및 방진고무 지지)</strong> 시공 (진동 기준 VC-A 만족)<br/>• 전산실 <strong>양압 공조(ISO Class 7)</strong> 및 에어샤워 2중 인터록 도어로 생산 공정 분진 침투 100% 차단</td>
+<td style="text-align: center;">건축·MEP 설계사</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. 텔레옵 고주파 센서 스트림 지터/유실</strong></td>
+<td style="text-align: center;">M10 ~ M18</td>
+<td style="text-align: center;"><strong>중</strong></td>
+<td style="text-align: left;">• <strong>PTP(IEEE 1588) 하드웨어 타임스탬프</strong> 마스터 클럭 구축 및 전용 UDP 멀티캐스트 네트워크 분리<br/>• Zero-Copy Ring Buffer IPC 메모리 파이프라인으로 1,000Hz 무손실 수집 보장</td>
+<td style="text-align: center;">트랙 A 기술팀</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 로봇 제어 모델(RCLLM) 환각 및 안전 사고</strong></td>
+<td style="text-align: center;">M22 ~ M26</td>
+<td style="text-align: center;"><strong>상</strong></td>
+<td style="text-align: left;">• <strong>Articul8 AI Guardrail</strong> 탑재: LLM 출력 명령이 로봇 관절 가동 범위나 공정 기구물 경계를 침범할 경우 마이크로초 단위 소프트웨어/하드웨어 안전 인터록 즉시 차단</td>
+<td style="text-align: center;">메가존클라우드</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>2.2. [R2-2] 5단계 게이트(Gate) 관리 체계 및 PMO 구성 방안</h3>
+<p>단순한 일정 확인에 그치지 않고, 각 단계별 정량적 기준(Exit Criteria)을 충족해야만 다음 단계 예산을 집행하는 <strong>'게이트 판정형(Gate-Keeper) 독립 PMO'</strong> 체계를 가동합니다.</p>
+<div class="mermaid">flowchart LR
+    G1[&quot;&lt;b&gt;Gate 1&lt;/b&gt;&lt;br/&gt;MP 승인&lt;br/&gt;(M04)&quot;] --&gt; G2[&quot;&lt;b&gt;Gate 2&lt;/b&gt;&lt;br/&gt;기본설계 확정&lt;br/&gt;(M07)&quot;]
+    G2 --&gt; G3[&quot;&lt;b&gt;Gate 3&lt;/b&gt;&lt;br/&gt;골조/전산실 준공&lt;br/&gt;(M18)&quot;]
+    G3 --&gt; G4[&quot;&lt;b&gt;Gate 4&lt;/b&gt;&lt;br/&gt;수전 &amp; Power-on&lt;br/&gt;(M20)&quot;]
+    G4 --&gt; G5[&quot;&lt;b&gt;Gate 5&lt;/b&gt;&lt;br/&gt;최종 시운전 &amp; 오픈&lt;br/&gt;(M25)&quot;]
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">게이트 단계</th>
+<th style="text-align: center;">검토 시점</th>
+<th style="text-align: left;">주요 판정 기준 (Exit Criteria)</th>
+<th style="text-align: left;">미충족 시 조치 방안</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Gate 1</strong></td>
+<td style="text-align: center;">M04</td>
+<td style="text-align: left;">• 9대 패키지 RFP 과업지시서 및 사업성(ROI) 분석 완료<br/>• 트랙별 WBS Level 2 및 패키지 간 인터페이스 명세서 확정</td>
+<td style="text-align: left;">MP 보완 기간(2주) 부여 후 재심의</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Gate 2</strong></td>
+<td style="text-align: center;">M07</td>
+<td style="text-align: left;">• 완주 산단 건축 인허가 승인 및 한전 10MW 수전 협의서 확보<br/>• 장납기 자재(변압기, 발전기, 칠러) 발주 승인</td>
+<td style="text-align: left;">대체 공급선 투입 및 패스트트랙 전환</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Gate 3</strong></td>
+<td style="text-align: center;">M18</td>
+<td style="text-align: left;">• C-1 전산실 플로팅 패드 시공 및 DLC 액랭 배관 내압 시험 통과<br/>• 모사 공정(C-2) 텔레옵 수집 챔버 물리 환경 구축 확인</td>
+<td style="text-align: left;">진동 감쇠 패드 보강 및 누수 재시험</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Gate 4</strong></td>
+<td style="text-align: center;">M20</td>
+<td style="text-align: left;">• 한전 10MW 송전 개시 및 N+1 비상발전기 연동 시험 완료<br/>• H200 400장 장비 반입 및 Staging Pod 무진동 랙 물리 이송 완료</td>
+<td style="text-align: left;">예비 수전 가동 및 랙 이송 안전점검</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Gate 5</strong></td>
+<td style="text-align: center;">M25</td>
+<td style="text-align: left;">• HPL 및 NCCL 성능 벤치마크 이론치 90% 이상 달성<br/>• Sim-to-Real 로봇 핸드/AMR 제어 성공률 99.5% 통과</td>
+<td style="text-align: left;">알고리즘 튜닝 및 핫스페어 즉각 교체</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>2.3. [R2-3] WBS Level 2 단계 주요 업무 및 책임 매트릭스</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">분야 / 패키지</th>
+<th style="text-align: left;">WBS Level 2 주요 업무</th>
+<th style="text-align: center;">수행 주체</th>
+<th style="text-align: left;">선행 조건</th>
+<th style="text-align: left;">핵심 산출물</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>MP 수립 &amp; PMO<br/>(No.0)</strong></td>
+<td style="text-align: left;">• 센터 비전 수립, 서비스 모델 설계, 10MW 경제성 타당성 분석<br/>• 9대 패키지 RFP 과업지시서 작성, 평가 기준 및 게이트 체계 총괄</td>
+<td style="text-align: center;"><strong>메가존클라우드<br/>(단독)</strong></td>
+<td style="text-align: left;">계약 체결</td>
+<td style="text-align: left;">• 마스터플랜 종합 보고서<br/>• 패키지별 RFP 과업지시서<br/>• PMO 품질관리계획서</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>데이터·학습<br/>(트랙 A / No.7)</strong></td>
+<td style="text-align: left;">• 로봇 핸드/AMR 표준 데이터 스키마 정의 (LeRobot/RLDS)<br/>• CAD → OpenUSD 테셀레이션 파이프라인 및 Isaac Sim 씬 구축<br/>• Articul8 MTaaS 기반 RCLLM 파인튜닝 및 수용검사</td>
+<td style="text-align: center;"><strong>메가존클라우드 /<br/>NVIDIA / Articul8</strong></td>
+<td style="text-align: left;">MP 승인</td>
+<td style="text-align: left;">• 데이터 스키마 정의서<br/>• OpenUSD 에셋 라이브러리<br/>• 정책 모델 수용검사 성적서</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>컴퓨트·플랫폼<br/>(트랙 B / No.6, 8)</strong></td>
+<td style="text-align: left;">• H200 400장 용량 산정, 고밀도 액랭 랙 설계 및 하드웨어 조달<br/>• 원익 전용 소버린 Staging Pod 선구축 및 완공 시 무진동 랙 물리 이송<br/>• Articul8 ModelMesh 및 Red Hat OpenShift AI 24/7 MSP 구축</td>
+<td style="text-align: center;"><strong>메가존클라우드 /<br/>Dell / Red Hat</strong></td>
+<td style="text-align: left;">인프라 설계 확정</td>
+<td style="text-align: left;">• GPU 클러스터 설계서<br/>• Staging Pod 운영 일지<br/>• 무중단 랙 이송 완료 보고서</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>건물 건축<br/>(트랙 C-1 / No.1~3, 9)</strong></td>
+<td style="text-align: left;">• 완주 산단 부지 인허가, 토목·건축 및 수전 10MW MEP 설계<br/>• 플로팅 아일랜드 시공, DLC 액랭 배관 및 클린룸 전산실 준공<br/>• 시설운영(FM) 체계 수립</td>
+<td style="text-align: center;"><strong>전문 CM사 /<br/>설계사 / 1군 시공사</strong></td>
+<td style="text-align: left;">인허가 완료</td>
+<td style="text-align: left;">• 건축 허가서<br/>• MEP 준공 도면<br/>• 한전 수전증명서</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>모사 공정<br/>(트랙 C-2 / No.4)</strong></td>
+<td style="text-align: left;">• 제조업 대표 공정 모사 라인 설계 및 물리 구축 (Fail-Fast 검증)<br/>• 텔레옵 수집 셀(1kHz 센서, 모션캡처) 챔버 구축 및 동기화</td>
+<td style="text-align: center;"><strong>메가존클라우드 /<br/>공정 엔지니어링사</strong></td>
+<td style="text-align: left;">C-1 골조 완성</td>
+<td style="text-align: left;">• 모사 공정 설계서<br/>• 텔레옵 캘리브레이션 성적서</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>생산 공장<br/>(트랙 C-3 / No.5)</strong></td>
+<td style="text-align: left;">• 로봇 손/AMR 제품 현대차 HMGICS형 스마트 셀 생산라인 구축<br/>• 양산 설비 발주, 배치, 시운전 및 양산 체계 이관 지원</td>
+<td style="text-align: center;"><strong>발주사 /<br/>스마트팩토리 전문사</strong></td>
+<td style="text-align: left;">C-1 준공</td>
+<td style="text-align: left;">• 스마트 셀 배치도<br/>• 설비 시운전 검수 확인서</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>2.4. [R2-4] 추진 일정 (MP 4개월 + 실행 24개월 = 총 28개월)</h3>
+<div class="mermaid">gantt
+    title 원익로보틱스 AX Center 구축 마스터 스케줄 (총 28개월)
+    dateFormat  YYYY-MM
+    section MP 수립 &amp; 선행 R&amp;D
+    마스터플랜 수립 및 9대 패키지 발주 준비  :done, 2026-11, 4M
+    원익 전용 소버린 Staging Pod 가동 (조기 학습) :active, 2026-12, 24M
+    section 물리 인프라 (트랙 C-1)
+    완주 산단 인허가 및 수전 10MW 한전 협의   :2026-12, 6M
+    건축 착공 및 액랭 전산실 패스트트랙 시공 :2027-05, 16M
+    section 공정 구축 (C-2, C-3)
+    C-2 모사 공정 및 텔레옵 챔버 구축    :2028-02, 7M
+    C-3 로봇 제품 양산 스마트 셀 인입 및 시운전 :2028-04, 5M
+    section 컴퓨트 &amp; 이송 (트랙 B, A)
+    H200 400장 장비 반입 및 Power-on   :2028-07, 3M
+    Staging Pod 무진동 차량 랙 이송 및 그랜드 오픈 :2028-10, 3M
+</div>
+<ul>
+<li><strong>24개월 달성 가능성</strong>: H200 및 장납기 수전 설비(변압기 등)의 긴 리드타임을 고려할 때, <strong>건축 기간 동안 원익 전용 소버린 Air-Gap Staging Pod를 즉시 가동하여 연구원들이 모델을 선행 개발</strong>함으로써 전체 사업 실질 공기를 6개월 이상 단축할 수 있습니다.</li>
+</ul>
+<hr />
+<h2>3. [R3] Data Factory 또는 유사 사업 수행 경험 (필수 대응)</h2>
+<p>메가존클라우드는 피지컬 AI 로봇 트레이닝 센터 및 대규모 엔터프라이즈 AI 팩토리를 직접 기획하고 구축·운영한 독보적인 실적과 파트너 에코시스템을 보유하고 있습니다.</p>
+<div class="mermaid">flowchart LR
+    R3_1[&quot;&lt;b&gt;[R3-1] 전략 수립&lt;/b&gt;&lt;br/&gt;• 대구 수성 AIDC 피지컬 AI MP&lt;br/&gt;• MZC AIR Stack 전략 수립&quot;] --&gt; R3_2[&quot;&lt;b&gt;[R3-2] 전산실 엔지니어링&lt;/b&gt;&lt;br/&gt;• 대형 IDC 랙당 60kW DLC 액랭&lt;br/&gt;• PUE 1.15 달성 설계 자문&quot;]
+    R3_2 --&gt; R3_3[&quot;&lt;b&gt;[R3-3] 인프라 조달&lt;/b&gt;&lt;br/&gt;• Dell H100/H200 수백 장 공급&lt;br/&gt;• Quantum-2 InfiniBand 패브릭&quot;]
+    R3_3 --&gt; R3_4[&quot;&lt;b&gt;[R3-4] 폐쇄망 MSP&lt;/b&gt;&lt;br/&gt;• 원익IPS 38개 Helm Chart 검증&lt;br/&gt;• 현대로템 MLOps 24/7 위탁운영&quot;]
+</div>
+<ul>
+<li><strong>[R3-1] 전략 수립 및 아키텍처 실적</strong>: </li>
+<li><strong>대구 수성알파시티 AIDC 피지컬 AI 로봇 트레이닝 센터 마스터플랜(MP) 총괄 수립 (2026)</strong>: 지역 주력 로봇 기업(현대로보틱스, 삼익THK, 대동 등)과 연계된 100MW급 AIDC 내 5MW 로봇 트레이닝 센터 MP 및 서비스 비즈니스 모델 기획 완료.</li>
+<li><strong>엔터프라이즈 AI Full Stack(AIR Stack) 아키텍처 수립</strong>: IaaS부터 MLOps, 기업용 파운데이션 모델까지의 4계층 참조 모델 완성.</li>
+<li><strong>[R3-2] 고밀도 전산실 및 액랭 설계 실적</strong>: </li>
+<li><strong>국내 대형 하이퍼스케일러 및 엔터프라이즈 전산실 DLC 액랭 엔지니어링 (2024~2025)</strong>: 랙당 50~80kW 초고밀도 발열을 해소하기 위한 직랭식 액랭(DLC) 배관 설계 및 PUE 1.15 달성 에너지 절감 아키텍처 검증.</li>
+<li><strong>[R3-3] 대규모 GPU 클러스터 설계 및 조달 실적</strong>: </li>
+<li><strong>국내 대기업 및 연구기관 대상 H100/H200 수백 대 조달·구축 완료 (2024~2026)</strong>: Dell Technologies와의 Tier-1 글로벌 직공급 라인을 통해 통상 24주 이상의 리드타임을 8~12주로 단축하여 조기 공급 달성.</li>
+<li><strong>NVIDIA Quantum-2 800Gbps InfiniBand 패브릭</strong>: Non-blocking Fat-Tree 토폴로지 설계 및 RDMA 패킷 무손실 전송 튜닝 완료.</li>
+<li><strong>[R3-4] 폐쇄망 MLOps 및 24/7 MSP 운영 실적</strong>: </li>
+<li><strong>원익그룹(원익IPS) 완전 폐쇄망(Air-Gap) AI 플랫폼 실증 완료 (2026)</strong>: 외부 인터넷이 차단된 환경에서 <strong>38개 Helm Chart 기반의 오프라인 원클릭 배포 체계</strong> 및 보안 감사 통과 레퍼런스 확보.</li>
+<li><strong>현대로템 차세대 다목적 무인 로봇 MLOps 플랫폼 구축 및 24/7 위탁 운영 (2025~2026)</strong>: 비전 및 주행 센서 데이터를 수집하여 강화학습 및 로봇 제어 모델을 지속 배포하는 SRE 운영 체계 가동.</li>
+</ul>
+<hr />
+<h2>4. [R4] GPU 인프라 설계 및 조달 (트랙 B 대응)</h2>
+<h3>4.1. H200 400장 세부 사이징 및 노드 구성표</h3>
+<p>메가존클라우드는 트랙 A의 데이터 학습 부하 특성을 심층 분석하여, 400장의 NVIDIA H200 GPU를 학습(FSDP), 시뮬레이션(Omniverse), 추론(ModelMesh)의 3대 전용 풀로 최적 분할 배치합니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">워크로드 구분</th>
+<th style="text-align: center;">GPU 수량</th>
+<th style="text-align: left;">노드 사양 (Dell PowerEdge)</th>
+<th style="text-align: center;">노드 수</th>
+<th style="text-align: center;">네트워킹 (InfiniBand / RoCE)</th>
+<th style="text-align: left;">주요 역할 및 프레임워크</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>대규모 분산 학습 노드</strong></td>
+<td style="text-align: center;"><strong>256장</strong></td>
+<td style="text-align: left;">XE9640 (H200 SXM5 141GB × 4, DLC 액랭)</td>
+<td style="text-align: center;">32노드</td>
+<td style="text-align: center;">800Gbps InfiniBand (노드당 4포트 OSFP)</td>
+<td style="text-align: left;">PyTorch FSDP, Megatron-LM, 로봇 파운데이션 VLA 모델 학습</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>물리 시뮬레이션 노드</strong></td>
+<td style="text-align: center;"><strong>80장</strong></td>
+<td style="text-align: left;">XE9680 (H200 SXM5 141GB × 8, 고풍량 공랭)</td>
+<td style="text-align: center;">10노드</td>
+<td style="text-align: center;">400Gbps InfiniBand (노드당 4포트 QSFP)</td>
+<td style="text-align: left;">NVIDIA Isaac Sim, Omniverse 렌더링, 대규모 합성 데이터 생성</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>실시간 통합 추론 노드</strong></td>
+<td style="text-align: center;"><strong>64장</strong></td>
+<td style="text-align: left;">XE9640 (H200 SXM5 141GB × 4, DLC 액랭)</td>
+<td style="text-align: center;">8노드</td>
+<td style="text-align: center;">400Gbps RoCE v2 (노드당 2포트)</td>
+<td style="text-align: left;"><strong>Articul8 ModelMesh 탑재</strong>: 로봇 핸드/AMR 제어 및 사내 sLLM 서빙</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>합계</strong></td>
+<td style="text-align: center;"><strong>400장</strong></td>
+<td style="text-align: left;"><strong>고밀도 액랭 및 하이브리드 구성</strong></td>
+<td style="text-align: center;"><strong>50노드</strong></td>
+<td style="text-align: center;"><strong>Full Bisectional Non-blocking 패브릭</strong></td>
+<td style="text-align: left;"><strong>IT 소요 전력: 약 1.6MW</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>4.2. Articul8 ModelMesh 결합을 통한 추론 인프라 TCO 50% 절감</h3>
+<p>전통적인 AI 추론 환경에서는 로봇 비전, 관절 제어, 이상 감지, 자연어 인터페이스 등 개별 모델마다 전용 GPU를 고정 할당하므로 유휴 GPU 자원이 발생하고 막대한 인프라 비용이 소요됩니다.</p>
+<div class="mermaid">flowchart TD
+    subgraph Traditional [&quot;기존 방식: 모델별 GPU 전용 고정 할당 (비효율)&quot;]
+        M1[&quot;로봇 핸드 제어 모델&quot;] --&gt; G1[&quot;GPU 1 (사용률 20%)&quot;]
+        M2[&quot;AMR 경로 계획 모델&quot;] --&gt; G2[&quot;GPU 2 (사용률 35%)&quot;]
+        M3[&quot;공정 불량 검사 모델&quot;] --&gt; G3[&quot;GPU 3 (사용률 15%)&quot;]
+        M4[&quot;로봇 작업장 RAG 모델&quot;] --&gt; G4[&quot;GPU 4 (사용률 25%)&quot;]
+    end
+
+    subgraph ModelMesh_Arch [&quot;Articul8 ModelMesh 방식: 지능형 메모리 공유 &amp; 패킹&quot;]
+        MM_Router[&quot;Articul8 ModelMesh 오케스트레이터&lt;br/&gt;(LRU 모델 캐싱 &amp; 동적 GPU VRAM 공유)&quot;]
+        MM_Router --&gt; SG[&quot;공유 GPU 풀 (64장 H200)&lt;br/&gt;평균 GPU 사용률 85% 이상 유지&lt;br/&gt;&lt;b&gt;필요 GPU 128장 → 64장으로 50% 절감&lt;/b&gt;&quot;]
+    end
+</div>
+<ul>
+<li><strong>정량적 TCO 절감 산출</strong>:</li>
+<li>기존 고정 할당 방식 적용 시: 추론 전용 H200 GPU 총 128장 필요 (서버 도입비 약 64억 원, 연간 전력·유지보수비 약 12억 원).</li>
+<li><strong>Articul8 ModelMesh 적용 시</strong>: 단 64장의 H200으로 동일한 트래픽 및 피크 부하 처리 가능.</li>
+<li><strong>하드웨어 도입비 절감</strong>: H200 64장(8노드) 절감 = <strong>초기 도입비 약 32억 원 절감</strong>.</li>
+<li><strong>운영비 절감</strong>: 연간 상면/전력/냉각 비용 <strong>연간 약 6.5억 원 절감</strong> (3개년 누적 TCO 절감액 <strong>약 51.5억 원</strong> 달성).</li>
+</ul>
+<hr />
+<h3>4.3. [R4-3] 삼성전자 1차 벤더(Tier-1) 보안 준수: 원익 전용 소버린 Staging Pod 3단계 랙 이송 Runbook</h3>
+<p>원익은 삼성전자의 핵심 1차 협력사로서 공정 레시피 및 장비/로봇 IP 보호를 위해 <strong>외부 통신사(SKT 등) 멀티테넌트 환경을 원천 배제</strong>합니다. 메가존클라우드는 완벽한 보안 컴플라이언스를 위해 <strong>원익 전용 소버린 Air-Gap Staging Pod(단독 베어메탈 클러스터)</strong>를 선구축하고 완공 시 물리적으로 이송하는 3단계 Runbook을 가동합니다.</p>
+<div class="mermaid">sequenceDiagram
+    autonumber
+    actor Wonik as 원익 R&amp;D 연구팀
+    participant Stage as 사내 전용 Staging Pod (MZC IDC)
+    participant Truck as 무진동 항온항습 특수 이송 차량
+    participant AXC as 완주 AX Center 전산실
+
+    Note over Wonik,Stage: [Phase 1: 선행 R&amp;D 및 데이터 축적 (M01 ~ M23)]
+    Wonik-&gt;&gt;Stage: 100% 완전 폐쇄망 환경에서 로봇 모델 선행 학습 및 데이터셋 10PB 축적
+    Note over Stage,Truck: [Phase 2: D-Day 무진동 물리 랙 이송 (D-Day 00:00 ~ 12:00)]
+    Stage-&gt;&gt;Stage: 전체 스토리지 스냅샷 및 SHA-256 체크섬 생성, 정상 셧다운
+    Stage-&gt;&gt;Truck: 랙 단위 패키징 (0.2G 이하 진동 완충재 적용) 및 보안요원 2인 동승 호송
+    Truck-&gt;&gt;AXC: 전북 완주 산단 AX Center 전산실 도착 (이동 중 GPS/온습도 관제)
+    Note over Truck,AXC: [Phase 3: 랙 안착 및 핫플러그 재가동 (D-Day 12:00 ~ 24:00)]
+    Truck-&gt;&gt;AXC: 플로팅 아일랜드 패드 위 랙 도킹 및 DLC 액랭 퀵커플러 연결
+    AXC-&gt;&gt;AXC: 전원 인입, 하드웨어 무결성 점검, SHA-256 체크섬 100% 일치 검증
+    AXC--&gt;&gt;Wonik: 컷오버 12시간 내 서비스 정상 오픈 (데이터 유출 리스크 0%)
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">이송 단계</th>
+<th style="text-align: left;">세부 작업 내용</th>
+<th style="text-align: left;">보안 및 기술 통제 기준</th>
+<th style="text-align: center;">소요 시간</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Phase 1<br/>(선행 가동)</strong></td>
+<td style="text-align: left;">사내 보안 전용 IDC 내 Dell H100/H200 32~64장 단독 케이지 가동</td>
+<td style="text-align: left;">외부 인터넷 완전 물리적 차단(Air-Gap), 삼성전자 보안 감사 기준 준수</td>
+<td style="text-align: center;">M01 ~ M23</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Phase 2<br/>(물리 이송)</strong></td>
+<td style="text-align: left;">풀 스냅샷 생성 후 랙 단위 통째로 특수 무진동 무진 차량 상차</td>
+<td style="text-align: left;">온도 20±2℃, 습도 45±5%, 3축 가속도 0.2G 이하 제어, 보안요원 2인 밀착 호송</td>
+<td style="text-align: center;">D-Day<br/>(6시간)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Phase 3<br/>(완주 안착)</strong></td>
+<td style="text-align: left;">전산실 플로팅 패드에 랙 안착, DLC 액랭 체결, 체크섬 전수 검증</td>
+<td style="text-align: left;">SHA-256 해시값 블록 레벨 100% 일치 확인 후 RHOAI 클러스터에 조인</td>
+<td style="text-align: center;">D-Day<br/>(6시간)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. [R5] 데이터 학습 파이프라인 설계 및 운영 (트랙 A 대응)</h2>
+<h3>5.1. 로봇 손(Hand) 1,000Hz 촉각 스트림 동기화 및 Zero-Copy IPC 파이프라인</h3>
+<p>로봇 손의 다지(Multi-finger) 미세 파지 및 조작을 학습하기 위해서는 손가락 끝의 고주파 촉각 센서(Tactile Array)와 손목 6축 Force/Torque 센서로부터 발생하는 1kHz 초고속 신호를 마이크로초 단위의 지터(Jitter) 없이 수집해야 합니다.</p>
+<div class="mermaid">flowchart LR
+    subgraph Hardware_Layer [&quot;물리 센서 계층&quot;]
+        PTP_Master[&quot;PTP Grandmaster Clock&lt;br/&gt;(IEEE 1588v2, 마이크로초 동기화) [4]&quot;]
+        Tactile[&quot;로봇 손 촉각 센서 (1,000Hz)&quot;] --- PTP_Master
+        FT_Sensor[&quot;손목 6축 F/T 센서 (1,000Hz)&quot;] --- PTP_Master
+        Vision_RGBD[&quot;서라운드 RGB-D 비전 (60Hz)&quot;] --- PTP_Master
+    end
+
+    subgraph Ingestion_Layer [&quot;엣지 수집 계층 (Zero-Copy Ring Buffer) [3]&quot;]
+        NIC[&quot;10GbE UDP Multicast NIC&quot;]
+        Shared_Mem[&quot;POSIX Shared Memory Ring Buffer&lt;br/&gt;(Zero-Copy Ingestion, 지터 &lt; 50μs)&quot;]
+        NIC --&gt; Shared_Mem
+    end
+
+    subgraph Storage_Layer [&quot;트레이닝 데이터 계층&quot;]
+        Schema_Engine[&quot;LeRobot / RLDS / HDF5 변환기&quot;]
+        Flash_Store[&quot;10PB All-Flash 스토리지&quot;]
+        Shared_Mem --&gt; Schema_Engine --&gt; Flash_Store
+    end
+
+    Tactile --&gt; NIC
+    FT_Sensor --&gt; NIC
+    Vision_RGBD --&gt; NIC
+</div>
+<ul>
+<li><strong>지터 방지 기술</strong>: 표준 TCP 소켓의 지연을 배제하고, 커널 바이패스(Kernel Bypass) 및 POSIX 공유 메모리 링버퍼(Ring Buffer)를 적용하여 <strong>1,000Hz 신호의 누락(Packet Drop) 0% 및 처리 지연 50μs 이하</strong>를 실현합니다.</li>
+<li><strong>데이터 표준화</strong>: 수집된 센서-비전 멀티모달 시계열 데이터는 글로벌 오픈 표준인 <strong>LeRobot, RLDS, HDF5</strong> 포맷으로 실시간 청크화(Chunking)되어 초고속 NVMe 스토리지에 기록됩니다.</li>
+</ul>
+<h3>5.2. CAD → OpenUSD 무손실 테셀레이션 파이프라인</h3>
+<p>기계 설계 원본인 CAD(SolidWorks, Siemens NX) 데이터는 파라메트릭 솔리드 모델이므로 물리 시뮬레이터에서 직접 연산이 불가능합니다. 메가존클라우드는 이를 GPU 가속 물리 연산에 최적화된 OpenUSD 자산으로 자동 변환하는 전용 파이프라인을 구축합니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">변환 단계</th>
+<th style="text-align: left;">입력 데이터</th>
+<th style="text-align: left;">변환 엔진 및 처리 기술</th>
+<th style="text-align: left;">최종 산출물 (OpenUSD)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Step 1: CAD Ingestion</strong></td>
+<td style="text-align: left;">SolidWorks (.sldasm), NX (.prt)</td>
+<td style="text-align: left;">Omniverse CAD Converter (자동 테셀레이션)</td>
+<td style="text-align: left;">경량 삼각 메쉬(Polygon Mesh)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Step 2: Physics Binding</strong></td>
+<td style="text-align: left;">부품별 재질 밀도, 조인트 가동 범위</td>
+<td style="text-align: left;">NVIDIA PhysX 5 메타데이터 바인딩</td>
+<td style="text-align: left;">질량, 관성 모멘트, 정지/운동 마찰계수 바인딩</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Step 3: Kinematics Mapping</strong></td>
+<td style="text-align: left;">로봇 조인트 기구학(DH 파라미터)</td>
+<td style="text-align: left;">URDF / MJCF 상호 호환 기구학 구조 트리 생성</td>
+<td style="text-align: left;">자유도(DoF) 제한치 및 토크 한계값 임베딩</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Step 4: Synthetic Scaling</strong></td>
+<td style="text-align: left;">완성된 OpenUSD 로봇 및 공정 에셋</td>
+<td style="text-align: left;">Isaac Sim Domain Randomization (조명, 텍스처, 마찰 변형)</td>
+<td style="text-align: left;">대규모 강화학습용 100만 건 합성 씬 생성</td>
+</tr>
+</tbody>
+</table>
+<h3>5.3. Articul8 DPaaS &amp; MTaaS 기반 Robot Control LLM 온프레미스 파인튜닝</h3>
+<ul>
+<li><strong>Articul8 DPaaS (Data Preparation as a Service)</strong>:</li>
+<li>로봇 조작 매뉴얼, 설계 도면(PDF), PLC 에러 코드, 고장 진단 로그 등 10TB 규모의 방대한 비정형 문서를 파싱하여 지능형 로봇 RAG(검색증강생성) 지식 베이스를 구축.</li>
+<li><strong>Articul8 MTaaS (Model Training as a Service)</strong>:</li>
+<li>완전 폐쇄망 환경에서 작업자의 구어체 지시("컨베이어 2번 셀에서 트레이를 집어 AMR 4호기에 적재해")를 실시간 기구학 관절 각도 및 Waypoint 좌표 JSON으로 변환하는 <strong>Robot Control LLM (RCLLM)</strong>을 독자 파인튜닝.</li>
+<li><strong>Articul8 AI Guardrail (물리적 안전 인터록 메커니즘)</strong>:</li>
+<li>생성형 AI 모델의 고유 한계인 환각(Hallucination)으로 인해 비정상적인 관절 회전이나 충돌 좌표가 출력될 경우, 제어 신호가 모터 드라이버로 전달되기 전 <strong>Articul8 Guardrail 룰 엔진이 마이크로초 단위로 소프트웨어 지오펜스(Geofence) 및 E-Stop 하드웨어 인터록을 트리거</strong>하여 안전사고를 원천 예방합니다.</li>
+</ul>
+<hr />
+<h2>6. [R6 ~ R8] 물리 건축, 모사 공정 및 생산 공정 (트랙 C 대응)</h2>
+<h3>6.1. [R6] 전북 완주 산단 수전 10MW 배분표 및 DLC 액랭 설계 (C-1)</h3>
+<p>전북 완주 지방 산업단지 부지에 구축되는 AX Center는 고밀도 전산실(Data Factory), 데이터 수집용 모사 공정(C-2), 로봇 완제품 생산 공장(C-3)이 복합된 첨단 시설입니다. 메가존 컨소시엄은 한전 154kV 변전소로부터 22.9kV 전용선로 2회선(본선+예비선)을 인입하여 총 10MW 전력을 안정적으로 공급합니다.</p>
+<div class="mermaid">pie title 전북 완주 AX Center 10MW 전력 부하 배분 계획
+    &quot;IT 컴퓨트 부하 (H200 400장 + 네트워크/스토리지)&quot; : 16
+    &quot;모사 공정 (C-2) 및 텔레옵 계측 설비&quot; : 10
+    &quot;생산 공장 (C-3) 스마트 셀 양산 라인&quot; : 15
+    &quot;고밀도 냉각 및 공조 부하 (DLC 칠러, 공조기)&quot; : 35
+    &quot;비상 예비 부하 및 공용 유틸리티&quot; : 24
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">구분</th>
+<th style="text-align: center;">설비 용량 (kW)</th>
+<th style="text-align: center;">배분 비중</th>
+<th style="text-align: left;">주요 부하 설비 내역</th>
+<th style="text-align: center;">비상 전원 대책</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>IT 전산실 부하</strong></td>
+<td style="text-align: center;"><strong>1,600 kW</strong></td>
+<td style="text-align: center;">16%</td>
+<td style="text-align: left;">H200 400장(50노드), All-Flash 스토리지 10PB, InfiniBand 스위치</td>
+<td style="text-align: center;">리튬이온 UPS 2N 이중화 (15분 백업)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>모사 공정 부하 (C-2)</strong></td>
+<td style="text-align: center;"><strong>1,000 kW</strong></td>
+<td style="text-align: center;">10%</td>
+<td style="text-align: left;">텔레옵 챔버 4기, 모션캡처 시스템, 모사 로봇 핸드 및 테스트 지그</td>
+<td style="text-align: center;">N+1 UPS 연동 (안전 셧다운 지원)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>생산 공장 부하 (C-3)</strong></td>
+<td style="text-align: center;"><strong>1,500 kW</strong></td>
+<td style="text-align: center;">15%</td>
+<td style="text-align: left;">스마트 셀 머시닝센터, 조립 로봇 암, AMR 무선 충전 스테이션 20기</td>
+<td style="text-align: center;">비상발전기 연동 비상 전원 공급</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>냉각 및 기계설비</strong></td>
+<td style="text-align: center;"><strong>3,500 kW</strong></td>
+<td style="text-align: center;">35%</td>
+<td style="text-align: left;">DLC 냉각 분배 장치(CDU 8대), 수랭 칠러(1,200 RT), 공조기(AHU)</td>
+<td style="text-align: center;">N+1 발전기(2,000kW × 2대) 100% 백업</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>공용 및 예비 전력</strong></td>
+<td style="text-align: center;"><strong>2,400 kW</strong></td>
+<td style="text-align: center;">24%</td>
+<td style="text-align: left;">사무실, 관제실, 조명, 계통 연계 예비 용량 (향후 확장 여유)</td>
+<td style="text-align: center;">한전 예비회선 자동 절체(ATS)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>합계</strong></td>
+<td style="text-align: center;"><strong>10,000 kW (10MW)</strong></td>
+<td style="text-align: center;"><strong>100%</strong></td>
+<td style="text-align: left;"><strong>한전 완주변전소 22.9kV 전용선로 2회선 인입 확약</strong></td>
+<td style="text-align: center;"><strong>무중단 Tier-III+ 급 전원 신뢰도 확보</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Direct Liquid Cooling (DLC) 칩셋 액랭 &amp; PUE 1.15 달성</strong>:</li>
+<li>H200 칩셋에서 발생하는 고열의 80%를 전용 콜드플레이트(Cold Plate) 액랭 루프로 직접 흡수하고, 나머지 20%는 랙 후면 도어 열교환기(RDHx)로 처리.</li>
+<li>전북 완주 지역의 기후 특성을 활용하여 동절기 및 간절기 외기 냉각(Water-side Economizer)을 최대 가동하여 <strong>연평균 PUE 1.15 이하</strong>를 달성합니다.</li>
+</ul>
+<h3>6.2. 전산실 진동 및 분진 격리 설계: 플로팅 아일랜드 패드 &amp; 양압 공조</h3>
+<p>생산 공장의 프레스 및 AMR 주행 진동, 기계 가공 분진이 정밀 IT 서버 전산실로 유입되는 것을 원천 차단하기 위한 하이브리드 건축 엔지니어링을 적용합니다.</p>
+<div class="mermaid">flowchart TD
+    subgraph Vibration_Isolation [&quot;진동 격리: 플로팅 아일랜드 패드 (Floating Island Pad)&quot;]
+        Factory_Floor[&quot;공장 바닥 슬래브 (진동 발생원)&quot;]
+        Air_Gap[&quot;구조적 완전 슬래브 절단 줄눈 (Structural Joint)&quot;]
+        Spring_Pad[&quot;방진 고무 마운트 및 코일 스프링 패드&quot;]
+        Server_Pad[&quot;독립 기초 전산실 바닥 슬래브 (진동 허용치 VC-A 기준 달성)&quot;]
+        Factory_Floor --- Air_Gap --- Spring_Pad --- Server_Pad
+    end
+
+    subgraph Air_Isolation [&quot;분진 격리: 2중 차단 양압 공조 시스템&quot;]
+        Pressurization[&quot;전산실 내부 +20Pa 양압 유지 (외부 공기 유입 원천 차단)&quot;]
+        Air_Shower[&quot;전산실 출입구 에어샤워 2중 인터록 도어 (ISO Class 7)&quot;]
+        HEPA_Filter[&quot;F9 중성능 필터 + H13 헤파 필터 2단 정화 공조&quot;]
+        Pressurization --- Air_Shower --- HEPA_Filter
+    end
+</div>
+<h3>6.3. [R7] Sub Track C-2: 모사 공정 구축 (데이터 획득 및 Sim-to-Real 실증)</h3>
+<ul>
+<li><strong>구축 목적</strong>: 완제품 양산 이전에 로봇 핸드와 AMR의 파운데이션 모델 정책(Policy)을 <strong>'실패해도 안전한 환경(Fail-Safe Testbed)'</strong>에서 조기 검증하고 고품질 실증 데이터를 수집.</li>
+<li><strong>주요 구성</strong>:</li>
+<li><strong>로봇 손(Hand) 촉각 정밀 조작 챔버 (4개 셀)</strong>: 반도체 트레이 이송, 정밀 커넥터 삽입, 불규칙 형상 파지 모사 셀.</li>
+<li><strong>AMR 다중 편대 자율 물류 모사 라인</strong>: 공장 내 협소 통로, 경사로, 동적 보행자 장애물 회피 및 군집 이송 실증 트랙.</li>
+<li><strong>Sim-to-Real 수용검사 벤치마크</strong>: 시뮬레이션에서 학습된 정책 모델을 물리 모사 라인에 배포하여 <strong>작업 성공률 99.5% 통과 시에만 C-3 양산 공정으로 배포 승인</strong>.</li>
+</ul>
+<h3>6.4. [R8] Sub Track C-3: 생산 공장 구축 (현대차 HMGICS형 스마트 셀 생산 체계)</h3>
+<p>원익로보틱스의 차세대 로봇 핸드 및 AMR 완제품을 유연하게 양산하기 위해, 전통적인 고정 컨베이어 벨트 방식을 탈피하고 싱가포르 현대차 글로벌 혁신센터(HMGICS)를 벤치마크한 <strong>'스마트 셀(Cell) 유연 양산 체계'</strong>를 구축합니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">비교 항목</th>
+<th style="text-align: left;">전통적 고정 컨베이어 라인</th>
+<th style="text-align: left;"><strong>AX Center C-3 스마트 셀 생산 체계 (HMGICS 벤치마크)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>공정 구조</strong></td>
+<td style="text-align: left;">일직선 고정 컨베이어 벨트 배치</td>
+<td style="text-align: left;"><strong>다목적 스마트 제조 셀(Cell) 분산 배치</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>물류 반송</strong></td>
+<td style="text-align: left;">오버헤드 컨베이어 및 고정 레일</td>
+<td style="text-align: left;"><strong>자율주행물류로봇(AMR) 기반 부품 셀 간 자율 이송</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>생산 유연성</strong></td>
+<td style="text-align: left;">단일 모델 대량 생산에만 특화</td>
+<td style="text-align: left;"><strong>로봇 핸드 다품종 변량(Customized) 유연 조립 가능</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>라인 변경 공기</strong></td>
+<td style="text-align: left;">모델 변경 시 라인 개조 수개월 소요</td>
+<td style="text-align: left;"><strong>소프트웨어 레시피 변경으로 24시간 내 라인 전환</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>디지털 트윈 연계</strong></td>
+<td style="text-align: left;">현장 수동 티칭 및 라인 튜닝</td>
+<td style="text-align: left;"><strong>NVIDIA Omniverse 디지털 트윈 기반 가상 시운전(Virtual Commissioning)</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. 첨부 서식 (RFI v1.7 공식 회신 서식 완비)</h2>
+<h3>[서식 0] 트랙별 참여 형태 확인서 (필수)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">구분</th>
+<th style="text-align: left;">트랙 / 영역</th>
+<th style="text-align: center;">참여 형태 (①단독 / ②파트너 공동 / ③해당 없음)</th>
+<th style="text-align: center;">파트너명 (②인 경우)</th>
+<th style="text-align: left;">자사 담당 범위</th>
+<th style="text-align: center;">대표사 수행 의향 (유/무)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>No.0</strong></td>
+<td style="text-align: left;">MP 수립 + 프로젝트 기간 PMO</td>
+<td style="text-align: center;"><strong>① 단독</strong></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">총괄 MP 수립, 사업 타당성, 5단계 게이트 판정 PMO</td>
+<td style="text-align: center;"><strong>유 (대표사)</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>트랙 A</strong></td>
+<td style="text-align: left;">데이터 · 학습 (스키마, 텔레옵, USD, 학습)</td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">NVIDIA, Articul8</td>
+<td style="text-align: left;">데이터 파이프라인 설계, Articul8 DPaaS/MTaaS, MLOps</td>
+<td style="text-align: center;"><strong>유</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>트랙 B</strong></td>
+<td style="text-align: left;">Data Factory 인프라 (GPU, 스토리지, MSP)</td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">Dell, Red Hat, Articul8</td>
+<td style="text-align: left;">H200 고밀도 랙 조달, ModelMesh, 전용 Staging Pod 랙 이송, 24/7 MSP</td>
+<td style="text-align: center;"><strong>유</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>트랙 C-1</strong></td>
+<td style="text-align: left;">물리 구축 — 건물 건축 (설계, 시공, CM, FM)</td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">전문 CM/설계/시공 파트너스</td>
+<td style="text-align: left;">고밀도 액랭 전산실 엔지니어링 자문 및 인터페이스 관리</td>
+<td style="text-align: center;"><strong>무</strong> (협력)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>트랙 C-2</strong></td>
+<td style="text-align: left;">물리 구축 — 모사 공정 구축</td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">공정 엔지니어링사</td>
+<td style="text-align: left;">텔레옵 수집 챔버 구축 및 센서 신호 연계 인터페이스</td>
+<td style="text-align: center;"><strong>유</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>트랙 C-3</strong></td>
+<td style="text-align: left;">물리 구축 — 생산 공장 구축</td>
+<td style="text-align: center;"><strong>② 파트너 공동</strong></td>
+<td style="text-align: center;">스마트팩토리 전문사</td>
+<td style="text-align: left;">HMGICS형 셀 생산 라인 감리 및 시운전 지원</td>
+<td style="text-align: center;"><strong>무</strong> (협력)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>[서식 1] 회사 일반현황</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">항목</th>
+<th style="text-align: left;">기재 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>회사명</strong></td>
+<td style="text-align: left;">메가존클라우드 주식회사 (MegazoneCloud Corporation)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>대표자 / 설립연도</strong></td>
+<td style="text-align: left;">이주완, 조원우 / 1998년 설립 (클라우드 법인 분할 2018년)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>본사 소재지</strong></td>
+<td style="text-align: left;">서울특별시 강남구 논현로 85길 46 (역삼동, 메가존빌딩)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>최근 3개년 매출액</strong></td>
+<td style="text-align: left;">2023년: 1조 4,265억 원 / 2024년: 1조 6,500억 원 / 2025년: 약 1조 9,000억 원</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>총 임직원 수</strong></td>
+<td style="text-align: left;">약 2,800여 명 (AI 아키텍트, MLOps 엔지니어, 클라우드 전문 인력 1,500여 명 이상)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>주요 사업 영역</strong></td>
+<td style="text-align: left;">엔터프라이즈 AI Full Stack 솔루션, GPU 클라우드 인프라 구축, MSP 위탁 운영, Articul8 총판</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>본 RFI 대응 가능 영역</strong></td>
+<td style="text-align: left;"><strong>R1, R2, R3, R4, R5, R6, R7, R8 (전체 영역 대응)</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>대응 가능 트랙</strong></td>
+<td style="text-align: left;"><strong>트랙 A, 트랙 B, 트랙 C-1, 트랙 C-2, 트랙 C-3 (서식 0과 일치)</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>발주사 지분·제휴 관계</strong></td>
+<td style="text-align: left;"><strong>해당 없음</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>담당자 / 연락처</strong></td>
+<td style="text-align: left;">사업개발본부 / contact@megazone.com / 02-2108-9100</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>[서식 2] 유사 사업 수행 실적 (R3 매핑)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">No</th>
+<th style="text-align: left;">사업명</th>
+<th style="text-align: center;">발주처</th>
+<th style="text-align: center;">수행기간</th>
+<th style="text-align: center;">계약주체</th>
+<th style="text-align: center;">수행역할</th>
+<th style="text-align: center;">계약금액</th>
+<th style="text-align: center;">준공여부</th>
+<th style="text-align: center;">해당영역</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">차세대 다목적 로봇 MLOps &amp; RCLLM 플랫폼 구축</td>
+<td style="text-align: center;">현대로템</td>
+<td style="text-align: center;">2025~2026</td>
+<td style="text-align: center;">원청</td>
+<td style="text-align: center;">총괄 PM, 플랫폼 구축</td>
+<td style="text-align: center;">수십억 원</td>
+<td style="text-align: center;">완료</td>
+<td style="text-align: center;">R3-1, 3, 4</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">대구 수성알파시티 AIDC 피지컬 AI 기획 및 타당성 검토</td>
+<td style="text-align: center;">대구광역시 연합</td>
+<td style="text-align: center;">2026</td>
+<td style="text-align: center;">원청</td>
+<td style="text-align: center;">총괄 PM, 기획, 아키텍처</td>
+<td style="text-align: center;">기밀</td>
+<td style="text-align: center;">진행중</td>
+<td style="text-align: center;">R3-1, 3</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">엔터프라이즈 전산실 액랭 DLC 및 고밀도 GPU 클러스터 조달</td>
+<td style="text-align: center;">대형 제조사</td>
+<td style="text-align: center;">2024~2025</td>
+<td style="text-align: center;">원청</td>
+<td style="text-align: center;">설계, 조달, 설치</td>
+<td style="text-align: center;">수백억 원</td>
+<td style="text-align: center;">준공</td>
+<td style="text-align: center;">R3-2, 3</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">완전 폐쇄망(Air-Gap) 기반 AI 플랫폼 실증 및 기술 가이드</td>
+<td style="text-align: center;">원익IPS 등</td>
+<td style="text-align: center;">2026</td>
+<td style="text-align: center;">원청</td>
+<td style="text-align: center;">보안 분석, 아키텍처</td>
+<td style="text-align: center;">기밀</td>
+<td style="text-align: center;">완료</td>
+<td style="text-align: center;">R3-1, 3, 4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>[서식 3] GPU 인프라 및 선행 R&amp;D Staging Pod 제안 요약</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">항목</th>
+<th style="text-align: left;">기재 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>권장 랙 밀도 / 냉각 방식</strong></td>
+<td style="text-align: left;">랙당 50~80kW 고밀도 랙 / <strong>Direct Liquid Cooling(DLC) 칩셋 액랭(80%) + RDHx(20%) 하이브리드</strong> (PUE 1.15 이하)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>H200 400장 기준 소요 수전·냉각</strong></td>
+<td style="text-align: left;">IT 1.6MW + 모사/생산 공정 2.5MW + 냉각 3.5MW + 예비 2.4MW = <strong>총 10MW 수전 계획</strong> (냉각 용량 1,200 RT)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>현재 GPU 리드타임 추정</strong></td>
+<td style="text-align: left;">H200 기준 발주 후 8~12주 (Dell Technologies 글로벌 직공급 우선 할당 라인 활용)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>선행 R&amp;D GPU 조달 규모</strong></td>
+<td style="text-align: left;"><strong>원익 전용 소버린 Air-Gap Staging Pod: H100/H200 32~64장 사전 구축 (삼성전자 Tier-1 보안 100% 충족)</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>이송 소요 기간 및 중단 시간</strong></td>
+<td style="text-align: left;">특수 무진동 항온항습 차량을 통한 랙 단위 물리 이송(약 6시간), 도킹 및 정합성 검증 포함 <strong>총 12시간 내 서비스 정상화</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>이송 정합성 검증 방안</strong></td>
+<td style="text-align: left;">블록 레벨 SHA-256 체크섬 100% 전수 교차 검증 및 체크포인트 모델 추론 재현성(재현 오차 0.0%) 검증</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>추론 TCO 절감 효과</strong></td>
+<td style="text-align: left;"><strong>Articul8 ModelMesh 탑재</strong>: GPU 128장 소요 추론 부하를 64장으로 처리 (초기 32억 원, 연간 운영비 6.5억 원 절감)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>수용검사 벤치마크 제안</strong></td>
+<td style="text-align: left;">HPL(High-Performance Linpack), NCCL All-Reduce 대역폭 벤치마크 (합격 기준: 이론치 90% 이상)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>[서식 4] 데이터 학습 파이프라인 역량 자가진단</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">No</th>
+<th style="text-align: left;">역량 항목</th>
+<th style="text-align: center;">수행 가능 여부 (①직접 / ②파트너 / ③불가)</th>
+<th style="text-align: center;">파트너명 (②인 경우)</th>
+<th style="text-align: left;">관련 실적 요약</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">텔레옵 수집 셀 설계·구축</td>
+<td style="text-align: center;"><strong>② 파트너 동반</strong></td>
+<td style="text-align: center;">전문 엔지니어링사</td>
+<td style="text-align: left;">모션캡처 및 작업 챔버 환경 구축 지원</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">고주파 센서 스트림 파이프라인 (500~1,000Hz)</td>
+<td style="text-align: center;"><strong>① 직접 수행</strong></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">PTP(IEEE 1588) 마이크로초 타임스탬프 동기화 및 Zero-Copy Ring Buffer 설계</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">로봇 학습 데이터 스키마 정의</td>
+<td style="text-align: center;"><strong>① 직접 수행</strong></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">LeRobot, RLDS, HDF5 표준 스키마 적용 실적</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">CAD → USD 자산화 및 씬·태스크 구성</td>
+<td style="text-align: center;"><strong>② 파트너 동반</strong></td>
+<td style="text-align: center;">NVIDIA</td>
+<td style="text-align: left;">Omniverse 기반 CAD 테셀레이션 및 PhysX 5 물리 속성 바인딩</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">합성 데이터 생성 파이프라인</td>
+<td style="text-align: center;"><strong>② 파트너 동반</strong></td>
+<td style="text-align: center;">NVIDIA</td>
+<td style="text-align: left;">Isaac Sim 기반 도메인 랜덤화(Domain Randomization) 대규모 합성 파이프라인</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Isaac Sim / Isaac Lab 학습환경 구축</td>
+<td style="text-align: center;"><strong>② 파트너 동반</strong></td>
+<td style="text-align: center;">NVIDIA</td>
+<td style="text-align: left;">GPU 가속 기반 물리 강화학습 클러스터 구축</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">정책 모델 수용검사 체계 설계</td>
+<td style="text-align: center;"><strong>① 직접 수행</strong></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Sim-to-Real 작업 성공률 99.5% 판정 벤치마크 절차 수립</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">PB급 전처리·라벨링 자동화 규칙 설계</td>
+<td style="text-align: center;"><strong>① 직접 수행</strong></td>
+<td style="text-align: center;">Articul8</td>
+<td style="text-align: left;"><strong>Articul8 DPaaS를 통한 비정형 데이터 초고속 정제 및 로봇 RAG 구축</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">Virtual Commissioning (제어 로직 검증)</td>
+<td style="text-align: center;"><strong>① 직접 수행</strong></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">PLC 신호 및 충돌 방지 로직 가상 시운전 검증</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>[서식 5] 건축 · 수전 관련 역량</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">항목</th>
+<th style="text-align: left;">기재 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>10MW 이상 수전 설계·시공 실적</strong></td>
+<td style="text-align: left;">국내 대형 IDC(수십 MW급) MEP 컨설팅 및 수전 설계 지원 다수</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>한전 인입 협의 수행 경험</strong></td>
+<td style="text-align: left;">완주 산단 154kV 변전소 연계 전용선로 2회선 패스트트랙 인입 (착수 후 6~8개월 소요)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>적용 가능 냉각 방식</strong></td>
+<td style="text-align: left;">고밀도 DLC 칩셋 직랭식(80%) + RDHx 후면 도어 열교환기(20%) 하이브리드 루프 (PUE 1.15)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>데이터센터+생산시설 혼재 설계 경험</strong></td>
+<td style="text-align: left;">플로팅 아일랜드 패드(진동 허용치 VC-A 달성) 및 전산실 2중 양압 공조(+20Pa, ISO Class 7) 아키텍처 보유</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>장납기 자재 리드타임</strong></td>
+<td style="text-align: left;">특고압 변압기(40주), 비상 발전기(36주), 칠러(30주) — Gate 2 통과 즉시 선발주 필수 관리</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>참여 가능 역할</strong></td>
+<td style="text-align: left;">설계 및 CM 전문 파트너 컨소시엄 구성 (PMO 수행 시 시공 배제 및 이해상충 방지 원칙 준수)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>참여 가능 Sub Track</strong></td>
+<td style="text-align: left;"><strong>C-1 (건물 건축 기술 자문 및 MEP 감리), C-2 (모사 공정 구축 총괄)</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>[서식 6] 추진 일정 및 리스크 등록부 (MP 4개월 + 실행 24개월 = 총 28개월 기준)</h3>
+<h4>7-1. 주요 마일스톤 및 게이트(Gate)</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">마일스톤</th>
+<th style="text-align: center;">목표 시점 (M)</th>
+<th style="text-align: left;">선행 조건 및 게이트 연계</th>
+<th style="text-align: center;">CP(Critical Path) 여부</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>MP 수립 완료</strong></td>
+<td style="text-align: center;">M04</td>
+<td style="text-align: left;">9대 패키지 WBS 확정 및 RFP 승인 (<strong>Gate 1 통과</strong>)</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>기본설계 확정</strong></td>
+<td style="text-align: center;">M07</td>
+<td style="text-align: left;">완주 산단 인허가 및 수전 10MW 협의 (<strong>Gate 2 통과</strong>)</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>장납기 자재 발주</strong></td>
+<td style="text-align: center;">M05</td>
+<td style="text-align: left;">기본 설계 승인 직후 변압기, 발전기, 칠러 선발주</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>건축 착공</strong></td>
+<td style="text-align: center;">M08</td>
+<td style="text-align: left;">완주 산단 건축 허가 승인</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>수전 인입 완료</strong></td>
+<td style="text-align: center;">M18</td>
+<td style="text-align: left;">한전 10MW 송전로 인입 공사 완료</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>전산실 준공</strong></td>
+<td style="text-align: center;">M18</td>
+<td style="text-align: left;">플로팅 패드 및 DLC 배관 내압 시험 통과 (<strong>Gate 3 통과</strong>)</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>GPU 발주</strong></td>
+<td style="text-align: center;">M18</td>
+<td style="text-align: left;">전산실 MEP 공정 80% 달성 시점 (Dell 우선 할당)</td>
+<td style="text-align: center;">일반</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Power-on &amp; 랙 반입</strong></td>
+<td style="text-align: center;">M20</td>
+<td style="text-align: left;">수전 수용검사 완료 및 Staging Pod 무진동 이송 (<strong>Gate 4 통과</strong>)</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>장비 반입·설치</strong></td>
+<td style="text-align: center;">M21</td>
+<td style="text-align: left;">H200 400장 액랭 랙 및 InfiniBand 패브릭 인입</td>
+<td style="text-align: center;">일반</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>시운전 및 성능검수</strong></td>
+<td style="text-align: center;">M23</td>
+<td style="text-align: left;">HPL/NCCL 벤치마크 이론치 90% 이상 검수 완료</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>준공 및 서비스 오픈</strong></td>
+<td style="text-align: center;">M25</td>
+<td style="text-align: left;">Sim-to-Real 실증 통과 및 그랜드 오픈 (<strong>Gate 5 통과</strong>)</td>
+<td style="text-align: center;"><strong>CP</strong></td>
+</tr>
+</tbody>
+</table>
+<h4>7-2. 리스크 등록부</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">No</th>
+<th style="text-align: left;">리스크 내용</th>
+<th style="text-align: center;">발생 시점</th>
+<th style="text-align: center;">영향도 (상/중/하)</th>
+<th style="text-align: left;">기술적 대응 방안</th>
+<th style="text-align: center;">책임 주체</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">한전 10MW 전력 인입 지연</td>
+<td style="text-align: center;">M06~M12</td>
+<td style="text-align: center;"><strong>상</strong></td>
+<td style="text-align: left;">완주 산단 154kV 변전소 연계 본선+예비선 2회선 패스트트랙 인입 및 임시 수전 2MW 확보</td>
+<td style="text-align: center;">CM / 주관사</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">수랭식 DLC 배관 누수 위험</td>
+<td style="text-align: center;">M20~M22</td>
+<td style="text-align: center;"><strong>상</strong></td>
+<td style="text-align: left;">배관 2중 누수 감지 와이어 센서 및 CDU 자동 밸브 차단 인터록 시공</td>
+<td style="text-align: center;">설비 시공사</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">GPU 수급 리드타임 지연</td>
+<td style="text-align: center;">M16~M20</td>
+<td style="text-align: center;"><strong>상</strong></td>
+<td style="text-align: left;">Dell 글로벌 Tier-1 물량 사전 예약 및 원익 전용 Staging Pod 자원 전환 활용</td>
+<td style="text-align: center;">메가존클라우드</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">로봇 텔레옵 센서 신호 지터</td>
+<td style="text-align: center;">M18~M21</td>
+<td style="text-align: center;"><strong>중</strong></td>
+<td style="text-align: left;">PTP(IEEE 1588v2) 마스터 클럭 이중화 및 Zero-Copy Ring Buffer IPC 메모리 버퍼링</td>
+<td style="text-align: center;">데이터 엔지니어링팀</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">폐쇄망 환경 소프트웨어 종속</td>
+<td style="text-align: center;">M10~M24</td>
+<td style="text-align: center;"><strong>중</strong></td>
+<td style="text-align: left;">원익IPS 검증 자산인 38개 Helm Chart 기반 완전 폐쇄망 오프라인 패키지 미러링</td>
+<td style="text-align: center;">플랫폼팀</td>
+</tr>
+</tbody>
+</table>
+<h4>7-3. 공기 달성 가능성에 대한 의견</h4>
+<ul>
+<li><strong>달성 가능성</strong>: MP 4개월 및 실행 24개월(총 28개월)은 장납기 자재(변압기 등)의 선발주와 패스트트랙 시공을 적용할 경우 <strong>충분히 달성 가능</strong>합니다.</li>
+<li><strong>핵심 제언</strong>: 인프라 완공까지 소요되는 24개월 동안 연구개발 공백을 없애기 위해, <strong>착공 1개월 차부터 원익 전용 소버린 Staging Pod를 사내에 선가동하여 모델 학습을 병행</strong>할 것을 강력히 권고합니다. (삼성전자 1차 벤더 보안 규정 100% 준수)</li>
+</ul>
+<hr />
+<h2>[부록: 주요 기술 용어 해설 및 미주 (Notes &amp; Glossary)]</h2>
+<hr />
+<p><em>본 문서는 워크스페이스 표준 가이드라인에 따라 마크다운(.md) 및 프리미엄 스타일링 HTML(.html), 워드(.docx)로 상호 동기화 보존됩니다.</em></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><strong>USD (Universal Scene Description / OpenUSD)</strong><br />
+   * <strong>개념 및 기원</strong>: 픽사(Pixar Animation Studios)가 대규모 3D 그래픽 파이프라인의 데이터 상호운용성을 위해 개발하여 오픈소스로 공개한 차세대 3D 장면 기술 표준 포맷(<code>.usd</code>, <code>.usda</code>, <code>.usdc</code>, <code>.usdz</code>)입니다. 특정 상용 게임 엔진(Unity 등)의 자체 포맷이 아닙니다.<br />
+   * <strong>글로벌 표준화 기구 (AOUSD)</strong>: 픽사, <strong>엔비디아(NVIDIA)</strong>, 애플(Apple), 오토데스크(Autodesk), 어도비(Adobe)가 주도하는 Alliance for OpenUSD 컨소시엄을 통해 공간 컴퓨팅 및 산업용 디지털 트윈의 글로벌 표준으로 확장되었습니다.<br />
+   * <strong>피지컬 AI 내 역할</strong>: NVIDIA Omniverse 플랫폼의 네이티브 언어로서, 기계 제조 분야의 복잡하고 무거운 파라메트릭 CAD(CATIA, Siemens NX, SolidWorks 등) 데이터를 폴리곤 기반의 경량화된 OpenUSD 자산으로 변환(Ingestion/Tessellation)하여, 로봇 물리 시뮬레이터(Isaac Sim) 내에서 초고속 강화학습과 대규모 합성 데이터를 생성하는 핵심 기반입니다.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><strong>Articul8 ModelMesh</strong><br />
+   * 단일 GPU 메모리 내에 여러 AI 모델을 지능적으로 분할 로딩·공유하여 개별 모델마다 전용 GPU를 배정하지 않고도 고속 스위칭과 다중 동시 추론을 가능하게 하는 특허 오케스트레이션 아키텍처로, 추론 인프라 비용을 최대 40~60% 절감합니다.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p><strong>Zero-Copy Ring Buffer IPC</strong><br />
+   * 센서 데이터 수집 시 커널(Kernel)과 유저 공간 간의 불필요한 메모리 복사를 제거하고, POSIX 공유 메모리 링버퍼를 통해 1,000Hz 초고주파 센서 스트림을 50마이크로초(μs) 이하의 초저지연으로 처리하는 실시간 데이터 파이프라인 아키텍처입니다.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p><strong>PTP (Precision Time Protocol / IEEE 1588v2)</strong><br />
+   * 이더넷 네트워크 상에서 나노초(ns) 및 마이크로초(μs) 단위의 초정밀 시각 동기화를 제공하는 하드웨어 타임스탬프 프로토콜로, 원격 조작(Teleoperation) 로봇 핸드의 촉각 센서 신호와 다각도 카메라 비전 프레임을 물리적으로 완벽히 일치시키는 데 필수적인 표준입니다.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+</script>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2026 AKAMAI & NVIDIA & MZC HYBRID PROJECT COOPERATIVE GROUP.</p>
+    </footer>
+</div>
+
+</body>
+</html>
