@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISV BU Hybrid Cloud 사업 현황 진단 및 4+1 핵심 비즈니스 통합 사업계획서 (최종 보고용)</title>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISV BU Hybrid Cloud 사업 현황 진단 및 『4+1 핵심 비즈니스』 사업계획서</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
     :root {
       --bg-primary: #0b0f19;
       --bg-secondary: #111827;
@@ -670,1101 +672,459 @@
     @media (max-width:560px) { .change-summary-grid{grid-template-columns:1fr} }
     @media print { .source-diff{display:block!important}.toolbar-actions .diff-toggle{display:none} }
   
-.rev-box {
-    display: inline-block;
-    min-width: 110px;
-    padding: 4px 10px;
-    border: 1.5px dashed #64748b;
-    border-radius: 6px;
-    background-color: #f8fafc;
-    color: #475569;
-    font-weight: 700;
-    text-align: right;
-    font-family: 'Pretendard', monospace;
-}
-.rev-box-total {
-    display: inline-block;
-    min-width: 120px;
-    padding: 5px 12px;
-    border: 2px solid #1e40af;
-    border-radius: 6px;
-    background-color: #eff6ff;
-    color: #1e3a8a;
-    font-weight: 800;
-    text-align: right;
-    font-family: 'Pretendard', monospace;
-}
-
-</style>
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true, theme: 'default' });
-</script>
+    .rev-input {
+      display: inline-block;
+      min-width: 115px;
+      padding: 4px 10px;
+      border: 1.5px dashed var(--accent-blue);
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.08);
+      color: var(--text-primary);
+      font-weight: 700;
+      text-align: right;
+      font-family: "Pretendard", monospace;
+    }
+    .subtotal-row td {
+      background: rgba(59, 130, 246, 0.14) !important;
+      font-weight: 800 !important;
+      color: var(--text-primary) !important;
+    }
+    .total-row td {
+      background: rgba(99, 102, 241, 0.22) !important;
+      font-weight: 900 !important;
+      color: var(--text-primary) !important;
+      border-top: 2px solid var(--accent-blue) !important;
+    }
+    
+  </style>
 </head>
 <body>
-<div class="container">
-<h1>🏢 ISV BU Hybrid Cloud 사업 현황 진단 및 『4+1 핵심 비즈니스』 통합 사업계획서 (최종 보고용)</h1>
-<ul>
-<li><strong>보고 대상</strong>: 경영진 및 사업본부 리더십</li>
-<li><strong>문서 목적</strong>: Hybrid Cloud 팀 사업 현황·영업 퍼널 진단 및 『4+1 핵심 플래그십 아이템』 중심 중장기 사업계획 보고</li>
-<li><strong>작성 기준일</strong>: 2026년 11월 6일</li>
-</ul>
-<hr />
-<h2>1. 현황 진단 및 전략적 추진 방향</h2>
-<h3>1.1 팀 운영 현황 진단 및 3대 핵심 과제 해법</h3>
-<p>현재 Hybrid Cloud 사업의 조기 안착과 매출 극대화를 위해 도출된 <strong>3대 핵심 과제와 전략적 해결 방안</strong>은 다음과 같습니다.</p>
-<div class="mermaid">
-flowchart TD
-    Root[&quot;Hybrid Cloud 사업 3대 핵심 과제&quot;] --> D1[&quot;1. 조직 역할 정립<br/>(Tech 지원 vs Pre-Sales vs Sales)&quot;]
-    Root --> D2[&quot;2. 포트폴리오 선택과 집중<br/>(20개 이상 산발적 파이프라인 정비)&quot;]
-    Root --> D3[&quot;3. 영업 채널 및 거래 거버넌스 확립<br/>(벤더 직거래 한계 및 파트너 생태계 부재)&quot;]
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="doc-badge">
+        <span>🏢 ISV BU Hybrid Cloud Business Plan &amp; Pipeline Status Report (4+1 Executive Edition)</span>
+        <span>•</span>
+        <span>2026. 11. 06</span>
+      </div>
+      <div class="toolbar-actions">
+        <button class="btn" onclick="toggleTheme()" id="themeBtn">🌙 다크 모드 전환</button>
+        <button class="btn" onclick="toggleEdit()" id="editBtn">✏️ 편집 모드</button>
+        <button class="btn edit-only" onclick="saveHtml()">💾 HTML 저장</button>
+        <button class="btn" onclick="window.print()">🖨️ PDF / 인쇄하기</button>
+      </div>
+    </div>
 
-    D1 --> S1[&quot;해법 1: Deal-Making CoE 체계 가동<br/>• 표준 진단(Assessment) 및 Sales Tool Kit 정립<br/>• AI Full Stack·인프라·Network 선제적 역제안&quot;]
-    D2 --> S2[&quot;해법 2: 4+1 핵심 비즈니스 아이템 재편<br/>• ① GPUaaS·AIDC ② 폐쇄망 AI ③ VMware 전환 ④ Network (+1 Voice)<br/>• 전체 H/W 인프라 OPEX 및 공통 Network BoM 결합&quot;]
-    D3 --> S3[&quot;해법 3: MPN 거래 원칙 확립 및 파트너 공동판매<br/>• MPN 의무 경유 거버넌스 및 파트너 검증·등급화<br/>• MPN·GTM·마케팅 전담조직 협업 및 사내외 채널 확산&quot;]
+    <div class="edit-banner" id="editBanner">
+      ✏️ <strong>편집 모드 활성화됨</strong> — 문서 내 예상 매출 칸 및 모든 텍스트를 클릭하여 직접 입력·수정하실 수 있습니다. 수정 후 <strong>💾 HTML 저장</strong>을 누르면 파일이 다운로드됩니다.
+    </div>
 
-</div>
-<ol>
-<li><strong>조직 역할 정립 — <code>Deal-Making CoE</code> (기술 검증과 표준 세일즈 툴킷으로 딜을 창출하는 전문 조직)</strong></li>
-<li>단순 기술 지원(Tech Support)이나 일반 영업과 중첩되는 방식에서 벗어나, <strong>표준 호환성/비용 진단(Assessment), 하이브리드 클라우드 Elevator Pitch &amp; Sales Tool Kit, 유상 파일럿 PoC</strong>를 무기로 고객에게 통합 패키지를 선제안하여 본사업을 창출합니다.</li>
-<li><strong>포트폴리오 선택과 집중 — <code>4+1 핵심 플래그십 아이템 + 전체 H/W 인프라 OPEX + 공통 Network Backbone</code></strong></li>
-<li>산재된 20개 영업기회(Opty)를 시장 성장성과 수익 구조에 따라 <strong>① 하이브리드 GPUaaS &amp; 지역 거점 AIDC</strong>, <strong>② 폐쇄망(Air-Gap) 턴키 AI 플랫폼 &amp; 온프렘 코딩 에이전트 WS 렌탈</strong>, <strong>③ VMware 탈출 &amp; 클라우드 역송환(Repatriation) 하이브리드 전환</strong>, <strong>④ Hybrid Network 가시성·DDI &amp; AI Network Fabric</strong>, <strong>기타(+1) Enterprise Cloud Voice &amp; AICC</strong>의 <strong>4+1 구조</strong>로 통합하고, 전 사업에 <strong>전체 H/W 인프라 OPEX(<code>MZC Infrastructure Flex</code>)</strong>와 <strong>공통 Network 인프라</strong>를 결합합니다.</li>
-<li><strong>영업 채널 및 거버넌스 확립 — <code>MPN 거래 원칙 제도화 및 인프라 파트너 Sell-Through 체계 구축</code></strong></li>
-<li><strong>인프라 파트너 생태계 구축 선행</strong>: 서버·스토리지·백업·네트워크·GPU 영역별로 <strong>파트너 발굴 ➔ 기술/신용/SLA 검증 ➔ MPN 등록 ➔ 등급화(주력/예비/전문) ➔ 공동판매(Sell-Through)</strong> 체계를 구축합니다.</li>
-<li><strong>전담조직 간 역할 분담</strong>: 파트너 발굴·등록·계약·Benefit·Deal Desk·정기 협의체(EBR) 운영은 <strong>MPN 전담조직</strong>이 주관하고, 캠페인·행사·리드 운영은 <strong>GTM·마케팅 전담조직</strong>이 주관하며, <strong>Hybrid Cloud 팀</strong>은 파트너 기술 평가 기준·표준 아키텍처/BoM·데모·Sales Tool Kit·배틀카드 기술 콘텐츠를 제공합니다.</li>
-</ol>
-<blockquote>
-<div class="callout-important"><p><strong>💡 핵심 원칙 (Key Principle)</strong><br/>
-<strong>📌 MPN(Megazone Partner Network) 거래 원칙 및 거버넌스 기준</strong>
-- 당사가 매출 주체가 되는 서버·스토리지·백업·네트워크 및 관련 H/W 거래는 원칙적으로 <strong>MPN 등록 파트너 및 공식 Deal Registration·견적·발주 프로세스를 의무 경유</strong>합니다.
-- MPN을 경유하지 않은 임의 직거래 또는 비등록 파트너 우회 거래는 <strong>사업 실적 및 기여 매출로 인정하지 않습니다.</strong>
-- 고객 지정 파트너, 공공조달, 기존 장기계약 등 불가피한 예외는 <strong>사업부문장 및 Deal Desk의 사전 승인</strong>을 득해야 합니다.</p></div></blockquote>
-<hr />
-<h3>1.2 6-Layer 하이브리드 클라우드 &amp; AI 풀스택 참조 아키텍처</h3>
-<p>팀의 모든 오퍼링은 단일 솔루션 단품 판매가 아니라, 고객의 <strong>온프레미스(폐쇄망)·엣지·퍼블릭 클라우드를 단일 아키텍처와 통합 관제로 연결하는 6-Layer Full-Stack 모델</strong>로 작동합니다.</p>
-<div class="mermaid">
-flowchart TB
-    L1[&quot;Layer 1. Business & Voice AI Apps — AIR Studio · VibeForge(코딩 에이전트) · AudioCodes LiveHUB · Teams Phone&quot;]
-    L2[&quot;Layer 2. Model & AI Software — Articul8 (A8) · Red Hat OpenShift AI (RHOAI) · Nota.ai (경량화) · Acryl&quot;]
-    L3[&quot;Layer 3. AI & GPU Operations — Tango V2 · NVIDIA Run:ai · NVIDIA DCGM 물리·논리 통합 관제&quot;]
-    L4[&quot;Layer 4. Platform · OS · Virtualization — RHEL · OpenShift · OVE(가상화 전환) · Ansible · Nutanix NC2/NCI&quot;]
-    L5[&quot;Layer 5. Data · Storage · Backup (OPEX) — MinIO · Dell · NetApp · Veeam · Veritas (선택 옵션: Zadara · APEX · GreenLake)&quot;]
-    L6[&quot;Layer 6. Compute · AI Network Fabric · Edge — Dell(1순위)/HPE(2순위) · GPU/Gaudi3 · RoCEv2/InfiniBand/Cisco/Kentik/Infoblox · GPUaaS&quot;]
-    L1 --> L2 --> L3 --> L4 --> L5 --> L6
+    <main id="docContent">
+      <header class="hero-header">
+        <h1 class="hero-title">🏢 ISV BU Hybrid Cloud 사업 현황 진단 및 『4+1 핵심 비즈니스』 사업계획서</h1>
+        <div class="hero-meta">
+          <strong>📋 보고서 개요 (Executive Overview)</strong>
+          <ul>
+            <li><strong>보고 대상</strong>: 경영진 및 사업본부 리더십</li>
+            <li><strong>문서 목적</strong>: Hybrid Cloud 팀 운영 현황·영업 퍼널(20개 과제) 진단 및 『4+1 핵심 플래그십 아이템』 중심 중장기 사업계획 보고</li>
+            <li><strong>핵심 우선순위</strong>: <strong>① 하이브리드 GPUaaS &amp; 지역 거점 AIDC (평균 13.0%)</strong> ➔ <strong>② 폐쇄망 턴키 AI &amp; 코딩 에이전트 WS 렌탈 (평균 21.3%)</strong> ➔ <strong>③ VMware 탈출 &amp; 클라우드 역송환 (평균 18.0%)</strong> ➔ <strong>④ Hybrid Network 가시성·Fabric (평균 45.0%)</strong> ➔ <strong>기타(+1) Enterprise Cloud Voice &amp; AICC (평균 13.3%)</strong></li>
+          </ul>
+        </div>
+      </header>
 
-</div>
-<hr />
-<h2>2. 『4+1 핵심 비즈니스 아이템』 총괄 요약 및 예상 매출 프레임워크</h2>
-<p>전사 20개 세부 영업기회(Opty)를 <strong>미래 매출 잠재력과 하이브리드 클라우드 적합성 기준(<code>① ➔ ② ➔ ③ ➔ ④ ➔ 기타[+1]</code>)</strong>으로 통합한 <strong>4+1 핵심 비즈니스 요약 및 평균 퍼널·예상 매출 총괄표</strong>입니다.</p>
-<h3>📊 4+1 핵심 아이템별 평균 퍼널 진행률(%) 및 예상 매출 총괄표</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;">우선순위 구분</th>
-<th style="text-align: left;">4+1 핵심 비즈니스 아이템명</th>
-<th style="text-align: center;">포함 과제 수</th>
-<th style="text-align: center;">평균 펀넬 진행률 (%)</th>
-<th style="text-align: center;">목표 / 예상 매출액<br><em>(단위: 억 원)</em></th>
-<th style="text-align: center;">펀넬 가중 예상 매출<br><em>(예상 매출 × 평균 %)</em></th>
-<th style="text-align: left;">핵심 수익 구조 (BM)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;"><strong>핵심 ①</strong><br><em>(최전방 성장엔진)</em></td>
-<td style="text-align: left;"><strong>하이브리드 GPUaaS &amp; 지역 거점형 AIDC</strong><br><em>(대구 수성 알파시티 AIDC · 원익 AX · 현대로템 · KISTI · GPUaaS)</em></td>
-<td style="text-align: center;">5건</td>
-<td style="text-align: center;"><strong>13.0%</strong><br><em>(10%~20%)</em></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;">• <strong>단기</strong>: GPUaaS 구독 리셀 브릿지 매출(MRR)<br>• <strong>중장기</strong>: 지역 거점 AIDC·AX 센터 본구축 턴키</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>핵심 ②</strong><br><em>(주력 AI 수익원)</em></td>
-<td style="text-align: left;"><strong>폐쇄망(Air-Gap) 턴키 AI 플랫폼 &amp; 온프렘 코딩 에이전트 WS 렌탈</strong><br><em>(2차 AI·공공 SI 20곳 코딩 WS 렌탈 · KG ICT · LIG넥스원 Tango · A8/RHOAI)</em></td>
-<td style="text-align: center;">4건</td>
-<td style="text-align: center;"><strong>21.3%</strong><br><em>(15%~35%)</em></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;">• <strong>단기</strong>: 폐쇄망 합숙소 코딩 WS 월 렌탈(Pull-Through)<br>• <strong>중기</strong>: 중대형 폐쇄망 AI 클러스터·관제 일괄 구축</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>핵심 ③</strong><br><em>(엔터프라이즈 본류)</em></td>
-<td style="text-align: left;"><strong>VMware 탈출 &amp; 클라우드 역송환(Repatriation) 하이브리드 전환</strong><br><em>(티머니 OVE · Nutanix NC2/NCI · Databricks/Exadata · MZC Infrastructure Flex)</em></td>
-<td style="text-align: center;">5건</td>
-<td style="text-align: center;"><strong>18.0%</strong><br><em>(5%~35%)</em></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;">• <strong>단기</strong>: 2주 전환 진단(Assessment) 및 파일럿 PoC<br>• <strong>중장기</strong>: 라이선스 + 전체 H/W·백업 OPEX 장기약정</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>핵심 ④</strong><br><em>(고확률 기반 인프라)</em></td>
-<td style="text-align: left;"><strong>Hybrid Network 가시성·DDI &amp; AI Network Fabric</strong><br><em>(기존 Cisco 유지보수 갱신 · KT Kentik/Infoblox PoC · RoCEv2 BoM)</em></td>
-<td style="text-align: center;">3건</td>
-<td style="text-align: center;"><strong>45.0%</strong><br><em>(10%~85%)</em></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;">• <strong>단기</strong>: 기존 네트워크 유지보수 갱신(<code>85%</code>) 및 PoC 전환<br>• <strong>중기</strong>: 전 AI·전환 딜 스위치/광모듈/방화벽 BoM 편입</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>기타 (+1)</strong><br><em>(특화 워크로드)</em></td>
-<td style="text-align: left;"><strong>Enterprise Cloud Voice &amp; AICC (<code>Teams Phone × LiveHUB</code>)</strong><br><em>(셀트리온 1,800석 구축 · M365 E5/금융권 전환 · CTI 협력 AICC)</em></td>
-<td style="text-align: center;">3건</td>
-<td style="text-align: center;"><strong>13.3%</strong><br><em>(10%~20%)</em></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;">• <strong>단기</strong>: M365 E5/E7 고객 Teams 전화 구축·SBC 공급<br>• <strong>중기</strong>: Live Platform 매니지드(ARR) &amp; AICC 구독</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>합계 / 평균</strong></td>
-<td style="text-align: left;"><strong>전사 4+1 하이브리드 클라우드 통합 파이프라인</strong></td>
-<td style="text-align: center;"><strong>20건</strong></td>
-<td style="text-align: center;"><strong>전체 평균 20.8%</strong><br><em>(영역 평균 22.1%)</em></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;"><strong>단기 기반 매출 + 중기 패키지 + 장기 메가 딜 결합</strong></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<div class="callout-note"><p><strong>📌 참고 기준 (Reference Note)</strong><br/>
-<strong>💡 평균 펀넬 진행률(%) 산출 기준</strong>:
-- <strong>영역별 평균 펀넬 진행률</strong>: 각 핵심 아이템에 속한 세부 영업기회(Opty)들의 현재 퍼널 단계별 진행률(<code>Stage 1: 5~15%</code>, <code>Stage 2: 20%</code>, <code>Stage 3: 35~40%</code>, <code>Stage 4: 50~60%</code>, <code>Stage 5: 85%</code>)의 산술 평균값입니다.
-- <strong>전사 평균 펀넬 진행률</strong>: 전체 20개 파이프라인 개별 진행률 총합(<code>415%</code>) 기준 단순 평균은 <strong><code>20.8%</code></strong>이며, 5개 영역(<code>①~④ 및 기타</code>) 평균값의 산술 평균은 <strong><code>22.1%</code></strong>입니다.</p></div></blockquote>
-<hr />
-<h2>3. 『4+1 핵심 비즈니스 아이템』 상세 현황 및 실행 계획</h2>
-<hr />
-<h3>🚀 핵심 아이템 ① [최전방 성장엔진]: 하이브리드 GPUaaS &amp; 지역 거점형 AIDC (<code>대구 수성 알파시티 AIDC</code> 등)</h3>
-<h4>1) 추진 배경 및 현황 진단</h4>
-<ul>
-<li><strong>지역 거점 AIDC 및 피지컬 AI 인프라 수요 급증</strong>: 지자체(대구 수성알파시티), 로보틱스·방산 선도기업(원익로보틱스, 현대로템), 국책 연구기관(KISTI)을 중심으로 대규모 GPU 클러스터 및 AI 트레이닝 센터 구축 수요가 본격화되고 있습니다.</li>
-<li><strong>리드타임 극복을 위한 2단 로켓(Two-Stage Rocket) 모델</strong>: 지자체·대기업 AIDC 본구축은 인허가·전력 확보·예산 심의로 인해 수주까지 6~18개월이 소요됩니다. 따라서 <strong>1단계로 당사의 멀티 GPUaaS 공급망(<code>KINX/가비아</code> · <code>SKT 해인 클러스터(B200)</code> · <code>Akamai-NVIDIA 에지 추론</code>)을 브릿지(Bridge) 구독형으로 선(先)제공</strong>하여 즉각적인 월 반복 매출(MRR)을 발생시키고, <strong>2단계로 온프레미스 거점 AIDC 완공 시 워크로드를 이관하며 하드웨어·네트워크 패브릭·통합관제 본구축을 일괄 수주</strong>합니다.</li>
-</ul>
-<div class="mermaid">
-flowchart LR
-    subgraph Stage1[&quot;1단계: 브릿지 매출 (즉시 MRR 창출)&quot;]
-        G1[&quot;멀티 GPUaaS 공급망<br/>• KINX / 가비아 클라우드<br/>• SKT 해인 (B200) 벌크 리셀<br/>• Akamai-NVIDIA 저지연 추론&quot;]
-    end
-    subgraph Stage2[&quot;2단계: 본구축 메가 딜 (중장기 Top-Line)&quot;]
-        G2[&quot;지역 거점 AIDC & 피지컬 AI 구축<br/>• 대구 수성 알파시티 AIDC<br/>• 원익로보틱스 AX 센터 / 현대로템 / KISTI<br/>• InfiniBand·RoCEv2 + Tango V2 통합관제&quot;]
-    end
-    G1 ==>|&quot;워크로드 선점 후 본사업 Spec-In&quot;| G2
+      <!-- SECTION 1 -->
+      <section class="section">
+        <h2 class="section-title">1. 사업 현황 진단 및 전략적 추진 방향</h2>
+        <p class="section-desc">Hybrid Cloud 사업의 조기 안착과 매출 극대화를 위해 도출된 3대 핵심 과제와 전략적 해결 방안입니다.</p>
 
-</div>
-<h4>2) 주요 파이프라인 현황 및 실행 계획 (평균 펀넬: <code>13.0%</code>)</h4>
-<ol>
-<li><strong>대구 수성 알파시티 AIDC (<code>Stage 1 기획/준비, 15%</code>)</strong>:</li>
-<li><strong>현황</strong>: 차주 월요일 대구시청 담당 공무원과 첫 공식 미팅 및 사업계획서 작성 착수 예정.</li>
-<li><strong>실행 계획</strong>: 수성알파시티 내 입주 AI·SW 기업들의 초기 개발/학습 수요를 GPUaaS로 선제 흡수하면서, 본사업 설계에 컴퓨트(<code>Dell/HPE</code>), 초고속 패브릭(<code>InfiniBand/RoCEv2</code>), 물리·논리 통합관제(<code>Tango V2 + Run:ai</code>)를 표준 사양으로 반영(Spec-In)합니다.</li>
-<li><strong>하이브리드 GPUaaS 공급망 (<code>Stage 2 초기기회, 20%</code>)</strong>:</li>
-<li><strong>현황</strong>: KINX/가비아 영업기회 포착, SKT 해인 클러스터 벌크 리셀 할인율 협의 및 Akamai-NVIDIA 글로벌 에지 추론 모델 기획 단계.</li>
-<li><strong>실행 계획</strong>: 리셀 단가 및 과금 모델을 확정하고 초기 앵커 고객 1개사 이상 즉시 매칭.</li>
-<li><strong>원익로보틱스 AX Training Center (<code>Stage 1 기획/준비, 10%</code>)</strong>:</li>
-<li><strong>현황</strong>: H200 400장 규모 피지컬 AI 트레이닝 센터 구상 및 기획·준비 단계.</li>
-<li><strong>실행 계획</strong>: 단계별 투자 로드맵 및 하이브리드 실증 아키텍처 제안서 구체화.</li>
-<li><strong>현대로템 다목적 로봇 제어 LLM (<code>Stage 1 기획/준비, 10%</code>) &amp; KISTI 바이오서버/이음허브 (<code>Stage 1 기획/준비, 10%</code>)</strong>:</li>
-<li><strong>현황</strong>: 초기 사양 검토 후 고객 추진 일정 재점검 및 제안 준비 단계.</li>
-<li><strong>실행 계획</strong>: 파트너사(아크릴 등) 협력 구조 재정비 및 바이오·방산 특화 AI 풀스택 사양 제안.</li>
-</ol>
-<hr />
-<h3>🛡️ 핵심 아이템 ② [주력 AI 수익원]: 폐쇄망(Air-Gap) 턴키 AI 플랫폼 &amp; 온프렘 코딩 에이전트 WS 렌탈</h3>
-<h4>1) 추진 배경 및 현황 진단</h4>
-<ul>
-<li><strong>폐쇄망 보안 규제와 개발 생산성 병목</strong>: 공공·금융·국방·방산 사업장은 망분리 및 보안 규제로 인해 외부 SaaS형 코딩 AI(GitHub Copilot, Cursor, Claude 등)와 퍼블릭 LLM 사용이 전면 차단되어 있습니다.</li>
-<li><strong>2-Track 시장 공략</strong>:</li>
-<li><strong>Track 2-A (단기 Cash-Flow — 온프렘 코딩 에이전트 WS 월 렌탈)</strong>: 대형 공공·금융·방산 SI 프로젝트에서 실제 코딩을 수행하는 <strong>『사원수 20~100인 이내 2차 AI·공공 SI 강소기업(퍼블릭에이아이 모델)』</strong>의 프로젝트 합숙소(6~18개월)에 <code>DGX Spark / RTX PRO 6000 WS + VibeForge + 오픈모델</code> 일체형 워크스테이션을 <strong>한국렌탈·AJ네트웍스·롯데렌탈 3자 역매칭(Pull-Through)</strong>으로 공급합니다.</li>
-<li><strong>Track 2-B (중기 Scale-Up — 중대형 폐쇄망 AI 클러스터 구축)</strong>: 부서·전사 단위 확장 시 <strong><code>Dell/HPE GPU 서버 + Red Hat OpenShift AI(RHOAI) + Articul8/Nota.ai + Tango V2(NVIDIA Run:ai 내장) + RoCEv2 스위치 + MinIO/Veeam</code></strong> 풀스택 어플라이언스로 확장합니다.</li>
-</ul>
-<h4>2) 주요 파이프라인 현황 및 실행 계획 (평균 펀넬: <code>21.3%</code>)</h4>
-<ol>
-<li><strong>KG ICT 폐쇄망 AI 플랫폼 (<code>Stage 2 초기기회, 20%</code>)</strong>:</li>
-<li><strong>현황</strong>: 차주 고객 미팅 및 초기 사업계획서 전달 예정.</li>
-<li><strong>실행 계획</strong>: 초기 사업계획서 브리핑을 통해 기술검증(PoC) 범위 및 온프렘 AI 풀스택 아키텍처 확정.</li>
-<li><strong>LIG넥스원 Tango GPU 관제 및 Tango V2 번들 (<code>Stage 3 채널복구/제안, 35%</code>)</strong>:</li>
-<li><strong>현황</strong>: 기존 7식 견적 제출 건에 대한 영업 채널 복구 진행 중이며, 오픈소스 <strong>NVIDIA Run:ai + DCGM</strong> 물리 클러스터 제어를 탑재한 <code>Tango V2</code> 연말 출시 준비 중.</li>
-<li><strong>실행 계획</strong>: 영업 채널 즉시 복구 및 2027년 신규 체계구축사업 MoU 체결, 공공(<code>Dell + Acryl + Tango V2</code>) 및 금융·대기업(<code>Dell + RHOAI + Tango V2</code>) 표준 번들 패키지화.</li>
-<li><strong>온프렘 코딩 에이전트 WS 렌탈 &amp; AIR Studio (<code>Stage 1 수요처발굴, 15%</code>)</strong>:</li>
-<li><strong>현황</strong>: 당사 기 협업 강소기업인 <strong><code>(주)퍼블릭에이아이</code> 모델 기준 100인 이내 2차 AI·공공 SI 전문기업 20곳</strong> 및 <strong>1차 SI 대기업 컨소시엄 생태계</strong> 타겟 리스트업 완료.</li>
-<li><strong>실행 계획</strong>: <code>11/12 Intel AI Summit</code> 부스 시연 초청 및 폐쇄망 개발 합숙소 대상 2주 파일럿 투입 후 렌탈 3사 역발주(Pull-Through) 연결.</li>
-<li><strong>폐쇄망 Articul8 (A8) &amp; RHOAI 패키지 (<code>Stage 1 타팀협업, 15%</code>)</strong>:</li>
-<li><strong>현황</strong>: 전사 주관 팀과 협업하여 RHOAI 플랫폼 포팅 및 폐쇄망 망구간·인프라 기술 지원 수행.</li>
-</ol>
-<h4>3) 온프렘 코딩 에이전트 핵심 수요처: 『100인 이내 2차 AI·공공 SI 강소기업 20개사』 및 1차 SI 컨소시엄 파밍 현황</h4>
-<h5>📋 [Track A] <code>(주)퍼블릭에이아이</code> 벤치마크 기준 — 공공 프로젝트 SI &amp; AI 전문 중소기업(20~100인 내외) 20개사 타겟 리스트</h5>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;">순번</th>
-<th style="text-align: left;">구분</th>
-<th style="text-align: left;">기업명</th>
-<th style="text-align: center;">사원수 규모</th>
-<th style="text-align: left;">주력 공공 프로젝트 SI 및 AI 업무 특성</th>
-<th style="text-align: left;">주요 1차 SI 협력 · 컨소시엄 이력</th>
-<th style="text-align: left;">공식 연락처 / 거점</th>
-<th style="text-align: left;">핵심 공략 포인트</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;"><strong>1</strong></td>
-<td style="text-align: left;"><strong>벤치마크 (0순위)</strong></td>
-<td style="text-align: left;"><strong>(주)퍼블릭에이아이</strong><br><em>(PublicAI)</em></td>
-<td style="text-align: center;">약 41~55명</td>
-<td style="text-align: left;">공공기관 AI·빅데이터 플랫폼 구축 및 전자정부 SI, sLLM/머신러닝 개발</td>
-<td style="text-align: left;">당사 기 협업 이력 보유, 중견·대형 공공 SI 컨소시엄 AI 개발 전담</td>
-<td style="text-align: left;"><code>publicai.co.kr</code><br>서울 서초구 양재대로12길 56</td>
-<td style="text-align: left;">기 협업 채널 직통 컨택 ➔ 1호 폐쇄망 코딩 WS 레퍼런스 PoC 추진</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>2</strong></td>
-<td style="text-align: left;"><strong>공공·방산 AI SI</strong></td>
-<td style="text-align: left;"><strong>(주)아크릴</strong><br><em>(Acryl)</em></td>
-<td style="text-align: center;">약 45~50명</td>
-<td style="text-align: left;">MLOps(Jonathan) 기반 공공·의료·국방 AI SI 및 도메인 sLLM 구축</td>
-<td style="text-align: left;">현대로템 협력, 당사 Tango V2 파트너, LG CNS·아이티센 컨소시엄</td>
-<td style="text-align: left;"><code>02-2088-1520</code> · <code>acryl.ai</code><br>서울 강남구 / 서초구</td>
-<td style="text-align: left;">Tango V2 파트너십 연계, 공공·방산 합숙소 코딩 WS 동반 투입</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>3</strong></td>
-<td style="text-align: left;"><strong>공공 SI + AI</strong></td>
-<td style="text-align: left;"><strong>(주)유클리드소프트</strong><br><em>(Euclidsoft)</em></td>
-<td style="text-align: center;">약 50~70명</td>
-<td style="text-align: left;">중앙부처·지자체·출연연 전자정부프레임워크(Java) SI 및 LLM·RAG 구축</td>
-<td style="text-align: left;">KT, 아이티센, 대보정보통신 및 대전/세종 공공기관 핵심 수행사</td>
-<td style="text-align: left;"><code>02-6937-0039</code> · <code>euclidsoft.co.kr</code><br>대전 본사 / 서울 지사</td>
-<td style="text-align: left;">세종·대전 정부청사 및 출연연 폐쇄망 SI 현장의 Java+Python 코딩 수요</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>4</strong></td>
-<td style="text-align: left;"><strong>공공·금융 데이터/AI</strong></td>
-<td style="text-align: left;"><strong>(주)비투엔</strong><br><em>(B2EN)</em></td>
-<td style="text-align: center;">약 90~100명</td>
-<td style="text-align: left;">공공·금융 차세대 AI·빅데이터 플랫폼 SI 및 데이터 파이프라인 전환</td>
-<td style="text-align: left;">삼성SDS, LG CNS, SK C&amp;C, 아이티센 공공 차세대 핵심 파트너</td>
-<td style="text-align: left;"><code>02-2636-0090</code> · <code>b2en.com</code><br>서울 영등포구 당산로</td>
-<td style="text-align: left;">대형 공공·금융 차세대 합숙소의 대량 SQL·데이터 파이프라인 코딩 자동화</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>5</strong></td>
-<td style="text-align: left;"><strong>공공 NLP·챗봇 SI</strong></td>
-<td style="text-align: left;"><strong>(주)다이퀘스트</strong><br><em>(Diquest)</em></td>
-<td style="text-align: center;">약 70~95명</td>
-<td style="text-align: left;">공공기관 NLP 검색·AI 챗봇/콜봇·RAG SI 및 전자정부 웹 연동 개발</td>
-<td style="text-align: left;">아이티센, 대신정보통신, 대보정보통신, 메타넷 공공 컨소시엄 전담</td>
-<td style="text-align: left;"><code>02-3470-4300</code> · <code>diquest.com</code><br>서울 구로디지털단지</td>
-<td style="text-align: left;">공공기관 내부 행정망 RAG·챗봇 커스터마이징 개발팀 대상 6~12개월 렌탈</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>6</strong></td>
-<td style="text-align: left;"><strong>공공 초거대 AI SI</strong></td>
-<td style="text-align: left;"><strong>(주)솔트룩스이노베이션</strong></td>
-<td style="text-align: center;">약 60명</td>
-<td style="text-align: left;">공공기관 대화형 AI 어시스턴트·sLLM·챗봇 SI 및 행정문서 학습 개발</td>
-<td style="text-align: left;">솔트룩스 본사 및 KT·LG CNS·아이티센 초거대 AI 구축 전담 자회사</td>
-<td style="text-align: left;"><code>02-557-1723</code><br>서울 강남/성동 · 대전/부산</td>
-<td style="text-align: left;">NIA·중앙부처 초거대 AI 확산 사업의 실제 파견 개발팀 공략</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>7</strong></td>
-<td style="text-align: left;"><strong>공공 포털/AI SI</strong></td>
-<td style="text-align: left;"><strong>(주)스위트케이</strong><br><em>(SweetK)</em></td>
-<td style="text-align: center;">약 45~50명</td>
-<td style="text-align: left;">정부·공공기관 포털/행정시스템 SI(전자정부프레임워크) 및 AI 지능형 검색</td>
-<td style="text-align: left;">아이티센, 메타넷디지털, 농심NDS 등 공공 SI 주관사 핵심 협력사</td>
-<td style="text-align: left;"><code>02-3434-3120</code> · <code>sweetk.co.kr</code><br>서울 강남구 / 송파구</td>
-<td style="text-align: left;">공공 SI(Java·AI) 상시 채용 및 파견 기업 — 상주 개발팀 M/M 절감 직결</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>8</strong></td>
-<td style="text-align: left;"><strong>공공·금융 RAG SI</strong></td>
-<td style="text-align: left;"><strong>(주)프로텐</strong><br><em>(Proten)</em></td>
-<td style="text-align: center;">약 25~35명</td>
-<td style="text-align: left;">자체 검색엔진 및 생성형 AI(LLM/RAG) 기반 공공·금융 폐쇄망 SI</td>
-<td style="text-align: left;">대신정보통신, KCC정보통신 등 금융·공공 1차 SI 사업 전문 협력사</td>
-<td style="text-align: left;"><code>02-2624-1020</code> · <code>proten.co.kr</code><br>서울 금천구 가산디지털단지</td>
-<td style="text-align: left;">30인 규모 공공 AI/검색 SI 강소기업 — 의사결정권자 직결 제안</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>9</strong></td>
-<td style="text-align: left;"><strong>공공 AI/검색 SI</strong></td>
-<td style="text-align: left;"><strong>(주)메이팜소프트</strong><br><em>(MayfarmSoft)</em></td>
-<td style="text-align: center;">약 20~25명</td>
-<td style="text-align: left;">AI 통합검색·챗봇 엔진(IO-STUDIO) 및 국회·부처·공단 비정형 RAG SI</td>
-<td style="text-align: left;">솔리데오시스템즈, 시스원, 아이티센 등 공공 컨소시엄 AI/검색 파트너</td>
-<td style="text-align: left;"><code>02-514-5547</code> · <code>mayfarm.co.kr</code><br>서울 구로디지털단지</td>
-<td style="text-align: left;">소수 정예 개발자가 다수 공공 폐쇄망 사이트를 동시 구축해 코딩 AI ROI 극대화</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>10</strong></td>
-<td style="text-align: left;"><strong>공공·제조 AIoT SI</strong></td>
-<td style="text-align: left;"><strong>(주)심플랫폼</strong><br><em>(SimPlatform)</em></td>
-<td style="text-align: center;">약 35~50명</td>
-<td style="text-align: left;">산업·공공 AIoT 플랫폼 기반 공공기관·국방·제조 현장 AI 데이터/예측 SI</td>
-<td style="text-align: left;">LG유플러스, KT, DB아이엔씨 등 통신/중견 SI 스마트시티·공공 파트너</td>
-<td style="text-align: left;"><code>02-6925-4334</code> (<code>02-6405-4338</code>)<br>서울 강남구</td>
-<td style="text-align: left;">AX 사업본부 컨택을 통한 공공·제조 현장 온프렘 AI/코딩 WS 제안</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>11</strong></td>
-<td style="text-align: left;"><strong>공공 클라우드·AI SI</strong></td>
-<td style="text-align: left;"><strong>(주)디딤365</strong><br><em>(Didim365)</em></td>
-<td style="text-align: center;">약 70~95명</td>
-<td style="text-align: left;">행정·공공기관 클라우드 전환 SI, 데이터레이크 및 공공 AI 플랫폼 구축</td>
-<td style="text-align: left;">KT, NHN클라우드, 아이티센, 메타넷 공공 클라우드·AI 핵심 파트너</td>
-<td style="text-align: left;"><code>1600-3659</code> · <code>didim365.com</code><br>서울 금천구 가산디지털단지</td>
-<td style="text-align: left;">공공 레거시(Java) ➔ 클라우드 네이티브(MSA) 코드 변환용 코딩 에이전트</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>12</strong></td>
-<td style="text-align: left;"><strong>공공 행정 sLLM SI</strong></td>
-<td style="text-align: left;"><strong>(주)포티투마루</strong><br><em>(42Maru)</em></td>
-<td style="text-align: center;">약 70~90명</td>
-<td style="text-align: left;">공공 행정 특화 경량모델(sLLM42) 및 RAG42 기반 지자체·정부 AI SI</td>
-<td style="text-align: left;">LG유플러스, 한글과컴퓨터, 아이티센 공공 초거대 AI 핵심 파트너</td>
-<td style="text-align: left;"><code>02-6959-4203</code> · <code>42maru.ai</code><br>서울 서초구 / 강남구</td>
-<td style="text-align: left;">지자체·정부 내부 행정망(폐쇄망) sLLM 구축 시 온프렘 코딩/추론 WS 투입</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>13</strong></td>
-<td style="text-align: left;"><strong>공공·금융 LLM SI</strong></td>
-<td style="text-align: left;"><strong>(주)올거나이즈코리아</strong><br><em>(Allganize)</em></td>
-<td style="text-align: center;">약 40~60명</td>
-<td style="text-align: left;">조달청 등록 LLM/RAG 플랫폼(Alli) 기반 공공·금융 온프렘 생성형 AI SI</td>
-<td style="text-align: left;">현대카드·KB증권·LH 등 금융·공공 온프렘 구축 및 1차 SI 협력</td>
-<td style="text-align: left;"><code>allganize.ai</code><br>서울 강남구 테헤란로</td>
-<td style="text-align: left;">금융·공공 폐쇄망 LLM 구축 현장의 연동 개발 및 온프렘 H/W 패키지 결합</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>14</strong></td>
-<td style="text-align: left;"><strong>공공·금융 AICC SI</strong></td>
-<td style="text-align: left;"><strong>(주)페르소나에이아이</strong><br><em>(Persona AI)</em></td>
-<td style="text-align: center;">약 95~105명</td>
-<td style="text-align: left;">자체 경량 NLP·생성형 엔진 기반 공공·금융 AICC(콜봇/챗봇) 온프렘 SI</td>
-<td style="text-align: left;">SK텔레콤, 효성ITX, 금융/공공 1차 SI 컨소시엄 AICC 구축 파트너</td>
-<td style="text-align: left;"><code>02-762-8713</code> · <code>personaai.co.kr</code><br>서울 강남구 삼성동</td>
-<td style="text-align: left;">금융·공공 폐쇄망 AICC 연동 코딩 + 당사 Voice AI(LiveHUB) 교차 협력</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>15</strong></td>
-<td style="text-align: left;"><strong>공공·의료 AI/SI</strong></td>
-<td style="text-align: left;"><strong>(주)미소정보기술</strong><br><em>(Miso Info Tech)</em></td>
-<td style="text-align: center;">약 80~110명</td>
-<td style="text-align: left;">국립대병원·질병청·공공기관 멀티모달 빅데이터, 의료/공공 sLLM·전자정부 SI</td>
-<td style="text-align: left;">메타넷디지털, 아이티센, 대형 SI의 공공 보건·의료·안전 핵심 협력사</td>
-<td style="text-align: left;"><code>02-2205-0551</code> · <code>misoinfo.co.kr</code><br>서울 가산 / 과천·대전</td>
-<td style="text-align: left;">병원·공공기관 폐쇄망 데이터/AI 구축 현장의 코딩 에이전트 WS 렌탈 수요</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>16</strong></td>
-<td style="text-align: left;"><strong>공공·방산 SW검증</strong></td>
-<td style="text-align: left;"><strong>(주)와이즈스톤</strong><br><em>(Wisestone)</em></td>
-<td style="text-align: center;">약 50~80명</td>
-<td style="text-align: left;">공공 차세대·국방·금융 SI 프로젝트 SW 테스트 자동화 코딩 및 AI 품질 검증</td>
-<td style="text-align: left;">삼성SDS, LG CNS, SK C&amp;C, 아이티센 대형 컨소시엄 품질검증 파트너</td>
-<td style="text-align: left;"><code>02-6257-5958</code> · <code>wisestone.kr</code><br>경기 성남 판교 / 서울 강남</td>
-<td style="text-align: left;">폐쇄망 SI 합숙소에서 단위/통합 테스트 코드를 대량 자동 생성하는 용도</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>17</strong></td>
-<td style="text-align: left;"><strong>국방 SW/AI 강소</strong></td>
-<td style="text-align: left;"><strong>(주)모아소프트</strong><br><em>(MOASOFT)</em></td>
-<td style="text-align: center;">약 100~110명</td>
-<td style="text-align: left;">국방·항공우주 무기체계 임베디드 SW(C/C++/Ada) 코딩·검증 및 국방 AI SI</td>
-<td style="text-align: left;">한화시스템, LIG넥스원, KAI, ADD(국방과학연구소) 핵심 2차 SW 협력사</td>
-<td style="text-align: left;"><code>02-420-3203</code><br>서울 송파구 오금로</td>
-<td style="text-align: left;">완전 에어갭(Air-Gap) 국방 SW 코딩 및 방산 연구소 구축/렌탈 타겟</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>18</strong></td>
-<td style="text-align: left;"><strong>국방 시뮬레이션</strong></td>
-<td style="text-align: left;"><strong>(주)솔트웍스</strong><br><em>(Saltworks)</em></td>
-<td style="text-align: center;">약 50~90명</td>
-<td style="text-align: left;">국방 VR/AR 훈련 시뮬레이터, 전자교범 및 국방 ICT/AI 시스템 실제 개발</td>
-<td style="text-align: left;">KAI, 한화시스템, LIG넥스원의 2차 국방 SW/시뮬레이션 핵심 중소기업</td>
-<td style="text-align: left;"><code>055-957-8777</code> · <code>saltworks.co.kr</code><br>경남 사천 / 서울·대전 연구소</td>
-<td style="text-align: left;">서울·대전 방산 연구소 대상 온프렘 코딩 에이전트 WS 공급 타겟</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>19</strong></td>
-<td style="text-align: left;"><strong>공공·금융 개발파견</strong></td>
-<td style="text-align: left;"><strong>(주)유컴패니온그룹</strong><br><em>(U:COMPANION)</em></td>
-<td style="text-align: center;">약 80~120명</td>
-<td style="text-align: left;">공공 데이터 플랫폼·금융(은행/카드) 차세대 웹/모바일 SI 및 Java 개발 투입</td>
-<td style="text-align: left;">LG CNS, SK C&amp;C, 신한DS, 아이티센 금융·공공 차세대 2차 개발 수행사</td>
-<td style="text-align: left;"><code>070-5030-5830</code> · <code>ucomp.co.kr</code><br>서울 강남구 학동로</td>
-<td style="text-align: left;">금융·공공 차세대 상주 개발팀 M/M 절감용 WS 렌탈 직결</td>
-</tr>
-<tr>
-<td style="text-align: center;"><strong>20</strong></td>
-<td style="text-align: left;"><strong>공공·국방 비전/내장SW</strong></td>
-<td style="text-align: left;"><strong>(주)인텔리빅스 / 코츠테크놀로지</strong></td>
-<td style="text-align: center;">약 100~120명</td>
-<td style="text-align: left;">지자체·국방 생성형 비전 AI(VLM) SI / 유도무기·전차 내장형 C/C++ SW 개발</td>
-<td style="text-align: left;">KT·대보정보통신 협력(인텔리빅스) / LIG넥스원·현대로템 협력(코츠)</td>
-<td style="text-align: left;"><code>02-581-3883</code> / <code>031-702-1665</code><br>서울 서초 / 경기 과천·분당</td>
-<td style="text-align: left;">지자체·방산 폐쇄망 연구소의 비전 AI 및 임베디드 제어 코드 생성</td>
-</tr>
-</tbody>
-</table>
-<h5>🔗 [Track B] 1차 SI 대기업/중견 주관사 ↔ 2차 개발 협력사 컨소시엄 생태계 매핑</h5>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">1차 SI 대기업 / 중견 주관사</th>
-<th style="text-align: left;">주요 수주 도메인 및 대표 채널</th>
-<th style="text-align: left;">주요 컨소시엄 2차 AI · 공공 SI 협력사 (Track A 및 준중견 매핑)</th>
-<th style="text-align: left;">컨소시엄 연계 파밍(Contact Farming) 실행 전략</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>① 빅3 + 통신계 1차 SI 대기업</strong><br>• <strong>LG CNS / 삼성SDS / SK C&amp;C</strong><br>• <strong>KT (KT DS) / LG유플러스</strong></td>
-<td style="text-align: left;">범정부 초거대 AI, 행안부·복지부·국세청 및 제1금융권 초대형 차세대 주관</td>
-<td style="text-align: left;">• <strong>AI/데이터</strong>: <code>퍼블릭에이아이</code>, <code>아크릴</code>, <code>비투엔</code>, <code>유클리드소프트</code>, <code>포티투마루</code>, <code>솔트룩스이노베이션</code>, <code>디딤365</code>, <code>심플랫폼</code><br>• <strong>개발/검증</strong>: <code>유컴패니온그룹</code>, <code>와이즈스톤</code>, <code>인스웨이브</code>, <code>투비소프트</code></td>
-<td style="text-align: left;">KT·금융권·셀트리온 등 당사 출입 사업장의 총괄 PM을 통해 합숙소 내 2차 개발 협력사 현장 대리인(PL) 명단 확보 후 2주 파일럿 투입</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>② 공공·금융 1티어 중견 SI 주관사</strong><br>• <strong>아이티센그룹 / 메타넷디지털</strong><br>• <strong>농심NDS / 코오롱베니트</strong></td>
-<td style="text-align: left;">아이티센(<code>02-3497-8300</code>), 메타넷(<code>02-3704-5114</code>), 농심NDS(<code>02-827-2114</code>), 코오롱(<code>02-3677-4477</code>)</td>
-<td style="text-align: left;">• <strong>공공 SI/AI 컨소시엄</strong>: <code>퍼블릭에이아이</code>, <code>스위트케이</code>, <code>유클리드소프트</code>, <code>다이퀘스트</code>, <code>디딤365</code>, <code>미소정보기술</code>, <code>비투엔</code><br>• <strong>전문 중견</strong>: <code>솔리데오시스템즈</code>, <code>시스원</code></td>
-<td style="text-align: left;">나라장터(G2B) 공공 차세대·클라우드 전환 사업에서 공동수급(분담이행)으로 참여하는 2차 AI/SI 중소기업 동시 타겟팅</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>③ 금융·교통·공공 중견 SI 주관사</strong><br>• <strong>대보정보통신 / 대신정보통신</strong><br>• <strong>아시아나IDT / KCC정보통신</strong></td>
-<td style="text-align: left;">대보(<code>02-3470-7700</code>), 대신(<code>02-2107-5119</code>), 아시아나IDT(<code>02-6303-3037</code>), KCC(<code>02-6090-7800</code>)</td>
-<td style="text-align: left;">• <strong>AI 검색/RAG/챗봇</strong>: <code>프로텐</code>, <code>다이퀘스트</code>, <code>메이팜소프트</code>, <code>인텔리빅스</code>, <code>올거나이즈</code>, <code>페르소나AI</code><br>• <strong>금융 전문 중견</strong>: <code>아이티아이즈</code>, <code>뱅크웨어글로벌</code></td>
-<td style="text-align: left;">티머니(OVE 전환 추진 중)·교통·금융 사업장의 상주 SI 협력사 및 가산·구로·여의도 소재 2차 AI 검색/RAG 개발사 집중 공략</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>④ 방산·국방 체계종합 대기업</strong><br>• <strong>LIG넥스원 / 현대로템</strong><br>• <strong>한화시스템 / KAI</strong></td>
-<td style="text-align: left;">당사 핵심 파이프라인(LIG넥스원 Tango, 현대로템 RCLLM) 보유</td>
-<td style="text-align: left;">• <strong>2차 국방 SW/AI</strong>: <code>아크릴</code>, <code>모아소프트</code>, <code>솔트웍스</code>, <code>코츠테크놀로지</code>, <code>와이즈스톤</code>, <code>휴니드</code>, <code>퍼스텍</code>, <code>아이쓰리시스템</code>, <code>제노코</code></td>
-<td style="text-align: left;">LIG넥스원·현대로템 사업 채널을 통해 하단에서 실제 C/C++/AI 코딩을 수행하는 2차 방산 SW 강소기업 연구소장 직통 소개</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>⑤ B2B IT 장비 렌탈 3사</strong><br>• <strong>한국렌탈 / AJ네트웍스 / 롯데렌탈</strong></td>
-<td style="text-align: left;">한국렌탈(<code>1899-3945</code>), AJ네트웍스(<code>1600-6262</code>), 롯데렌탈(<code>1577-5100</code>)</td>
-<td style="text-align: left;">• Track A(100인 이내 AI·공공 SI 20곳) 및 중견 SI가 합숙소 개설 시 워크스테이션을 단기 임차하는 채널</td>
-<td style="text-align: left;">2차 중소 SI가 초기 CapEx 부담 없이 프로젝트 수행 원가(OPEX)로 장비를 임차하도록 렌탈 3사 영업팀과 동반 방문 및 3자 역매칭</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>🔄 핵심 아이템 ③ [엔터프라이즈 본류]: VMware 탈출 &amp; 클라우드 역송환(Repatriation) 하이브리드 전환</h3>
-<h4>1) 추진 배경 및 현황 진단</h4>
-<ul>
-<li><strong>가상화 라이선스 폭등 및 클라우드 비용 최적화 수요</strong>: Broadcom의 VMware 인수 이후 라이선스 비용이 3~5배 급등하고, 퍼블릭 클라우드 상시 워크로드 비용 및 Egress 과금 부담이 커지면서 <strong>온프레미스 현대화 및 클라우드 역송환(Repatriation)</strong> 수요가 엔터프라이즈 전반에서 발생하고 있습니다.</li>
-<li><strong>Dual-Track 전환 아키텍처 + 전체 H/W 인프라 OPEX (<code>MZC Infrastructure Flex</code>) 결합</strong>:</li>
-<li><strong>Track 3-A (오픈소스 가상화 &amp; 컨테이너 통합)</strong>: <code>VMware ➔ Red Hat OpenShift Virtualization(OVE) + MTV(마이그레이션 툴킷) + Ansible 자동화</code> — 기존 x86 서버와 SAN 스토리지, 기존 DC 네트워크(VLAN·라우팅·이중화)를 재사용하여 투자비를 최소화하고 차기 AI 플랫폼(<code>RHOAI</code>)까지 단일 플랫폼으로 연결합니다.</li>
-<li><strong>Track 3-B (엔터프라이즈 HCI &amp; 하이브리드 클라우드 역송환/DR)</strong>: <code>Nutanix NC2 on AWS / NCI(AHV) / NKP</code> 기반 클라우드 역송환 및 하이브리드 DR 표준 모델에 <strong>Elevator Pitch &amp; 3단계 Sales Tool Kit(발굴·진단 / 제안·비교 / 영업 전환)</strong>을 적용하고, <code>Databricks 온프렘 레이크하우스</code> 및 <code>Exadata 백업 현대화</code>를 연계합니다.</li>
-<li><strong>전체 H/W 인프라 OPEX (<code>MZC Infrastructure Flex</code>)</strong>: 초기 CAPEX 부담을 제거하기 위해 <strong>서버·스토리지·백업·네트워크·HCI·GPU 전체 하드웨어</strong>를 월 과금/장기약정/소비형으로 제공합니다.<ul>
-<li><strong>표준 벤더 기술 우선순위</strong>: <strong>서버 <code>1순위 Dell → 2순위 HPE → 3순위 기타</code></strong> / <strong>스토리지 <code>1순위 MinIO·Dell → 2순위 NetApp → 3순위 기타</code></strong> / <strong>백업 <code>1순위 Veeam → 2순위 Veritas → 3순위 기타</code></strong> (<code>Dell APEX · HPE GreenLake · Zadara</code>는 고객 조건별 선택형 상용 옵션으로 제공)</li>
-</ul>
-</li>
-</ul>
-<h4>2) 주요 파이프라인 현황 및 실행 계획 (평균 펀넬: <code>18.0%</code>)</h4>
-<ol>
-<li><strong>티머니 VMware ➔ Red Hat OVE 전환 (<code>Stage 3 전환제언/PoC, 35%</code>)</strong>:</li>
-<li><strong>현황</strong>: 『티머니 VMware 가상화 전환 제언서』 제출 완료 및 사전 호환성 진단(Assessment) 협의 중.</li>
-<li><strong>실행 계획</strong>: 2주 사전 호환성 진단(서비스 영향을 최소화하는 기존 VLAN·라우팅·이중화 연계 설계 포함) 및 대표 VM 파일럿 PoC 착수 후 사내/MPN 표준 레퍼런스 템플릿화.</li>
-<li><strong>Nutanix NC2/NCI 하이브리드 전환 &amp; 클라우드 역송환/DR (<code>Stage 2 초기기회, 20%</code>)</strong>:</li>
-<li><strong>현황</strong>: 하이브리드 클라우드 Elevator Pitch 및 Sales Tool Kit v1.0 정립, 코어 세일즈 연계 초기 기회 발굴 단계.</li>
-<li><strong>실행 계획</strong>: 2027년 상반기 고객 Discovery 미팅 10건, 유효 Opty 5건 발굴, 제안 3건 이상 및 유상 PoC/본사업 1건 이상 전환.</li>
-<li><strong>Databricks 온프렘 연동 &amp; Exadata 백업 현대화 (<code>Stage 2 초기기회, 20%</code>)</strong>:</li>
-<li><strong>현황</strong>: 온프렘 데이터 레이크하우스 연동 및 Exadata 백업 영업기회 포착 단계.</li>
-<li><strong>실행 계획</strong>: 고객 환경 실사 및 표준 H/W(<code>Dell/HPE</code>)·스토리지(<code>MinIO/NetApp</code>)·백업(<code>Veeam/Veritas</code>) 결합 아키텍처 제안.</li>
-<li><strong>금융권·엔터프라이즈 Red Hat 신규 전환 (<code>Stage 1 기획/발굴, 10%</code>)</strong>:</li>
-<li><strong>현황</strong>: 티머니 OVE 전환 모델을 기반으로 주요 금융지주(우리·신한·BNK 등) 초기 타진 단계.</li>
-<li><strong>MPN 인프라 파트너 생태계 · Deal Routing · Infrastructure Flex 체계 (<code>Stage 1 착수/준비, 5%</code>)</strong>:</li>
-<li><strong>현황</strong>: MPN 의무 경유 정책, 파트너 발굴/기술검증/등급화 평가표, Deal Routing·Benefit 체계 수립 착수.</li>
-</ol>
-<hr />
-<h3>🌐 핵심 아이템 ④ [고확률 기반 인프라]: Hybrid Network 가시성·DDI &amp; AI Network Fabric</h3>
-<h4>1) 추진 배경 및 현황 진단</h4>
-<ul>
-<li><strong>팀의 확정적 기반 매출(Base Cash-Cow)과 고마진 하드웨어 BoM 견인</strong>: 기존 엔터프라이즈 고객의 네트워크 유지보수·Warranty 갱신은 팀 내에서 가장 성사 확률이 높은(<code>85%</code>) 안정적 반복 매출원입니다.</li>
-<li><strong>하이브리드 가시성·DDI 업셀링 및 전 사업 AI Network Fabric 기본 편입</strong>:</li>
-<li><strong>기반 수성 + 하이브리드 인텔리전스 업셀링</strong>: 기존 Cisco(Meraki, Duo, SD-WAN) 유지보수 고객의 안정적 계약 갱신을 추진하면서, 온프레미스-퍼블릭 클라우드 구간의 <strong>네트워크 가시성(<code>Kentik</code>), IP/DNS 통합 관리(<code>Infoblox DDI</code>), 글로벌 상호연결(<code>Equinix Fabric</code>)</strong>을 결합 제안합니다.</li>
-<li><strong>3단계 AI Network Fabric 표준화 및 초기 BoM 편입</strong>: 모든 AI 서버·클러스터 및 가상화 전환 딜의 설계 초기부터 참여하여 <strong>① Enterprise(소규모 추론·기존 DC 연동)</strong>, <strong>② Scale-out(다중 노드 <code>RoCEv2</code> 무손실 고성능 이더넷)</strong>, <strong>③ AIDC/GPUaaS(대규모 클러스터용 <code>InfiniBand / RoCEv2</code> Compute·Storage Fabric)</strong> 스위치·NIC·광모듈·방화벽 BoM을 기본 편입합니다.</li>
-</ul>
-<h4>2) 주요 파이프라인 현황 및 실행 계획 (평균 펀넬: <code>45.0%</code>)</h4>
-<ol>
-<li><strong>기존 Network 유지보수 &amp; Warranty 갱신 (<code>Stage 5 계약유지/갱신, 85%</code>)</strong>:</li>
-<li><strong>현황</strong>: 포스코(SD-WAN), 무신사, 아이스트로 코리아, 에이프로젠 제약 등 기존 유지보수·Warranty 계약 현행 유지 및 갱신 추진 중.</li>
-<li><strong>실행 계획</strong>: 안정적 갱신 완수 및 신규 AI·하이브리드 전환 구축 고객의 유지보수·운영지원(ARR) 전환.</li>
-<li><strong>Kentik &amp; Infoblox 전략 딜 (<code>Stage 3 PoC/제안, 40%</code>)</strong>:</li>
-<li><strong>현황</strong>: 국내 <strong>KT 대상 Kentik/Infoblox 현장 PoC</strong> 진행 중이며, 일본 Private Cloud 공급 타진 중.</li>
-<li><strong>실행 계획</strong>: KT PoC 검증 단계별 전환율 관리로 본사업 수주 달성 및 기존 네트워크 고객 대상 공동 제안 확대.</li>
-<li><strong>신규 AI Network Fabric BoM 편입 &amp; 전환 네트워크 설계 (<code>Stage 1 기획/발굴, 10%</code>)</strong>:</li>
-<li><strong>현황</strong>: 3단계 AI Network 가이드 수립 및 벤더 랩 기반 <code>RoCEv2</code> 구축 검증 준비 단계.</li>
-<li><strong>실행 계획</strong>: 팀 내 AI·가상화 전환 사업 초기 설계 3건 이상 기본 참여 및 다중 노드 <code>RoCEv2</code> 적용 초기 레퍼런스 1건 확보.</li>
-</ol>
-<hr />
-<h3>📞 기타 (+1) [특화 워크로드]: Enterprise Cloud Voice &amp; AICC (<code>Teams Phone × LiveHUB</code>)</h3>
-<h4>1) 추진 배경 및 현황 진단</h4>
-<ul>
-<li><strong>금융권 망분리 규제 완화와 M365 E5/E7 기반 하이브리드 클라우드 보이스 시장 개화</strong>: 2026년 4월 「전자금융감독규정 시행세칙」 개정으로 금융권 내부 업무망에서 SaaS(Microsoft Teams) 활용이 허용되었으며, 대기업들의 M365 E5/E7 도입 확대로 기존 노후 IP-PBX를 Teams로 통합하려는 수요가 증가하고 있습니다.</li>
-<li><strong>Voice Foundation ➔ Voice Intelligence 확장 구조</strong>:</li>
-<li><strong>1단계 (<code>Teams Phone</code> 통합)</strong>: 온프레미스 레거시 교환기(PBX)와 퍼블릭 클라우드(Teams)를 <strong>AudioCodes SBC(Direct Routing) 및 Live Platform 매니지드 서비스(ARR)</strong>로 연결하여 무중단 단계적 전환을 수행합니다.</li>
-<li><strong>2단계 (<code>LiveHUB</code> &amp; 하이브리드 AICC)</strong>: 통합된 음성 채널 위에 <strong>AudioCodes LiveHUB(보이스봇·Agent Assist·실시간 통역)</strong> 및 <strong>국내 CTI 솔루션 벤더(<code>Nexus Community</code>) 협력 기반 AICC 서비스</strong>를 결합하고, 보안 규제가 강한 고객에게는 <strong>BYO-AI(MCP·REST API)</strong> 구조로 사내 폐쇄망 LLM(<code>Articul8 / RHOAI</code>)을 연동합니다.</li>
-</ul>
-<h4>2) 주요 파이프라인 현황 및 실행 계획 (평균 펀넬: <code>13.3%</code>)</h4>
-<ol>
-<li><strong>셀트리온 Microsoft Teams Phone 구축 (<code>Stage 2 초기기회, 20%</code>)</strong>:</li>
-<li><strong>현황</strong>: 셀트리온이 올해 <strong>MS Office365 E7 라이선스 계약(1,800 Users, 제니스클라우드 경유, 팀즈 전화 라이선스 포함)</strong>을 체결 완료함에 따라, 실제 팀즈 전화 구축 본사업을 제안·수주해야 하는 단계.</li>
-<li><strong>실행 계획</strong>: 셀트리온 1,800석 구축 본사업 수주 및 성공적 오픈을 완수하여 엔터프라이즈 표준 레퍼런스 확보.</li>
-<li><strong>M365 E5 보유 대기업(500인+) 및 금융권 팀즈 전화 전환 (<code>Stage 1 기획/발굴, 10%</code>)</strong>:</li>
-<li><strong>현황</strong>: 사내 M365 영업 부서와 협업하여 500인 이상 E5 보유 고객 리스트 확보 및 금융권(SC은행 도입 사례 활용) 타진 중.</li>
-<li><strong>실행 계획</strong>: <code>솔루션 소개 세션 ➔ 전환 워크샵 ➔ PoC</code> 3건 이상 수행 및 신규 수주 전환.</li>
-<li><strong>AudioCodes LiveHUB 보이스봇 &amp; CTI 벤더 협력 AICC (<code>Stage 1 기획/발굴, 10%</code>)</strong>:</li>
-<li><strong>현황</strong>: 국내 CTI 벤더(<code>Nexus Community</code>)와의 AICC 협력 모델 기획 및 데모 환경 준비 단계.</li>
-<li><strong>실행 계획</strong>: LiveHUB 보이스봇 데모·PoC 환경 구축 및 사내외 세일즈 배틀카드 배포.</li>
-</ol>
-<hr />
-<h2>4. 전사 20개 영업기회(Opty) 상세 현황 · 평균 펀넬(%) 및 예상 매출 기입표</h2>
-<p>전사 20개 영업기회 및 전략 과제를 <strong>4+1 핵심 아이템 순서(<code>① ➔ ② ➔ ③ ➔ ④ ➔ 기타[+1]</code>)</strong>로 정렬하고, 각 항목별 <strong>예상 매출액 기입란</strong>과 <strong>영역별 평균 펀넬 진행률(%)</strong>을 산출한 상세 관리표입니다.</p>
-<h3>📋 4+1 핵심 아이템별 20대 세부 파이프라인 현황 및 예상 매출 관리표</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">영역 구분</th>
-<th style="text-align: center;">순번</th>
-<th style="text-align: left;">영업기회(Opty) / 과제명</th>
-<th style="text-align: left;">현재 진행 현황 (Fact 기반)</th>
-<th style="text-align: center;">퍼널 단계</th>
-<th style="text-align: center;">펀넬 %</th>
-<th style="text-align: center;">예상 매출액<br><em>(단위: 억 원)</em></th>
-<th style="text-align: center;">펀넬 가중 매출<br><em>(단위: 억 원)</em></th>
-<th style="text-align: left;">% 상향을 위한 핵심 Next Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>핵심 ①</strong><br><strong>GPUaaS &amp;</strong><br><strong>거점 AIDC</strong></td>
-<td style="text-align: center;"><strong>1</strong></td>
-<td style="text-align: left;"><strong>대구 수성 알파시티 AIDC 구축</strong></td>
-<td style="text-align: left;">차주 월요일 대구시청 첫 공식 미팅 및 사업계획서 작성 예정</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>15%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">대구시청 공식 미팅 수행 및 본사업 계획서·아키텍처 제출</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ①</strong></td>
-<td style="text-align: center;"><strong>2</strong></td>
-<td style="text-align: left;"><strong>하이브리드 GPUaaS (KINX/가비아·SKT·Akamai)</strong></td>
-<td style="text-align: left;">KINX/가비아 Opty 포착, SKT 해인 리셀 및 Akamai 모델 기획</td>
-<td style="text-align: center;">Stage 2</td>
-<td style="text-align: center;"><strong>20%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">리셀 단가/할인율 확정 및 초기 앵커 고객 1개사 매칭</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ①</strong></td>
-<td style="text-align: center;"><strong>3</strong></td>
-<td style="text-align: left;"><strong>원익로보틱스 AX Center (H200 400장 규모)</strong></td>
-<td style="text-align: left;">피지컬 AI 트레이닝 센터 구상 — 단계별 투자/아키텍처 기획 중</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>10%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">단계별 투자 로드맵 및 하이브리드 실증 아키텍처 제안</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ①</strong></td>
-<td style="text-align: center;"><strong>4</strong></td>
-<td style="text-align: left;"><strong>현대로템 다목적 로봇 제어 LLM (RCLLM)</strong></td>
-<td style="text-align: left;">초기 사양 검토 후 고객 추진 일정 재점검 및 준비 단계</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>10%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">고객 추진 일정 재점검 및 파트너(아크릴 등) 협력 구조 정비</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ①</strong></td>
-<td style="text-align: center;"><strong>5</strong></td>
-<td style="text-align: left;"><strong>KISTI 바이오서버 및 데이터 이음허브</strong></td>
-<td style="text-align: left;">장비 사양 검토 및 바이오·AI 풀스택 제안 준비 단계</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>10%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">바이오서버·AI 풀스택 표준 사양 기획 및 기술 제안</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>👉 핵심 ① 소계</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: left;"><strong>하이브리드 GPUaaS &amp; 지역 거점 AIDC (5건)</strong></td>
-<td style="text-align: left;"><strong>단기 GPUaaS 브릿지 + 중장기 거점 AIDC 본구축 연계</strong></td>
-<td style="text-align: center;"><strong>평균</strong></td>
-<td style="text-align: center;"><strong>13.0%</strong></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;"><strong>대구시청·GPUaaS 앵커 딜을 Stage 3(PoC/제안)로 조기 격상</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ②</strong><br><strong>폐쇄망 AI &amp;</strong><br><strong>코딩 WS</strong></td>
-<td style="text-align: center;"><strong>6</strong></td>
-<td style="text-align: left;"><strong>KG ICT 폐쇄망 AI 풀스택 플랫폼</strong></td>
-<td style="text-align: left;">차주 고객 미팅 및 초기 사업계획서 전달 예정 (초기 기회)</td>
-<td style="text-align: center;">Stage 2</td>
-<td style="text-align: center;"><strong>20%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">고객 미팅 수행, 초기 사업계획서 전달 및 PoC 범위 협의</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ②</strong></td>
-<td style="text-align: center;"><strong>7</strong></td>
-<td style="text-align: left;"><strong>LIG넥스원 Tango (7식) &amp; Tango V2 번들</strong></td>
-<td style="text-align: left;">기존 견적 건 영업 채널 복구 중 / Tango V2(Run:ai) 연말 출시</td>
-<td style="text-align: center;"><strong>Stage 3</strong></td>
-<td style="text-align: center;"><strong>35%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">영업 채널 즉시 복구·MoU 체결 및 Tango V2 번들 가격 확정</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ②</strong></td>
-<td style="text-align: center;"><strong>8</strong></td>
-<td style="text-align: left;"><strong>온프렘 코딩 에이전트 WS 렌탈 (2차 SI 20곳)</strong></td>
-<td style="text-align: left;">100인 이내 2차 AI·공공 SI 강소기업 20곳(퍼블릭AI 모델) 파밍</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>15%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">퍼블릭AI·아크릴 등 20개사 컨택 및 합숙소 2주 파일럿·렌탈 매칭</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ②</strong></td>
-<td style="text-align: center;"><strong>9</strong></td>
-<td style="text-align: left;"><strong>폐쇄망 Articul8 (A8) &amp; RHOAI 패키지</strong></td>
-<td style="text-align: left;">전사 주관 팀 메인 추진 / 당사 RHOAI 플랫폼·인프라 기술 협업</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>15%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">11/12 인텔 서밋 쇼케이스 지원 및 RHOAI 기술 검증 연계</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>👉 핵심 ② 소계</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: left;"><strong>폐쇄망 턴키 AI &amp; 코딩 에이전트 WS 렌탈 (4건)</strong></td>
-<td style="text-align: left;"><strong>2차 SI 코딩 WS 월 렌탈 + 중대형 폐쇄망 AI 클러스터</strong></td>
-<td style="text-align: center;"><strong>평균</strong></td>
-<td style="text-align: center;"><strong>21.3%</strong></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;"><strong>LIG넥스원 복구 완수 및 코딩 WS 1호 렌탈 레퍼런스 체결</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ③</strong><br><strong>VMware 전환 &amp;</strong><br><strong>클라우드 역송환</strong></td>
-<td style="text-align: center;"><strong>10</strong></td>
-<td style="text-align: left;"><strong>티머니 VMware ➔ Red Hat OVE 전환</strong></td>
-<td style="text-align: left;">전환 제언서 제출 완료 및 사전 호환성 진단(Assessment) 추진</td>
-<td style="text-align: center;"><strong>Stage 3</strong></td>
-<td style="text-align: center;"><strong>35%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">2주 사전 호환성 진단(기존 VLAN/라우팅 연계) 및 파일럿 PoC</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ③</strong></td>
-<td style="text-align: center;"><strong>11</strong></td>
-<td style="text-align: left;"><strong>Nutanix NC2/NCI 전환 &amp; 클라우드 역송환/DR</strong></td>
-<td style="text-align: left;">Elevator Pitch &amp; Sales Tool Kit v1.0 정립, 초기 기회 발굴</td>
-<td style="text-align: center;">Stage 2</td>
-<td style="text-align: center;"><strong>20%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">고객 Discovery 미팅(10건) 및 전환/송환 유효 Opty(5건) 발굴</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ③</strong></td>
-<td style="text-align: center;"><strong>12</strong></td>
-<td style="text-align: left;"><strong>Databricks 온프렘 연동 &amp; Exadata 백업</strong></td>
-<td style="text-align: left;">온프렘 레이크하우스 연동 및 Exadata 백업 Opty 포착 단계</td>
-<td style="text-align: center;">Stage 2</td>
-<td style="text-align: center;"><strong>20%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">고객 환경 실사 및 표준 H/W·스토리지·백업 아키텍처 제안</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ③</strong></td>
-<td style="text-align: center;"><strong>13</strong></td>
-<td style="text-align: left;"><strong>금융권·엔터프라이즈 Red Hat 신규 전환</strong></td>
-<td style="text-align: left;">티머니 OVE 템플릿 기반 주요 금융지주(우리·신한 등) 초기 타진</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>10%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">티머니 전환 템플릿을 무기로 금융권/코어세일즈 공동 방문</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ③</strong></td>
-<td style="text-align: center;"><strong>14</strong></td>
-<td style="text-align: left;"><strong>MPN 인프라 파트너 · Deal Routing · OPEX 체계</strong></td>
-<td style="text-align: left;">MPN 의무 경유, 파트너 검증/등급화, Infrastructure Flex 준비</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>5%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">파트너 기술/SLA 평가표, Deal Routing 및 표준 BoM 확정</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>👉 핵심 ③ 소계</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: left;"><strong>VMware 탈출 &amp; 클라우드 역송환 하이브리드 전환 (5건)</strong></td>
-<td style="text-align: left;"><strong>OVE/NC2 전환 + 전체 H/W 인프라 OPEX 결합</strong></td>
-<td style="text-align: center;"><strong>평균</strong></td>
-<td style="text-align: center;"><strong>18.0%</strong></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;"><strong>티머니 PoC 착수 및 Sales Tool Kit 기반 제안 3건+ 전환</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ④</strong><br><strong>Hybrid NW &amp;</strong><br><strong>AI Fabric</strong></td>
-<td style="text-align: center;"><strong>15</strong></td>
-<td style="text-align: left;"><strong>기존 Network 유지보수 &amp; Warranty 갱신</strong></td>
-<td style="text-align: left;">포스코(SD-WAN), 무신사, 아이스트로, 에이프로젠 등 갱신 추진</td>
-<td style="text-align: center;"><strong>Stage 5</strong></td>
-<td style="text-align: center;"><strong>85%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">기존 계약 안정적 갱신 완수 및 가시성/DDI 업셀링 제안</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ④</strong></td>
-<td style="text-align: center;"><strong>16</strong></td>
-<td style="text-align: left;"><strong>Kentik &amp; Infoblox 전략 딜 (KT PoC / 일본)</strong></td>
-<td style="text-align: left;">국내 KT 현장 PoC 진행 중, 일본 Private Cloud 공급 타진</td>
-<td style="text-align: center;"><strong>Stage 3</strong></td>
-<td style="text-align: center;"><strong>40%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">KT PoC 단계별 전환율 관리 및 일본 공급 본계약 전환</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>핵심 ④</strong></td>
-<td style="text-align: center;"><strong>17</strong></td>
-<td style="text-align: left;"><strong>신규 AI Network Fabric (RoCEv2) BoM 편입</strong></td>
-<td style="text-align: left;">3단계 AI Network 가이드 수립 및 전 사업 초기 BoM 편입 준비</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>10%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">팀 AI/전환 사업 초기 설계 기본 참여(3건+) 및 RoCEv2 검증</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>👉 핵심 ④ 소계</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: left;"><strong>Hybrid Network 가시성·DDI &amp; AI Fabric (3건)</strong></td>
-<td style="text-align: left;"><strong>유지보수 Cash-Cow 수성 + KT PoC + 전 사업 NW BoM</strong></td>
-<td style="text-align: center;"><strong>평균</strong></td>
-<td style="text-align: center;"><strong>45.0%</strong></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;"><strong>기존 유지보수 100% 갱신 및 KT PoC 본사업 수주 전환</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>기타 (+1)</strong><br><strong>Cloud Voice &amp;</strong><br><strong>AICC</strong></td>
-<td style="text-align: center;"><strong>18</strong></td>
-<td style="text-align: left;"><strong>셀트리온 Teams Phone 구축 (E7 1,800석)</strong></td>
-<td style="text-align: left;">MS O365 E7 라이선스 체결 완료에 따른 팀즈 전화 구축 제안 단계</td>
-<td style="text-align: center;">Stage 2</td>
-<td style="text-align: center;"><strong>20%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">셀트리온 팀즈 전화 구축 본사업 수주 및 표준 레퍼런스 확보</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>기타 (+1)</strong></td>
-<td style="text-align: center;"><strong>19</strong></td>
-<td style="text-align: left;"><strong>M365 E5 대기업(500인+) &amp; 금융권 전화 전환</strong></td>
-<td style="text-align: left;">사내 M365 부서 협업 E5 고객 발굴 및 금융권(내부망 SaaS) 타진</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>10%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">500인+ E5 고객 리스트 추출 및 전환 워크샵/PoC 3건 수행</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>기타 (+1)</strong></td>
-<td style="text-align: center;"><strong>20</strong></td>
-<td style="text-align: left;"><strong>LiveHUB 보이스봇 &amp; CTI 벤더 협력 AICC</strong></td>
-<td style="text-align: left;">국내 CTI 벤더(Nexus Community) 협력 기반 AICC 모델 마련</td>
-<td style="text-align: center;">Stage 1</td>
-<td style="text-align: center;"><strong>10%</strong></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: center;"><span class="rev-box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-<td style="text-align: left;">LiveHUB 보이스봇 데모 환경 구축 및 CTI 연동 PoC 수행</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>👉 기타(+1) 소계</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: left;"><strong>Enterprise Cloud Voice &amp; AICC (3건)</strong></td>
-<td style="text-align: left;"><strong>Teams Phone 통합 + LiveHUB/CTI 하이브리드 AICC</strong></td>
-<td style="text-align: center;"><strong>평균</strong></td>
-<td style="text-align: center;"><strong>13.3%</strong></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;"><strong>셀트리온 1,800석 본사업 수주 및 금융권 1호 PoC 성사</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>📊 전사 합계</strong></td>
-<td style="text-align: center;"><strong>20건</strong></td>
-<td style="text-align: left;"><strong>ISV BU Hybrid Cloud 통합 파이프라인 총계</strong></td>
-<td style="text-align: left;"><strong>Stage 5(1건) · Stage 3(3건) · Stage 2(5건) · Stage 1(11건)</strong></td>
-<td style="text-align: center;"><strong>전체 평균</strong></td>
-<td style="text-align: center;"><strong>20.8%</strong><br><em>(영역 22.1%)</em></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: center;"><span class="rev-box-total">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
-<td style="text-align: left;"><strong>단기 Cash-Cow 방어 + 중기 패키지 반복매출 + 장기 메가 딜</strong></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>5. 직무별 역할 분담(R&amp;R) 및 전사 협업 거버넌스</h2>
-<p>조직 내 역할 중복을 방지하고 <strong>4+1 핵심 비즈니스 아이템</strong>을 기민하게 완수하기 위한 <strong>직무 기반(Role-based) R&amp;R 및 RACI 매트릭스</strong>입니다.</p>
-<h3>5.1 핵심 직무별 역할 및 책임 (Role Ownership)</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">직무 / 역할 구분</th>
-<th style="text-align: left;">주력 담당 도메인 (Primary Ownership)</th>
-<th style="text-align: left;">핵심 고객 진입 무기 (Door Opener)</th>
-<th style="text-align: left;">핵심 성과 지표 (Key KPI)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>1. 팀 총괄 리드</strong><br><em>(AI Full Stack &amp; Mega Deal 총괄)</em></td>
-<td style="text-align: left;">• 팀 <code>Deal-Making CoE</code> 전략 총괄 및 MPN 거버넌스 스폰서십<br>• <strong>핵심 ① (GPUaaS·AIDC)</strong>: 대구 AIDC, 원익 AX, 현대로템, KISTI, SKT/Akamai GPUaaS 총괄<br>• <strong>핵심 ② (폐쇄망 AI)</strong>: Articul8 협업, 코딩 에이전트 WS 아키텍처 및 <code>11/12 인텔 서밋</code> 총괄</td>
-<td style="text-align: left;">• <code>11/12 Intel AI Summit</code> 부스 쇼케이스<br>• 지역 거점 AIDC &amp; 피지컬 AI 마스터플랜</td>
-<td style="text-align: left;">• 인텔 서밋 리드 250+건 확보 및 유상 PoC 5건+ 전환<br>• 대구 AIDC·KG ICT·원익·현대로템 본사업 Spec-In 및 GPUaaS 리셀 계약 확정</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>2. 하이브리드 클라우드 아키텍트</strong><br><em>(Nutanix · 전략 딜 리드)</em></td>
-<td style="text-align: left;">• <strong>핵심 ③ (Track B)</strong>: Nutanix NC2 on AWS / NCI / NKP 기반 클라우드 역송환 및 하이브리드 DR<br>• 클라우드 스토리지/데이터: Zadara, Qumulo, Databricks 온프렘 연동, Exadata 백업<br>• <strong>핵심 ④ (전략 어카운트)</strong>: Kentik·Infoblox 전략 딜(국내 KT PoC, 일본 공급) 리드</td>
-<td style="text-align: left;">• 하이브리드 클라우드 비용·운영 최적화 <strong>Elevator Pitch</strong><br>• <strong>3단계 Sales Tool Kit</strong> (진단 질문지·3년 TCO 비교·전환 가이드)</td>
-<td style="text-align: left;">• 2026 Q4 내 Sales Tool Kit v1.0 완성·배포<br>• 2027 상반기 Discovery 10건, 유효 Opty 5건, 제안 3건+, 유상 PoC/본사업 1건+ 전환<br>• KT Kentik/Infoblox PoC 전환율 관리</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3. H/W 인프라 엔지니어</strong><br><em>(서버·스토리지·백업 표준화 리드)</em></td>
-<td style="text-align: left;">• 서버(<code>1순위 Dell→2순위 HPE</code>)·스토리지(<code>1순위 MinIO·Dell→2순위 NetApp</code>)·백업(<code>1순위 Veeam→2순위 Veritas</code>) 사이징, 표준 아키텍처/BoM 설계 및 호환성 검증<br>• <strong>전체 H/W 인프라 OPEX (<code>MZC Infrastructure Flex</code>)</strong> 기술 구성·계측·SLA 기준 정의 (<code>APEX·GreenLake·Zadara</code> 선택형 옵션 검토)<br>• MPN 파트너 기술역량·구축품질·SLA 평가 기준 수립 지원</td>
-<td style="text-align: left;">• <code>Infrastructure Assessment &amp; Sizing</code><br>• <code>Storage/Backup Health Check</code><br>• <code>CAPEX vs OPEX 기술·용량 비교 설계</code></td>
-<td style="text-align: left;">• 서버·스토리지·백업 표준 참조 아키텍처 및 표준 BoM 완성<br>• MPN 인프라 파트너 기술역량·구축품질·SLA 평가표 수립 및 검증<br>• 4+1 전 사업 H/W 기술검증·SLA 기준 정착</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>4. 오픈소스 플랫폼 엔지니어</strong><br><em>(Red Hat 가상화·AI 리드)</em></td>
-<td style="text-align: left;">• <strong>핵심 ③ (Track A)</strong>: VMware ➔ <code>Red Hat OpenShift Virtualization(OVE) + MTV + Ansible</code> 전환 기술 검증 및 PoC 전담<br>• <strong>핵심 ② (폐쇄망 AI 플랫폼)</strong>: 에어갭 환경 <code>RHOAI</code>(오프라인 레지스트리 <code>oc-mirror</code>) 구축 및 SNO/3-Node HA 표준화</td>
-<td style="text-align: left;">• <code>VMware ➔ Red Hat OVE 2주 호환성 진단 &amp; 대표 VM 파일럿 PoC</code> (기존 서버/SAN 재사용)</td>
-<td style="text-align: left;">• 티머니 OVE 전환 PoC 완수 및 사내/MPN 표준 템플릿화<br>• 금융권(우리·신한·BNK 등) Red Hat 신규 딜 기술 클로징 및 폐쇄망 RHOAI 런북 구축</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>5. AI·Hybrid Cloud Network 리드</strong><br><em>(Network 파트 — 아키텍처/유지보수 공동 리드)</em></td>
-<td style="text-align: left;">• <strong>핵심 ④ (기반 수성 &amp; 업셀링)</strong>: 기존 Cisco(Meraki, Duo, SD-WAN) 유지보수·Warranty 안정적 갱신 및 기존 고객 Kentik·Infoblox·Equinix 공동 제안<br>• <strong>3단계 AI Network Fabric &amp; 폐쇄망 보안 설계</strong>: Enterprise / Scale-out <code>RoCEv2</code> / AIDC <code>InfiniBand</code> 초기 BoM 산출, 에어갭 망구간·방화벽 설계<br>• 가상화/클라우드 전환 시 <strong>서비스 영향을 최소화하는 기존 DC 네트워크(VLAN·라우팅·이중화) 연계 설계</strong></td>
-<td style="text-align: left;">• <code>AI 워크로드별 3단계 Network Fabric 사이징 &amp; BoM 사전 설계</code><br>• <code>전환 시 서비스 영향을 최소화하는 기존 DC 네트워크 연계 진단</code></td>
-<td style="text-align: left;">• 기존 Network 유지보수·Warranty 안정적 갱신 완수<br>• AI Network 3단계 가이드 정립 및 팀 AI 사업 초기 설계·BoM 참여 3건+<br>• 다중 노드 AI Network(<code>RoCEv2</code>) 적용 초기 레퍼런스 1건 확보</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>6. UC · Voice AI 솔루션 아키텍트</strong><br><em>(Teams Phone · LiveHUB 리드)</em></td>
-<td style="text-align: left;">• <strong>기타 (+1) Voice Foundation</strong>: AudioCodes SBC/Direct Routing 및 Live Platform 매니지드(ARR) 기반 M365 E5/E7 고객(셀트리온 등) 및 금융권 Teams Phone 구축<br>• <strong>Voice Intelligence</strong>: AudioCodes <code>LiveHUB</code>(보이스봇·Agent Assist·실시간 통역, BYO-AI) 및 <strong>국내 CTI 벤더(<code>Nexus Community</code>) 협력 AICC 모델</strong> 구축</td>
-<td style="text-align: left;">• <code>M365 E5 보유 고객(500인+) &amp; 금융권 Teams Phone 전환 워크샵/PoC</code><br>• <code>LiveHUB 보이스봇 데모 및 연동 PoC</code></td>
-<td style="text-align: left;">• 셀트리온(E7 1,800 Users) Teams 전화 구축 사업 수주 및 오픈 완수<br>• 500인+ E5 및 금융권 대상 <code>소개 세션➔워크샵➔PoC</code> 3건 수행 및 신규 수주<br>• LiveHUB 데모·CTI 협력 AICC 환경 구축</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>7. 방산·관제 협업 및 전담조직</strong><br><em>(PBU · MPN · GTM 조직)</em></td>
-<td style="text-align: left;">• <strong>PBU 협업 라인</strong>: LIG넥스원 Tango 채널 복구 및 <code>Tango V2 (Run:ai + DCGM)</code> 공공/금융 패키지 번들링<br>• <strong>MPN 전담조직</strong>: 파트너 발굴·등록·계약·Deal Routing·Benefit·정기 협의체(EBR) 주관<br>• <strong>GTM·마케팅 전담조직</strong>: 캠페인·로드쇼·리드 생성 및 세일즈 활성화 주관</td>
-<td style="text-align: left;">• <code>외산 고가 관제 대비 반값 물리+논리 통합 GPU 관제 번들</code><br>• <code>MPN Sell-Through 공동판매 프로그램</code></td>
-<td style="text-align: left;">• LIG넥스원 채널 복구 및 2027 신규 체계구축 MoU 체결<br>• MPN 의무 경유 프로세스 정착 및 전략 파트너 협의체 실거래 전환</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>5.2 4+1 핵심 비즈니스 × 직무별 RACI 매트릭스</h3>
-<blockquote>
-<p><strong>범례</strong>: <strong>R</strong> (Responsible: 주 실행/제안 오너) | <strong>A</strong> (Accountable: 최종 의사결정/총괄) | <strong>C</strong> (Consulted: 기술/아키텍처/견적 공동 설계) | <strong>I</strong> (Informed: 리드 공유 및 크로스셀링 연계)</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">4+1 핵심 아이템 및 세부 영역</th>
-<th style="text-align: center;">팀 총괄<br><em>(AI/AIDC)</em></th>
-<th style="text-align: center;">하이브리드 아키텍트<br><em>(Nutanix/전략)</em></th>
-<th style="text-align: center;">H/W 인프라 엔지니어<br><em>(서버/스토리지/백업)</em></th>
-<th style="text-align: center;">오픈소스 엔지니어<br><em>(Red Hat)</em></th>
-<th style="text-align: center;">Network 리드<br><em>(Fabric/유지보수)</em></th>
-<th style="text-align: center;">UC/Voice 아키텍트<br><em>(Teams/LiveHUB)</em></th>
-<th style="text-align: center;">협업 조직<br><em>(PBU/MPN/GTM)</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>①-A. 지역 거점 AIDC &amp; Physical AI</strong> (대구 AIDC, 원익, 현대로템, KISTI)</td>
-<td style="text-align: center;"><strong>A / R</strong></td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">C <em>(H/W·Storage BoM)</em></td>
-<td style="text-align: center;">C <em>(RHOAI)</em></td>
-<td style="text-align: center;"><strong>R</strong> <em>(AIDC Fabric/이중화)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">C <em>(Tango 관제)</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>①-B. 하이브리드 GPUaaS</strong> (KINX/가비아, SKT 해인, Akamai-NVIDIA)</td>
-<td style="text-align: center;"><strong>A / R</strong></td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">C <em>(H/W·OEM 기술)</em></td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">C <em>(DC/회선 연결)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">C <em>(GTM/리셀)</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>②-A. 온프렘 코딩 에이전트 WS 렌탈</strong> (2차 AI·공공 SI 20곳 파밍)</td>
-<td style="text-align: center;"><strong>A / R</strong></td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;"><strong>R</strong> <em>(H/W Sizing·BoM)</em></td>
-<td style="text-align: center;">C <em>(SNO 구성)</em></td>
-<td style="text-align: center;"><strong>R</strong> <em>(스위치/방화벽 BoM)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">C <em>(렌탈3사/MPN)</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>②-B. 중대형 폐쇄망 턴키 AI 플랫폼</strong> (KG ICT, RHOAI, Articul8, Nota)</td>
-<td style="text-align: center;"><strong>A / R</strong></td>
-<td style="text-align: center;">C <em>(KG ICT 등)</em></td>
-<td style="text-align: center;">C <em>(어플라이언스)</em></td>
-<td style="text-align: center;"><strong>R</strong> <em>(RHOAI 포팅)</em></td>
-<td style="text-align: center;"><strong>R</strong> <em>(RoCEv2·폐쇄망 망분리)</em></td>
-<td style="text-align: center;">C <em>(BYO-AI)</em></td>
-<td style="text-align: center;">I</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>②-C. Tango V2 (Run:ai 관제) &amp; 방산 사업</strong> (LIG넥스원 등)</td>
-<td style="text-align: center;"><strong>A</strong></td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">C <em>(H/W 번들링)</em></td>
-<td style="text-align: center;">C <em>(OCP 연동)</em></td>
-<td style="text-align: center;">C <em>(넷실장도/폐쇄망)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;"><strong>R</strong> <em>(PBU 협업)</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>③-A. VMware 전환 [Track A: Red Hat OVE + MTV &amp; Ansible]</strong></td>
-<td style="text-align: center;">A</td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;">C <em>(H/W·Backup 기술)</em></td>
-<td style="text-align: center;"><strong>R</strong> <em>(기술/PoC)</em></td>
-<td style="text-align: center;"><strong>R</strong> <em>(기존 VLAN/라우팅 연계)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">C <em>(GTM/MPN)</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>③-B. VMware 전환 &amp; 클라우드 역송환 [Track B: Nutanix NC2/NCI]</strong></td>
-<td style="text-align: center;">A</td>
-<td style="text-align: center;"><strong>R</strong> <em>(아키텍처/딜)</em></td>
-<td style="text-align: center;"><strong>R / C</strong> <em>(H/W·백업 기술)</em></td>
-<td style="text-align: center;">C</td>
-<td style="text-align: center;"><strong>R</strong> <em>(Equinix/온프렘 이중화)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">C <em>(GTM/MPN)</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>③-C. 전체 H/W 인프라 OPEX (<code>MZC Infrastructure Flex</code>)</strong></td>
-<td style="text-align: center;">A</td>
-<td style="text-align: center;"><strong>C / R</strong> <em>(Zadara/백업)</em></td>
-<td style="text-align: center;"><strong>R</strong> <em>(표준 아키텍처·BoM·SLA)</em></td>
-<td style="text-align: center;">C <em>(Kasten)</em></td>
-<td style="text-align: center;">C <em>(스토리지/격리 NW)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;"><strong>R</strong> <em>(MPN 소싱/금융)</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>④-A. 기존 Network 유지보수·Warranty 갱신 &amp; 신규 ARR 전환</strong></td>
-<td style="text-align: center;">A</td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">C <em>(H/W 연계)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;"><strong>R</strong> <em>(갱신/기술지원/ARR)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">I</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>④-B. 네트워크 가시성 · DDI · DC 연결</strong> (Kentik, Infoblox, Equinix)</td>
-<td style="text-align: center;">A</td>
-<td style="text-align: center;"><strong>R</strong> <em>(KT PoC/일본)</em></td>
-<td style="text-align: center;">C <em>(파트너 기술검증)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;"><strong>R</strong> <em>(기존고객 제안/구축)</em></td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">I</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>+1. Enterprise Cloud Voice &amp; AICC</strong> (Teams Phone, LiveHUB, CTI)</td>
-<td style="text-align: center;">A</td>
-<td style="text-align: center;">I</td>
-<td style="text-align: center;">C <em>(디바이스 사양)</em></td>
-<td style="text-align: center;">C <em>(폐쇄망 LLM)</em></td>
-<td style="text-align: center;">C <em>(SBC NW/방화벽)</em></td>
-<td style="text-align: center;"><strong>R</strong> <em>(전담 오너)</em></td>
-<td style="text-align: center;">C <em>(사내 영업부서)</em></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>6. 통합 실행 로드맵 (Immediate Action Plan &amp; 2027 마일스톤)</h2>
-<h3>6.1 11월 주간별 Immediate Action Plan</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">주차</th>
-<th style="text-align: left;">핵심 목표</th>
-<th style="text-align: left;">주요 실행 과제 (Action Items)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Week 1</strong><br><em>(11/2 ~ 11/6)</em></td>
-<td style="text-align: left;"><strong>4+1 영업 퍼널 정비 &amp; 핵심 고객 미팅(대구시청·KG ICT) 준비</strong></td>
-<td style="text-align: left;">• <strong>공통</strong>: 4+1 핵심 아이템 산하 20개 과제를 SFDC/전략 마일스톤에 등록하고, <strong>대구시청 첫 공식 미팅(<code>15%</code>) 및 KG ICT 초기 사업계획서 전달 미팅(<code>20%</code>)</strong> 제안 자료 완비<br>• <strong>MPN 거버넌스</strong>: MPN 전담조직과 협업하여 파트너 현황·공백 맵, 기술/SLA 평가표, Deal Routing·Benefit, MPN 의무 경유 프로세스 초안 수립<br>• <strong>가상화/클라우드</strong>: 하이브리드 클라우드 Elevator Pitch 및 Sales Tool Kit v1.0(진단 질문지·3년 TCO 비교 템플릿) 초안 완성<br>• <strong>AI/방산/Network</strong>: Tango V2(<code>Run:ai</code> 내장) 오퍼링 확정 및 LIG넥스원(<code>35%</code>) 영업 라인 복구, 기존 Network 갱신 점검 및 AI Network 3단계 가이드 착수</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Week 2</strong><br><em>(11/9 ~ 11/13)</em></td>
-<td style="text-align: left;"><strong>대구시청·KG ICT 미팅 수행 &amp; <code>11/12 Intel AI Summit</code> 총력전</strong></td>
-<td style="text-align: left;">• <strong>핵심 ①·②</strong>: 월요일 <strong>대구시청 공무원 첫 공식 미팅 수행(대구 AIDC 사업계획서 작성 착수)</strong> 및 <strong>KG ICT 고객 미팅·초기 사업계획서 전달</strong><br>• <strong>대외 리드 확보 (<code>11/12 Intel AI Summit</code>)</strong>: 코엑스 부스에서 <strong>Articul8 + RHOAI + Vibe Coding(온프렘 코딩 WS) + Nota 경량화</strong> 라이브 쇼케이스 운영 및 CxO 심층 상담 25+건 수행<br>• <strong>핵심 ③</strong>: 티머니 VMware ➔ Red Hat OVE 전환(<code>35%</code>) 사전 호환성 진단(가상화 호환성 + 서비스 영향을 최소화하는 기존 VLAN/라우팅 연계) 항목 점검</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Week 3</strong><br><em>(11/16 ~ 11/20)</em></td>
-<td style="text-align: left;"><strong>사내 코어 세일즈 로드쇼 &amp; 2차 AI·공공 SI 20곳 파밍 착수</strong></td>
-<td style="text-align: left;">• <strong>GTM·마케팅·MPN 연계 사내 코어 세일즈 로드쇼 (4+1 트랙)</strong>:<br>  ① <strong>하이브리드 GPUaaS &amp; AIDC / 폐쇄망 턴키 AI 플랫폼</strong> 소개<br>  ② <strong>온프렘 코딩 에이전트 WS 렌탈</strong>: <code>퍼블릭에이아이</code> 모델 기준 <strong>100인 이내 2차 AI·공공 SI 강소기업 20곳</strong> 아웃바운드 컨택 및 합숙소 2주 파일럿 제안<br>  ③ <strong>VMware 전환·역송환 제안 키트</strong>: <code>Red Hat OVE</code> / <code>Nutanix NC2 Sales Tool Kit</code> + <code>MZC Infrastructure Flex(전체 H/W OPEX)</code> + 기존 DC 네트워크 연계 설계<br>  ④ <strong>Cloud Voice &amp; AICC</strong>: M365 E5 보유 고객 리스트 확보 및 Teams 전화 전환 소개 세션, LiveHUB 보이스봇 데모 환경 구축</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Week 4</strong><br><em>(11/23 ~ 11/30)</em></td>
-<td style="text-align: left;"><strong>2027년 연간 사업계획 및 아이템별 목표 매출 확정</strong></td>
-<td style="text-align: left;">• <strong>공통</strong>: 4+1 핵심 비즈니스 아이템별 목표 매출액 확정 및 2027년 상·하반기 실행 예산/Quota 최종 승인</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>6.2 중장기 실행 로드맵 (2026 Q4 ~ 2027 H2)</h3>
-<ol>
-<li><strong>2026년 11~12월 (기반 구축 및 초기 레퍼런스 클로징)</strong></li>
-<li><strong>핵심 ①·② (GPUaaS·AIDC &amp; 폐쇄망 AI)</strong>: 대구 수성 알파시티 AIDC 사업계획서 제출, KG ICT PoC 착수, LIG넥스원 채널 복구 완료, 2차 AI·공공 SI 강소기업(퍼블릭에이아이·아크릴 등) 대상 온프렘 코딩 WS 1호 파일럿/렌탈 성사</li>
-<li><strong>핵심 ③ (VMware 전환 &amp; H/W OPEX)</strong>: 티머니 OVE 전환 파일럿 착수, 하이브리드 클라우드 Sales Tool Kit v1.0 배포, 서버(<code>Dell/HPE</code>)·스토리지(<code>MinIO/Dell/NetApp</code>)·백업(<code>Veeam/Veritas</code>) 표준 BoM 및 <code>MZC Infrastructure Flex</code> 기술 카탈로그 완성</li>
-<li><strong>핵심 ④ &amp; 기타(+1) (Network &amp; Voice)</strong>: 기존 Network 유지보수 안정적 갱신(<code>85%</code>), KT Kentik/Infoblox PoC(<code>40%</code>) 완료, AI Network 3단계 가이드 수립, <strong>셀트리온(E7 1,800석) Teams 전화 구축 사업 제안/수주 추진</strong> 및 LiveHUB+CTI 벤더(<code>Nexus Community</code>) 데모 구축</li>
-<li><strong>2027년 상반기 (본사업 전환 및 반복 매출 Scale-Up)</strong></li>
-<li><strong>핵심 ①·②</strong>: 하이브리드 GPUaaS 앵커 고객 MRR 본격화, 대구 AIDC 및 피지컬 AI(원익·현대로템·KISTI) 본사업 Spec-In, 공공·금융·방산 합숙소 코딩 WS 렌탈 확산 및 <code>Tango V2</code> 번들 공급</li>
-<li><strong>핵심 ③</strong>: Discovery 미팅 10건 · 유효 Opty 5건 · 제안 3건+ · 본사업 1건+ 달성, 금융권 Red Hat OVE/Ansible/RHOAI 확산 및 MPN 파트너 Sell-Through 실거래 가동</li>
-<li><strong>핵심 ④ &amp; 기타(+1)</strong>: 팀 AI·전환 사업 초기 설계에 Network BoM 기본 참여(3건+), <strong>셀트리온 Teams 전화 구축·오픈 완수</strong>, 500인+ E5 고객 및 금융권 대상 <code>소개 세션➔워크샵➔PoC</code> 3건 수행 및 신규 수주</li>
-<li><strong>2027년 하반기 (대형 Top-Line 수주 및 고마진 ARR 정착)</strong></li>
-<li>지역 거점 AIDC 및 피지컬 AI 본구축 매출 인식, 다중 노드 <code>RoCEv2</code> AI Network 레퍼런스 확보, 신규 구축 고객 전체의 유지보수·Warranty·매니지드 서비스(ARR) 전환 정착</li>
-</ol>
-</div>
+        <div class="flow-diagram">
+          <div class="flow-root">
+            <div class="flow-root-box">Hybrid Cloud 사업 3대 핵심 과제 및 전략적 해법</div>
+          </div>
+          <div class="flow-grid">
+            <div class="flow-col">
+              <div class="flow-problem">1. 조직 역할 정립<span>(Tech 지원 vs Pre-Sales vs Sales)</span></div>
+              <div class="flow-arrow">⬇️</div>
+              <div class="flow-solution">해법 1: 'Deal-Making CoE' 가동<p>표준 호환성/비용 진단(Assessment), Sales Tool Kit, 유상 파일럿 PoC를 무기로 통합 패키지 역제안</p></div>
+            </div>
+            <div class="flow-col">
+              <div class="flow-problem">2. 포트폴리오 선택과 집중<span>(20개 이상 산발적 파이프라인)</span></div>
+              <div class="flow-arrow">⬇️</div>
+              <div class="flow-solution">해법 2: '4+1 핵심 비즈니스' 재편<p>① GPUaaS·AIDC ② 폐쇄망 AI·코딩 WS ③ VMware 전환 ④ Hybrid NW (+1 Voice) + 전체 H/W OPEX 결합</p></div>
+            </div>
+            <div class="flow-col">
+              <div class="flow-problem">3. 영업 채널 및 거버넌스<span>(벤더 직거래 한계 및 파트너 부재)</span></div>
+              <div class="flow-arrow">⬇️</div>
+              <div class="flow-solution">해법 3: MPN 거래 원칙 &amp; 파트너 체계화<p>MPN 의무 경유 거버넌스 확립 + 인프라 파트너 발굴·검증·등급화 + MPN·GTM 전담조직 협업</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="policy-callout">
+          <h3>📌 MPN(Megazone Partner Network) 거래 원칙 및 거버넌스 기준</h3>
+          <p>• 당사가 매출 주체가 되는 서버·스토리지·백업·네트워크 및 관련 H/W 거래는 원칙적으로 <strong>MPN 등록 파트너 및 공식 Deal Registration·견적·발주 프로세스를 의무 경유</strong>합니다.</p>
+          <p>• MPN을 경유하지 않은 임의 직거래 또는 비등록 파트너 우회 거래는 <strong>사업 실적 및 기여 매출로 인정하지 않습니다.</strong></p>
+          <p>• 고객 지정 파트너, 공공조달, 기존 장기계약 등 불가피한 예외는 <strong>사업부문장 및 Deal Desk의 사전 승인</strong>을 득해야 합니다.</p>
+        </div>
+
+        <h3 class="sub-heading">1.2 6-Layer 하이브리드 클라우드 &amp; AI 풀스택 참조 아키텍처</h3>
+        <div class="layer-stack">
+          <div class="layer-row"><div class="layer-name">Layer 1. Business &amp; Voice AI Apps</div><div class="layer-products">AIR Studio · VibeForge(온프렘 코딩 에이전트) · AudioCodes LiveHUB · Microsoft Teams Phone</div></div>
+          <div class="layer-row"><div class="layer-name">Layer 2. Model &amp; AI Platform</div><div class="layer-products">Articul8 (A8) · Red Hat OpenShift AI (RHOAI) · Nota.ai (모델 경량화) · Acryl (Jonathan)</div></div>
+          <div class="layer-row"><div class="layer-name">Layer 3. AI &amp; GPU Operations</div><div class="layer-products">Tango V2 · NVIDIA Run:ai (오픈소스 내장) · NVIDIA DCGM 물리·논리 통합 관제</div></div>
+          <div class="layer-row"><div class="layer-name">Layer 4. Platform &amp; Virtualization</div><div class="layer-products">RHEL · Red Hat OpenShift (OCP) · OVE (가상화 전환) · Ansible · Nutanix NC2 / NCI / NKP</div></div>
+          <div class="layer-row"><div class="layer-name">Layer 5. Data · Storage · Backup (OPEX)</div><div class="layer-products">스토리지(1순위 MinIO·Dell → 2순위 NetApp) · 백업(1순위 Veeam → 2순위 Veritas) · 선택 옵션(Zadara · Dell APEX · HPE GreenLake)</div></div>
+          <div class="layer-row"><div class="layer-name">Layer 6. Compute &amp; AI Network Fabric</div><div class="layer-products">서버(1순위 Dell → 2순위 HPE) · GPU/Gaudi3 · RoCEv2 / InfiniBand / Cisco / Kentik / Infoblox · 멀티 GPUaaS</div></div>
+        </div>
+      </section>
+
+      <!-- SECTION 2 -->
+      <section class="section">
+        <h2 class="section-title">2. 『4+1 핵심 비즈니스 아이템』 총괄 요약 및 예상 매출 프레임워크</h2>
+        <p class="section-desc">전사 20개 세부 영업기회(Opty)를 미래 성장성과 하이브리드 클라우드 적합성 기준(① ➔ ② ➔ ③ ➔ ④ ➔ 기타[+1])으로 통합한 평균 퍼널(%) 및 예상 매출 총괄표입니다.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:12%;">우선순위</th>
+                <th style="width:36%;">4+1 핵심 비즈니스 아이템명</th>
+                <th style="width:8%;">과제 수</th>
+                <th style="width:12%;">평균 펀넬 %</th>
+                <th style="width:16%;">예상 매출액 (억 원)</th>
+                <th style="width:16%;">펀넬 가중 매출 (억 원)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>핵심 ①</strong><br/><span style="font-size:12px;color:var(--text-muted);">최전방 성장엔진</span></td>
+                <td><strong>하이브리드 GPUaaS &amp; 지역 거점형 AIDC</strong><br/>• 대구 수성 알파시티 AIDC, 원익 AX 센터, 현대로템, KISTI, 멀티 GPUaaS<br/>• <strong>[수익 구조]</strong> 선(先) GPUaaS 구독 브릿지(MRR) ➔ 후(後) 거점 AIDC 본구축</td>
+                <td>5건</td>
+                <td><strong>13.0%</strong><br/><span style="font-size:12px;color:var(--text-muted);">(10~20%)</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+              </tr>
+              <tr>
+                <td><strong>핵심 ②</strong><br/><span style="font-size:12px;color:var(--text-muted);">주력 AI 수익원</span></td>
+                <td><strong>폐쇄망(Air-Gap) 턴키 AI 플랫폼 &amp; 온프렘 코딩 에이전트 WS 렌탈</strong><br/>• 2차 AI·공공 SI 강소기업 20곳 코딩 WS 렌탈, KG ICT, LIG넥스원 Tango V2<br/>• <strong>[수익 구조]</strong> 합숙소 코딩 WS 월 렌탈(Pull-Through) + 중대형 폐쇄망 AI 클러스터</td>
+                <td>4건</td>
+                <td><strong>21.3%</strong><br/><span style="font-size:12px;color:var(--text-muted);">(15~35%)</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+              </tr>
+              <tr>
+                <td><strong>핵심 ③</strong><br/><span style="font-size:12px;color:var(--text-muted);">엔터프라이즈 본류</span></td>
+                <td><strong>VMware 탈출 &amp; 클라우드 역송환(Repatriation) 하이브리드 전환</strong><br/>• 티머니 OVE 전환, Nutanix NC2/NCI, Databricks/Exadata, Infrastructure Flex<br/>• <strong>[수익 구조]</strong> 2주 전환 진단(Assessment) + 라이선스·전체 H/W OPEX 장기약정</td>
+                <td>5건</td>
+                <td><strong>18.0%</strong><br/><span style="font-size:12px;color:var(--text-muted);">(5~35%)</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+              </tr>
+              <tr>
+                <td><strong>핵심 ④</strong><br/><span style="font-size:12px;color:var(--text-muted);">고확률 기반 인프라</span></td>
+                <td><strong>Hybrid Network 가시성·DDI &amp; AI Network Fabric</strong><br/>• 기존 Cisco 유지보수 갱신(85%), KT Kentik/Infoblox PoC(40%), RoCEv2 BoM<br/>• <strong>[수익 구조]</strong> 유지보수 Cash-Cow 수성 + 가시성/DDI 업셀링 + 전 사업 NW BoM 편입</td>
+                <td>3건</td>
+                <td><strong>45.0%</strong><br/><span style="font-size:12px;color:var(--text-muted);">(10~85%)</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+              </tr>
+              <tr>
+                <td><strong>기타 (+1)</strong><br/><span style="font-size:12px;color:var(--text-muted);">특화 워크로드</span></td>
+                <td><strong>Enterprise Cloud Voice &amp; AICC (Teams Phone × LiveHUB)</strong><br/>• 셀트리온 M365 E7(1,800석) 구축(20%), E5/금융권 전환, CTI 협력 AICC<br/>• <strong>[수익 구조]</strong> Teams 전화 구축·SBC 공급 + Live Platform 매니지드(ARR) &amp; AICC</td>
+                <td>3건</td>
+                <td><strong>13.3%</strong><br/><span style="font-size:12px;color:var(--text-muted);">(10~20%)</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+              </tr>
+              <tr class="total-row">
+                <td><strong>합계 / 평균</strong></td>
+                <td><strong>전사 4+1 하이브리드 클라우드 통합 파이프라인 총계</strong></td>
+                <td><strong>20건</strong></td>
+                <td><strong>전체 20.8%</strong><br/><span style="font-size:12px;">(영역 22.1%)</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+                <td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억 원</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 3 -->
+      <section class="section">
+        <h2 class="section-title">3. 『4+1 핵심 비즈니스 아이템』 상세 현황 및 실행 계획</h2>
+        <div class="ideas-grid">
+          <div class="idea-card">
+            <div class="idea-header">
+              <h3 class="idea-title">핵심 ① [최전방 성장엔진]: 하이브리드 GPUaaS &amp; 지역 거점형 AIDC (대구 수성 알파시티 AIDC 등)</h3>
+              <span class="idea-tag">포함 과제 5건 • 평균 펀넬 13.0%</span>
+            </div>
+            <div class="idea-body">
+              <ul>
+                <li><strong>2단 로켓(Two-Stage Rocket) 수익 모델</strong>: 지자체·대기업 AIDC 본구축의 리드타임(6~18개월) 동안 <strong>1단계로 멀티 GPUaaS(KINX/가비아 · SKT 해인 B200 · Akamai-NVIDIA)를 브릿지 구독형(MRR)으로 선제공</strong>하고, <strong>2단계로 거점 AIDC 완공 시 서버·패브릭·통합관제 본구축을 일괄 수주</strong>합니다.</li>
+                <li><strong>대구 수성 알파시티 AIDC (Stage 1, 15%)</strong>: 차주 월요일 대구시청 담당 공무원과 첫 공식 미팅 및 사업계획서 작성 착수 예정. 입주 AI·SW 기업 수요를 GPUaaS로 선점하고 본사업에 <code>Dell/HPE + InfiniBand/RoCEv2 + Tango V2(Run:ai)</code> 표준 사양 반영 추진.</li>
+                <li><strong>하이브리드 GPUaaS (Stage 2, 20%) &amp; 피지컬 AI (원익 10% · 현대로템 10% · KISTI 10%)</strong>: GPUaaS 리셀 단가 확정 및 초기 앵커 고객 매칭, 원익로보틱스 AX 센터(H200 400장 구상)·현대로템 RCLLM·KISTI 바이오서버 단계별 아키텍처 제안.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="idea-card">
+            <div class="idea-header">
+              <h3 class="idea-title">핵심 ② [주력 AI 수익원]: 폐쇄망(Air-Gap) 턴키 AI 플랫폼 &amp; 온프렘 코딩 에이전트 WS 렌탈</h3>
+              <span class="idea-tag">포함 과제 4건 • 평균 펀넬 21.3%</span>
+            </div>
+            <div class="idea-body">
+              <ul>
+                <li><strong>Track 2-A (온프렘 코딩 에이전트 WS 월 렌탈 — Stage 1, 15%)</strong>: 외부 SaaS 코딩 AI 사용이 차단된 공공·금융·방산 합숙소에서 실제 코딩을 수행하는 <strong>『사원수 20~100인 이내 2차 AI·공공 SI 강소기업(퍼블릭에이아이 모델) 20곳』</strong>을 타겟팅하여 일체형 워크스테이션(<code>DGX Spark / RTX PRO 6000 + VibeForge</code>)을 렌탈 3사(한국·AJ·롯데) 역매칭(Pull-Through)으로 공급합니다.</li>
+                <li><strong>Track 2-B (중대형 폐쇄망 AI 클러스터 — KG ICT 20% · LIG넥스원 35% · A8/RHOAI 15%)</strong>: 차주 <strong>KG ICT 고객 미팅 및 초기 사업계획서 전달</strong>을 통해 PoC 범위를 확정하고, <strong>LIG넥스원 Tango(7식) 영업 채널 복구</strong> 및 오픈소스 <code>NVIDIA Run:ai + DCGM</code>을 내장한 <code>Tango V2</code>를 공공(Acryl 결합)·금융(RHOAI 결합) 딜에 기본 번들링합니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="idea-card">
+            <div class="idea-header">
+              <h3 class="idea-title">핵심 ③ [엔터프라이즈 본류]: VMware 탈출 &amp; 클라우드 역송환(Repatriation) 하이브리드 전환</h3>
+              <span class="idea-tag">포함 과제 5건 • 평균 펀넬 18.0%</span>
+            </div>
+            <div class="idea-body">
+              <ul>
+                <li><strong>Track 3-A (오픈소스 가상화 전환 — 티머니 35% · 금융권 10%)</strong>: 『티머니 VMware ➔ Red Hat OVE 전환 제언서』 기반으로 기존 서버·SAN 및 <strong>서비스 영향을 최소화하는 기존 DC 네트워크(VLAN·라우팅·이중화) 연계 설계</strong>를 포함한 2주 사전 호환성 진단을 수행하고 주요 금융지주(우리·신한·BNK 등)로 확산합니다.</li>
+                <li><strong>Track 3-B (Nutanix NC2/NCI 역송환 20% · Databricks/Exadata 백업 20%)</strong>: 하이브리드 클라우드 <strong>Elevator Pitch 및 3단계 Sales Tool Kit</strong>을 통해 2027년 상반기 Discovery 10건, 유효 Opty 5건, 제안 3건+, 본사업 1건+ 전환을 추진합니다.</li>
+                <li><strong>전체 H/W 인프라 OPEX (<code>MZC Infrastructure Flex</code>, 5%)</strong>: 서버(<code>1순위 Dell→2순위 HPE</code>), 스토리지(<code>1순위 MinIO·Dell→2순위 NetApp</code>), 백업(<code>1순위 Veeam→2순위 Veritas</code>) 표준 아키텍처 및 소비형 옵션(<code>APEX·GreenLake·Zadara</code>) 결합.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="idea-card">
+            <div class="idea-header">
+              <h3 class="idea-title">핵심 ④ [고확률 기반 인프라]: Hybrid Network 가시성·DDI &amp; AI Network Fabric</h3>
+              <span class="idea-tag">포함 과제 3건 • 평균 펀넬 45.0%</span>
+            </div>
+            <div class="idea-body">
+              <ul>
+                <li><strong>기존 Network 유지보수 &amp; Warranty 안정적 갱신 (Stage 5, 85%)</strong>: 포스코(SD-WAN), 무신사, 아이스트로, 에이프로젠 등 기존 계약의 안정적 갱신을 완수하여 팀 기반 매출(Base Cash-Cow)을 방어하고, 신규 구축 고객을 유지보수·운영지원(ARR)으로 전환합니다.</li>
+                <li><strong>Kentik(가시성) &amp; Infoblox(DDI) 하이브리드 인텔리전스 (Stage 3, 40%)</strong>: 국내 <strong>KT 대상 Kentik/Infoblox 현장 PoC</strong>의 단계별 전환율을 관리하여 본사업 수주로 연결하고 기존 네트워크 고객에게 업셀링합니다.</li>
+                <li><strong>3단계 AI Network Fabric 기본 편입 (Stage 1, 10%)</strong>: 모든 AI 서버·클러스터 딜의 설계 초기부터 <code>Enterprise / Scale-out RoCEv2 / AIDC InfiniBand</code> 스위치·NIC·광모듈·방화벽 BoM을 기본 편입합니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="idea-card">
+            <div class="idea-header">
+              <h3 class="idea-title">기타 (+1) [특화 워크로드]: Enterprise Cloud Voice &amp; AICC (Teams Phone × LiveHUB)</h3>
+              <span class="idea-tag">포함 과제 3건 • 평균 펀넬 13.3%</span>
+            </div>
+            <div class="idea-body">
+              <ul>
+                <li><strong>셀트리온 Microsoft Teams Phone 1,800석 구축 수주 추진 (Stage 2, 20%)</strong>: 셀트리온의 MS O365 E7 라이선스 계약 체결(1,800 Users, 팀즈 전화 포함)에 발맞춰 실제 팀즈 전화 구축 본사업을 수주하고 표준 레퍼런스를 확보합니다.</li>
+                <li><strong>M365 E5 대기업(500인+) &amp; 금융권 전환 (10%) 및 CTI 협력 AICC (10%)</strong>: 금융권 내부망 SaaS 허용 규제 완화에 맞춰 E5 고객 전환 워크샵·PoC 3건을 수행하고, <code>AudioCodes LiveHUB</code>와 <strong>국내 CTI 벤더(<code>Nexus Community</code>) 협력 기반 하이브리드 AICC 모델</strong>을 구축합니다.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4 -->
+      <section class="section">
+        <h2 class="section-title">4. 전사 20대 세부 파이프라인 현황 · 평균 펀넬(%) 및 예상 매출 관리표</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:11%;">영역 구분</th>
+                <th style="width:24%;">영업기회(Opty) / 과제명</th>
+                <th style="width:31%;">현재 진행 현황 및 핵심 Next Action</th>
+                <th style="width:10%;">퍼널 (%)</th>
+                <th style="width:12%;">예상 매출(억)</th>
+                <th style="width:12%;">가중 매출(억)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>핵심 ①</td><td>1. 대구 수성 알파시티 AIDC 구축</td><td>차주 월요일 대구시청 첫 공식 미팅 및 사업계획서 작성 착수 예정</td><td>Stage 1 (15%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ①</td><td>2. 하이브리드 GPUaaS (KINX·SKT·Akamai)</td><td>KINX/가비아 Opty 포착, SKT 해인 리셀 및 Akamai 모델 기획</td><td>Stage 2 (20%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ①</td><td>3. 원익로보틱스 AX Center (H200 400장)</td><td>피지컬 AI 트레이닝 센터 구상 — 단계별 투자/아키텍처 기획 준비</td><td>Stage 1 (10%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ①</td><td>4. 현대로템 다목적 로봇 제어 LLM (RCLLM)</td><td>초기 사양 검토 후 고객 추진 일정 재점검 및 파트너 협력 정비</td><td>Stage 1 (10%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ①</td><td>5. KISTI 바이오서버 및 데이터 이음허브</td><td>장비 사양 검토 및 바이오·AI 풀스택 표준 사양 제안 준비</td><td>Stage 1 (10%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr class="subtotal-row"><td>핵심 ① 소계</td><td>하이브리드 GPUaaS &amp; 거점 AIDC (5건)</td><td>단기 GPUaaS 브릿지(MRR) + 중장기 거점 AIDC 본구축 연계</td><td>평균 13.0%</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td></tr>
+
+              <tr><td>핵심 ②</td><td>6. KG ICT 폐쇄망 AI 풀스택 플랫폼</td><td>차주 고객 미팅 및 초기 사업계획서 전달 예정 (PoC 범위 협의)</td><td>Stage 2 (20%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ②</td><td>7. LIG넥스원 Tango (7식) &amp; Tango V2 번들</td><td>기존 견적 건 영업 채널 복구 중 / Tango V2(Run:ai) 연말 출시</td><td>Stage 3 (35%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ②</td><td>8. 온프렘 코딩 에이전트 WS 렌탈 (20개사)</td><td>100인 이내 2차 AI·공공 SI 강소기업 20곳(퍼블릭AI 모델) 파밍</td><td>Stage 1 (15%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ②</td><td>9. 폐쇄망 Articul8 (A8) &amp; RHOAI 패키지</td><td>전사 주관 팀 메인 추진 / 당사 RHOAI 플랫폼·인프라 기술 협업</td><td>Stage 1 (15%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr class="subtotal-row"><td>핵심 ② 소계</td><td>폐쇄망 턴키 AI &amp; 코딩 WS 렌탈 (4건)</td><td>2차 SI 합숙소 코딩 WS 월 렌탈 + 중대형 폐쇄망 AI 클러스터</td><td>평균 21.3%</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td></tr>
+
+              <tr><td>핵심 ③</td><td>10. 티머니 VMware ➔ Red Hat OVE 전환</td><td>전환 제언서 제출 완료 및 2주 사전 호환성 진단(Assessment) 추진</td><td>Stage 3 (35%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ③</td><td>11. Nutanix NC2/NCI 전환 &amp; 클라우드 역송환</td><td>Elevator Pitch &amp; Sales Tool Kit v1.0 정립, Discovery 10건 추진</td><td>Stage 2 (20%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ③</td><td>12. Databricks 온프렘 연동 &amp; Exadata 백업</td><td>온프렘 레이크하우스 연동 및 Exadata 백업 현대화 Opty 포착</td><td>Stage 2 (20%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ③</td><td>13. 금융권·엔터프라이즈 Red Hat 신규 전환</td><td>티머니 OVE 전환 템플릿 기반 주요 금융지주(우리·신한 등) 타진</td><td>Stage 1 (10%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ③</td><td>14. MPN 인프라 파트너 · 전체 H/W OPEX 체계</td><td>MPN 의무 경유, 파트너 검증/등급화, Infrastructure Flex 준비</td><td>Stage 1 (5%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr class="subtotal-row"><td>핵심 ③ 소계</td><td>VMware 탈출 &amp; 클라우드 역송환 전환 (5건)</td><td>OVE/NC2 하이브리드 전환 + 전체 H/W 인프라 OPEX 결합</td><td>평균 18.0%</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td></tr>
+
+              <tr><td>핵심 ④</td><td>15. 기존 Network 유지보수 &amp; Warranty 갱신</td><td>포스코(SD-WAN), 무신사, 아이스트로, 에이프로젠 등 안정적 갱신</td><td>Stage 5 (85%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ④</td><td>16. Kentik &amp; Infoblox 전략 딜 (KT PoC/일본)</td><td>국내 KT 현장 PoC 진행 중, 일본 Private Cloud 공급 타진</td><td>Stage 3 (40%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>핵심 ④</td><td>17. 신규 AI Network Fabric (RoCEv2) BoM</td><td>3단계 AI Network 가이드 수립 및 전 사업 초기 설계 BoM 편입</td><td>Stage 1 (10%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr class="subtotal-row"><td>핵심 ④ 소계</td><td>Hybrid Network 가시성·DDI &amp; Fabric (3건)</td><td>유지보수 Cash-Cow 수성 + KT PoC 전환 + 전 사업 NW BoM</td><td>평균 45.0%</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td></tr>
+
+              <tr><td>기타 (+1)</td><td>18. 셀트리온 Teams Phone 구축 (E7 1,800석)</td><td>MS O365 E7 라이선스 체결 완료에 따른 팀즈 전화 구축 본사업 제안</td><td>Stage 2 (20%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>기타 (+1)</td><td>19. M365 E5 대기업(500인+) &amp; 금융권 전환</td><td>사내 M365 부서 협업 E5 고객 발굴 및 금융권(내부망 SaaS) 타진</td><td>Stage 1 (10%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr><td>기타 (+1)</td><td>20. LiveHUB 보이스봇 &amp; CTI 벤더 협력 AICC</td><td>국내 CTI 벤더(Nexus Community) 협력 기반 하이브리드 AICC 구축</td><td>Stage 1 (10%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+              <tr class="subtotal-row"><td>기타(+1) 소계</td><td>Enterprise Cloud Voice &amp; AICC (3건)</td><td>Teams Phone 통합 구축 + LiveHUB/CTI 하이브리드 AICC</td><td>평균 13.3%</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td></tr>
+
+              <tr class="total-row"><td>전사 합계</td><td>ISV BU Hybrid Cloud 파이프라인 총계 (20건)</td><td>Stage 5(1건) · Stage 3(3건) · Stage 2(5건) · Stage 1(11건)</td><td>전체 20.8%<br/>(영역 22.1%)</td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td><td><span class="rev-input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 억</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 5 -->
+      <section class="section">
+        <h2 class="section-title">5. 온프렘 코딩 에이전트 타겟 수요처(2차 AI·공공 SI 20곳) 및 컨소시엄 파밍</h2>
+        <p class="section-desc">공공·금융·국방 프로젝트에서 실제 코딩을 수행하는 사원수 20~100인 이내 2차 AI·공공 SI 강소기업(퍼블릭에이아이 모델) 20개사 및 1차 SI 컨소시엄 연계 파밍 리스트입니다.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:6%;">순번</th>
+                <th style="width:20%;">기업명 (사원수 / 거점)</th>
+                <th style="width:28%;">주력 공공 프로젝트 SI 및 AI 업무 특성</th>
+                <th style="width:24%;">주요 1차 SI 협력 · 컨소시엄 이력</th>
+                <th style="width:22%;">연락처 및 핵심 공략 포인트</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td><strong>(주)퍼블릭에이아이</strong><br/>(약 41~55명 / 서초)</td><td>공공기관 AI·빅데이터 플랫폼 및 전자정부 SI, sLLM 모델링</td><td>당사 기 협업 이력 보유 / 대형 공공 SI 컨소시엄 AI 개발 전담</td><td><code>publicai.co.kr</code><br/>기 협업 0순위 레퍼런스 PoC</td></tr>
+              <tr><td>2</td><td><strong>(주)아크릴</strong><br/>(약 45~50명 / 강남)</td><td>MLOps(Jonathan) 기반 공공·의료·국방 AI SI 및 sLLM 구축</td><td>현대로템 협력, 당사 Tango V2 파트너, LG CNS·아이티센 협력</td><td><code>02-2088-1520</code> · <code>acryl.ai</code><br/>공공·방산 합숙소 동반 투입</td></tr>
+              <tr><td>3</td><td><strong>(주)유클리드소프트</strong><br/>(약 50~70명 / 대전·서울)</td><td>중앙부처·출연연 전자정부(Java) 공공 SI 및 초거대 AI·RAG</td><td>KT, 아이티센, 대보정보통신 및 대전/세종 공공기관 핵심 수행사</td><td><code>02-6937-0039</code><br/>세종·대전 정부청사/출연연 타겟</td></tr>
+              <tr><td>4</td><td><strong>(주)비투엔</strong><br/>(약 90~100명 / 영등포)</td><td>공공·금융 차세대 AI·빅데이터 플랫폼 SI 및 데이터 거버넌스</td><td>삼성SDS, LG CNS, SK C&amp;C, 아이티센 공공 차세대 핵심 파트너</td><td><code>02-2636-0090</code> · <code>b2en.com</code><br/>차세대 합숙소 SQL·Python 자동화</td></tr>
+              <tr><td>5</td><td><strong>(주)다이퀘스트</strong><br/>(약 70~95명 / 구로)</td><td>공공기관 자연어 검색·AI 챗봇/콜봇·RAG SI 및 웹 연동 개발</td><td>아이티센, 대신정보통신, 대보정보통신, 메타넷 컨소시엄 전담</td><td><code>02-3470-4300</code> · <code>diquest.com</code><br/>행정망 RAG·챗봇 개발팀 렌탈</td></tr>
+              <tr><td>6</td><td><strong>(주)솔트룩스이노베이션</strong><br/>(약 60명 / 강남·대전)</td><td>공공기관 대화형 AI 어시스턴트·sLLM·챗봇 SI 및 데이터 구축</td><td>솔트룩스 본사 및 KT·LG CNS·아이티센 초거대 AI 구축 전담</td><td><code>02-557-1723</code><br/>범정부 초거대 AI 파견 개발팀</td></tr>
+              <tr><td>7</td><td><strong>(주)스위트케이</strong><br/>(약 45~50명 / 강남·송파)</td><td>정부·공공기관 포털/행정시스템 SI(Java) 및 AI 지능형 검색</td><td>아이티센, 메타넷디지털, 농심NDS 등 공공 SI 주관사 핵심 협력</td><td><code>02-3434-3120</code> · <code>sweetk.co.kr</code><br/>상주 개발팀 M/M 절감 직결</td></tr>
+              <tr><td>8</td><td><strong>(주)프로텐</strong><br/>(약 25~35명 / 가산)</td><td>자체 검색엔진 및 생성형 AI(LLM/RAG) 기반 공공·금융 폐쇄망 SI</td><td>대신정보통신, KCC정보통신 등 금융·공공 1차 SI 전문 협력사</td><td><code>02-2624-1020</code> · <code>proten.co.kr</code><br/>30인 규모 강소 — 의사결정 직결</td></tr>
+              <tr><td>9</td><td><strong>(주)메이팜소프트</strong><br/>(약 20~25명 / 구로)</td><td>AI 통합검색·챗봇 엔진(IO-STUDIO) 및 국회·부처·공단 RAG SI</td><td>솔리데오시스템즈, 시스원, 아이티센 공공 컨소시엄 파트너</td><td><code>02-514-5547</code> · <code>mayfarm.co.kr</code><br/>다수 공공 사이트 동시 구축 ROI</td></tr>
+              <tr><td>10</td><td><strong>(주)심플랫폼</strong><br/>(약 35~50명 / 강남)</td><td>산업·공공 AIoT 플랫폼 기반 공공·국방·제조 현장 AI 예측 SI</td><td>LG유플러스, KT, DB아이엔씨 스마트시티·공공 AI 구축 파트너</td><td><code>02-6925-4334</code> (AX본부)<br/>공공·제조 온프렘 AI/코딩 WS</td></tr>
+              <tr><td>11</td><td><strong>(주)디딤365</strong><br/>(약 70~95명 / 가산)</td><td>행정·공공기관 클라우드 전환 SI, 데이터레이크 및 AI 플랫폼 구축</td><td>KT, NHN클라우드, 아이티센, 메타넷 공공 클라우드·AI 파트너</td><td><code>1600-3659</code> · <code>didim365.com</code><br/>공공 Java ➔ MSA 코드 변환</td></tr>
+              <tr><td>12</td><td><strong>(주)포티투마루</strong><br/>(약 70~90명 / 서초)</td><td>공공 행정 특화 경량모델(sLLM42) 및 RAG42 기반 지자체 AI SI</td><td>LG유플러스, 한글과컴퓨터, 아이티센 초거대 AI 핵심 파트너</td><td><code>02-6959-4203</code> · <code>42maru.ai</code><br/>지자체 내부 행정망 sLLM 구축</td></tr>
+              <tr><td>13</td><td><strong>(주)올거나이즈코리아</strong><br/>(약 40~60명 / 강남)</td><td>조달청 등록 LLM/RAG 플랫폼(Alli) 기반 공공·금융 온프렘 AI SI</td><td>현대카드·KB증권·LH 등 금융·공공 온프렘 구축 및 1차 SI 협력</td><td><code>allganize.ai</code><br/>금융·공공 폐쇄망 LLM 연동 개발</td></tr>
+              <tr><td>14</td><td><strong>(주)페르소나에이아이</strong><br/>(약 95~105명 / 삼성동)</td><td>자체 경량 NLP·생성형 엔진 기반 공공·금융 AICC 및 온프렘 AI SI</td><td>SK텔레콤, 효성ITX, 금융/공공 1차 SI 컨소시엄 AICC 파트너</td><td><code>02-762-8713</code> · <code>personaai.co.kr</code><br/>폐쇄망 AICC 코딩 + LiveHUB 협력</td></tr>
+              <tr><td>15</td><td><strong>(주)미소정보기술</strong><br/>(약 80~110명 / 가산·대전)</td><td>국립대병원·질병청·공공기관 멀티모달 빅데이터 및 의료/공공 sLLM SI</td><td>메타넷디지털, 아이티센, 대형 SI 보건·의료·안전 핵심 협력사</td><td><code>02-2205-0551</code> · <code>misoinfo.co.kr</code><br/>병원·공공 폐쇄망 데이터/AI 구축</td></tr>
+              <tr><td>16</td><td><strong>(주)와이즈스톤</strong><br/>(약 50~80명 / 판교)</td><td>공공 차세대·국방·금융 SI 프로젝트 SW 테스트 자동화 코딩 및 검증</td><td>삼성SDS, LG CNS, SK C&amp;C, 아이티센 대형 컨소시엄 품질검증 파트너</td><td><code>02-6257-5958</code> · <code>wisestone.kr</code><br/>폐쇄망 합숙소 테스트 코드 생성</td></tr>
+              <tr><td>17</td><td><strong>(주)모아소프트</strong><br/>(약 100~110명 / 송파)</td><td>국방·항공우주 무기체계 임베디드 SW(C/C++/Ada) 코딩·검증 및 AI SI</td><td>한화시스템, LIG넥스원, KAI, ADD(국방과학연구소) 핵심 2차 협력사</td><td><code>02-420-3203</code><br/>완전 에어갭 국방 SW 코딩 타겟</td></tr>
+              <tr><td>18</td><td><strong>(주)솔트웍스</strong><br/>(약 50~90명 / 서울·대전)</td><td>국방 VR/AR 훈련 시뮬레이터, 전자교범 및 국방 ICT/AI 시스템 개발</td><td>KAI, 한화시스템, LIG넥스원 2차 국방 SW/시뮬레이션 핵심 기업</td><td><code>055-957-8777</code> · <code>saltworks.co.kr</code><br/>서울·대전 방산 연구소 WS 타겟</td></tr>
+              <tr><td>19</td><td><strong>(주)유컴패니온그룹</strong><br/>(약 80~120명 / 강남)</td><td>공공 데이터 플랫폼·금융(은행/카드) 차세대 SI 및 Java 개발팀 투입</td><td>LG CNS, SK C&amp;C, 신한DS, 아이티센 금융·공공 차세대 2차 수행사</td><td><code>070-5030-5830</code> · <code>ucomp.co.kr</code><br/>금융·공공 상주 개발팀 렌탈</td></tr>
+              <tr><td>20</td><td><strong>(주)인텔리빅스 / 코츠</strong><br/>(약 100~120명 / 서초·분당)</td><td>지자체·국방 생성형 비전 AI SI(인텔리빅스) / 유도무기 내장 SW(코츠)</td><td>KT·대보 협력(인텔리빅스) / LIG넥스원·현대로템 핵심 협력(코츠)</td><td><code>02-581-3883</code> / <code>031-702-1665</code><br/>비전 AI 및 방산 C/C++ 제어 코드</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 6 -->
+      <section class="section">
+        <h2 class="section-title">6. 직무별 역할 분담(R&amp;R) 및 추진 로드맵</h2>
+        <div class="table-wrap" style="margin-bottom:24px;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:18%;">직무 / 역할 구분</th>
+                <th style="width:36%;">주력 담당 도메인 (Primary Ownership)</th>
+                <th style="width:22%;">핵심 진입 무기 (Door Opener)</th>
+                <th style="width:24%;">핵심 성과 지표 (Key KPI)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1. 팀 총괄 리드<br/>(AI/AIDC 총괄)</td>
+                <td>• Deal-Making CoE 전략 총괄 및 MPN 거버넌스 스폰서십<br/>• [핵심 ①] 대구 AIDC, 원익 AX, 현대로템, KISTI, GPUaaS 총괄<br/>• [핵심 ②] 폐쇄망 AI 아키텍처 및 11/12 인텔 서밋 총괄</td>
+                <td>• 11/12 Intel AI Summit 쇼케이스<br/>• 거점 AIDC 마스터플랜</td>
+                <td>• 인텔 서밋 리드 250+건 및 유상 PoC 5건+<br/>• 대구 AIDC·KG ICT 본사업 Spec-In 및 GPUaaS 리셀 계약 확정</td>
+              </tr>
+              <tr>
+                <td>2. 하이브리드 클라우드<br/>아키텍트 (전략 딜)</td>
+                <td>• [핵심 ③ Track B] Nutanix NC2/NCI 클라우드 역송환 및 DR<br/>• 클라우드 스토리지/데이터: Zadara, Qumulo, Databricks, Exadata 백업<br/>• [핵심 ④ 전략딜] Kentik·Infoblox (국내 KT PoC, 일본 공급)</td>
+                <td>• 하이브리드 비용 최적화 Elevator Pitch<br/>• 3단계 Sales Tool Kit</td>
+                <td>• Sales Tool Kit v1.0 완성·배포<br/>• Discovery 10건, Opty 5건, 제안 3건+, 본사업 1건+ 및 KT PoC 전환율 관리</td>
+              </tr>
+              <tr>
+                <td>3. H/W 인프라 엔지니어<br/>(서버·스토리지·백업)</td>
+                <td>• 서버(Dell→HPE)·스토리지(MinIO·Dell→NetApp)·백업(Veeam→Veritas) 사이징, 표준 아키텍처/BoM 설계 및 기술검증<br/>• 전체 H/W OPEX(Infrastructure Flex) 기술·계측·SLA 기준</td>
+                <td>• Infrastructure Assessment &amp; Sizing<br/>• CAPEX vs OPEX 비교 설계</td>
+                <td>• 서버·스토리지·백업 표준 참조 아키텍처 및 표준 BoM 완성<br/>• MPN 파트너 기술·SLA 평가표 수립</td>
+              </tr>
+              <tr>
+                <td>4. 오픈소스 플랫폼<br/>엔지니어 (Red Hat)</td>
+                <td>• [핵심 ③ Track A] VMware ➔ Red Hat OVE + MTV + Ansible 전환 기술 검증 및 PoC 전담<br/>• [핵심 ②] 폐쇄망 RHOAI(oc-mirror) 구축 및 SNO/3-Node HA 표준화</td>
+                <td>• VMware ➔ Red Hat OVE 2주 호환성 진단 &amp; 대표 VM PoC</td>
+                <td>• 티머니 OVE 전환 PoC 완수 및 템플릿화<br/>• 금융권 Red Hat 신규 딜 클로징 및 폐쇄망 RHOAI 런북 구축</td>
+              </tr>
+              <tr>
+                <td>5. AI·Hybrid Cloud<br/>Network 솔루션 리드</td>
+                <td>• [핵심 ④] 기존 Cisco 유지보수 안정적 갱신 및 Kentik·Infoblox 공동 제안<br/>• 3단계 AI Network(Enterprise / RoCEv2 / InfiniBand) 초기 BoM 산출<br/>• 전환 시 서비스 영향을 최소화하는 기존 DC 네트워크 연계 설계</td>
+                <td>• AI 워크로드별 3단계 Network BoM 사전 설계<br/>• 기존 DC 네트워크 연계 진단</td>
+                <td>• 기존 유지보수 안정적 갱신 완수<br/>• 팀 AI 사업 초기 설계·BoM 참여 3건+ 및 RoCEv2 레퍼런스 1건 확보</td>
+              </tr>
+              <tr>
+                <td>6. UC · Voice AI<br/>솔루션 아키텍트</td>
+                <td>• [기타 +1] AudioCodes SBC/Direct Routing 및 Live Platform(ARR) 기반 M365 E5/E7(셀트리온 등) 및 금융권 Teams Phone 구축<br/>• LiveHUB 보이스봇 및 국내 CTI 벤더(Nexus Community) 협력 AICC</td>
+                <td>• M365 E5 고객 &amp; 금융권 Teams Phone 전환 워크샵/PoC</td>
+                <td>• 셀트리온(E7 1,800석) 구축 수주 및 오픈<br/>• 500인+ E5 및 금융권 워크샵➔PoC 3건 수행 및 신규 수주</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sub-heading">6.2 단기(11~12월) 및 중장기(2027년 상·하반기) 통합 실행 로드맵</h3>
+        <div class="timeline">
+          <div class="timeline-step">
+            <span class="week-badge">Phase 1 • 2026. 11</span>
+            <h4>핵심 미팅 수행 &amp; 인텔 서밋 리드 확보</h4>
+            <p>• 대구시청 첫 공식 미팅(15%) 및 KG ICT 초기 계획서 전달(20%)<br/>• 11/12 인텔 서밋 쇼케이스(리드 250+건) 및 2차 SI 20곳 파밍 착수<br/>• 티머니 OVE 진단 점검 및 Sales Tool Kit v1.0 초안 완성</p>
+          </div>
+          <div class="timeline-step">
+            <span class="week-badge">Phase 2 • 2026. 12</span>
+            <h4>1호 파일럿 PoC 착수 &amp; 표준 BoM 확정</h4>
+            <p>• GPUaaS 리셀 단가 확정 및 2차 SI 코딩 WS 1호 렌탈 성사<br/>• 티머니 OVE 파일럿 PoC 및 표준 H/W BoM·Infrastructure Flex 완성<br/>• KT Kentik/Infoblox PoC 완료 및 셀트리온(1,800석) 수주 추진</p>
+          </div>
+          <div class="timeline-step">
+            <span class="week-badge">Phase 3 • 2027 H1</span>
+            <h4>본사업 전환 &amp; 반복 매출(MRR/ARR) 확대</h4>
+            <p>• GPUaaS 구독 MRR 본격화 및 대구 AIDC·원익·현대로템 Spec-In<br/>• 하이브리드 전환 Discovery 10건·제안 3건+·본사업 1건+ 달성<br/>• 셀트리온 Teams 전화 오픈 완수 및 금융권/E5 PoC 3건 수행</p>
+          </div>
+          <div class="timeline-step">
+            <span class="week-badge">Phase 4 • 2027 H2</span>
+            <h4>대형 Top-Line 수주 &amp; 고마진 ARR 정착</h4>
+            <p>• 지역 거점 AIDC 및 피지컬 AI 본구축 수주·매출 인식<br/>• 다중 노드 RoCEv2 AI Network 레퍼런스 확보<br/>• 신규 구축 고객 전체의 유지보수·매니지드(ARR) 전환 정착</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      ISV BU Hybrid Cloud Business Plan &amp; Pipeline Status Report (4+1 Executive Edition)
+    </footer>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeBtn');
+      if (html.getAttribute('data-theme') === 'light') {
+        html.removeAttribute('data-theme');
+        btn.textContent = '☀️ 라이트 모드 전환';
+      } else {
+        html.setAttribute('data-theme', 'light');
+        btn.textContent = '🌙 다크 모드 전환';
+      }
+    }
+    function toggleEdit() {
+      const body = document.body;
+      const doc = document.getElementById('docContent');
+      const isEditing = body.classList.toggle('editing');
+      doc.contentEditable = isEditing ? 'true' : 'false';
+    }
+    function saveHtml() {
+      const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'HYBRID_CLOUD_BUSINESS_PLAN_EXECUTIVE_4PLUS1.html';
+      a.click();
+    }
+  </script>
 </body>
 </html>
