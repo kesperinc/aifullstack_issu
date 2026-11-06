@@ -59,3 +59,22 @@
 ================================================================
 이 폴더('Intel_AI_Summit_Seoul_2026_부스전시자료')를 통째로 ZIP으로 압축하여
 이메일, 슬랙, USB 등으로 전달하시면 받는 분 PC에서 브라우저만으로 즉시 작동합니다.
+
+
+================================================================
+ [ 행사 플랫폼 등록용 : 솔루션 및 전시 타이틀 / 데모 및 솔루션 개요 최종본 ]
+================================================================
+[솔루션 및 전시타이틀]
+Intel 기반 메가존클라우드 AI Full Stack: Articul8 엔터프라이즈 GenAI부터 Unity Physical AI까지
+(부제: 개방형 4-Layer 인프라·초경량 모델 최적화·자율 코딩 에이전트·온디바이스 Physical AI를 아우르는 엔터프라이즈 AI 턴키 솔루션)
+[데모 및 솔루션 개요]
+1. [발표 & 코어 플랫폼] Articul8 엔터프라이즈 GenAI & MZC-Intel 4-Layer AI Full Stack
+- 제조/금융/중공업 구축 사례 기반 사내 도면·기술문서 지식그래프(Knowledge Graph) 고정밀 RAG 시연 (환각 제로화)
+- Intel Xeon 6 & Gaudi 3 최적화 ModelMesh™ 지능형 멀티 모델 실시간 라우팅 및 100% 에어갭 폐쇄망 인프라 (3개년 TCO 52% 절감)
+2. [모델 최적화 & 자율 코딩] Nota AI 초경량화 & Alioth Coder (Vibe Coding / FIM)
+- NetsPresso 기반 LLM(Solar/Llama-3) INT4 양자화 압축 및 Intel 서버·AI PC(Core Ultra NPU) 초고속 추론 벤치마크 (레이턴시 최대 4.1배 개선)
+- 사내 소스코드 유출 없는 폐쇄망 자율 코딩 에이전트(Alioth Coder) 전시 
+3. [산업용 디지털 트윈 & 로보틱스] Unity Industry & Physical AI on Intel
+- 70+ 산업용 CAD/BIM 원본 데이터를 1-Click 경량화하는 Asset Transformer 및 클라우드 3D 스트리밍(3DDS)
+- Unity Sentis 기반 Intel Core Ultra NPU/Arc GPU 초저지연 온디바이스 AI 추론 및 Simulation Pro·ROS2 직결 Sim2Real
+4. [부스 디스플레이 상영] 5대 핵심 쇼케이스 통합 키오스크(Auto-loop HTML5) 상시 게시 및 관람객 핸즈온 체험

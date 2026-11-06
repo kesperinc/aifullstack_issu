@@ -290,3 +290,21 @@
 2. **CSS 레이아웃 원상 복원**: `#slideHost`의 하단 여백을 원래의 `bottom: 68px`로 복원하여 카드의 세로 비율과 여백을 최적화하고, `.caption-bar` 관련 모든 스타일 시트 제거.
 3. **자바스크립트 엔진 정제**: `slideCaptions` 데이터 객체, `updateCaption()`, `toggleCaption()`, `KeyC` 이벤트 핸들러 완전 삭제.
 4. **검증 완료**: Node.js 구문 파싱 검증 통과 (`Exit Code: 0`).
+
+
+---
+
+# [SPEC-20261105-UNITY-INTEL-16] 행사 플랫폼 전시사 소개 영역 노출용 '솔루션 및 전시 타이틀 / 데모 및 솔루션 개요' 최종본 업데이트
+
+## 1. 개요
+- **목적**: 초기 신청서(10/21) 작성 이후 고도화된 부스 5대 통합 쇼케이스(① MZC-Intel 4-Layer AI Full Stack, ② Nota AI 모델 경량화, ③ Alioth Coder 및 실시간 Vibe 코딩, ④ Articul8 엔터프라이즈 GenAI, ⑤ Unity Industry & Physical AI) 구성을 반영하여 행사 당일 고객 플랫폼 내 전시사 소개 영역에 노출될 공식 문안을 최신화.
+- **적용 파일**:
+  - [`docs/2026-10-21_intel_ai_summit_application_slides.html`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-10-21_intel_ai_summit_application_slides.html)
+  - [`docs/2026-11-05_intel_ai_summit_booth_guide.md`](file:///c:/dev/antigravity-workspace/aifullstack/docs/2026-11-05_intel_ai_summit_booth_guide.md)
+
+## 2. 주요 변경 사항
+1. **전시 타이틀 최신화**:
+   - 기존 Red Hat OpenShift 및 AWS ROSA 중심 문구에서 인텔 행사(Intel AI Summit Seoul 2026)의 정체성과 신규 추가된 **Unity Physical AI**, **Nota AI**, **Alioth Coder**를 포괄하는 타이틀로 개편.
+2. **데모 및 솔루션 개요 최신화**:
+   - 코딩 에이전트 명칭을 실제 쇼케이스 탑재 명칭인 **Alioth Coder (및 실시간 Vibe Coding / FIM 라이브 시연)**로 통일.
+   - **Nota AI 경량화 벤치마크(NetsPresso INT4 양자화)** 및 **Unity Industry & Physical AI (Asset Transformer 1-Click CAD 경량화, Unity Sentis 인텔 NPU/Arc 온디바이스 추론, Simulation Pro & ROS2 연동)** 파트를 명시적으로 추가.
