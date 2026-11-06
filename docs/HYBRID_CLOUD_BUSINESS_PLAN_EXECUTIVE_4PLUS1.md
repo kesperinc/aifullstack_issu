@@ -1,132 +1,144 @@
-# 🎯 ISV BU Hybrid Cloud 팀 2026-2027 핵심 사업계획서 — 『4+1 주력 아이템(Flagship Items) 중심 선택과 집중』
+# 🚀 ISV BU Hybrid Cloud 팀 2026-2027 핵심 사업계획서 — 『미래 성장(J-Curve) 견인 4+1 주력 아이템 중심』
 
-> **문서 목적 (Executive Business Plan — A안)**:
-> - 기존 20여 개 벤더·과제의 나열식 구성을 탈피하고, **1) 왜 Hybrid Cloud인가?(정체성 적합성)**, **2) 당장 매출로 전환 가능한 실체(Stage 2~5 파이프라인)가 있는가?**, **3) 팀 내 기술 역량(가상화·H/W·네트워크·AI)이 하나의 딜로 결합되는가?**를 기준으로 선정한 **『4대 핵심 하이브리드 클라우드 아이템 + 1대 특화 트랙(4+1 Flagship)』** 중심의 경영진 보고용 사업계획서입니다.
-> - 개별 단품 솔루션(Zadara, Qumulo, Databricks, Exadata 백업 등)과 H/W 구독 모델(`MZC Infrastructure Flex`)은 독립 과제가 아닌 **4대 핵심 아이템의 수주율을 높이는 결합 무기(Enabler)**로 통합했습니다.
+> **문서 목적 및 전략적 배치 기준 (Executive Business Plan — Future Forecast 강화형)**:
+> - 기존 20여 개 벤더·과제의 백화점식 나열을 탈피하고, 현재 초기 단계인 매출 구조를 **2027년 폭발적 J-Curve 성장으로 전환하기 위해 미래 성장 규모(Upside Forecast)와 차별성이 가장 큰 핵심 사업을 최전방에 배치**한 경영진 보고용 사업계획서입니다.
+> - **배치 순서 (`미래 메가 성장 ➔ 차별화 AI 수익 ➔ 하이브리드 전환 본류 ➔ 확정 Cash Cow 기반 ➔ 기타 Quick-Win`)**:
+>   1. **아이템 ① `하이브리드 GPUaaS & 지역 거점형 AIDC (대구 수성 AIDC)`** *(선[先] GPUaaS 구독 브릿지 매출 ➔ 후[後] 100억+ 거점 AIDC 수주)*
+>   2. **아이템 ② `폐쇄망(Air-Gap) 턴키 AI 플랫폼 & 온프렘 코딩 에이전트 WS 렌탈`** *(퍼블릭AI 모델 2차 SI 강소기업 20곳 월 렌탈 + Tango V2 GPU 관제 번들)*
+>   3. **아이템 ③ `VMware 탈출 & 클라우드 역송환(Repatriation) 하이브리드 전환`** *(Red Hat OVE · Nutanix NC2 전환 + 전체 H/W·백업 OPEX 결합)*
+>   4. **아이템 ④ `Hybrid Network 가시성·DDI & AI Network Fabric`** *(기존 유지보수 85% 확정 Cash Cow + KT Kentik PoC 40% + 전 AI 사업 RoCEv2 BoM 편입)*
+>   5. **기타 (+1) `Enterprise Cloud Voice & AICC (Teams Phone × LiveHUB)`** *(셀트리온 1,800석 구축 수주 및 금융권/CTI 보이스봇 단기 Quick-Win)*
 
 ---
 
-## 1. Executive Summary: 왜 지금 'Hybrid Cloud'인가?
+## 1. Executive Summary: 『4+1 핵심 아이템』 포트폴리오 및 3층위 J-Curve 매출 예측(Forecast)
+
+### 1) 왜 이 순서인가? — "AI 인프라로 큰 판을 열고, 하이브리드 전환과 네트워크로 수익을 굳힌다"
 
 ```mermaid
 flowchart LR
-    subgraph Pain["🚨 고객의 3대 핵심 딜레마 (Market Pain Points)"]
-        P1["1. 온프렘 가상화 위기<br/>• Broadcom의 VMware<br/>  구독료 3~5배 폭등"]
-        P2["2. 클라우드 & H/W 비용 폭증<br/>• 퍼블릭 클라우드 고정비 부담<br/>• GPU/서버 초기 CapEx 급증"]
-        P3["3. 폐쇄망 AI 보안 딜레마<br/>• 금융·공공·방산 망분리로<br/>  SaaS AI(Copilot 등) 사용 불가"]
+    subgraph Engine["🚀 1~2순위: 미래 외형(Top-Line) & 고마진 AI 성장 엔진"]
+        I1["아이템 ① 하이브리드 GPUaaS & 거점 AIDC<br/>• 단기: KINX·SKT·Akamai GPUaaS 브릿지<br/>• 중장기: 대구 수성 AIDC 등 100억+ 구축"]
+        I2["아이템 ② 폐쇄망 턴키 AI & 코딩 WS 렌탈<br/>• 소형: 2차 SI 강소 20곳 코딩 WS 월 렌탈<br/>• 중대형: RHOAI + Tango V2(Run:ai) 번들"]
     end
 
-    subgraph Flagship["🚀 Hybrid Cloud 팀 『4+1 핵심 비즈니스 아이템』"]
-        F1["아이템 ① 가상화 탈출 & 클라우드 역송환<br/>• Red Hat OVE / Nutanix NC2·NCI<br/>• + H/W·백업 OPEX & DC 네트워크 연계"]
-        F2["아이템 ② 폐쇄망 턴키 AI & 코딩 WS 렌탈<br/>• 온프렘 코딩 WS (2차 SI 강소기업 20곳)<br/>• + RHOAI · Tango V2(GPU관제) · RoCEv2"]
-        F3["아이템 ③ Hybrid Network 가시성 & AI Fabric<br/>• Cisco 유지보수 Cash Cow 수성(85%)<br/>• + Kentik·Infoblox & AI 스위치 BoM"]
-        F4["아이템 ④ 하이브리드 GPUaaS & 거점 AIDC<br/>• KINX·SKT·Akamai GPUaaS 브릿지<br/>• + 대구 수성알파시티 AIDC 구축"]
-        F5["특화 트랙 (+1) Enterprise Cloud Voice & AICC<br/>• AudioCodes SBC + Teams Phone 통합<br/>• + LiveHUB 보이스봇 & CTI 벤더 협력"]
+    subgraph Core["🏗️ 3순위: 정통 Hybrid Cloud 본류"]
+        I3["아이템 ③ VMware 탈출 & 클라우드 역송환<br/>• Red Hat OVE(티머니) / Nutanix NC2<br/>• + 전체 H/W·백업 OPEX(Flex) 결합"]
     end
 
-    P1 --> F1
-    P2 --> F1 & F4
-    P3 --> F2 & F5
-    F1 & F2 & F4 --> F3
+    subgraph Base["🛡️ 4순위 & 기타(+1): 확정 Cash Cow & 단기 Quick-Win"]
+        I4["아이템 ④ Hybrid Network & AI Fabric<br/>• 기존 유지보수 갱신(85% 확정 매출)<br/>• + KT Kentik(40%) & AI 스위치 BoM"]
+        I5["기타 (+1) Cloud Voice & AICC<br/>• 셀트리온 1,800석 구축 수주(20%)<br/>• + 금융권 Teams 전환 & CTI 보이스봇"]
+    end
+
+    I1 --> I2 --> I3 --> I4
+    I5 --> I4
 ```
 
-### 📌 기존 백화점식 나열 ➔ 『4+1 핵심 아이템』 재편 요약
+### 2) 2026 Q4 ~ 2027년 『3층위 J-Curve 미래 매출 성장 예측(Forecast) 모델』
+현재 확정 매출이 제한적인 상황은 약점이 아니라 **장전된 파이프라인이 순차적으로 터지는 '3층위 J-Curve 도약 직전 단계'**입니다. 단기 매출 공백은 **Layer 1(기반/Quick-Win)**으로 방어하고, 2027년 상반기 **Layer 2(반복 렌탈/전환 패키지)**를 거쳐 하반기 **Layer 3(GPUaaS·거점 AIDC 메가 딜)**로 외형을 폭발시킵니다.
 
-| 구분 | 핵심 비즈니스 아이템 명칭 | 핵심 타겟 고객 | 대표 파이프라인 (현재 진도 / 퍼널 단계) | 매출 성격 | 주 오너 (협업) |
+| 예측 층위 (J-Curve Horizon) | 매출 가시화 시점 | 주력 견인 아이템 및 핵심 파이프라인 | 예상 매출 규모 / 수익 성격 | 매출 실현 메커니즘 (Why Achievable?) |
+| :--- | :---: | :--- | :--- | :--- |
+| **📈 Layer 3. 퀀텀 점프층**<br>*(Mega Top-Line)* | **2027 Q2 ~ Q4**<br>*(중장기 폭발)* | • **[아이템 ①]** 대구 수성알파시티 AIDC 구축(`차주 월 대구시청 첫 공식 미팅`) + SKT 해인(B200)·Akamai GPUaaS 벌크 리셀<br>• **[아이템 ① Seed]** 원익로보틱스·현대로템·KISTI 본사업 전환 | **건당 10억 ~ 100억+ 규모**<br>*(대형 H/W + AI 풀스택 구축 + 장기 위탁운영)* | • 대형 AIDC 구축 전 **‘선(先) GPUaaS 임대 브릿지’**로 고객을 먼저 락인(Lock-in)한 뒤 본사업 수주 |
+| **🚀 Layer 2. 고성장 가속층**<br>*(Growth & ARR)* | **2027 Q1 ~ Q2**<br>*(단·중기 가속)* | • **[아이템 ②]** 온프렘 코딩 WS 월 렌탈(`퍼블릭AI 등 2차 SI 강소 20곳`) + **KG ICT(`20%`, 차주 계획서)** + **LIG넥스원 Tango 7식(`16억, 35%`)**<br>• **[아이템 ③]** **티머니 Red Hat OVE(`35%`)** + Nutanix NC2 송환/DR | **건당 1억 ~ 20억 규모**<br>*(월 렌탈 OPEX + 고마진 S/W·인프라 패키지)* | • 2주 무상 파일럿(코딩 WS / OVE 진단) 후 **렌탈 3사 Pull-Through 및 `MZC Infrastructure Flex`**로 초기 CapEx 장벽 제거 |
+| **🛡️ Layer 1. 바닥 지지층**<br>*(Base Cash-Flow)* | **2026 Q4 ~ 2027 Q1**<br>*(즉각 매출 방어)* | • **[아이템 ④]** **기존 Network 유지보수·Warranty 갱신(`85%`)** + **국내 KT Kentik/Infoblox PoC(`40%`) & 일본 공급**<br>• **[기타 +1]** **셀트리온 Teams Phone 1,800석 구축(`20%`, E7 계약 완료)** | **확정 기반 매출(ARR) & 단기 구축 매출**<br>*(팀 운영 기본 캐시플로우 방어)* | • 이미 사용 중인 고객의 갱신(`85%`), 진행 중인 PoC(`40%`), 이미 라이선스(E7)를 산 고객의 구축 본사업 수주 |
+
+---
+
+### 3) 재배치된 『4+1 핵심 비즈니스 아이템』 총괄 요약표
+
+| 순번 | 핵심 비즈니스 아이템 명칭 | 흡수·통합된 세부 솔루션 (단품 나열 폐지) | 대표 실체 파이프라인 (현재 진도 / 퍼널 단계) | 전략적 역할 (Forecast) | 주 오너 (협업) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **아이템 ①**<br>*(Core 1)* | **VMware 탈출 & 클라우드 역송환(Repatriation) 하이브리드 전환** | • VMware 가격 급증 고객<br>• 클라우드 비용 최적화/DR 고객 | • **티머니** Red Hat OVE 전환 (`Stage 3, 35%`)<br>• **Nutanix NC2/DR** Discovery (`Stage 2, 20%`)<br>• 금융권(우리·신한·BNK) 전환 (`Stage 1, 10%`) | **중기 주력 매출**<br>*(라이선스+H/W+전환용역)* | **이성표 · 최재규**<br>*(안재우·최성호)* |
-| **아이템 ②**<br>*(Core 2)* | **폐쇄망(Air-Gap) 턴키 AI 플랫폼 & 온프렘 코딩 에이전트 WS 렌탈** | • 망분리 공공·금융·방산 기업<br>• **100인 이내 2차 AI·공공 SI 강소기업 20곳 (퍼블릭AI 모델)** | • **LIG넥스원** Tango 7식 16억 (`Stage 3, 35%`)<br>• **KG ICT** (`Stage 2, 20%`, 차주 미팅/계획서)<br>• **퍼블릭AI 등 2차 SI 20곳 렌탈** (`Stage 1, 15%`) | **구독형 렌탈(OPEX) & 고마진 어플라이언스** | **김성호 · 안재우 · 이성표**<br>*(Tango 협업라인)* |
-| **아이템 ③**<br>*(Core 3)* | **Hybrid Network 가시성·DDI & AI Network Fabric** | • 기존 Cisco 유지보수 고객<br>• 온프렘-클라우드/AI망 구축 고객 | • **기존 Network 유지보수 갱신** (`Stage 5, 85%`)<br>• **KT Kentik/Infoblox PoC & 일본** (`Stage 3, 40%`)<br>• AI 사업 RoCEv2 BoM 편입 (`Stage 1, 10%`) | **확정 기반 매출(ARR) & 전 사업 BoM 확대** | **박경륜 · 최성호**<br>*(전략딜: 최재규)* |
-| **아이템 ④**<br>*(Core 4)* | **하이브리드 GPUaaS & 지역 거점형 AIDC** | • 초기 GPU CapEx 부담 기업<br>• 지자체·로보틱스·방산 거점 | • **KINX/가비아·SKT·Akamai GPUaaS** (`Stage 2, 20%`)<br>• **대구 수성 AIDC** (`Stage 1, 15%`, **차주 월요일 대구시청 첫 공식 미팅**)<br>*(하위 Seed: 원익·현대로템·KISTI 각 10%)* | **월 구독 리셀 & 10억~100억+ Mega Deal** | **김성호 · 안재우**<br>*(박경륜·이성표)* |
-| **특화 (+1)**<br>*(Track +1)* | **Enterprise Cloud Voice & AICC (Teams Phone × LiveHUB)** | • **M365 E5/E7 보유 대기업(500인+)**<br>• 내부망 SaaS 허용 금융권 | • **셀트리온 1,800석** (`Stage 2, 20%`, E7 라이선스 계약 완료 ➔ 구축 수주 추진)<br>• **3부문 E5 & 금융권 전환 / CTI AICC** (`Stage 1, 10%`) | **단기 Quick-Win 구축 & 매니지드 ARR** | **장필성**<br>*(3부문·Nexus 협력)* |
+| **아이템 ①**<br>*(1순위 간판)* | **하이브리드 GPUaaS & 지역 거점형 AIDC (대구 수성 AIDC)** | • **단기 브릿지**: KINX/가비아 · SKT 해인(B200) · Akamai-NVIDIA NCP<br>• **거점 AIDC**: 대구 수성알파시티 로봇 트레이닝 센터<br>• **하위 Seed**: 원익·현대로템·KISTI 통합 | • **대구 수성 AIDC** (`Stage 1, 15%`, **차주 월요일 대구시청 첫 공식 미팅**)<br>• **KINX/가비아·SKT GPUaaS** (`Stage 2, 20%`)<br>• Physical AI Seed 3건 (`각 10%`) | **🚀 미래 외형(Top-Line) 폭발 & GPU 구독 브릿지** | **김성호 · 안재우**<br>*(박경륜·이성표)* |
+| **아이템 ②**<br>*(2순위 주력)* | **폐쇄망(Air-Gap) 턴키 AI 플랫폼 & 온프렘 코딩 에이전트 WS 렌탈** | • **소형 렌탈**: 코딩 WS (`DGX Spark/RTX 6000 + VibeForge + RHOAI + Nota`)<br>• **중대형**: Dell GPU + RHOAI/Acryl + **Tango V2(Run:ai)** + RoCEv2 | • **LIG넥스원** Tango 7식 16억 (`Stage 3, 35%`)<br>• **KG ICT** (`Stage 2, 20%`, **차주 미팅/사업계획서 전달**)<br>• **퍼블릭AI 등 2차 SI 강소 20곳 렌탈** (`Stage 1, 15%`) | **🔥 고마진 차별화 엔진 & 월 렌탈 반복매출** | **김성호 · 안재우 · 이성표**<br>*(Tango 협업라인)* |
+| **아이템 ③**<br>*(3순위 본류)* | **VMware 탈출 & 클라우드 역송환(Repatriation) 하이브리드 전환** | • **전환 플랫폼**: Red Hat OVE + Nutanix NC2/NCI<br>• **OPEX 옵션**: `MZC Infrastructure Flex`(Dell/HPE · MinIO/Veeam/Zadara · Exadata 백업)<br>• **전환 NW**: 기존 DC 네트워크 연계 설계 | • **티머니** Red Hat OVE 전환 (`Stage 3, 35%`)<br>• **Nutanix NC2/DR** Discovery (`Stage 2, 20%`)<br>• 금융권(우리·신한·BNK) 전환 (`Stage 1, 10%`) | **🏗️ 정통 Hybrid Cloud 본류 & 인프라 OPEX 확대** | **이성표 · 최재규**<br>*(안재우·최성호)* |
+| **아이템 ④**<br>*(4순위 기반)* | **Hybrid Network 가시성·DDI & AI Network Fabric** | • **기반 수성**: Cisco(SD-WAN/Meraki/Duo) 갱신<br>• **가시성/DDI**: Kentik + Infoblox + Equinix<br>• **AI Fabric**: RoCEv2 / InfiniBand 스위치·광모듈 BoM | • **기존 Network 유지보수 갱신** (`Stage 5, 85%`)<br>• **KT Kentik/Infoblox PoC & 일본** (`Stage 3, 40%`)<br>• ①·②·③번 사업 AI/전환 NW BoM 편입 (`Stage 1, 10%`) | **🛡️ 확정 Cash Cow(85%) & 전 사업 BoM 증폭기** | **박경륜 · 최성호**<br>*(전략딜: 최재규)* |
+| **기타 (+1)**<br>*(특화 트랙)* | **Enterprise Cloud Voice & AICC (Teams Phone × LiveHUB)** | • **Voice 통합**: AudioCodes SBC + Teams Phone + Live Platform(ARR)<br>• **Voice AI**: LiveHUB 보이스봇·실시간 통역 + **Nexus(CTI) 협력** | • **셀트리온 1,800석** (`Stage 2, 20%`, **E7 라이선스 계약 완료 ➔ 구축 수주 추진**)<br>• **3부문 E5·금융권 전환 / AICC** (`Stage 1, 10%`) | **⚡ 단기 Quick-Win 구축 수주 & 매니지드 ARR** | **장필성**<br>*(3부문·Nexus 협력)* |
 
 ---
 
-## 2. 『4+1 핵심 아이템』별 상세 사업 전략 및 패키지 구성
+## 2. 『4+1 핵심 아이템』별 상세 사업 계획 (우선순위 재배치 반영)
 
-### 🏆 아이템 ① VMware 탈출 & 클라우드 역송환(Repatriation) 하이브리드 전환
-- **비즈니스 정의**: 브로드컴의 VMware 라이선스 폭등으로 탈출구를 찾는 온프렘 고객과, 과도한 퍼블릭 클라우드 비용 때문에 핵심 워크로드를 온프렘/하이브리드로 재설계(Repatriation)하려는 고객을 동시에 공략하는 **Hybrid Cloud 팀의 정통 주력 사업**입니다.
-- **패키지 구성 (Two-Track + 인프라/네트워크 기본 결합)**:
-  1. **Track 1-A (오픈소스/컨테이너 통합 전환 — 이성표 리드)**: `VMware ➔ Red Hat OpenShift Virtualization(OVE) + MTV(마이그레이션 툴킷) + Ansible 자동화` — 기존 x86 서버와 SAN 스토리지를 그대로 재사용하면서 VM과 컨테이너(향후 OpenShift AI)를 단일 플랫폼으로 통합합니다.
-  2. **Track 1-B (엔터프라이즈 HCI / 클라우드 역송환 & 하이브리드 DR — 최재규 리드)**: `Nutanix NC2 on AWS ⇄ 온프렘 NCI/AHV` — 퍼블릭 클라우드와 온프렘 간 VM 무중단 이동 및 하이브리드 DR을 구현하며, 표준화된 **Elevator Pitch & 3단계 Sales Tool Kit(고객 발굴·진단 / 3년 TCO 비교·제안 / 영업 전환)**으로 영업을 가속합니다.
-  3. **결합 무기 (단품 솔루션을 전환 패키지의 옵션으로 통합)**:
-     - **H/W 및 스토리지·백업 OPEX (`MZC Infrastructure Flex` — 안재우 설계)**: 전환 시 신규 H/W나 백업이 필요한 고객에게 **서버(`1순위 Dell → 2순위 HPE`) · 스토리지(`1순위 MinIO·Dell → 2순위 NetApp`) · 백업(`1순위 Veeam → 2순위 Veritas`)** 및 선택형 옵션(`Zadara · Qumulo · Databricks 연동 · Exadata 백업`)을 월 과금/장기약정(OPEX)으로 묶어 초기 투자 장벽을 제거합니다.
-     - **무중단 전환 네트워크 설계 (최성호·박경륜 설계)**: 가상화 전환 및 클라우드 송환 시 **서비스 영향을 최소화하는 기존 DC 네트워크(VLAN·라우팅·이중화) 연계 진단 및 대역폭 최적화**를 기본 제공합니다.
-- **실행 목표 및 KPI**: ① **티머니 Red Hat OVE 전환 PoC(`35%`)** 본사업 전환 및 표준 템플릿화, ② 상반기 하이브리드 전환 Discovery **10건** · 유효 Opty **5건** · 제안 **3건+** · 유상 PoC/본사업 **1건+** 달성.
+### 🥇 아이템 ① 하이브리드 GPUaaS & 지역 거점형 AIDC (대구 수성알파시티 AIDC)
+- **왜 1번으로 내세우는가? (Future Top-Line & 2단 로켓 전략)**:
+  - AI 인프라 시장에서 가장 단가가 크고 경영진 기대치가 높은 영역이지만, 대형 AIDC 구축만 바라보면 매출 리드타임이 길어집니다.
+  - 따라서 **『1단계(단기): 하이브리드 GPUaaS 임대 브릿지로 즉각 월 구독 매출 창출 ➔ 2단계(중장기): 대구 수성알파시티 AIDC 등 지역/기업 거점 본구축(100억+) 수주』**의 **2단 로켓(Two-Stage Rocket) 모델**로 단기 실적과 미래 대형 전망을 동시에 확보합니다.
+- **세부 패키지 구성**:
+  1. **[단기 매출 브릿지] 하이브리드 GPUaaS 구독/리셀**: H100/H200/B200 도입 리드타임과 초기 CapEx 부담을 겪는 고객에게 **`KINX/가비아 GPUaaS`**, **`SKT GPUaaS(해인 클러스터 B200) 벌크 리셀`**, **`Akamai-NVIDIA NCP 초저지연 엣지 GPUaaS`**를 즉시 공급합니다.
+  2. **[중장기 메가 딜] 『대구 수성알파시티 피지컬 AI 로봇 트레이닝 센터 & AIDC』**:
+     - **현재 진도 (`Stage 1, 15%`)**: **차주 월요일 대구시청 공무원과 첫 공식 미팅 및 사업계획서 작성 예정**인 대표 지자체 거점 AIDC 프로젝트입니다.
+     - **Physical AI Seed 통합 관리**: 현재 기획·준비 단계인 **원익로보틱스 AX 센터(`10%`, 삼성 SCP GPUaaS 브릿지 병행 제안), 현대로템 다목적 로봇 제어 LLM(`10%`, 진행 미진·재정비), KISTI 바이오서버/이음허브(`10%`)**는 본 아이템 하위의 **『Physical AI 인큐베이팅 파이프라인』**으로 묶어 진도에 따라 본사업으로 격상시킵니다.
+- **실행 목표 및 KPI**: ① **차주 월요일 대구시청 첫 공식 미팅 완수 및 사업계획서 제출**, ② **SKT/KINX GPUaaS 리셀 계약 확정 및 2027 Q1 내 앵커 고객 1곳 매출화**.
 
 ---
 
-### 🏆 아이템 ② 폐쇄망(Air-Gap) 턴키 AI 플랫폼 & 온프렘 코딩 에이전트 WS 렌탈
-- **비즈니스 정의**: 물리적 망분리와 보안 감사 때문에 외부 클라우드 AI(GitHub Copilot, Cursor, ChatGPT, Claude)를 절대 사용할 수 없는 **공공·금융·방산 폐쇄망 현장에 하드웨어+AI모델+관제를 일체형으로 공급(또는 월 렌탈)하는 보안 특화 Hybrid AI 사업**입니다.
-- **패키지 구성 (소형 월 렌탈 Door Opener ➔ 중대형 클러스터 확장)**:
-  1. **Tier 2-A [소형/렌탈] 『온프렘 코딩 에이전트 워크스테이션(WS) 월 렌탈』**:
-     - **구성**: `DGX Spark 또는 RTX 6000 Ada WS + VibeForge(코딩 에이전트) + RHOAI SNO(단일노드) + Nota 경량화 모델`
-     - **핵심 GTM (2차 개발 강소기업 선[先]발굴 ➔ 렌탈사 역매칭)**: 기존 렌탈사(한국/AJ/롯데렌탈)는 고객 요청 시에만 장비를 매입하므로, 실제 폐쇄망 합숙소에서 코딩을 수행하는 **『사원수 20~100인 내외의 공공 프로젝트 SI & AI 전문 중소기업 20곳(기준 모델: 당사 기 협업사 `(주)퍼블릭에이아이`)』**을 먼저 파밍하여 2주 파일럿 투입 후 프로젝트 단위(6~18개월) 렌탈 발주를 유도합니다.
-  2. **Tier 2-B [중대형/구축] 『폐쇄망 AI 풀스택 클러스터 & Tango V2(GPU 통합 관제) 번들』**:
+### 🥈 아이템 ② 폐쇄망(Air-Gap) 턴키 AI 플랫폼 & 온프렘 코딩 에이전트 WS 렌탈
+- **왜 2번인가? (보안·망분리 시장 독점 & 빠른 월 렌탈 수익화)**:
+  - 금융·공공·국방 현장은 망분리 규제로 퍼블릭 클라우드 AI(Copilot, Cursor, ChatGPT) 사용이 원천 차단되어 있습니다. 이곳에 **인터넷 연결 없이 즉시 돌아가는 『온프렘 코딩 에이전트 WS 월 렌탈』과 『폐쇄망 AI 클러스터(RHOAI + Tango V2)』**를 공급하여 고마진 반복 매출을 만듭니다.
+- **세부 패키지 구성 (소형 월 렌탈 Door Opener ➔ 중대형 클러스터 확장)**:
+  1. **Tier 2-A [소형/월 렌탈] 『온프렘 코딩 에이전트 워크스테이션(WS) Pull-렌탈』**:
+     - **구성**: `DGX Spark 또는 RTX 6000 Ada WS + VibeForge(코딩 에이전트) + RHOAI SNO + Nota 경량화 모델`
+     - **핵심 GTM**: 렌탈사(한국/AJ/롯데렌탈)는 고객 요청 시에만 장비를 매입하므로, 실제 폐쇄망 합숙소에서 코딩을 수행하는 **『사원수 20~100인 내외의 2차 AI·공공 SI 강소기업 20곳(기준 모델: 당사 기 협업사 `(주)퍼블릭에이아이`)』**을 선(先)파밍하여 2주 무상 파일럿 후 6~18개월 지정 렌탈 발주를 유도합니다.
+  2. **Tier 2-B [중대형/구축] 『폐쇄망 AI 클러스터 & Tango V2(GPU 통합 관제) 번들』**:
      - **구성**: `Dell/HPE GPU 서버 + Red Hat OpenShift AI(RHOAI) / Acryl + Tango V2(물리 실장도 관제 + 오픈소스 NVIDIA Run:ai & DCGM 클러스터 제어) + RoCEv2 AI 네트워크`
-     - **차별화**: 고가 외산 GPU 관리 툴 대비 **반값 이하의 조건으로 물리 인프라+GPU 스케줄링(Run:ai)을 통합 관제**하며, 공공·국방은 `Dell + Acryl + Tango V2`, 금융·대기업은 `Dell + RHOAI + Tango V2`로 표준 번들링합니다 *(타 팀이 주관하는 Articul8 대형 사업에는 RHOAI·인프라 기술 협업으로 참여)*.
-- **실행 목표 및 KPI**: ① **LIG넥스원 Tango 7식(약 16억 원, `35%`)** 영업 채널 즉시 복구 및 후속 체계사업 MoU 체결, ② **KG ICT(`20%`)** 차주 미팅 및 초기 사업계획서 전달을 통한 PoC 전환, ③ **퍼블릭에이아이·아크릴 등 2차 AI/SI 강소기업 20곳** 대상 합숙소 코딩 WS 렌탈 레퍼런스 창출.
+     - **차별화**: 외산 고가 GPU 관리 툴 대비 **반값 이하로 물리 인프라+GPU 스케줄링(Run:ai)을 통합 제공**하며, 공공·국방은 `Dell + Acryl + Tango V2`, 금융·대기업은 `Dell + RHOAI + Tango V2`로 표준 번들링합니다 *(타 팀이 주관하는 폐쇄망 Articul8 사업에는 RHOAI 플랫폼 기술 협업으로 참여)*.
+- **실행 목표 및 KPI**: ① **차주 KG ICT(`Stage 2, 20%`) 고객 미팅 및 초기 사업계획서 전달**로 PoC 착수, ② **LIG넥스원 Tango 7식(약 16억 원, `Stage 3, 35%`)** 영업 채널 즉시 복구 및 후속 MoU 체결, ③ **퍼블릭에이아이·아크릴 등 2차 SI 강소기업 20곳** 대상 코딩 WS 렌탈 1~3호 계약.
 
 ---
 
-### 🏆 아이템 ③ Hybrid Network 가시성·DDI & AI Network Fabric
-- **비즈니스 정의**: 팀 내에서 **유일하게 확정적인 반복 매출(Cash Cow, `85%`)을 창출하는 기반 사업**이자, 위 아이템 ①(가상화/하이브리드 전환)과 아이템 ②·④(AI 클러스터/AIDC)의 딜 규모(BoM)를 키우는 **필수 연결 인프라 사업**입니다.
-- **패키지 구성**:
+### 🥉 아이템 ③ VMware 탈출 & 클라우드 역송환(Repatriation) 하이브리드 전환
+- **왜 3번인가? (정통 Hybrid Cloud 본류 & 전체 H/W 인프라 OPEX 결합)**:
+  - 위 아이템 ①·②로 AI를 도입하려는 기업들이 공통적으로 겪는 예산 장벽이 바로 **"폭등한 VMware 라이선스 비용과 퍼블릭 클라우드 고정비"**입니다. 기존 인프라 비용을 30% 이상 절감해 주는 하이브리드 전환 패키지로 엔터프라이즈 본류 시장을 장악합니다.
+- **세부 패키지 구성 (Two-Track + H/W·백업 OPEX 기본 결합)**:
+  1. **Track 3-A (오픈소스/컨테이너 통합 전환 — 이성표 리드)**: `VMware ➔ Red Hat OpenShift Virtualization(OVE) + MTV + Ansible` — 기존 x86 서버와 SAN 스토리지를 재사용하면서 가상머신(VM)과 컨테이너(향후 RHOAI)를 단일 플랫폼으로 전환합니다.
+  2. **Track 3-B (엔터프라이즈 HCI / 클라우드 역송환 & 하이브리드 DR — 최재규 리드)**: `Nutanix NC2 on AWS ⇄ 온프렘 NCI/AHV` — 클라우드 워크로드 역송환 및 하이브리드 DR을 구현하며, 표준화된 **Elevator Pitch & 3단계 Sales Tool Kit(발굴·진단 / 3년 TCO 비교·제안 / 영업 전환)**으로 영업을 가속합니다.
+  3. **결합 무기 (단품 솔루션을 전환 패키지의 옵션으로 흡수)**:
+     - **전체 H/W 인프라 OPEX (`MZC Infrastructure Flex` — 안재우 설계)**: 전환 시 신규 장비나 백업이 필요한 고객에게 **서버(`1순위 Dell → 2순위 HPE`) · 스토리지(`1순위 MinIO·Dell → 2순위 NetApp`) · 백업(`1순위 Veeam → 2순위 Veritas`)** 및 선택 옵션(`Zadara · Qumulo · Databricks 연동 · Exadata 백업`)을 월 과금/장기약정(OPEX)으로 결합합니다.
+     - **무중단 전환 네트워크 설계 (최성호·박경륜 설계)**: 전환 시 **서비스 영향을 최소화하는 기존 DC 네트워크(VLAN·라우팅·이중화) 연계 진단 및 설계**를 기본 포함합니다.
+- **실행 목표 및 KPI**: ① **티머니 Red Hat OVE 전환 PoC(`Stage 3, 35%`)** 본사업 전환 및 표준 템플릿화, ② 상반기 하이브리드 전환 Discovery **10건** · 유효 Opty **5건** · 제안 **3건+** · 유상 PoC/본사업 **1건+** 달성.
+
+---
+
+### 🏅 아이템 ④ Hybrid Network 가시성·DDI & AI Network Fabric
+- **왜 4번인가? (팀 유일의 85% 확정 Cash Cow & 1·2·3번 사업의 필수 혈관)**:
+  - 단기 매출 공백을 막아주는 **가장 확실한 기반 매출(Base Revenue)**이자, 위 아이템 ①(AIDC)·②(폐쇄망 AI)·③(가상화 전환)이 성사될 때마다 스위치·광모듈·방화벽·가시성 솔루션 매출을 자동으로 덧붙이는 **Deal BoM 증폭기(Multiplier)**입니다.
+- **세부 패키지 구성**:
   1. **기반 Cash Cow 수성 (Cisco 유지보수·Warranty)**: 포스코(SD-WAN), 무신사, 아이스트로 코리아, 에이프로젠 제약 등 기존 Cisco(Meraki, Duo, SD-WAN) 고객의 **안정적인 계약 갱신 추진(`Stage 5, 85%`)** 및 신규 구축 고객의 유지보수(ARR) 전환을 수행합니다.
-  2. **하이브리드 가시성 · DDI · 클라우드 연결 업셀링**: 온프렘과 멀티 클라우드를 함께 쓰는 고객에게 **`Kentik(하이브리드 트래픽 가시성) + Infoblox(DDI: DNS·DHCP·IPAM) + Equinix(DC/클라우드 직결)`**를 결합 제안합니다 *(전략 어카운트/KT PoC는 최재규 수석 리드, 기존 고객 업셀링은 Network 파트 공동 제안)*.
-  3. **AI 워크로드별 3단계 Network BoM 기본 편입**: 팀의 모든 AI 서버 딜에 초기 설계부터 참여하여 **① Enterprise(소규모 추론 망분리/방화벽) ➔ ② Scale-out(다중 노드 `RoCEv2` 고성능 이더넷 스위치·NIC·광모듈) ➔ ③ AIDC(`InfiniBand / RoCEv2` 대규모 패브릭)** 하드웨어 및 구축 용역을 기본 BoM으로 편입합니다.
-- **실행 목표 및 KPI**: ① 기존 Network 유지보수 100% 안정적 갱신, ② **국내 KT Kentik/Infoblox PoC(`40%`)** 본사업 전환 및 일본 공급 성사, ③ 팀 AI 사업 초기 설계 Network BoM 참여 **3건 이상** 및 **다중 노드 RoCEv2 초기 레퍼런스 1건 확보**.
+  2. **하이브리드 가시성 · DDI · 클라우드 연결 업셀링**: 온프렘과 멀티 클라우드를 함께 쓰는 고객에게 **`Kentik(하이브리드 트래픽 가시성) + Infoblox(DDI) + Equinix(DC/클라우드 직결)`**를 결합 제안합니다 *(전략 어카운트/KT PoC는 최재규 수석 리드, 기존 고객 업셀링은 Network 파트 공동 제안)*.
+  3. **AI 워크로드별 3단계 Network BoM 기본 편입**: 아이템 ①·②의 모든 AI 서버 딜에 초기 설계부터 참여하여 **Enterprise(망분리/방화벽) ➔ Scale-out(다중 노드 `RoCEv2` 고성능 이더넷) ➔ AIDC(`InfiniBand / RoCEv2` 대규모 패브릭)** H/W 및 구축 용역을 기본 BoM으로 편입합니다.
+- **실행 목표 및 KPI**: ① 기존 Network 유지보수(`85%`) 안정적 갱신 완수, ② **국내 KT Kentik/Infoblox PoC(`Stage 3, 40%`)** 본사업 전환 및 일본 공급 성사, ③ 팀 AI 사업 초기 설계 Network BoM 참여 **3건 이상** 및 **다중 노드 RoCEv2 초기 레퍼런스 1건 확보**.
 
 ---
 
-### 🏆 아이템 ④ 하이브리드 GPUaaS & 지역 거점형 AIDC (대구 수성알파시티 AIDC)
-- **비즈니스 정의**: 고가 GPU(H100/H200/B200) 확보 난항과 초기 CapEx 부담을 겪는 기업에게 **단기 클라우드 GPUaaS 구독 브릿지**를 제공하고, 지자체·앵커 기업과 함께 **지역 거점형 AI 데이터센터(AIDC) 및 피지컬 AI 로봇 트레이닝 센터**를 구축하는 **Top-Line(대형 매출) 견인 사업**입니다.
-- **패키지 구성**:
-  1. **하이브리드 GPUaaS (구독형 브릿지)**: 온프렘 구축 전 즉시 연산 자원이 필요한 고객에게 **`KINX/가비아 GPUaaS`**, **`SKT GPUaaS(해인 클러스터 B200) 벌크 리셀`**, 그리고 **`Akamai-NVIDIA NCP 초저지연 엣지 GPUaaS`**를 하이브리드 형태로 공급합니다.
-  2. **대표 거점 프로젝트 — 『대구 수성알파시티 피지컬 AI 로봇 트레이닝 센터 & AIDC』**:
-     - **현황 (`Stage 1, 15%`)**: **차주 월요일 대구시청 공무원과 첫 공식 미팅 및 사업계획서 작성 예정**인 핵심 지자체 AIDC 사업입니다.
-     - **중장기 Physical AI Seed 파이프라인 통합 관리**: 현재 기획·준비 단계인 **원익로보틱스 AX 센터(`10%`), 현대로템 다목적 로봇 제어 LLM(`10%`, 진행 미진·재정비), KISTI 바이오서버/이음허브(`10%`)**는 별도 산발 과제로 나열하지 않고 본 **『AIDC & Physical AI 인큐베이팅 파이프라인』** 하위로 통합 관리하여 진도에 맞춰 단계적으로 격상시킵니다.
-- **실행 목표 및 KPI**: ① **차주 월요일 대구시청 첫 공식 미팅 완수 및 공식 사업계획서 제출**, ② SKT/KINX GPUaaS 리셀 단가 확정 및 앵커 고객 1곳 매칭.
+### ⚡ 기타 (+1) Enterprise Cloud Voice & AICC (Teams Phone × LiveHUB)
+- **전략적 위치 (Specialized Quick-Win Track)**:
+  - 사내 온프렘 교환기(IP-PBX)·국선과 클라우드 Microsoft Teams, 그리고 음성 AI를 하나로 연결하는 **하이브리드 보이스 & AICC 현대화 트랙**으로, 이미 라이선스를 구매한 대기업과 규제가 완화된 금융권에서 **빠른 단기 구축 매출과 매니지드 ARR**을 창출합니다.
+- **세부 패키지 구성 (`Voice Foundation ➔ Voice Intelligence`)**:
+  1. **1단계 — Microsoft Teams Phone 통합**: *"전화기 교체가 아니라 이미 쓰는 Teams로의 통합"* — **AudioCodes SBC(Direct Routing) + IPP/MTR + 녹취 + Live Platform 매니지드 서비스(ARR)**로 노후 PBX를 전환합니다. **올해 MS Office365 E7 라이선스 계약(1,800 Users/제니스클라우드)을 완료한 셀트리온(`Stage 2, 20%`)**의 구축 본사업을 최우선 수주하고, **2026.04 전자금융감독규정 개정(내부망 SaaS 허용)**에 따라 **금융권(SC은행 도입 사례 활용) 및 500인+ M365 E5 고객**을 공략합니다.
+  2. **2단계 — AudioCodes LiveHUB 기반 AICC 확장**: 팀즈 전화 고객에게 **LiveHUB 보이스봇·Agent Assist·실시간 통역**을 얹고, **국내 CTI 솔루션 벤더(`Nexus Community`)와의 협력 모델** 및 사내 폐쇄망 LLM(BYO-AI) 연동을 통해 AICC 시장으로 확장합니다.
+- **실행 목표 및 KPI**: ① **셀트리온(1,800 Users) 팀즈 전화 구축 본사업 수주 및 대표 레퍼런스 확보**, ② **3부문 M365 영업팀 협업(500인+ E5 고객) ➔ 워크샵/PoC 3건 수행 및 금융권 1호 신규 수주**, ③ **Nexus Community 협력 기반 AICC 보이스봇 데모/PoC 구축**.
 
 ---
 
-### 🏆 특화 트랙 (+1) Enterprise Cloud Voice & AICC (Teams Phone × LiveHUB)
-- **비즈니스 정의 (하이브리드 보이스 아키텍처)**: 사내 온프렘 교환기(IP-PBX)·국선과 클라우드 Microsoft Teams, 그리고 음성 AI를 하나로 연결하는 **엔터프라이즈 하이브리드 보이스 & AICC 현대화 사업**입니다.
-- **패키지 구성 (`Voice Foundation ➔ Voice Intelligence`)**:
-  1. **1단계 — Microsoft Teams Phone 통합**: *"전화기 교체가 아니라 이미 쓰는 Teams로의 통합"* — **AudioCodes SBC(Direct Routing) + IPP/MTR + 녹취 + Live Platform 매니지드 서비스(ARR)**를 통해 노후 PBX를 단계적으로 전환합니다. 특히 **2026년 4월 전자금융감독규정 시행세칙 개정(내부 업무망 SaaS 허용)**에 따라 **금융권(SC은행 도입 사례 활용) 및 500인 이상 M365 E5/E7 보유 대기업**을 집중 타겟팅합니다.
-  2. **2단계 — AudioCodes LiveHUB 기반 AICC 확장**: 팀즈 전화를 도입한 고객에게 **LiveHUB 보이스봇·Agent Assist·실시간 통역**을 얹고, **국내 CTI 솔루션 벤더(`Nexus Community`)와의 협력 모델** 및 사내 폐쇄망 LLM(BYO-AI) 연동을 통해 AICC 시장으로 확장합니다.
-- **실행 목표 및 KPI**: ① **셀트리온(MS Office365 E7 1,800 Users 라이선스 계약 완료, `Stage 2, 20%`)의 팀즈 전화 구축 본사업 수주 및 대표 레퍼런스 확보**, ② **3부문 M365 영업팀 협업(500인+ E5 고객 리스트업) ➔ 워크샵/PoC 3건 수행 및 금융권 1호 신규 수주**, ③ **Nexus Community 협력 기반 AICC 보이스봇 데모/PoC 구축**.
+## 3. 재배치된 『4+1 핵심 아이템』 통합 영업 퍼널(Sales Funnel) 대시보드
 
----
+아이템 순서(`① GPUaaS·AIDC ➔ ② 폐쇄망 AI·코딩 WS ➔ ③ VMware 탈출·역송환 ➔ ④ Hybrid Network ➔ 기타(+1) Voice AI`)에 맞춰 정렬한 **12대 정예 파이프라인 진도 및 단기 격상 목표**입니다.
 
-## 3. 『4+1 핵심 아이템』 통합 영업 퍼널(Sales Funnel) 및 진행률(%) 대시보드
-
-기존 20개 산발적 항목을 **『4+1 핵심 아이템』 소속 12개 정예 파이프라인**으로 압축한 경영진 보고용 퍼널 대시보드입니다.
-
-```mermaid
-flowchart LR
-    S1["⚪ Stage 1. 기획·발굴 (10~15%)<br/>• 대구 AIDC (차주 월 대구시청 첫 미팅, 15%)<br/>• 코딩 WS 2차 SI 강소기업 20곳 파밍 (15%)<br/>• 3부문 E5/금융권 전환 & CTI AICC (10%)<br/>• Physical AI Seed (원익·현대로템·KISTI, 10%)"] --> S2["🟡 Stage 2. 초기 영업기회 (20%)<br/>• KG ICT (차주 미팅·초기 계획서 전달, 20%)<br/>• 셀트리온 Teams Phone 1,800석 구축 (20%)<br/>• Nutanix NC2/DR & 데이터/백업 Opty (20%)<br/>• KINX/가비아·SKT GPUaaS Opty (20%)"]
-    S2 --> S3["🔵 Stage 3. PoC·전환제언·복구 (35~40%)<br/>• 국내 KT Kentik/Infoblox PoC & 일본 (40%)<br/>• 티머니 VMware ➔ Red Hat OVE 전환 (35%)<br/>• LIG넥스원 Tango 7식(16억) 채널복구 (35%)"]
-    S3 --> S4["🟠 Stage 4. 본사업 제안 (50%+)<br/>• [집중 목표] 1개월 내 Stage 3 핵심 딜<br/>  (KT·티머니·LIG넥스원·셀트리온·KG ICT)<br/>  본사업 RFP/제안 단계로 격상"]
-    S4 --> S5["🟢 Stage 5. 계약유지·갱신 (85%)<br/>• 기존 Network 유지보수 & Warranty (85%)<br/>  (포스코 SD-WAN, 무신사, 아이스트로 등<br/>   안정적 갱신 및 가시성 업셀링)"]
-```
-
-### 📊 4+1 핵심 아이템별 정예 파이프라인 진도 및 Next Action 요약표
-
-| 소속 핵심 아이템 | 정예 파이프라인 / 과제명 | 현재 상태 및 근거 (2026-11-06 기준) | 퍼널 단계 | 진행률(%) | 주 담당 | 단기 % 상향을 위한 핵심 Next Action |
+| 핵심 아이템 구분 | 정예 파이프라인 / 과제명 | 현재 상태 및 근거 (2026-11-06 기준) | 퍼널 단계 | 진행률(%) | 주 담당 | 단기 % 상향을 위한 핵심 Next Action |
 | :--- | :--- | :--- | :---: | :---: | :--- | :--- |
-| **아이템 ③ Network** | **1. 기존 Network 유지보수 & Warranty 갱신** | 포스코(SD-WAN), 무신사, 아이스트로, 에이프로젠 등 기존 계약 유지 | **Stage 5 (계약유지)** | **85%** | 최성호·박경륜 | **기존 계약의 안정적 갱신 완수** 및 Kentik/Infoblox 업셀링 |
-| **아이템 ③ Network** | **2. Kentik & Infoblox 전략 딜 (KT PoC / 일본)** | 국내 KT PoC 진행 중, 일본 Private Cloud 공급 타진 | **Stage 3 (PoC/제안)** | **40%** | 최재규·박경륜 | **KT PoC 단계별 전환율 관리** 및 일본 공급 본계약 전환 |
-| **아이템 ① 전환** | **3. 티머니 (VMware ➔ Red Hat OVE 전환)** | 『티머니 VMware 가상화 전환 제언서(26.11)』 완료 및 진단 추진 | **Stage 3 (전환제언)** | **35%** | 이성표·최성호 | **2주 호환성 진단(Assessment)** 및 대표 VM 파일럿 PoC 착수 |
+| **아이템 ① GPUaaS·AIDC** | **1. 대구 수성알파시티 AIDC (로봇 트레이닝 센터)** | **기획 단계 — 차주 월요일 대구시청 공무원 첫 공식 미팅 및 계획서 작성** | Stage 1 (기획/준비) | **15%** | 김성호 | **차주 월요일 대구시청 첫 공식 미팅 수행** 및 사업계획서 작성·제출 |
+| **아이템 ① GPUaaS·AIDC** | **2. 하이브리드 GPUaaS (KINX/가비아·SKT·Akamai)** | KINX/가비아 Opty 포착, SKT 해인 리셀 및 Akamai-NVIDIA 기획 | **Stage 2 (초기기회)** | **20%** | 김성호·안재우 | 리셀 단가/할인율 확정 및 초기 앵커 고객 1곳(단기 브릿지) 매칭 |
+| **아이템 ① GPUaaS·AIDC** | **3. [Seed 통합] Physical AI 후보군 & 타팀 협업** | **원익로보틱스·현대로템·KISTI(각 10%, 기획/준비)**, **Articul8(15%, 타팀 메인)** | Stage 1 (Seed/협업) | **10~15%** | 김성호·이성표 | 인텔 서밋 쇼케이스 기술 지원 및 고객 추진 일정 맞춤 대응 |
 | **아이템 ② 폐쇄망 AI** | **4. LIG넥스원 (Tango 7식, 16억) & Tango V2** | 기 견적 제출 후 영업 퇴사로 홀딩(채널 복구 중), 연말 Tango V2 출시 | **Stage 3 (채널복구)** | **35%** | 김성호·협업라인 | **LIG넥스원 영업 채널 즉시 복구/MoU** 및 Tango V2 번들가 확정 |
 | **아이템 ② 폐쇄망 AI** | **5. KG ICT (AI 플랫폼 / 하이브리드)** | **차주 고객 미팅 및 초기 사업계획서 전달 예정 (초기 영업기회)** | **Stage 2 (초기기회)** | **20%** | 김성호·최재규 | **차주 고객 미팅 수행, 초기 사업계획서 전달** 및 PoC 범위 확정 |
-| **특화 (+1) Voice AI** | **6. 셀트리온 Teams Phone 구축 (1,800 Users)** | **MS Office365 E7 라이선스 계약 완료(제니스클라우드) ➔ 구축 수주 단계** | **Stage 2 (초기기회)** | **20%** | 장필성 | **셀트리온 팀즈 전화 구축 본사업 수주** 및 준거 레퍼런스 확보 |
-| **아이템 ① 전환** | **7. Nutanix NC2/NCI 송환·DR (스토리지/백업 결합)** | Elevator Pitch & Sales Tool Kit v1.0 정립, Exadata 백업 등 Opty 포착 | **Stage 2 (초기기회)** | **20%** | 최재규·안재우 | **Sales Tool Kit 기반 Discovery 10건** 및 H/W·백업 OPEX 결합 제안 |
-| **아이템 ④ GPUaaS** | **8. 하이브리드 GPUaaS (KINX/가비아·SKT·Akamai)** | KINX/가비아 Opty 포착, SKT 해인 리셀 및 Akamai-NVIDIA 기획 | **Stage 2 (초기기회)** | **20%** | 김성호·안재우 | 리셀 단가/할인율 확정 및 초기 앵커 고객 1곳 매칭 |
-| **아이템 ④ AIDC** | **9. 대구 수성알파시티 AIDC (로봇 트레이닝 센터)** | **기획 단계 — 차주 월요일 대구시청 공무원 첫 공식 미팅 및 계획서 작성** | Stage 1 (기획/준비) | **15%** | 김성호 | **차주 월요일 대구시청 첫 공식 미팅 수행** 및 사업계획서 작성·제출 |
-| **아이템 ② 폐쇄망 AI** | **10. 온프렘 코딩 에이전트 WS (2차 AI·공공 SI 20곳)** | **퍼블릭에이아이 모델 기준 100인 이내 2차 AI·공공 SI 20개사 파밍 착수** | Stage 1 (수요처발굴) | **15%** | 김성호·안재우·이성표 | **퍼블릭AI·아크릴 등 20개 강소 SI 파밍** 및 합숙소 2주 파일럿·렌탈 매칭 |
-| **특화 (+1) Voice AI** | **11. 3부문 M365 E5·금융권 전환 & CTI AICC 협력** | 3부문 영업팀 E5 고객 협업 및 **Nexus Community(CTI) 보이스봇 협력** | Stage 1 (기획/발굴) | **10%** | 장필성 | 3부문 500인+ E5 고객 워크샵/PoC 3건 및 AICC 데모 환경 구축 |
-| **아이템 ④ Seed** | **12. [Seed 통합] Physical AI 후보군 & 타팀 협업** | **원익로보틱스·현대로템·KISTI(각 10%, 기획/준비)**, **Articul8(15%, 타팀 메인)** | Stage 1 (Seed/협업) | **10~15%** | 김성호·이성표 | 인텔 서밋 쇼케이스 기술 지원 및 고객 추진 일정에 맞춘 단계적 대응 |
+| **아이템 ② 폐쇄망 AI** | **6. 온프렘 코딩 에이전트 WS (2차 AI·공공 SI 20곳)** | **퍼블릭에이아이 모델 기준 100인 이내 2차 AI·공공 SI 20개사 파밍 착수** | Stage 1 (수요처발굴) | **15%** | 김성호·안재우·이성표 | **퍼블릭AI·아크릴 등 20개 강소 SI 파밍** 및 합숙소 2주 파일럿·렌탈 매칭 |
+| **아이템 ③ 하이브리드 전환** | **7. 티머니 (VMware ➔ Red Hat OVE 전환)** | 『티머니 VMware 가상화 전환 제언서(26.11)』 완료 및 진단 추진 | **Stage 3 (전환제언)** | **35%** | 이성표·최성호 | **2주 호환성 진단(Assessment)** 및 대표 VM 파일럿 PoC 착수 |
+| **아이템 ③ 하이브리드 전환** | **8. Nutanix NC2/NCI 송환·DR (스토리지/백업 결합)** | Elevator Pitch & Sales Tool Kit v1.0 정립, Exadata 백업 등 Opty 포착 | **Stage 2 (초기기회)** | **20%** | 최재규·안재우 | **Sales Tool Kit 기반 Discovery 10건** 및 H/W·백업 OPEX 결합 제안 |
+| **아이템 ④ Network** | **9. 기존 Network 유지보수 & Warranty 갱신** | 포스코(SD-WAN), 무신사, 아이스트로, 에이프로젠 등 기존 계약 유지 | **Stage 5 (계약유지)** | **85%** | 최성호·박경륜 | **기존 계약의 안정적 갱신 완수** 및 Kentik/Infoblox 업셀링 |
+| **아이템 ④ Network** | **10. Kentik & Infoblox 전략 딜 (KT PoC / 일본)** | 국내 KT PoC 진행 중, 일본 Private Cloud 공급 타진 | **Stage 3 (PoC/제안)** | **40%** | 최재규·박경륜 | **KT PoC 단계별 전환율 관리** 및 일본 공급 본계약 전환 |
+| **기타 (+1) Voice AI** | **11. 셀트리온 Teams Phone 구축 (1,800 Users)** | **MS Office365 E7 라이선스 계약 완료(제니스클라우드) ➔ 구축 수주 단계** | **Stage 2 (초기기회)** | **20%** | 장필성 | **셀트리온 팀즈 전화 구축 본사업 수주** 및 준거 레퍼런스 확보 |
+| **기타 (+1) Voice AI** | **12. 3부문 M365 E5·금융권 전환 & CTI AICC 협력** | 3부문 영업팀 E5 고객 협업 및 **Nexus Community(CTI) 보이스봇 협력** | Stage 1 (기획/발굴) | **10%** | 장필성 | 3부문 500인+ E5 고객 워크샵/PoC 3건 및 AICC 데모 환경 구축 |
 
 ---
 
@@ -168,8 +180,6 @@ flowchart LR
 
 ## 5. 실행 기반(Enablers): MPN 거버넌스 · H/W 기술 표준 · 7인 전담 R&R
 
-위 『4+1 핵심 아이템』을 일관된 품질과 수익성으로 딜리버리하기 위한 **팀 공통 실행 원칙과 멤버별 오너십**입니다.
-
 ### 1) MPN 거래 원칙 및 인프라 파트너 생태계 구축 (Governance)
 - **MPN 의무 경유 원칙**: 메가존클라우드가 매출 주체가 되는 서버·스토리지·백업·네트워크 및 관련 H/W 거래는 원칙적으로 **MPN 등록 파트너 및 공식 Deal Registration·견적·발주 프로세스를 의무 경유**하며, 미경유 임의 직거래는 실적으로 인정하지 않습니다 *(불가피한 예외는 BU장 및 Deal Desk 사전 승인 필수)*.
 - **조직 간 명확한 역할 분담**:
@@ -187,13 +197,13 @@ flowchart LR
 
 | 멤버 (역할 타이틀) | 주 오너십을 갖는 핵심 아이템 (Primary Lead) | 핵심 무기 (Door Opener / Sales Tool Kit) | 2026 Q4 ~ 2027 H1 핵심 실행 KPI |
 | :--- | :--- | :--- | :--- |
-| **1. 김성호 박사님**<br>*(팀 총괄 / Lead)* | • **아이템 ②** 폐쇄망 턴키 AI & 코딩 에이전트 WS 총괄<br>• **아이템 ④** 하이브리드 GPUaaS & 대구 AIDC 총괄<br>• MPN 거래 원칙 / 거버넌스 BU 스폰서 | • `11/12 Intel AI Summit` 부스/발표 쇼케이스<br>• `대구 수성 AIDC` 사업계획서 & `SKT/Akamai GPUaaS` | • **차주 월요일 대구시청 첫 공식 미팅** & **차주 KG ICT 사업계획서 전달**<br>• 인텔 서밋 리드 250+건 확보 및 유상 PoC 5건+ 전환<br>• SKT/KINX GPUaaS 리셀 계약 및 퍼블릭AI 등 1호 렌탈 PoC |
-| **2. 최재규 님**<br>*(수석 / 전략)* | • **아이템 ①-B** Nutanix NC2/NCI 클라우드 역송환·DR 리드<br>• **아이템 ③** Kentik·Infoblox 전략 어카운트(KT PoC·일본) 리드 | • **하이브리드 클라우드 Elevator Pitch**<br>• **3단계 Sales Tool Kit** (발굴·진단 / 3년 TCO 비교 / 영업 전환) | • 2026 Q4 내 Sales Tool Kit v1.0 배포<br>• 상반기 **Discovery 10건 · 유효 Opty 5건 · 제안 3건+ · PoC/본사업 1건+**<br>• **KT Kentik/Infoblox PoC(40%)** 및 Exadata 백업 전환율 관리 |
-| **3. 안재우 님**<br>*(매니저 / H/W 인프라 엔지니어)* | • **전 아이템 공통** 서버·스토리지·백업 표준 아키텍처/BoM 설계<br>• **`MZC Infrastructure Flex` (전체 H/W OPEX)** 기술·계측·SLA 기준 정의 | • `Infrastructure Assessment & Sizing`<br>• `CAPEX vs OPEX 기술·용량 비교 설계`<br>• `MPN Partner Delivery Readiness Check` | • 서버(Dell/HPE)·스토리지(MinIO/Dell/NetApp)·백업(Veeam/Veritas) **표준 참조 아키텍처 및 표준 BoM 완성**<br>• MPN 파트너 **기술역량·구축품질·SLA 평가표 수립** 및 기술검증 |
-| **4. 이성표 님**<br>*(매니저 / 기술)* | • **아이템 ①-A** VMware ➔ Red Hat OVE 가상화 전환 기술 리드<br>• **아이템 ②** 폐쇄망 Red Hat OpenShift AI(RHOAI) 구축 표준화 | • `VMware ➔ Red Hat OVE 2주 호환성 진단 & 대표 VM 파일럿 PoC` | • **티머니 OVE 전환 PoC(35%) 완수** 및 표준 전환 템플릿화<br>• 금융권(우리·신한·BNK 등) Red Hat 전환 딜 기술 클로징<br>• 폐쇄망 RHOAI SNO/3-Node 오프라인 설치 런북 완성 |
-| **5. 박경륜 님**<br>*(Network 파트 / 기술)* | • **아이템 ③** AI Full Stack 3단계 Network 아키텍처 & BoM 총괄<br>• 기존 Network 고객 가시성(Kentik)·DDI(Infoblox)·Equinix 업셀링 | • `AI 워크로드별 3단계 Network Fabric(Enterprise/RoCEv2/InfiniBand) BoM 사전 설계` | • 2026.11~12 AI Network 3단계 가이드 및 MPN 파트너 창구 확보<br>• 2027 팀 AI 사업 Network 설계·BoM 참여 **3건 이상**<br>• **다중 노드 AI Network(RoCEv2) 초기 레퍼런스 1건 확보** |
-| **6. 최성호 님**<br>*(Network 파트 / 기술)* | • **아이템 ③** 기존 Network 유지보수·Warranty 갱신(`85%`) 총괄<br>• **아이템 ①·②** 가상화 전환 DC 네트워크 연계 & 폐쇄망 방화벽 설계 | • `전환 시 서비스 영향을 최소화하는 기존 DC 네트워크(VLAN·라우팅·이중화) 연계 설계` | • **기존 Network 유지보수·Warranty 고객 안정적 갱신 추진**<br>• AI 폐쇄망 망구간 분리 표준 정립 및 벤더 랩 RoCEv2 검증 역량 확보<br>• 신규 구축 고객의 유지보수·Warranty(ARR) 전환 |
-| **7. 장필성 님**<br>*(SE / Voice AI)* | • **특화 트랙 (+1)** Microsoft Teams Phone & AudioCodes LiveHUB 총괄<br>• 국내 CTI 벤더(`Nexus Community`) 협력 AICC 서비스 모델 구축 | • `M365 E5/E7 고객(500인+) & 금융권 Teams Phone 전환 워크샵/PoC`<br>• `LiveHUB 보이스봇 연동 데모/PoC` | • **셀트리온(E7 1,800석 계약 고객) 팀즈 전화 구축 본사업 수주 및 오픈**<br>• **3부문 M365 영업팀 협업(500인+ E5 및 금융권) ➔ PoC 3건 & 1호 신규 수주**<br>• **Nexus Community 협력 AICC 보이스봇 데모/PoC** 및 배틀카드 배포 |
+| **1. 김성호 박사님**<br>*(팀 총괄 / Lead)* | • **아이템 ①** 하이브리드 GPUaaS & 대구 AIDC 총괄<br>• **아이템 ②** 폐쇄망 턴키 AI & 코딩 에이전트 WS 총괄<br>• MPN 거래 원칙 / 거버넌스 BU 스폰서 | • `대구 수성 AIDC` 사업계획서 & `SKT/Akamai GPUaaS`<br>• `11/12 Intel AI Summit` 부스/발표 쇼케이스 | • **차주 월요일 대구시청 첫 공식 미팅** & **차주 KG ICT 사업계획서 전달**<br>• 인텔 서밋 리드 250+건 확보 및 유상 PoC 5건+ 전환<br>• SKT/KINX GPUaaS 리셀 계약 및 퍼블릭AI 등 1호 렌탈 PoC |
+| **2. 최재규 님**<br>*(수석 / 전략)* | • **아이템 ③-B** Nutanix NC2/NCI 클라우드 역송환·DR 리드<br>• **아이템 ④** Kentik·Infoblox 전략 어카운트(KT PoC·일본) 리드 | • **하이브리드 클라우드 Elevator Pitch**<br>• **3단계 Sales Tool Kit** (발굴·진단 / 3년 TCO 비교 / 영업 전환) | • 2026 Q4 내 Sales Tool Kit v1.0 배포<br>• 상반기 **Discovery 10건 · 유효 Opty 5건 · 제안 3건+ · PoC/본사업 1건+**<br>• **KT Kentik/Infoblox PoC(40%)** 및 Exadata 백업 전환율 관리 |
+| **3. 안재우 님**<br>*(매니저 / H/W 인프라 엔지니어)* | • **전 아이템(①·②·③) 공통** 서버·스토리지·백업 표준 아키텍처/BoM 설계<br>• **`MZC Infrastructure Flex` (전체 H/W OPEX)** 기술·계측·SLA 기준 정의 | • `Infrastructure Assessment & Sizing`<br>• `CAPEX vs OPEX 기술·용량 비교 설계`<br>• `MPN Partner Delivery Readiness Check` | • 서버(Dell/HPE)·스토리지(MinIO/Dell/NetApp)·백업(Veeam/Veritas) **표준 참조 아키텍처 및 표준 BoM 완성**<br>• MPN 파트너 **기술역량·구축품질·SLA 평가표 수립** 및 기술검증 |
+| **4. 이성표 님**<br>*(매니저 / 기술)* | • **아이템 ②** 폐쇄망 Red Hat OpenShift AI(RHOAI) 구축 표준화<br>• **아이템 ③-A** VMware ➔ Red Hat OVE 가상화 전환 기술 리드 | • `VMware ➔ Red Hat OVE 2주 호환성 진단 & 대표 VM 파일럿 PoC` | • **티머니 OVE 전환 PoC(35%) 완수** 및 표준 전환 템플릿화<br>• 금융권(우리·신한·BNK 등) Red Hat 전환 딜 기술 클로징<br>• 폐쇄망 RHOAI SNO/3-Node 오프라인 설치 런북 완성 |
+| **5. 박경륜 님**<br>*(Network 파트 / 기술)* | • **아이템 ④** AI Full Stack 3단계 Network 아키텍처 & BoM 총괄<br>• 기존 Network 고객 가시성(Kentik)·DDI(Infoblox)·Equinix 업셀링 | • `AI 워크로드별 3단계 Network Fabric(Enterprise/RoCEv2/InfiniBand) BoM 사전 설계` | • 2026.11~12 AI Network 3단계 가이드 및 MPN 파트너 창구 확보<br>• 2027 팀 AI 사업(아이템 ①·②) Network 설계·BoM 참여 **3건 이상**<br>• **다중 노드 AI Network(RoCEv2) 초기 레퍼런스 1건 확보** |
+| **6. 최성호 님**<br>*(Network 파트 / 기술)* | • **아이템 ④** 기존 Network 유지보수·Warranty 갱신(`85%`) 총괄<br>• **아이템 ②·③** 폐쇄망 방화벽 설계 & 가상화 전환 DC 네트워크 연계 | • `전환 시 서비스 영향을 최소화하는 기존 DC 네트워크(VLAN·라우팅·이중화) 연계 설계` | • **기존 Network 유지보수·Warranty 고객 안정적 갱신 추진**<br>• AI 폐쇄망 망구간 분리 표준 정립 및 벤더 랩 RoCEv2 검증 역량 확보<br>• 신규 구축 고객의 유지보수·Warranty(ARR) 전환 |
+| **7. 장필성 님**<br>*(SE / Voice AI)* | • **기타 (+1)** Microsoft Teams Phone & AudioCodes LiveHUB 총괄<br>• 국내 CTI 벤더(`Nexus Community`) 협력 AICC 서비스 모델 구축 | • `M365 E5/E7 고객(500인+) & 금융권 Teams Phone 전환 워크샵/PoC`<br>• `LiveHUB 보이스봇 연동 데모/PoC` | • **셀트리온(E7 1,800석 계약 고객) 팀즈 전화 구축 본사업 수주 및 오픈**<br>• **3부문 M365 영업팀 협업(500인+ E5 및 금융권) ➔ PoC 3건 & 1호 신규 수주**<br>• **Nexus Community 협력 AICC 보이스봇 데모/PoC** 및 배틀카드 배포 |
 | **8. 협업 라인**<br>*(김철민/김종철 등)* | • **아이템 ②** Tango V1 방산 사업 복구 및 Tango V2(Run:ai+DCGM) 패키지화 | • `외산 고가 관제 대비 반값 GPU+물리 통합 관제 번들 제안` | • **LIG넥스원 7식(16억, 35%) 영업 라인 즉시 재가동** 및 후속 MoU<br>• Tango V2 연말 출시 및 공공(Acryl)/금융(RHOAI) 번들 가격 확정 |
 
 ---
@@ -201,14 +211,14 @@ flowchart LR
 ## 6. 즉시 실행 로드맵 (30 / 60 / 90일 핵심 마일스톤)
 
 1. **Immediate (차주 ~ 11월 중순 — Quick-Win 착수)**:
-   - **[아이템 ④]** **차주 월요일 대구시청 공무원 첫 공식 미팅 수행** 및 대구 수성알파시티 AIDC 사업계획서 작성·제출 (김성호)
-   - **[아이템 ②]** **차주 KG ICT 고객 미팅 및 초기 사업계획서 전달** (김성호·최재규) / **`11/12 Intel AI Summit` Gold 부스 쇼케이스** 완수 및 리드 250+건 확보 (전원)
-   - **[아이템 ②]** 기 협업 강소기업 **`(주)퍼블릭에이아이` · `(주)아크릴`** 직통 컨택을 시작으로 **100인 이내 2차 AI·공공 SI 강소기업 20곳** 온프렘 코딩 에이전트 WS 파일럿 제안 (김성호·안재우·이성표)
-   - **[특화 +1]** **셀트리온(E7 1,800 Users)** 팀즈 전화 본사업 제안 및 **3부문 M365 E5 고객 리스트업** 착수 (장필성)
+   - **[아이템 ① GPUaaS·AIDC]** **차주 월요일 대구시청 공무원 첫 공식 미팅 수행** 및 대구 수성알파시티 AIDC 사업계획서 작성·제출 (김성호)
+   - **[아이템 ② 폐쇄망 AI]** **차주 KG ICT 고객 미팅 및 초기 사업계획서 전달** (김성호·최재규) / **`11/12 Intel AI Summit` Gold 부스 쇼케이스** 완수 및 리드 250+건 확보 (전원)
+   - **[아이템 ② 코딩 WS 렌탈]** 기 협업 강소기업 **`(주)퍼블릭에이아이` · `(주)아크릴`** 직통 컨택을 시작으로 **100인 이내 2차 AI·공공 SI 강소기업 20곳** 온프렘 코딩 에이전트 WS 파일럿 제안 (김성호·안재우·이성표)
+   - **[기타 +1 Voice AI]** **셀트리온(E7 1,800 Users)** 팀즈 전화 본사업 제안 및 **3부문 M365 E5 고객 리스트업** 착수 (장필성)
 2. **Short-Term (11월 말 ~ 12월 말 — Stage 3 ➔ Stage 4 본사업 격상)**:
-   - **[아이템 ①]** **티머니 Red Hat OVE 전환 호환성 진단** 완수 (이성표·최성호) 및 **Nutanix NC2/DR Sales Tool Kit v1.0** 배포·Discovery 착수 (최재규)
-   - **[아이템 ③]** **포스코·무신사 등 기존 Network 유지보수 갱신** 마무리 (최성호·박경륜) 및 **KT Kentik/Infoblox PoC** 본사업 전환 추진 (최재규·박경륜)
-   - **[아이템 ②]** **LIG넥스원 Tango 7식(16억)** 영업 채널 복구 완료 및 **Tango V2(Run:ai 탑재)** 표준 번들 출시 (김성호·협업라인)
+   - **[아이템 ② 폐쇄망 AI]** **LIG넥스원 Tango 7식(16억)** 영업 채널 복구 완료 및 **Tango V2(Run:ai 탑재)** 표준 번들 출시 (김성호·협업라인)
+   - **[아이템 ③ 하이브리드 전환]** **티머니 Red Hat OVE 전환 호환성 진단** 완수 (이성표·최성호) 및 **Nutanix NC2/DR Sales Tool Kit v1.0** 배포·Discovery 착수 (최재규)
+   - **[아이템 ④ Network]** **포스코·무신사 등 기존 Network 유지보수 갱신(`85%`)** 마무리 (최성호·박경륜) 및 **KT Kentik/Infoblox PoC(`40%`)** 본사업 전환 추진 (최재규·박경륜)
    - **[기반 Enabler]** 서버(Dell/HPE)·스토리지(MinIO/Dell/NetApp)·백업(Veeam/Veritas) **표준 BoM 및 MPN 파트너 기술/SLA 평가표** 확정 (안재우)
-3. **Mid-Term (2027 Q1 — 본사업 수주 및 반복 매출 안착)**:
-   - **`4+1 핵심 아이템`**별 1호 앵커 레퍼런스(티머니 OVE, KT Kentik, 셀트리온 Teams Phone, 퍼블릭AI 등 코딩 WS 렌탈, 대구 AIDC/GPUaaS) 본계약 클로징 및 MPN Sell-Through 확산.
+3. **Mid-Term (2027 Q1 — 본사업 수주 및 J-Curve 매출 본격화)**:
+   - **`4+1 핵심 아이템`**별 1호 앵커 레퍼런스(SKT/KINX GPUaaS & 대구 AIDC, 퍼블릭AI 등 코딩 WS 렌탈 & KG ICT, 티머니 OVE 전환, KT Kentik, 셀트리온 Teams Phone) 본계약 클로징 및 MPN Sell-Through 확산.
