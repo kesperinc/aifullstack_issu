@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISV BU Hybrid Cloud 팀 2026-2027 핵심 사업계획서 (4+1 주력 아이템 중심)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: #161f33;
+      --bg-card-hover: #1c2740;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border-color: #26334d;
+      --accent-blue: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-purple: #a855f7;
+      --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.45);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f1f5f9;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --accent-blue: #2563eb;
+      --accent-cyan: #0891b2;
+      --accent-indigo: #4f46e5;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --accent-rose: #e11d48;
+      --accent-purple: #7c3aed;
+      --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      padding: 36px 20px 80px;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; }
+
+    .top-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .doc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(99, 102, 241, 0.18));
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: var(--accent-blue);
+    }
+
+    .toolbar-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn {
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover { border-color: var(--accent-blue); background: var(--bg-card-hover); }
+
+    .hero-header {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
+      border: 1px solid var(--border-color);
+      border-top: 4px solid var(--accent-blue);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    [data-theme="light"] .hero-header {
+      background: linear-gradient(135deg, #ffffff, #f8fafc);
+    }
+
+    .hero-title {
+      font-size: 29px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .hero-meta {
+      background: rgba(59, 130, 246, 0.08);
+      border-left: 4px solid var(--accent-blue);
+      padding: 14px 18px;
+      border-radius: 0 10px 10px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .hero-meta ul { list-style: none; margin-top: 6px; }
+    .hero-meta li { position: relative; padding-left: 16px; margin-top: 4px; }
+    .hero-meta li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: var(--accent-blue);
+      font-weight: bold;
+    }
+
+    code {
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.9em;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--accent-cyan);
+    }
+
+    .section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-desc { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; }
+
+    .flow-diagram {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .flow-root { text-align: center; margin-bottom: 20px; }
+    .flow-root-box {
+      display: inline-block;
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+    }
+
+    .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .flow-col { display: flex; flex-direction: column; align-items: center; }
+    .flow-problem {
+      width: 100%;
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14.5px;
+    }
+    .flow-problem span {
+      display: block;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .flow-arrow { font-size: 20px; color: var(--accent-blue); margin: 8px 0; font-weight: bold; }
+    .flow-solution {
+      width: 100%;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--accent-emerald);
+    }
+    .flow-solution p { color: var(--text-secondary); font-size: 13px; font-weight: 500; margin-top: 6px; }
+
+    .dilemma-list { display: grid; gap: 14px; }
+    .dilemma-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-indigo);
+      border-radius: 10px;
+      padding: 18px 22px;
+    }
+    .dilemma-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .dilemma-item p { font-size: 14.5px; color: var(--text-secondary); margin-top: 4px; }
+
+    .trojan-callout {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.16), rgba(6, 182, 212, 0.12));
+      border: 1.5px solid var(--accent-indigo);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+    }
+    .trojan-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #fff;
+      background: var(--accent-indigo);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .trojan-quote { font-size: 17px; font-weight: 700; line-height: 1.6; color: var(--text-primary); }
+    .trojan-quote strong { color: var(--accent-amber); }
+
+    .sub-heading {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 24px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border-color); }
+    table { width: 100%; border-collapse: collapse; background: var(--bg-card); font-size: 14px; }
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+    }
+    th:last-child, td:last-child { border-right: none; }
+    tr:last-child td { border-bottom: none; }
+    thead th {
+      background: rgba(59, 130, 246, 0.12);
+      color: var(--text-primary);
+      font-weight: 800;
+      font-size: 14px;
+    }
+    tbody td:first-child { font-weight: 700; background: rgba(148, 163, 184, 0.05); }
+
+    .ideas-grid { display: grid; gap: 18px; }
+    .idea-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 22px 26px;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+    .idea-card:hover { border-color: var(--accent-blue); }
+    .idea-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .idea-title { font-size: 17px; font-weight: 800; color: var(--text-primary); }
+    .idea-tag {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue);
+      white-space: nowrap;
+    }
+    .idea-body { font-size: 14.5px; color: var(--text-secondary); }
+    .idea-body ul { padding-left: 20px; margin-top: 6px; }
+    .idea-body li { margin-top: 5px; }
+    .highlight-text { color: var(--accent-amber); font-weight: 700; }
+
+    .policy-banner {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 22px 26px;
+      margin: 20px 0 24px;
+      border-radius: 14px;
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.16), rgba(245, 158, 11, 0.08));
+    }
+    .policy-label {
+      color: var(--accent-rose);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .policy-icon {
+      font-size: 28px;
+      line-height: 1;
+      padding-top: 2px;
+    }
+    .policy-text h4 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+    .policy-banner strong { display: block; font-size: 18px; line-height: 1.45; margin-bottom: 6px; }
+    .policy-banner p { color: var(--text-secondary); font-size: 14px; line-height: 1.65; }
+    .policy-banner p strong { display: inline; font-size: inherit; color: var(--text-primary); margin-bottom: 0; }
+
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 18px 0 26px;
+    }
+    .strategy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+    .strategy-card h4 { font-size: 16px; color: var(--accent-cyan); margin-bottom: 9px; }
+    .strategy-card p, .strategy-card li { color: var(--text-secondary); font-size: 14px; }
+    .strategy-card ul { padding-left: 18px; }
+
+    .layer-stack { display: grid; gap: 10px; margin: 18px 0 24px; }
+    .layer-row {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 16px 20px;
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--accent-indigo);
+      border-radius: 10px;
+      background: var(--bg-card);
+    }
+    .layer-row:nth-child(1), .layer-row:nth-child(5) { border-left-color: var(--accent-emerald); }
+    .layer-row:nth-child(2), .layer-row:nth-child(6) { border-left-color: var(--accent-blue); }
+    .layer-row:nth-child(3) { border-left-color: var(--accent-cyan); }
+    .layer-name { font-weight: 800; color: var(--text-primary); }
+    .layer-products { color: var(--text-secondary); font-size: 14px; }
+
+    .process-grid, .process-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0 24px;
+    }
+    .process-grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .process-step {
+      position: relative;
+      padding: 20px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--bg-card);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .process-step .step-no {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--accent-cyan);
+      font-size: 12.5px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      line-height: 1.3;
+    }
+    .process-step h4 { font-size: 15px; font-weight: 800; margin-bottom: 8px; color: var(--text-primary); }
+    .process-step p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .campaign-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-emerald);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .campaign-item:nth-child(2), .campaign-item:nth-child(4) { border-left-color: var(--accent-indigo); }
+    .campaign-badge {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      margin-bottom: 8px;
+    }
+    .campaign-item:nth-child(2) .campaign-badge,
+    .campaign-item:nth-child(4) .campaign-badge {
+      background: rgba(99, 102, 241, 0.18);
+      color: var(--accent-cyan);
+    }
+    .campaign-item h4 { font-size: 15px; margin-bottom: 6px; }
+    .campaign-item p { color: var(--text-secondary); font-size: 13.5px; }
+
+    /* 멤버별 R&R 상세 카드 그리드 */
+    .member-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .member-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-top: 4px solid var(--accent-blue);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .member-card.lead { border-top-color: var(--accent-amber); }
+    .member-card.arch { border-top-color: var(--accent-cyan); }
+    .member-card.gtm { border-top-color: var(--accent-emerald); }
+    .member-card.tech { border-top-color: var(--accent-rose); }
+    .member-card.voice { border-top-color: var(--accent-purple); }
+    .member-card.collab { border-top-color: var(--accent-indigo); }
+
+    .member-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .member-name { font-size: 18px; font-weight: 800; color: var(--text-primary); }
+    .member-role-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-cyan);
+    }
+    .member-section-label {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--accent-amber);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 4px;
+    }
+    .member-list {
+      padding-left: 18px;
+      font-size: 13.8px;
+      color: var(--text-secondary);
+    }
+    .member-list li { margin-top: 4px; }
+
+    .raci-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .raci-ar { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
+    .raci-r { background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); }
+    .raci-a { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); }
+    .raci-c { background: rgba(148, 163, 184, 0.18); color: var(--text-secondary); }
+
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .timeline-step {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-top: 3px solid var(--accent-cyan);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .week-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+      margin-bottom: 8px;
+    }
+    .timeline-step h4 { font-size: 15.5px; font-weight: 800; margin-bottom: 10px; line-height: 1.4; }
+    .timeline-step p { font-size: 13.5px; color: var(--text-secondary); }
+
+    /* 편집 모드 */
+    .edit-only, .edit-banner { display: none; }
+    body.editing .edit-only { display: inline-flex; }
+    body.editing .edit-banner {
+      display: block;
+      margin-bottom: 20px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px dashed var(--accent-amber);
+    }
+    body.editing #editBtn { border-color: var(--accent-amber); color: var(--accent-amber); }
+    body.editing #docContent [contenteditable="true"]:hover {
+      outline: 1px dashed rgba(245, 158, 11, 0.5);
+      outline-offset: 4px;
+    }
+    body.editing #docContent [contenteditable="true"]:focus {
+      outline: 2px solid var(--accent-amber);
+      outline-offset: 4px;
+    }
+
+    footer { text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 13px; }
+
+    @media (max-width: 960px) {
+      .flow-grid, .timeline, .strategy-grid, .process-grid, .process-grid-3, .campaign-grid, .member-cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .policy-banner, .layer-row { grid-template-columns: 1fr; }
+      .hero-header, .section { padding: 24px 20px; }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #000 !important; padding: 0; }
+      .top-toolbar, .edit-banner { display: none !important; }
+      .section, .hero-header, .idea-card, .dilemma-item, .timeline-step, .member-card, table {
+        box-shadow: none !important;
+        break-inside: avoid;
+      }
+    }
+  
+    /* v3.4 change tracking — source visual language preserved */
+    .change-badge {
+      display:inline-flex; align-items:center; gap:6px; margin-left:8px; padding:3px 8px;
+      border:1px solid rgba(245,158,11,.48); border-radius:999px; color:var(--accent-amber);
+      background:rgba(245,158,11,.11); font-size:11px; font-weight:800; vertical-align:middle;
+    }
+    .change-tracker { border-color:rgba(245,158,11,.58); box-shadow:0 18px 50px rgba(245,158,11,.08); }
+    .change-summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:16px; }
+    .change-summary-card { border:1px solid var(--border); border-radius:12px; padding:13px; background:rgba(245,158,11,.055); }
+    .change-summary-card strong { display:block; color:var(--accent-amber); margin-bottom:5px; }
+    .source-diff { display:none; margin-top:18px; }
+    body.show-source-diff .source-diff { display:block; }
+    .diff-item { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:10px 0; }
+    .diff-old,.diff-new { border:1px solid var(--border); border-radius:12px; padding:13px; line-height:1.65; }
+    .diff-old { background:rgba(244,63,94,.055); }
+    .diff-new { background:rgba(16,185,129,.065); }
+    .diff-label { display:block; font-size:11px; font-weight:900; letter-spacing:.08em; margin-bottom:6px; }
+    .diff-old .diff-label { color:#fb7185; }
+    .diff-new .diff-label { color:var(--accent-emerald); }
+    del { color:#fb7185; text-decoration-thickness:2px; }
+    ins { color:var(--accent-emerald); text-decoration:none; font-weight:800; }
+    .policy-callout { border:1px solid rgba(244,63,94,.55); border-left:5px solid #fb7185; border-radius:14px; padding:17px 19px; background:rgba(244,63,94,.065); margin-top:20px; }
+    .policy-callout h3 { color:#fb7185; margin:0 0 8px; }
+    .policy-callout p { margin:5px 0; line-height:1.72; }
+    @media (max-width:900px) { .change-summary-grid{grid-template-columns:1fr 1fr}.diff-item{grid-template-columns:1fr} }
+    @media (max-width:560px) { .change-summary-grid{grid-template-columns:1fr} }
+    @media print { .source-diff{display:block!important}.toolbar-actions .diff-toggle{display:none} }
+  
+    /* v3.4 change tracking — source visual language preserved */
+    .change-badge {
+      display:inline-flex; align-items:center; gap:6px; margin-left:8px; padding:3px 8px;
+      border:1px solid rgba(245,158,11,.48); border-radius:999px; color:var(--accent-amber);
+      background:rgba(245,158,11,.11); font-size:11px; font-weight:800; vertical-align:middle;
+    }
+    .change-tracker { border-color:rgba(245,158,11,.58); box-shadow:0 18px 50px rgba(245,158,11,.08); }
+    .change-summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:16px; }
+    .change-summary-card { border:1px solid var(--border); border-radius:12px; padding:13px; background:rgba(245,158,11,.055); }
+    .change-summary-card strong { display:block; color:var(--accent-amber); margin-bottom:5px; }
+    .source-diff { display:none; margin-top:18px; }
+    body.show-source-diff .source-diff { display:block; }
+    .diff-item { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:10px 0; }
+    .diff-old,.diff-new { border:1px solid var(--border); border-radius:12px; padding:13px; line-height:1.65; }
+    .diff-old { background:rgba(244,63,94,.055); }
+    .diff-new { background:rgba(16,185,129,.065); }
+    .diff-label { display:block; font-size:11px; font-weight:900; letter-spacing:.08em; margin-bottom:6px; }
+    .diff-old .diff-label { color:#fb7185; }
+    .diff-new .diff-label { color:var(--accent-emerald); }
+    del { color:#fb7185; text-decoration-thickness:2px; }
+    ins { color:var(--accent-emerald); text-decoration:none; font-weight:800; }
+    .policy-callout { border:1px solid rgba(244,63,94,.55); border-left:5px solid #fb7185; border-radius:14px; padding:17px 19px; background:rgba(244,63,94,.065); margin-top:20px; }
+    .policy-callout h3 { color:#fb7185; margin:0 0 8px; }
+    .policy-callout p { margin:5px 0; line-height:1.72; }
+    @media (max-width:900px) { .change-summary-grid{grid-template-columns:1fr 1fr}.diff-item{grid-template-columns:1fr} }
+    @media (max-width:560px) { .change-summary-grid{grid-template-columns:1fr} }
+    @media print { .source-diff{display:block!important}.toolbar-actions .diff-toggle{display:none} }
+  
+    /* v3.4 change tracking — source visual language preserved */
+    .change-badge {
+      display:inline-flex; align-items:center; gap:6px; margin-left:8px; padding:3px 8px;
+      border:1px solid rgba(245,158,11,.48); border-radius:999px; color:var(--accent-amber);
+      background:rgba(245,158,11,.11); font-size:11px; font-weight:800; vertical-align:middle;
+    }
+    .change-tracker { border-color:rgba(245,158,11,.58); box-shadow:0 18px 50px rgba(245,158,11,.08); }
+    .change-summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:16px; }
+    .change-summary-card { border:1px solid var(--border); border-radius:12px; padding:13px; background:rgba(245,158,11,.055); }
+    .change-summary-card strong { display:block; color:var(--accent-amber); margin-bottom:5px; }
+    .source-diff { display:none; margin-top:18px; }
+    body.show-source-diff .source-diff { display:block; }
+    .diff-item { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:10px 0; }
+    .diff-old,.diff-new { border:1px solid var(--border); border-radius:12px; padding:13px; line-height:1.65; }
+    .diff-old { background:rgba(244,63,94,.055); }
+    .diff-new { background:rgba(16,185,129,.065); }
+    .diff-label { display:block; font-size:11px; font-weight:900; letter-spacing:.08em; margin-bottom:6px; }
+    .diff-old .diff-label { color:#fb7185; }
+    .diff-new .diff-label { color:var(--accent-emerald); }
+    del { color:#fb7185; text-decoration-thickness:2px; }
+    ins { color:var(--accent-emerald); text-decoration:none; font-weight:800; }
+    .policy-callout { border:1px solid rgba(244,63,94,.55); border-left:5px solid #fb7185; border-radius:14px; padding:17px 19px; background:rgba(244,63,94,.065); margin-top:20px; }
+    .policy-callout h3 { color:#fb7185; margin:0 0 8px; }
+    .policy-callout p { margin:5px 0; line-height:1.72; }
+    @media (max-width:900px) { .change-summary-grid{grid-template-columns:1fr 1fr}.diff-item{grid-template-columns:1fr} }
+    @media (max-width:560px) { .change-summary-grid{grid-template-columns:1fr} }
+    @media print { .source-diff{display:block!important}.toolbar-actions .diff-toggle{display:none} }
+  </style>
+</head>
+<body>
+  <div class="doc-wrapper">
+    <header class="hero-header">
+      <div class="hero-badge-row">
+        <span class="hero-badge">EXECUTIVE BUSINESS PLAN 2026–2027</span>
+        <span class="hero-badge cyan">OPTION A • 4+1 FLAGSHIP ITEMS</span>
+        <span class="hero-badge emerald">SELECT &amp; FOCUS (선택과 집중)</span>
+      </div>
+      <h1 class="hero-title">ISV BU Hybrid Cloud 팀 핵심 사업계획서<br /><span style="color:var(--accent-cyan);">『4+1 주력 비즈니스 아이템』 중심 선택과 집중</span></h1>
+      <p class="hero-subtitle">
+        20여 개 개별 벤더와 초기 과제를 나열하던 백화점식 구성을 탈피하여, <strong>① Hybrid Cloud 정체성 적합성, ② 즉각적인 매출 가시성(Stage 2~5 실체), ③ 팀 내 기술(가상화·H/W·네트워크·AI) 시너지 결합</strong>을 기준으로 엄선한 <strong>『4대 핵심 하이브리드 클라우드 아이템 + 1대 특화 트랙(4+1 Flagship)』</strong> 중심의 경영진 보고용 사업계획서입니다.
+      </p>
+
+      <div class="kpi-strip">
+        <div class="kpi-box">
+          <div class="kpi-label">핵심 사업 포트폴리오 압축</div>
+          <div class="kpi-value">20개 산발 ➔ 4+1 주력</div>
+          <div class="kpi-note">단품 벤더는 4+1 패키지의 옵션으로 통합</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">아이템 ① 가상화 탈출 &amp; 역송환</div>
+          <div class="kpi-value">Red Hat OVE · Nutanix NC2</div>
+          <div class="kpi-note">티머니(35%) · 금융권 · Sales Tool Kit</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">아이템 ② 폐쇄망 AI &amp; 코딩 WS 렌탈</div>
+          <div class="kpi-value">2차 SI 강소 20곳 · Tango V2</div>
+          <div class="kpi-note">퍼블릭AI 모델 · LIG넥스원(35%) · KG ICT(20%)</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">아이템 ③·④·(+1) 연결·AIDC·보이스</div>
+          <div class="kpi-value">NW(85%/40%) · 대구AIDC · 셀트리온</div>
+          <div class="kpi-note">KT Kentik(40%) · 대구시청(차주) · 셀트리온(20%)</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <!-- 1. Executive Summary -->
+      <section class="section">
+        <h2 class="section-title">1. Executive Summary: 왜 지금 'Hybrid Cloud'인가? (4+1 포트폴리오 재편)</h2>
+        <p class="section-desc">
+          고객은 현재 <strong>① 브로드컴의 VMware 가격 폭등(온프렘 위기), ② 퍼블릭 클라우드 고정비 및 H/W CapEx 급증(비용 위기), ③ 망분리 규제로 인한 SaaS AI 사용 불가(보안 위기)</strong>라는 3대 딜레마에 직면해 있습니다. Hybrid Cloud 팀은 이 3대 문제를 해결하는 <strong>『4+1 핵심 아이템』</strong>에만 역량을 집중합니다.
+        </p>
+
+        <div class="process-grid-3" style="margin-bottom: 24px;">
+          <div class="process-step" style="border-color: var(--accent-rose);">
+            <span class="step-no" style="background:rgba(244,63,94,0.2); color:var(--accent-rose);">PAIN POINT 1 ➔ ITEM ①</span>
+            <h4>VMware 가격 폭등 &amp; 클라우드 비용 부담</h4>
+            <p><strong>➔ 아이템 ① 『VMware 탈출 &amp; 클라우드 역송환(Repatriation)』</strong><br />Red Hat OVE 및 Nutanix NC2/NCI로 전환하고, H/W·백업 OPEX와 기존 DC 네트워크 연계 설계를 세트로 공급합니다.</p>
+          </div>
+          <div class="process-step" style="border-color: var(--accent-cyan);">
+            <span class="step-no">PAIN POINT 2 ➔ ITEM ② &amp; (+1)</span>
+            <h4>망분리/폐쇄망 규제로 외부 SaaS AI 차단</h4>
+            <p><strong>➔ 아이템 ② 『폐쇄망 턴키 AI &amp; 코딩 WS 렌탈』 + 트랙(+1) 『Teams Phone × LiveHUB』</strong><br />외부 인터넷 없이 즉시 구동되는 코딩 WS 렌탈과 폐쇄망 AI 클러스터(RHOAI+Tango V2), 하이브리드 보이스 AI를 공급합니다.</p>
+          </div>
+          <div class="process-step" style="border-color: var(--accent-emerald);">
+            <span class="step-no" style="background:rgba(16,185,129,0.2); color:var(--accent-emerald);">PAIN POINT 3 ➔ ITEM ③ &amp; ④</span>
+            <h4>하이브리드 망 복잡성 &amp; GPU 초기 투자비</h4>
+            <p><strong>➔ 아이템 ③ 『Hybrid Network 가시성 &amp; AI Fabric』 + 아이템 ④ 『GPUaaS &amp; 대구 AIDC』</strong><br />기존 NW 유지보수(85%) 위에 Kentik·Infoblox·RoCEv2를 얹고, GPUaaS 구독 브릿지 및 지역 거점 AIDC를 구축합니다.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 11%;">구분</th>
+                <th style="width: 22%;">핵심 비즈니스 아이템 (4+1 Flagship)</th>
+                <th style="width: 18%;">흡수·결합된 세부 솔루션 (단품 나열 폐지)</th>
+                <th style="width: 25%;">대표 실체 파이프라인 (현재 진도 / 퍼널)</th>
+                <th style="width: 12%;">매출 성격</th>
+                <th style="width: 12%;">주 오너 (협업)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>아이템 ①<br />(Core 1)</strong></td>
+                <td><strong>VMware 탈출 &amp; 클라우드 역송환(Repatriation) 하이브리드 전환</strong></td>
+                <td>• <strong>전환</strong>: Red Hat OVE + Nutanix NC2/NCI<br />• <strong>OPEX 옵션</strong>: Dell/HPE · MinIO/Veeam/Zadara · Exadata 백업<br />• <strong>NW</strong>: 기존 DC 네트워크 연계 설계</td>
+                <td>• <strong>티머니</strong> Red Hat OVE 전환 (<code>Stage 3, 35%</code>)<br />• <strong>Nutanix NC2/DR</strong> Discovery (<code>Stage 2, 20%</code>)<br />• 금융권(우리·신한·BNK) 전환 (<code>Stage 1, 10%</code>)</td>
+                <td><strong>중기 주력 매출</strong><br />(SW+HW+용역)</td>
+                <td><strong>이성표 · 최재규</strong><br />(안재우·최성호)</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ②<br />(Core 2)</strong></td>
+                <td><strong>폐쇄망(Air-Gap) 턴키 AI 플랫폼 &amp; 온프렘 코딩 에이전트 WS 렌탈</strong></td>
+                <td>• <strong>소형 렌탈</strong>: 코딩 WS (DGX Spark/RTX 6000 + VibeForge + RHOAI + Nota)<br />• <strong>중대형</strong>: Dell GPU + RHOAI/Acryl + <strong>Tango V2(Run:ai)</strong> + RoCEv2</td>
+                <td>• <strong>LIG넥스원</strong> Tango 7식 16억 (<code>Stage 3, 35%</code>)<br />• <strong>KG ICT</strong> (<code>Stage 2, 20%</code>, 차주 미팅/계획서)<br />• <strong>퍼블릭AI 등 2차 SI 강소 20곳 렌탈</strong> (<code>Stage 1, 15%</code>)</td>
+                <td><strong>월 렌탈(OPEX) &amp; 고마진 패키지</strong></td>
+                <td><strong>김성호 · 안재우 · 이성표</strong><br />(Tango 협업라인)</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ③<br />(Core 3)</strong></td>
+                <td><strong>Hybrid Network 가시성·DDI &amp; AI Network Fabric</strong></td>
+                <td>• <strong>기반 수성</strong>: Cisco(SD-WAN/Meraki/Duo) 갱신<br />• <strong>가시성/DDI</strong>: Kentik + Infoblox + Equinix<br />• <strong>AI Fabric</strong>: RoCEv2 / InfiniBand 스위치·광모듈 BoM</td>
+                <td>• <strong>기존 Network 유지보수 갱신</strong> (<code>Stage 5, 85%</code>)<br />• <strong>KT Kentik/Infoblox PoC &amp; 일본</strong> (<code>Stage 3, 40%</code>)<br />• AI 사업 RoCEv2 BoM 편입 (<code>Stage 1, 10%</code>)</td>
+                <td><strong>확정 기반 매출(ARR) &amp; BoM 확대</strong></td>
+                <td><strong>박경륜 · 최성호</strong><br />(전략딜: 최재규)</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ④<br />(Core 4)</strong></td>
+                <td><strong>하이브리드 GPUaaS &amp; 지역 거점형 AIDC (대구 수성 AIDC)</strong></td>
+                <td>• <strong>GPUaaS 브릿지</strong>: KINX/가비아 · SKT 해인(B200) · Akamai-NVIDIA NCP<br />• <strong>거점 AIDC</strong>: 대구 수성알파시티 로봇 트레이닝 센터<br />• <strong>하위 Seed</strong>: 원익·현대로템·KISTI 통합</td>
+                <td>• <strong>KINX/가비아·SKT GPUaaS</strong> (<code>Stage 2, 20%</code>)<br />• <strong>대구 수성 AIDC</strong> (<code>Stage 1, 15%</code>, <strong>차주 월요일 대구시청 첫 공식 미팅</strong>)<br />• Physical AI Seed 3건 (<code>각 10%</code>)</td>
+                <td><strong>월 구독 리셀 &amp; 대형 Top-Line</strong></td>
+                <td><strong>김성호 · 안재우</strong><br />(박경륜·이성표)</td>
+              </tr>
+              <tr>
+                <td><strong>특화 (+1)<br />(Track +1)</strong></td>
+                <td><strong>Enterprise Cloud Voice &amp; AICC (Teams Phone × LiveHUB)</strong></td>
+                <td>• <strong>Voice 통합</strong>: AudioCodes SBC + Teams Phone + Live Platform(ARR)<br />• <strong>Voice AI</strong>: LiveHUB 보이스봇·실시간 통역 + <strong>Nexus(CTI) 협력</strong></td>
+                <td>• <strong>셀트리온 1,800석</strong> (<code>Stage 2, 20%</code>, <strong>E7 라이선스 계약 완료 ➔ 구축 수주 추진</strong>)<br />• <strong>3부문 E5·금융권 전환 / AICC</strong> (<code>Stage 1, 10%</code>)</td>
+                <td><strong>단기 Quick-Win 구축 &amp; 매니지드 ARR</strong></td>
+                <td><strong>장필성</strong><br />(3부문·Nexus 협력)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 2. 4+1 핵심 아이템별 상세 사업 전략 -->
+      <section class="section">
+        <h2 class="section-title">2. 『4+1 핵심 비즈니스 아이템』 상세 사업 전략 및 패키지 구조</h2>
+        <p class="section-desc">
+          단품 솔루션을 나열하지 않고 고객의 비즈니스 과제를 해결하는 <strong>5개 완결형 오퍼링 카드</strong>로 표준화하여 코어 세일즈 및 MPN 파트너와 공동 판매합니다.
+        </p>
+
+        <div class="member-cards-grid">
+          <!-- Item 1 -->
+          <div class="member-card arch">
+            <div class="member-head">
+              <div class="member-name">🏆 아이템 ① VMware 탈출 &amp; 클라우드 역송환 전환</div>
+              <span class="member-role-badge">Core Item 1 • 정통 Hybrid Cloud 엔진</span>
+            </div>
+            <div class="member-section-label">🎯 타겟 Pain Point &amp; 핵심 해법</div>
+            <ul class="member-list">
+              <li><strong>시장 기회</strong>: Broadcom의 VMware 구독료 3~5배 폭등 및 퍼블릭 클라우드 고정비 급증으로 <strong>온프렘 하이퍼바이저 교체와 클라우드 역송환(Repatriation)</strong> 수요 동시 폭발</li>
+              <li><strong>Track 1-A (오픈소스/컨테이너 전환 — 이성표)</strong>: <code>VMware ➔ Red Hat OpenShift Virtualization(OVE) + MTV + Ansible</code> (기존 x86 서버·SAN 재사용으로 초기 투자 최소화)</li>
+              <li><strong>Track 1-B (HCI/클라우드 역송환·DR — 최재규)</strong>: <code>Nutanix NC2 on AWS ⇄ 온프렘 NCI/AHV</code> 기반 워크로드 양방향 이동 및 하이브리드 DR 구현</li>
+            </ul>
+            <div class="member-section-label">🔗 결합 옵션 (단품 솔루션을 패키지 하위로 흡수) &amp; 목표</div>
+            <ul class="member-list">
+              <li><strong>H/W·스토리지·백업 OPEX 결합 (안재우)</strong>: 신규 장비/백업 필요 시 <code>MZC Infrastructure Flex</code>(서버 Dell→HPE / 스토리지 MinIO·Dell→NetApp / 백업 Veeam→Veritas, 선택옵션 Zadara·Exadata 백업) 월 과금 모델 결합</li>
+              <li><strong>전환 네트워크 기본 결합 (최성호)</strong>: 서비스 영향을 최소화하는 기존 DC 네트워크(VLAN·라우팅·이중화) 연계 진단 및 설계</li>
+              <li><strong>대표 파이프라인 &amp; KPI</strong>: <strong>티머니 OVE 전환(Stage 3, 35%)</strong> 클로징 + <strong>3단계 Sales Tool Kit</strong> 기반 상반기 Discovery 10건 · 유효 Opty 5건 · 제안 3건+ · 유상 PoC/본사업 1건+</li>
+            </ul>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="member-card lead">
+            <div class="member-head">
+              <div class="member-name">🏆 아이템 ② 폐쇄망 턴키 AI &amp; 코딩 에이전트 WS 렌탈</div>
+              <span class="member-role-badge">Core Item 2 • 보안·망분리 특화 Hybrid AI</span>
+            </div>
+            <div class="member-section-label">🎯 타겟 Pain Point &amp; 핵심 해법</div>
+            <ul class="member-list">
+              <li><strong>시장 기회</strong>: 물리적 망분리와 보안 감사로 외부 SaaS AI(Copilot, Cursor, ChatGPT) 사용이 전면 금지된 <strong>공공·금융·방산 개발 현장의 생산성 병목 해결</strong></li>
+              <li><strong>Tier 2-A [소형/렌탈] 온프렘 코딩 에이전트 WS</strong>: <code>DGX Spark / RTX 6000 WS + VibeForge + RHOAI SNO + Nota 경량화</code>를 <strong>100인 이내 2차 AI·공공 SI 강소기업 20곳(기준: 퍼블릭에이아이)</strong> 합숙소에 6~18개월 월 렌탈(한국/AJ/롯데렌탈 Pull-Through) 공급</li>
+              <li><strong>Tier 2-B [중대형/구축] 폐쇄망 AI 클러스터 &amp; Tango V2</strong>: <code>Dell/HPE GPU + RHOAI/Acryl + Tango V2(물리 실장도 + 오픈소스 NVIDIA Run:ai &amp; DCGM 제어) + RoCEv2 NW</code>를 외산 관제 대비 반값 패키지로 번들 공급</li>
+            </ul>
+            <div class="member-section-label">🔗 대표 파이프라인 &amp; 단기 목표</div>
+            <ul class="member-list">
+              <li><strong>LIG넥스원 Tango 7식(16억, Stage 3, 35%)</strong> 영업 채널 즉시 복구 및 후속 체계사업 MoU</li>
+              <li><strong>KG ICT (Stage 2, 20%)</strong>: <strong>차주 고객 미팅 및 초기 사업계획서 전달</strong>을 통한 기술검증(PoC) 착수</li>
+              <li><strong>퍼블릭에이아이·아크릴 등 2차 SI 강소기업 20곳(Stage 1, 15%)</strong> 2주 무상 파일럿 투입 및 렌탈 1호 계약</li>
+            </ul>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="member-card gtm">
+            <div class="member-head">
+              <div class="member-name">🏆 아이템 ③ Hybrid Network 가시성·DDI &amp; AI Fabric</div>
+              <span class="member-role-badge">Core Item 3 • 확정 Cash Cow &amp; 전 사업 혈관</span>
+            </div>
+            <div class="member-section-label">🎯 타겟 Pain Point &amp; 핵심 해법</div>
+            <ul class="member-list">
+              <li><strong>기반 Cash Cow 수성 (최성호·박경륜)</strong>: 포스코(SD-WAN), 무신사, 아이스트로, 에이프로젠 등 <strong>기존 Cisco(Meraki, Duo, SD-WAN) 유지보수·Warranty 계약의 안정적 갱신 추진 (Stage 5, 85%)</strong></li>
+              <li><strong>하이브리드 가시성·DDI 업셀링 (최재규·박경륜)</strong>: 온프렘-클라우드 구간의 트래픽 가시성(<strong>Kentik</strong>), IP/DNS 통합관리(<strong>Infoblox DDI</strong>), 클라우드 직결(<strong>Equinix</strong>) 결합 제안</li>
+              <li><strong>AI Network 3단계 BoM 기본 편입 (박경륜·최성호)</strong>: 팀의 모든 AI 서버 사업 초기 설계부터 <strong>Enterprise(망분리/방화벽) ➔ Scale-out(RoCEv2 고성능 이더넷) ➔ AIDC(InfiniBand/RoCEv2)</strong> 스위치·NIC·광모듈 BoM 기본 편입</li>
+            </ul>
+            <div class="member-section-label">🔗 대표 파이프라인 &amp; 단기 목표</div>
+            <ul class="member-list">
+              <li><strong>기존 유지보수 계약(85%)</strong> 안정적 갱신 완료 및 신규 구축 고객의 유지보수(ARR) 전환</li>
+              <li><strong>국내 KT Kentik/Infoblox PoC 및 일본 공급 (Stage 3, 40%)</strong> 검증 단계별 전환율 관리 및 본계약 수주</li>
+              <li>팀 AI 사업 초기 설계 Network BoM 참여 <strong>3건 이상</strong> 및 <strong>다중 노드 RoCEv2 레퍼런스 1건 확보</strong></li>
+            </ul>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="member-card tech">
+            <div class="member-head">
+              <div class="member-name">🏆 아이템 ④ 하이브리드 GPUaaS &amp; 지역 거점형 AIDC</div>
+              <span class="member-role-badge">Core Item 4 • 구독형 GPU 브릿지 &amp; Mega Deal</span>
+            </div>
+            <div class="member-section-label">🎯 타겟 Pain Point &amp; 핵심 해법</div>
+            <ul class="member-list">
+              <li><strong>하이브리드 GPUaaS 브릿지 (김성호·안재우)</strong>: H100/H200/B200 도입 리드타임과 초기 CapEx 부담을 겪는 기업에 <strong>KINX/가비아 GPUaaS · SKT 해인(B200) 벌크 리셀 · Akamai-NVIDIA NCP</strong>를 구독형 브릿지로 제공</li>
+              <li><strong>대표 거점 AIDC — 『대구 수성알파시티 로봇 트레이닝 센터 &amp; AIDC』</strong>: 지자체 거점 피지컬 AI 트레이닝 센터 및 AIDC 구축·위탁운영 모델 추진</li>
+              <li><strong>Physical AI Seed 통합 관리</strong>: 초기 기획/준비 단계인 <strong>원익로보틱스(10%)·현대로템(10%, 미진·재정비)·KISTI(10%)</strong>는 개별 나열하지 않고 본 아이템 하위의 중장기 Seed 파이프라인으로 일원화 관리</li>
+            </ul>
+            <div class="member-section-label">🔗 대표 파이프라인 &amp; 단기 목표</div>
+            <ul class="member-list">
+              <li><strong>대구 수성 AIDC (Stage 1, 15%)</strong>: <strong>차주 월요일 대구시청 공무원 첫 공식 미팅 수행 및 사업계획서 작성·제출</strong></li>
+              <li><strong>KINX/가비아·SKT GPUaaS (Stage 2, 20%)</strong>: 리셀 단가/할인율 확정 및 초기 앵커 고객 1곳 매칭</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Track +1 Full Width Card -->
+        <div class="member-card voice" style="margin-bottom: 10px;">
+          <div class="member-head">
+            <div class="member-name">🏆 특화 트랙 (+1) Enterprise Cloud Voice &amp; AICC — 『Teams Phone × LiveHUB 하이브리드 보이스 AI』 <span style="font-size:13px; color:var(--text-muted); font-weight:500;">(주도: 장필성 SE)</span></div>
+            <span class="member-role-badge">Specialized Track +1 • 단기 수주 &amp; 매니지드 ARR</span>
+          </div>
+          <div class="member-section-label">🎯 하이브리드 보이스 아키텍처 정의 &amp; 대표 파이프라인</div>
+          <ul class="member-list">
+            <li><strong>핵심 컨셉 ("전화 교체가 아닌 Teams 통합 + 보이스 AI")</strong>: 온프렘 레거시 교환기(IP-PBX)·국선과 클라우드 M365 Teams를 <strong>AudioCodes SBC(Direct Routing) 및 Live Platform 매니지드 서비스(ARR)</strong>로 하이브리드 통합하고, 그 위에 <strong>LiveHUB(보이스봇·Agent Assist·실시간 통역) 및 사내 폐쇄망 LLM(BYO-AI)</strong>을 연결합니다.</li>
+            <li><strong>1순위 타겟 — 셀트리온 Teams Phone 구축 (Stage 2, 20%)</strong>: 올해 <strong>MS Office365 E7 라이선스 계약(1,800 Users/제니스클라우드, 팀즈 전화 라이선스 포함)을 체결한 셀트리온</strong>을 대상으로 <strong>팀즈 전화 구축 본사업을 수주</strong>하여 대표 준거 레퍼런스를 확보합니다.</li>
+            <li><strong>확장 타겟 — 금융권(내부망 SaaS 허용) &amp; CTI 벤더 AICC 협력 (Stage 1, 10%)</strong>: 2026.04 전자금융감독규정 개정에 맞춰 <strong>3부문 영업팀과 협업해 500인+ M365 E5 고객 및 금융권(SC은행 사례 활용) 전환 PoC 3건</strong>을 수행하고, <strong>국내 CTI 솔루션 벤더(Nexus Community)와의 AICC 보이스봇 서비스 협력 모델 및 데모 환경</strong>을 구축합니다.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3. 통합 영업 퍼널 대시보드 -->
+      <section class="section">
+        <h2 class="section-title">3. 『4+1 핵심 아이템』 통합 영업 퍼널(Sales Funnel) 및 진행률(%) 대시보드</h2>
+        <p class="section-desc">
+          기존 20개 항목을 『4+1 핵심 아이템』 소속 <strong>12개 정예 파이프라인</strong>으로 압축하여, 경영진이 단계별 전환 목표를 직관적으로 관리할 수 있도록 재구성했습니다.
+        </p>
+
+        <div class="table-wrap" style="margin-bottom: 24px;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 14%;">소속 핵심 아이템</th>
+                <th style="width: 22%;">정예 파이프라인 / 과제명</th>
+                <th style="width: 25%;">현재 상태 및 근거 (2026-11-06 기준)</th>
+                <th style="width: 12%;">퍼널 단계</th>
+                <th style="width: 7%;">진행률</th>
+                <th style="width: 8%;">주 담당</th>
+                <th style="width: 12%;">단기 Next Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>아이템 ③ Network</strong></td>
+                <td><strong>1. 기존 Network 유지보수 &amp; Warranty</strong></td>
+                <td>포스코(SD-WAN), 무신사, 아이스트로, 에이프로젠 등 기존 계약 유지</td>
+                <td><span class="raci-badge raci-r">Stage 5 (계약유지)</span></td>
+                <td><strong>85%</strong></td>
+                <td>최성호·박경륜</td>
+                <td>안정적 계약 갱신 &amp; 가시성 업셀링</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ③ Network</strong></td>
+                <td><strong>2. Kentik &amp; Infoblox 전략 딜 (KT PoC / 일본)</strong></td>
+                <td>국내 KT PoC 진행 중, 일본 Private Cloud 공급 타진</td>
+                <td><span class="raci-badge raci-a">Stage 3 (PoC/제안)</span></td>
+                <td><strong>40%</strong></td>
+                <td>최재규·박경륜</td>
+                <td>KT PoC 전환율 관리 &amp; 일본 본계약</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ① 전환</strong></td>
+                <td><strong>3. 티머니 (VMware ➔ Red Hat OVE 전환)</strong></td>
+                <td>『티머니 VMware 가상화 전환 제언서(26.11)』 완료 및 진단 추진</td>
+                <td><span class="raci-badge raci-a">Stage 3 (전환제언)</span></td>
+                <td><strong>35%</strong></td>
+                <td>이성표·최성호</td>
+                <td>2주 호환성 진단 &amp; 대표 VM PoC</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ② 폐쇄망 AI</strong></td>
+                <td><strong>4. LIG넥스원 (Tango 7식, 16억) &amp; Tango V2</strong></td>
+                <td>기 견적 후 영업 퇴사로 홀딩(채널 복구 중), 연말 Tango V2 출시</td>
+                <td><span class="raci-badge raci-a">Stage 3 (채널복구)</span></td>
+                <td><strong>35%</strong></td>
+                <td>김성호·협업라인</td>
+                <td>영업 채널 즉시 복구/MoU &amp; 번들가 확정</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ② 폐쇄망 AI</strong></td>
+                <td><strong>5. KG ICT (AI 플랫폼 / 하이브리드)</strong> <span class="change-badge">차주 미팅</span></td>
+                <td><strong>차주 고객 미팅 및 초기 사업계획서 전달 예정 (초기 영업기회)</strong></td>
+                <td><span class="raci-badge raci-c">Stage 2 (초기기회)</span></td>
+                <td><strong>20%</strong></td>
+                <td>김성호·최재규</td>
+                <td><strong>차주 미팅·초기 계획서 전달 &amp; PoC 협의</strong></td>
+              </tr>
+              <tr>
+                <td><strong>특화 (+1) Voice AI</strong></td>
+                <td><strong>6. 셀트리온 Teams Phone 구축 (1,800석)</strong> <span class="change-badge">E7 체결</span></td>
+                <td><strong>MS Office365 E7 라이선스 계약 완료(제니스클라우드) ➔ 구축 수주 추진</strong></td>
+                <td><span class="raci-badge raci-c">Stage 2 (초기기회)</span></td>
+                <td><strong>20%</strong></td>
+                <td>장필성</td>
+                <td><strong>팀즈 전화 구축 본사업 수주 &amp; 레퍼런스화</strong></td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ① 전환</strong></td>
+                <td><strong>7. Nutanix NC2/NCI 송환·DR (스토리지/백업 결합)</strong></td>
+                <td>Elevator Pitch &amp; Sales Tool Kit v1.0 정립, Exadata 백업 등 Opty 포착</td>
+                <td><span class="raci-badge raci-c">Stage 2 (초기기회)</span></td>
+                <td><strong>20%</strong></td>
+                <td>최재규·안재우</td>
+                <td>Discovery 10건 &amp; H/W·백업 OPEX 결합 제안</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ④ GPUaaS</strong></td>
+                <td><strong>8. 하이브리드 GPUaaS (KINX/가비아·SKT·Akamai)</strong></td>
+                <td>KINX/가비아 Opty 포착, SKT 해인 리셀 및 Akamai-NVIDIA 기획</td>
+                <td><span class="raci-badge raci-c">Stage 2 (초기기회)</span></td>
+                <td><strong>20%</strong></td>
+                <td>김성호·안재우</td>
+                <td>리셀 단가 확정 &amp; 초기 앵커 고객 1곳 매칭</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ④ AIDC</strong></td>
+                <td><strong>9. 대구 수성알파시티 AIDC (로봇 트레이닝 센터)</strong> <span class="change-badge">차주 월 미팅</span></td>
+                <td><strong>기획 단계 — 차주 월요일 대구시청 공무원 첫 공식 미팅 및 계획서 작성 예정</strong></td>
+                <td><span class="raci-badge raci-c">Stage 1 (기획/준비)</span></td>
+                <td><strong>15%</strong></td>
+                <td>김성호</td>
+                <td><strong>차주 월요일 대구시청 첫 미팅 &amp; 계획서 작성</strong></td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ② 폐쇄망 AI</strong></td>
+                <td><strong>10. 온프렘 코딩 에이전트 WS (2차 AI·공공 SI 20곳)</strong> <span class="change-badge">퍼블릭AI 모델</span></td>
+                <td><strong>퍼블릭에이아이 모델 기준 100인 이내 2차 AI·공공 SI 20개사 파밍 착수</strong></td>
+                <td><span class="raci-badge raci-c">Stage 1 (수요처발굴)</span></td>
+                <td><strong>15%</strong></td>
+                <td>김성호·안재우·이성표</td>
+                <td><strong>퍼블릭AI·아크릴 등 20곳 파밍 &amp; 렌탈 매칭</strong></td>
+              </tr>
+              <tr>
+                <td><strong>특화 (+1) Voice AI</strong></td>
+                <td><strong>11. 3부문 M365 E5·금융권 전환 &amp; CTI AICC 협력</strong></td>
+                <td>3부문 영업팀 E5 고객 협업 및 <strong>Nexus Community(CTI) 보이스봇 협력</strong></td>
+                <td><span class="raci-badge raci-c">Stage 1 (기획/발굴)</span></td>
+                <td><strong>10%</strong></td>
+                <td>장필성</td>
+                <td>500인+ E5 워크샵/PoC 3건 &amp; AICC 데모 구축</td>
+              </tr>
+              <tr>
+                <td><strong>아이템 ④ Seed</strong></td>
+                <td><strong>12. [Seed 통합] Physical AI 후보군 &amp; 타팀 협업</strong></td>
+                <td><strong>원익로보틱스·현대로템·KISTI(각 10%, 기획/준비)</strong>, <strong>Articul8(15%, 타팀 메인)</strong></td>
+                <td><span class="raci-badge raci-c">Stage 1 (Seed/협업)</span></td>
+                <td><strong>10~15%</strong></td>
+                <td>김성호·이성표</td>
+                <td>인텔 서밋 기술 지원 &amp; 고객 일정 맞춤 대응</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4. 아이템 ② 핵심 실행안: 퍼블릭AI 모델 기준 2차 AI·공공 SI 강소기업 20곳 파밍 -->
+      <section class="section">
+        <h2 class="section-title">4. [아이템 ② 핵심 실행안] 온프렘 코딩 에이전트 WS 실수요처 파밍 — 『퍼블릭에이아이 모델 기준 2차 AI·공공 SI 강소기업(100인 이내) 20개사』</h2>
+        <p class="section-desc">
+          1차 SI 대기업(수주 주관사)보다 <strong>실제 폐쇄망 합숙소에서 전자정부프레임워크(Java/Spring) 및 sLLM·RAG·데이터 코딩을 직접 수행하는 『사원수 20~100인 이내의 2차 AI·공공 SI 강소기업(기준 모델: 당사 기 협업사 퍼블릭에이아이)』</strong>이 투입 M/M 절감과 직결되는 온프렘 코딩 에이전트 WS 월 렌탈의 핵심 실수요처입니다.
+        </p>
+
+        <div class="table-wrap" style="margin-bottom: 20px;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 11%;">순번 / 구분</th>
+                <th style="width: 15%;">기업명 (벤치마크)</th>
+                <th style="width: 9%;">사원수 규모</th>
+                <th style="width: 24%;">주력 공공 프로젝트 SI 및 AI 업무 특성</th>
+                <th style="width: 18%;">함께 일하는 1차 SI 대기업 · 컨소시엄</th>
+                <th style="width: 12%;">공식 연락처 / 거점</th>
+                <th style="width: 11%;">핵심 공략 포인트</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. ★벤치마크</strong></td>
+                <td><strong>(주)퍼블릭에이아이<br />(PublicAI)</strong> <span class="change-badge">기준모델</span></td>
+                <td><strong>약 41~55명</strong></td>
+                <td><strong>공공기관 AI·빅데이터 플랫폼 구축 및 전자정부 SI</strong>, sLLM/머신러닝 모델링 개발</td>
+                <td><strong>메가존클라우드(기 협업)</strong>, 중견·대형 공공 SI 컨소시엄 내 AI/데이터 전담</td>
+                <td>대표 김성중 · <code>publicai.co.kr</code><br />서초 AICT 우수기업센터</td>
+                <td><strong>기 협업 네트워크로 직통 컨택 ➔ 1호 PoC</strong></td>
+              </tr>
+              <tr>
+                <td><strong>2. 공공·방산 AI</strong></td>
+                <td><strong>(주)아크릴 (Acryl)</strong></td>
+                <td><strong>약 45~50명</strong></td>
+                <td>MLOps/LLMOps(Jonathan) 기반 <strong>공공·의료·국방 AI SI</strong> 및 도메인 sLLM 구축</td>
+                <td><strong>현대로템(RCLLM), 우리 팀(Tango V2) 파트너</strong>, LG CNS·아이티센 협력</td>
+                <td><code>02-2088-1520</code><br />서울 강남 / 서초</td>
+                <td><strong>Tango V2 연계, 공공·방산 합숙소 동반 투입</strong></td>
+              </tr>
+              <tr>
+                <td><strong>3. 공공 SI + AI</strong></td>
+                <td><strong>(주)유클리드소프트</strong></td>
+                <td><strong>약 50~70명</strong></td>
+                <td><strong>중앙부처·지자체·출연연 전자정부프레임워크(Java) 공공 SI/SM</strong> 및 초거대 AI/RAG</td>
+                <td><strong>KT, 아이티센, 대보정보통신</strong> 및 NIA·대전/세종 공공 컨소시엄 핵심 수행사</td>
+                <td><code>02-6937-0039</code><br />대전 본사 / 서울 지사</td>
+                <td>세종·대전 정부청사/출연연 폐쇄망 SI 타겟</td>
+              </tr>
+              <tr>
+                <td><strong>4. 공공·금융 데이터</strong></td>
+                <td><strong>(주)비투엔 (B2EN)</strong></td>
+                <td><strong>약 90~100명</strong></td>
+                <td><strong>공공·금융 차세대 AI·빅데이터 플랫폼 SI</strong>, 데이터 거버넌스 및 파이프라인 개발</td>
+                <td><strong>삼성SDS, LG CNS, SK C&amp;C, 아이티센</strong> 공공·금융 차세대 핵심 데이터/AI 파트너</td>
+                <td><code>02-2636-0090</code><br />서울 영등포구 당산로</td>
+                <td>차세대 합숙소 SQL·데이터·Python 자동화</td>
+              </tr>
+              <tr>
+                <td><strong>5. 공공 NLP·챗봇</strong></td>
+                <td><strong>(주)다이퀘스트</strong></td>
+                <td><strong>약 70~95명</strong></td>
+                <td>국민연금·법률구조공단 등 <strong>공공기관 자연어처리(NLP) 검색·AI 챗봇/콜봇·RAG SI</strong></td>
+                <td><strong>아이티센, 대신정보통신, 대보정보통신, 메타넷</strong> 공공 차세대 내 검색/챗봇 전담</td>
+                <td><code>02-3470-4300</code> 계열<br />서울 구로디지털단지</td>
+                <td>공공 행정망 RAG·챗봇 개발팀 WS 렌탈</td>
+              </tr>
+              <tr>
+                <td><strong>6. 공공 초거대 AI</strong></td>
+                <td><strong>(주)솔트룩스이노베이션</strong></td>
+                <td><strong>약 60명</strong></td>
+                <td><strong>공공기관 대화형 AI 어시스턴트·sLLM·챗봇 SI</strong> 및 초거대 AI 학습 데이터 구축</td>
+                <td><strong>솔트룩스 본사 및 KT·LG CNS·아이티센</strong> 공공 초거대 AI 사업 실제 수행 전담사</td>
+                <td><code>02-557-1723</code><br />서울 강남/성동 · 대전</td>
+                <td>NIA·부처 초거대 AI 실제 파견 개발팀 공략</td>
+              </tr>
+              <tr>
+                <td><strong>7. 공공 포털/AI SI</strong></td>
+                <td><strong>(주)스위트케이</strong></td>
+                <td><strong>약 45~50명</strong></td>
+                <td><strong>정부·공공기관 포털/행정시스템 SI(전자정부프레임워크)</strong>, 클라우드 전환 및 AI 검색</td>
+                <td><strong>아이티센, 메타넷디지털, 농심NDS</strong> 등 공공 SI 주관사의 핵심 개발 협력 파트너</td>
+                <td><code>02-3434-3120</code><br />서울 강남 / 송파</td>
+                <td>사람인/잡코리아 공공 SI 상시 채용 기업</td>
+              </tr>
+              <tr>
+                <td><strong>8. 공공·금융 RAG</strong></td>
+                <td><strong>(주)프로텐 (Proten)</strong></td>
+                <td><strong>약 25~35명</strong></td>
+                <td>자체 검색엔진 및 <strong>생성형 AI 검색(Proten LLM/RAG) 기반 공공·금융 폐쇄망 SI</strong></td>
+                <td><strong>대신정보통신, KCC정보통신</strong> 등 금융·공공 1차 SI 사업의 AI/검색 전문 협력사</td>
+                <td><code>02-2624-1020</code><br />서울 가산디지털단지</td>
+                <td><strong>퍼블릭AI와 가장 유사한 30인 강소기업</strong></td>
+              </tr>
+              <tr>
+                <td><strong>9. 공공 AI/검색 SI</strong></td>
+                <td><strong>(주)메이팜소프트</strong></td>
+                <td><strong>약 20~25명</strong></td>
+                <td>AI 통합검색·챗봇 엔진(IO-STUDIO) 및 <strong>국회·부처·공단 비정형 데이터/RAG SI</strong></td>
+                <td><strong>솔리데오시스템즈, 시스원, 아이티센</strong> 등 공공 SI 컨소시엄 내 AI/검색 전담 파트너</td>
+                <td><code>02-514-5547</code><br />서울 구로디지털단지</td>
+                <td>20여 명 정예 개발자의 다수 공공 사이트 구축</td>
+              </tr>
+              <tr>
+                <td><strong>10. 공공·제조 AIoT</strong></td>
+                <td><strong>(주)심플랫폼</strong></td>
+                <td><strong>약 35~50명</strong></td>
+                <td>산업·공공 AIoT 플랫폼(NUBISON) 기반 <strong>공공기관·국방·제조 현장 AI 데이터/예측 SI</strong></td>
+                <td><strong>LG유플러스, KT, DB아이엔씨</strong> 등 통신/중견 SI의 스마트시티·공공 AI 파트너</td>
+                <td><code>02-6925-4334</code><br />(AX본부 <code>02-6405-4338</code>)</td>
+                <td>AX본부 직통 컨택을 통한 현장 코딩 WS 제안</td>
+              </tr>
+              <tr>
+                <td><strong>11. 공공 클라우드·AI</strong></td>
+                <td><strong>(주)디딤365</strong></td>
+                <td><strong>약 70~95명</strong></td>
+                <td><strong>행정·공공기관 클라우드 네이티브 전환 SI</strong>, 데이터레이크 및 공공 AI 플랫폼 구축</td>
+                <td><strong>KT, NHN클라우드, 아이티센, 메타넷</strong> 공공 클라우드·AI 컨소시엄 핵심 수행사</td>
+                <td><code>1600-3659</code><br />서울 가산디지털단지</td>
+                <td>공공 레거시(Java) ➔ MSA 코드 변환 에이전트</td>
+              </tr>
+              <tr>
+                <td><strong>12. 공공 행정 sLLM</strong></td>
+                <td><strong>(주)포티투마루</strong></td>
+                <td><strong>약 70~90명</strong></td>
+                <td>공공 행정 특화 경량모델(sLLM42) 및 <strong>RAG42 기반 지자체·정부 AI 어시스턴트 SI</strong></td>
+                <td><strong>LG유플러스, 한글과컴퓨터, 아이티센</strong> 등 공공 초거대 AI 컨소시엄 핵심 파트너</td>
+                <td><code>02-6959-4203</code><br />서울 서초 / 강남</td>
+                <td>지자체·정부 행정망 sLLM 구축 시 동반 투입</td>
+              </tr>
+              <tr>
+                <td><strong>13. 공공·금융 LLM</strong></td>
+                <td><strong>(주)올거나이즈코리아</strong></td>
+                <td><strong>약 40~60명</strong></td>
+                <td>조달청 등록 LLM/RAG 플랫폼(Alli) 기반 <strong>공공·금융 온프렘 생성형 AI SI</strong></td>
+                <td><strong>현대카드·KB증권·한국토지주택공사(LH)</strong> 등 금융·공공 온프렘 구축 및 1차 SI 협력</td>
+                <td><code>allganize.ai</code><br />서울 강남 테헤란로</td>
+                <td>금융·공공 폐쇄망 LLM 연동 개발 및 H/W 결합</td>
+              </tr>
+              <tr>
+                <td><strong>14. 공공·금융 AICC</strong></td>
+                <td><strong>(주)페르소나에이아이</strong></td>
+                <td><strong>약 95~105명</strong></td>
+                <td>자체 경량 NLP·생성형 엔진(KGPT) 기반 <strong>공공·금융 AICC(콜봇/챗봇) 및 온프렘 AI SI</strong></td>
+                <td><strong>SK텔레콤, 효성ITX, 금융/공공 1차 SI</strong> 컨소시엄 내 AICC·대화형 AI 파트너</td>
+                <td><code>02-762-8713</code><br />서울 강남 삼성동</td>
+                <td>폐쇄망 AICC 코딩 + LiveHUB 보이스 교차 협력</td>
+              </tr>
+              <tr>
+                <td><strong>15. 공공·의료 AI/SI</strong></td>
+                <td><strong>(주)미소정보기술</strong></td>
+                <td><strong>약 80~110명</strong></td>
+                <td>국립대병원·질병청·공공기관 <strong>멀티모달 빅데이터 플랫폼, 의료/공공 sLLM·RAG 및 SI</strong></td>
+                <td><strong>메타넷디지털, 아이티센, 대형 SI</strong>의 공공 보건·의료·안전 분야 AI/데이터 협력사</td>
+                <td><code>02-2205-0551</code><br />서울 가산 / 과천·대전</td>
+                <td>병원·공공기관 폐쇄망 데이터/AI 코딩 WS 렌탈</td>
+              </tr>
+              <tr>
+                <td><strong>16. 공공·방산 SW검증</strong></td>
+                <td><strong>(주)와이즈스톤</strong></td>
+                <td><strong>본사 50~80명</strong></td>
+                <td><strong>공공 차세대·국방·금융 SI 프로젝트 SW 테스트 자동화 코딩</strong> 및 AI 신뢰성 검증</td>
+                <td><strong>삼성SDS, LG CNS, SK C&amp;C, 아이티센</strong> 대형 SI 컨소시엄의 SW/AI 품질검증 파트너</td>
+                <td><code>02-6257-5958</code><br />경기 판교 / 서울 강남</td>
+                <td>합숙소 단위/통합 테스트 코드 대량 자동 생성</td>
+              </tr>
+              <tr>
+                <td><strong>17. 국방 SW/AI 강소</strong></td>
+                <td><strong>(주)모아소프트</strong></td>
+                <td><strong>약 100~110명</strong></td>
+                <td><strong>국방·항공우주 무기체계 임베디드 SW(C/C++/Ada) 실제 코딩·검증</strong> 및 국방 AI SI</td>
+                <td><strong>한화시스템, LIG넥스원, KAI, ADD</strong> 핵심 2차 SW 개발 협력사</td>
+                <td><code>02-420-3203</code><br />서울 송파구 오금로</td>
+                <td>완전 에어갭 국방 SW 코딩/검증 핵심 수요처</td>
+              </tr>
+              <tr>
+                <td><strong>18. 국방 시뮬레이션</strong></td>
+                <td><strong>(주)솔트웍스</strong></td>
+                <td><strong>약 50~90명</strong></td>
+                <td>국방 VR/AR 훈련 시뮬레이터, 종합군수지원(IPS) 및 <strong>국방 ICT/AI 실제 개발</strong></td>
+                <td><strong>KAI, 한화시스템, LIG넥스원</strong>의 2차 국방 SW/시뮬레이션 핵심 협력 중소기업</td>
+                <td><code>055-957-8777</code><br />사천 / 서울·대전 연구소</td>
+                <td>서울·대전 방산 연구소 시뮬레이션 코딩 WS</td>
+              </tr>
+              <tr>
+                <td><strong>19. 공공·금융 개발</strong></td>
+                <td><strong>(주)유컴패니온그룹</strong></td>
+                <td><strong>약 80~120명</strong></td>
+                <td><strong>공공 데이터 플랫폼·금융(은행/카드) 차세대 SI</strong> 및 Java/Spring 실무 개발팀 투입</td>
+                <td><strong>LG CNS, SK C&amp;C, 신한DS, 아이티센</strong> 금융·공공 차세대 프로젝트 2차 개발 수행사</td>
+                <td><code>070-5030-5830</code><br />서울 강남구 학동로</td>
+                <td>상주 개발팀 M/M 절감용 WS 월 렌탈 직결</td>
+              </tr>
+              <tr>
+                <td><strong>20. 공공·국방 비전/SW</strong></td>
+                <td><strong>(주)인텔리빅스 / 코츠테크놀로지</strong></td>
+                <td><strong>약 100~120명</strong></td>
+                <td>• <strong>인텔리빅스</strong>: 지자체·국방 생성형 비전 AI(VLM) 및 통합관제 SI<br />• <strong>코츠</strong>: K2전차·유도무기 내장형 SW 개발</td>
+                <td>• 인텔리빅스: <strong>KT·대보정보통신</strong> 협력<br />• 코츠: <strong>LIG넥스원·현대로템·한화</strong> 협력</td>
+                <td>• 인텔리빅스: <code>02-581-3883</code><br />• 코츠: <code>031-702-1665</code></td>
+                <td>지자체·방산 폐쇄망 비전 AI 및 C/C++ 코드 생성</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 5. 실행 기반(Enablers) 및 7인 R&R 매트릭스 -->
+      <section class="section">
+        <h2 class="section-title">5. 실행 기반(Enablers): MPN 거버넌스 · H/W 기술 표준 · 7인 전담 오너십(R&amp;R)</h2>
+        <p class="section-desc">
+          MPN 파트너 생태계와 H/W 구독 모델은 개별 영업 과제가 아니라, 위 <strong>『4+1 핵심 아이템』을 일관된 원칙으로 공급하고 확장하기 위한 공통 실행 기반(Enabler)</strong>입니다.
+        </p>
+
+        <div class="policy-banner" style="margin-bottom: 22px;">
+          <div class="policy-icon">🛡️</div>
+          <div class="policy-text">
+            <h4>MPN 의무 경유 원칙 및 H/W 벤더 기술 우선순위 (공통 거버넌스)</h4>
+            <p>
+              • <strong>MPN 의무 경유 원칙</strong>: 메가존클라우드가 매출 주체가 되는 서버·스토리지·백업·네트워크 및 관련 H/W 거래는 원칙적으로 <strong>MPN 등록 파트너 및 공식 Deal Registration·견적·발주 프로세스를 의무 경유</strong>하며, 미경유 임의 직거래는 실적으로 인정하지 않습니다. <em>(파트너 발굴·계약·Deal Routing은 <strong>MPN 전담조직</strong>이, 캠페인·리드 운영은 <strong>GTM/마케팅 조직</strong>이 주관하며, <strong>Hybrid Cloud 팀</strong>은 표준 아키텍처/BoM·파트너 기술/SLA 검증·Sales Tool Kit을 제공합니다.)</em><br />
+              • <strong>H/W 벤더 기술 우선순위 (안재우 매니저)</strong>: <strong>서버 <code>1순위 Dell → 2순위 HPE → 3순위 기타</code></strong> / <strong>스토리지 <code>1순위 MinIO·Dell → 2순위 NetApp → 3순위 기타</code></strong> / <strong>백업 <code>1순위 Veeam → 2순위 Veritas → 3순위 기타</code></strong> (선택형 상용 옵션: <code>Dell APEX · HPE GreenLake · Zadara</code>)
+            </p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 15%;">멤버 (역할 타이틀)</th>
+                <th style="width: 25%;">주 오너십을 갖는 핵심 아이템 (Primary Lead)</th>
+                <th style="width: 26%;">핵심 무기 (Door Opener / Sales Tool Kit)</th>
+                <th style="width: 34%;">2026 Q4 ~ 2027 H1 핵심 실행 KPI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. 김성호 박사님</strong><br />(팀 총괄 / Lead)</td>
+                <td>• <strong>아이템 ②</strong> 폐쇄망 턴키 AI &amp; 코딩 에이전트 WS 총괄<br />• <strong>아이템 ④</strong> 하이브리드 GPUaaS &amp; 대구 AIDC 총괄<br />• MPN 거래 원칙 / 거버넌스 BU 스폰서</td>
+                <td>• <code>11/12 Intel AI Summit</code> 부스/발표 쇼케이스<br />• <code>대구 수성 AIDC</code> 사업계획서 &amp; <code>SKT/Akamai GPUaaS</code></td>
+                <td>• <strong>차주 월요일 대구시청 첫 공식 미팅</strong> &amp; <strong>차주 KG ICT 사업계획서 전달</strong><br />• 인텔 서밋 리드 250+건 확보 및 유상 PoC 5건+ 전환<br />• SKT/KINX GPUaaS 리셀 계약 및 퍼블릭AI 등 1호 렌탈 PoC</td>
+              </tr>
+              <tr>
+                <td><strong>2. 최재규 님</strong><br />(수석 / 전략)</td>
+                <td>• <strong>아이템 ①-B</strong> Nutanix NC2/NCI 클라우드 역송환·DR 리드<br />• <strong>아이템 ③</strong> Kentik·Infoblox 전략 어카운트(KT PoC·일본) 리드</td>
+                <td>• <strong>하이브리드 클라우드 Elevator Pitch</strong><br />• <strong>3단계 Sales Tool Kit</strong> (발굴·진단 / 3년 TCO 비교 / 영업 전환)</td>
+                <td>• 2026 Q4 내 Sales Tool Kit v1.0 배포<br />• 상반기 <strong>Discovery 10건 · 유효 Opty 5건 · 제안 3건+ · PoC/본사업 1건+</strong><br />• <strong>KT Kentik/Infoblox PoC(40%)</strong> 및 Exadata 백업 전환율 관리</td>
+              </tr>
+              <tr>
+                <td><strong>3. 안재우 님</strong><br />(매니저 / H/W 인프라 엔지니어)</td>
+                <td>• <strong>전 아이템 공통</strong> 서버·스토리지·백업 표준 아키텍처/BoM 설계<br />• <strong><code>MZC Infrastructure Flex</code> (전체 H/W OPEX)</strong> 기술·계측·SLA 기준 정의</td>
+                <td>• <code>Infrastructure Assessment &amp; Sizing</code><br />• <code>CAPEX vs OPEX 기술·용량 비교 설계</code><br />• <code>MPN Partner Delivery Readiness Check</code></td>
+                <td>• 서버(Dell/HPE)·스토리지(MinIO/Dell/NetApp)·백업(Veeam/Veritas) <strong>표준 참조 아키텍처 및 표준 BoM 완성</strong><br />• MPN 파트너 <strong>기술역량·구축품질·SLA 평가표 수립</strong> 및 기술검증</td>
+              </tr>
+              <tr>
+                <td><strong>4. 이성표 님</strong><br />(매니저 / 기술)</td>
+                <td>• <strong>아이템 ①-A</strong> VMware ➔ Red Hat OVE 가상화 전환 기술 리드<br />• <strong>아이템 ②</strong> 폐쇄망 Red Hat OpenShift AI(RHOAI) 구축 표준화</td>
+                <td>• <code>VMware ➔ Red Hat OVE 2주 호환성 진단 &amp; 대표 VM 파일럿 PoC</code></td>
+                <td>• <strong>티머니 OVE 전환 PoC(35%) 완수</strong> 및 표준 전환 템플릿화<br />• 금융권(우리·신한·BNK 등) Red Hat 전환 딜 기술 클로징<br />• 폐쇄망 RHOAI SNO/3-Node 오프라인 설치 런북 완성</td>
+              </tr>
+              <tr>
+                <td><strong>5. 박경륜 님</strong><br />(Network 파트 / 기술)</td>
+                <td>• <strong>아이템 ③</strong> AI Full Stack 3단계 Network 아키텍처 &amp; BoM 총괄<br />• 기존 Network 고객 가시성(Kentik)·DDI(Infoblox)·Equinix 업셀링</td>
+                <td>• <code>AI 워크로드별 3단계 Network Fabric(Enterprise/RoCEv2/InfiniBand) BoM 사전 설계</code></td>
+                <td>• 2026.11~12 AI Network 3단계 가이드 및 MPN 파트너 창구 확보<br />• 2027 팀 AI 사업 Network 설계·BoM 참여 <strong>3건 이상</strong><br />• <strong>다중 노드 AI Network(RoCEv2) 초기 레퍼런스 1건 확보</strong></td>
+              </tr>
+              <tr>
+                <td><strong>6. 최성호 님</strong><br />(Network 파트 / 기술)</td>
+                <td>• <strong>아이템 ③</strong> 기존 Network 유지보수·Warranty 갱신(<code>85%</code>) 총괄<br />• <strong>아이템 ①·②</strong> 가상화 전환 DC 네트워크 연계 &amp; 폐쇄망 방화벽 설계</td>
+                <td>• <code>전환 시 서비스 영향을 최소화하는 기존 DC 네트워크(VLAN·라우팅·이중화) 연계 설계</code></td>
+                <td>• <strong>기존 Network 유지보수·Warranty 고객 안정적 갱신 추진</strong><br />• AI 폐쇄망 망구간 분리 표준 정립 및 벤더 랩 RoCEv2 검증 역량 확보<br />• 신규 구축 고객의 유지보수·Warranty(ARR) 전환</td>
+              </tr>
+              <tr>
+                <td><strong>7. 장필성 님</strong><br />(SE / Voice AI)</td>
+                <td>• <strong>특화 트랙 (+1)</strong> Microsoft Teams Phone &amp; AudioCodes LiveHUB 총괄<br />• 국내 CTI 벤더(<code>Nexus Community</code>) 협력 AICC 서비스 모델 구축</td>
+                <td>• <code>M365 E5/E7 고객(500인+) &amp; 금융권 Teams Phone 전환 워크샵/PoC</code><br />• <code>LiveHUB 보이스봇 연동 데모/PoC</code></td>
+                <td>• <strong>셀트리온(E7 1,800석 계약 고객) 팀즈 전화 구축 본사업 수주 및 오픈</strong><br />• <strong>3부문 M365 영업팀 협업(500인+ E5 및 금융권) ➔ PoC 3건 &amp; 1호 신규 수주</strong><br />• <strong>Nexus Community 협력 AICC 보이스봇 데모/PoC</strong> 및 배틀카드 배포</td>
+              </tr>
+              <tr>
+                <td><strong>8. 협업 라인</strong><br />(김철민/김종철 등)</td>
+                <td>• <strong>아이템 ②</strong> Tango V1 방산 사업 복구 및 Tango V2(Run:ai+DCGM) 패키지화</td>
+                <td>• <code>외산 고가 관제 대비 반값 GPU+물리 통합 관제 번들 제안</code></td>
+                <td>• <strong>LIG넥스원 7식(16억, 35%) 영업 라인 즉시 재가동</strong> 및 후속 MoU<br />• Tango V2 연말 출시 및 공공(Acryl)/금융(RHOAI) 번들 가격 확정</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 6. 30/60/90일 마일스톤 -->
+      <section class="section">
+        <h2 class="section-title">6. 즉시 실행 로드맵 (30 / 60 / 90일 핵심 마일스톤)</h2>
+        <div class="process-grid-3">
+          <div class="process-step" style="border-color: var(--accent-cyan);">
+            <span class="step-no">PHASE 1 • 차주 ~ 11월 중순 (즉시 실행)</span>
+            <h4>차주 핵심 고객 미팅 &amp; 인텔 서밋 쇼케이스</h4>
+            <p>
+              • <strong>[아이템 ④]</strong> <strong>차주 월요일 대구시청 공무원 첫 공식 미팅</strong> 및 대구 AIDC 계획서 작성 (김성호)<br />
+              • <strong>[아이템 ②]</strong> <strong>차주 KG ICT 미팅 및 초기 사업계획서 전달</strong> (김성호·최재규)<br />
+              • <strong>[아이템 ②]</strong> <strong>11/12 Intel AI Summit</strong> 리드 250+건 확보 및 <strong>퍼블릭AI·아크릴 등 2차 SI 강소 20곳</strong> 코딩 WS 파일럿 제안<br />
+              • <strong>[특화 +1]</strong> <strong>셀트리온(1,800석)</strong> 팀즈 전화 구축 제안 및 3부문 E5 리스트업 (장필성)
+            </p>
+          </div>
+          <div class="process-step" style="border-color: var(--accent-amber);">
+            <span class="step-no" style="background:rgba(245,158,11,0.2); color:var(--accent-amber);">PHASE 2 • 11월 말 ~ 12월 말 (Stage 4 격상)</span>
+            <h4>핵심 PoC 완수 &amp; 표준 툴킷/BoM 정착</h4>
+            <p>
+              • <strong>[아이템 ①]</strong> <strong>티머니 Red Hat OVE 호환성 진단(35%)</strong> 완수 (이성표·최성호) 및 <strong>Nutanix Sales Tool Kit v1.0</strong> 배포 (최재규)<br />
+              • <strong>[아이템 ③]</strong> <strong>기존 Network 유지보수(85%) 갱신</strong> 및 <strong>KT Kentik/Infoblox PoC(40%)</strong> 본사업 전환 (최재규·박경륜·최성호)<br />
+              • <strong>[아이템 ②]</strong> <strong>LIG넥스원(16억) 채널 복구</strong> 및 Tango V2 출시<br />
+              • <strong>[Enabler]</strong> 서버·스토리지·백업 표준 BoM 및 MPN 기술평가표 확정 (안재우)
+            </p>
+          </div>
+          <div class="process-step" style="border-color: var(--accent-emerald);">
+            <span class="step-no" style="background:rgba(16,185,129,0.2); color:var(--accent-emerald);">PHASE 3 • 2027 Q1 (본사업 수주 &amp; 확산)</span>
+            <h4>4+1 아이템별 1호 앵커 레퍼런스 클로징</h4>
+            <p>
+              • <strong>[아이템 ①]</strong> 금융권/공공 VMware ➔ OVE·Nutanix 전환 본사업 수주<br />
+              • <strong>[아이템 ②]</strong> 2차 AI·공공 SI 강소기업 합숙소 코딩 WS 월 렌탈 1~3호 계약 및 KG ICT 본사업화<br />
+              • <strong>[아이템 ③·④]</strong> AI 딜 RoCEv2 Network BoM 기본 편입 및 대구 AIDC / GPUaaS 본궤도 진입<br />
+              • <strong>[특화 +1]</strong> 셀트리온 1,800석 오픈 및 금융권/AICC 확산
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="doc-footer">
+      <div>ISV BU Hybrid Cloud Team • 2026–2027 Executive Business Plan (Option A: 4+1 Flagship Items)</div>
+      <div>Generated &amp; Synchronized: 2026-11-06 (MD / HTML / DOCX)</div>
+    </footer>
+  </div>
+</body>
+</html>
