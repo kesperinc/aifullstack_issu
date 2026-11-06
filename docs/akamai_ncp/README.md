@@ -48,35 +48,39 @@ graph TD
 
 ```
 akamai_ncp/
-├── .agents/               # 에이전트 가이드라인 및 워크플로우 정의
-│   ├── AGENTS.md          # AI 에이전트 전역 준수 규칙 (비즈니스 타당성 감사 기준)
-│   └── skills/            # 기획 검토를 위한 전문 스킬 모음
-├── docs/
-│   ├── research/          # 아카마이-엔비디아 협력 분석, NCP 시장 분석, 대구 수성알파시티 AIDC & 피지컬 AI 선행조사 보고서
-│   ├── proposal/          # MZC-아카마이 공동 사업 제안서
-│   └── feasibility/       # 기술, 경제성(BEP 시뮬레이션 결과 포함), 보안 분석 보고서
+├── .agents/                    # 에이전트 가이드라인 및 워크플로우 정의
+│   ├── AGENTS.md               # AI 에이전트 전역 준수 규칙 (비즈니스 타당성 감사 기준)
+│   └── skills/                 # 기획 검토를 위한 전문 스킬 모음
+├── daegu_suseong_aidc/         # 대구 수성알파시티 AIDC & 피지컬 AI 로봇 트레이닝 센터 전담 폴더 (선행조사·제안서)
+├── wonik_ax_center/            # 원익로보틱스 AX 트레이닝 센터 전담 폴더 (RFI 서면질의·공식회신·본제안서·아카이브)
+├── proposal/                   # ISV BU Hybrid Cloud 팀 마스터 전략서(v3.5) 및 MZC-아카마이 공동 사업 제안서
+├── research/                   # 아카마이-엔비디아 협력 분석 및 NVIDIA NCP 시장 분석 보고서
+├── feasibility/                # 기술, 경제성(BEP 시뮬레이션 결과 포함), 보안 분석 보고서
 ├── scripts/
-│   ├── bep_simulation.py  # 가동률 및 비용 모델링용 파이썬 시뮬레이션 스크립트
-│   └── convert_all_md.py  # 마크다운 -> 프리미엄 HTML & DOCX 일괄 변환 스크립트
-└── CLAUDE.md              # 로컬 개발 및 실행 환경 가이드라인
+│   ├── bep_simulation.py       # 가동률 및 비용 모델링용 파이썬 시뮬레이션 스크립트
+│   └── convert_all_md.py       # 마크다운 -> 프리미엄 HTML & DOCX 일괄 변환 스크립트
+└── CLAUDE.md                   # 로컬 개발 및 실행 환경 가이드라인
 ```
 
-### 📄 ISV BU Hybrid Cloud 팀 마스터 전략 및 R&R 통합 제안서 (v3.2):
-* **[ISV BU Hybrid Cloud 팀 마스터 방향성, 매출 극대화(영업 퍼널/MPN 판매채널화) 및 7인 멤버별 R&R 통합 제안서 (v3.2)](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.docx))
+### 📄 ISV BU Hybrid Cloud 팀 마스터 전략 및 R&R 통합 제안서 (v3.5):
+* **[ISV BU Hybrid Cloud 팀 마스터 방향성, 매출 극대화(영업 퍼널/MPN 판매채널화) 및 7인 멤버별 R&R 통합 제안서 (v3.5)](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/proposal/HYBRID_CLOUD_TEAM_STRATEGY_MASTER_INTEGRATED.docx))
 
-### 📄 원익로보틱스 AX Center 3대 핵심 산출물:
-* **[원익로보틱스 AX Center RFI 공식 서면 질의서](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.docx))
-* **[원익로보틱스 AX Center RFI 공식 회신서 (MZC 구축 + 삼성 SCP 임대 브릿지)](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.docx))
-* **[원익로보틱스 AX Center (피지컬 AI 로봇 트레이닝 센터) 구축 사업제안서](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_proposal.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_proposal.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/wonik_robotics_ax_center_proposal.docx))
+### 📄 대구 수성알파시티 AIDC & 피지컬 AI 로봇 트레이닝 센터 산출물 (`daegu_suseong_aidc/`):
+* **[대구 수성알파시티 피지컬 AI 로봇 트레이닝 센터 및 AIDC 구축·운영 제안서](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_suseong_robot_training_center_proposal.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_suseong_robot_training_center_proposal.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_suseong_robot_training_center_proposal.docx))
+* **[대구 피지컬 AI 로봇 트레이닝 센터 구축 제안서 (상세판)](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_physical_ai_robot_training_center_proposal.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_physical_ai_robot_training_center_proposal.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_physical_ai_robot_training_center_proposal.docx))
+* **[대구 AIDC & 피지컬 AI 선행 조사 보고서](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_aidc_physical_ai_preliminary_study.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_aidc_physical_ai_preliminary_study.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/daegu_suseong_aidc/daegu_aidc_physical_ai_preliminary_study.docx))
 
-### 📄 기타 프로젝트 산출물 바로가기:
-* **[대구 수성알파시티 피지컬 AI 로봇 트레이닝 센터 및 AIDC 구축·운영 제안서](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/daegu_suseong_robot_training_center_proposal.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/daegu_suseong_robot_training_center_proposal.md))
-* **[대구 AIDC & 피지컬 AI 선행 조사 보고서](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/research/daegu_aidc_physical_ai_preliminary_study.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/research/daegu_aidc_physical_ai_preliminary_study.md))
-* **[아카마이-엔비디아 파트너십 분석](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/research/akamai_nvidia_partnership.html)**
-* **[NVIDIA NCP 시장 분석](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/research/nvidia_ncp_market_analysis.html)**
-* **[MZC-아카마이 공동 사업 제안서](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/proposal/mzc_akamai_partnership.html)**
-* **[재무적 타당성 시뮬레이션 보고서](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/feasibility/financial_simulation_report.html)**
-* **[원익로보틱스 이전 비교/권고 분석 보고서 (Archive)](file:///c:/dev/antigravity-workspace/akamai_ncp/docs/wonik_ax_center/archive/)**
+### 📄 원익로보틱스 AX 트레이닝 센터 산출물 (`wonik_ax_center/`):
+* **[원익로보틱스 AX Center RFI 공식 서면 질의서](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.docx))
+* **[원익로보틱스 AX Center RFI 공식 회신서 (MZC 구축 + 삼성 SCP 임대 브릿지)](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.docx))
+* **[원익로보틱스 AX Center (피지컬 AI 로봇 트레이닝 센터) 구축 사업제안서](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_proposal.html)** ([Markdown 원본](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_proposal.md) / [Word 다운로드](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_proposal.docx))
+* **[원익로보틱스 이전 비교/권고 분석 보고서 (Archive)](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/archive/)**
+
+### 📄 AKAMAI - NVIDIA - MZC 공동 사업 산출물 바로가기:
+* **[아카마이-엔비디아 파트너십 분석](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/research/akamai_nvidia_partnership.html)**
+* **[NVIDIA NCP 시장 분석](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/research/nvidia_ncp_market_analysis.html)**
+* **[MZC-아카마이 공동 사업 제안서](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/proposal/mzc_akamai_partnership.html)**
+* **[재무적 타당성 시뮬레이션 보고서](file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/feasibility/financial_simulation_report.html)**
 
 ---
 
