@@ -1,0 +1,19 @@
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Office / Temporary files
+~$*
+*.tmp
+
+# Python / Environment
+__pycache__/
+*.pyc
+.venv/
+
+# IDE
+.vscode/
+*.code-workspace
+
+

@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[사업제안서] 차세대 온프레미스 Coding Agent 기반 KGM 자동차 BOM 인텔리전스 챗봇 구축</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f2d5f;
+            --primary-light: #1e40af;
+            --secondary: #2563eb;
+            --accent: #ea580c;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --warning: #d97706;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.65;
+            padding-bottom: 80px;
+        }
+
+        /* Top Header */
+        header {
+            background: linear-gradient(135deg, #091b36 0%, #0f2d5f 60%, #1e3a8a 100%);
+            color: #ffffff;
+            padding: 60px 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            color: #93c5fd;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header-sub {
+            font-size: 1.15rem;
+            color: #cbd5e1;
+            max-width: 860px;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.95rem;
+            color: #94a3b8;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .meta-info strong {
+            color: #f1f5f9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        /* KPI Stat Cards */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: -80px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-label {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Sections */
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 36px;
+            border: 1px solid var(--border);
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 16px;
+        }
+
+        .section-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin: 24px 0 12px 0;
+        }
+
+        p {
+            color: #334155;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #0f2d5f;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        tr:hover td {
+            background-color: #f1f5f9;
+        }
+
+        .highlight-row td {
+            background-color: #fef3c7 !important;
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        /* Comparison Grid */
+        .comp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        @media (max-width: 768px) {
+            .comp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.85rem;
+            }
+        }
+
+        .comp-box {
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+        }
+
+        .comp-box.past {
+            background: #fef2f2;
+            border-color: #fca5a5;
+        }
+
+        .comp-box.future {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+
+        .comp-box h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comp-box.past h4 {
+            color: #dc2626;
+        }
+
+        .comp-box.future h4 {
+            color: #16a34a;
+        }
+
+        .comp-list {
+            list-style: none;
+        }
+
+        .comp-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .comp-box.past .comp-list li::before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .comp-box.future .comp-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        /* Flow Diagram Cards */
+        .flow-container {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin: 24px 0;
+        }
+
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            position: relative;
+        }
+
+        .flow-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 18px 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .flow-card.active-ai {
+            border: 2px solid var(--secondary);
+            background: #eff6ff;
+        }
+
+        .flow-card.sandbox {
+            border: 2px solid #8b5cf6;
+            background: #f5f3ff;
+        }
+
+        .flow-card.success-card {
+            border: 2px solid var(--success);
+            background: #f0fdf4;
+        }
+
+        .flow-num {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .flow-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
+        .flow-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.45;
+        }
+
+        .self-correct-banner {
+            margin-top: 16px;
+            background: #fffbeb;
+            border: 1px dashed #f59e0b;
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.88rem;
+            color: #92400e;
+        }
+
+        .self-correct-icon {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        /* Feature Cards */
+        .feat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feat-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .feat-card h5 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        /* Option Price Comparison Cards */
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        @media (max-width: 768px) {
+            .option-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 28px;
+            border: 2px solid var(--border);
+            position: relative;
+        }
+
+        .option-card.recommended {
+            border-color: var(--secondary);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15);
+        }
+
+        .opt-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            letter-spacing: 0.05em;
+        }
+
+        .opt-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .opt-price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 16px 0;
+            line-height: 1;
+        }
+
+        .opt-price span {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .opt-features {
+            list-style: none;
+            margin-top: 20px;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+
+        .opt-features li {
+            padding: 6px 0;
+            font-size: 0.95rem;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .opt-features li::before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-container">
+            <span class="badge-tag">KG ICT × KGM 모빌리티 전략 제안</span>
+            <h1>차세대 온프레미스 Coding Agent 기반<br>BOM 인텔리전스 챗봇 구축 사업제안서</h1>
+            <p class="header-sub">
+                현대자동차 남양연구소 PoC 경험 계승과 2026 최신 AI 패러다임(Text-to-SQL 탈피, 자가수정 샌드박스 에이전트, 온프렘 오픈소스 코딩 모델)을 적용한 맞춤형 구축 제안
+            </p>
+            <div class="meta-info">
+                <div><strong>제안 대상:</strong> KG ICT (KGM 모빌리티 IT 담당)</div>
+                <div><strong>제안사:</strong> 메가존클라우드(주) (MegazoneCloud)</div>
+                <div><strong>제출일자:</strong> 2026년 11월</div>
+                <div><strong>수행기간:</strong> 총 4개월 (16주)</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Stat Cards -->
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-label">BOM 탐색 소요 시간</div>
+                <div class="stat-value">95% 단축</div>
+                <div class="stat-desc">건당 30분 수작업 → 자연어 질의 10초 이내 표 출력</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">복합 질의 응답 정합성</div>
+                <div class="stat-value">90%+</div>
+                <div class="stat-desc">과거 Text-to-SQL(59%) 한계 극복, 자가수정 루프 탑재</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">총 수행 기간 / 투입 공수</div>
+                <div class="stat-value">4개월 (20 M/M)</div>
+                <div class="stat-desc">전담 AI 엔지니어링 팀 밀착 투입 및 오픈소스 자산화</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">데이터 보안 환경</div>
+                <div class="stat-value">100% On-Prem</div>
+                <div class="stat-desc">KGM 사내망 격리 배포로 차량 설계 기밀 유출 차단</div>
+            </div>
+        </div>
+
+        <!-- Section 1: 제안 배경 및 필요성 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Background & Challenges</div>
+                <h2>1. 제안 배경 및 필요성</h2>
+            </div>
+            <p>
+                토레스(EVX/하이브리드/가솔린), 렉스턴(뉴 아레나/스포츠 칸), 액티언, 티볼리 등 KGM의 라인업 다변화와 친환경 전동화 전환에 따라 <strong>차종·트림·옵션별 수십만 개 부품
+                    BOM 데이터의 복잡도가 급격히 증가</strong>하고 있습니다.
+            </p>
+            <p>
+                현재 연구소(R&D), 상품기획, 원가기획 부서에서는 과거 차종 사양 비교, 부품 공용화 검토, 옵션 조합별 부품 번호 확인 시 기존 레거시 PLM/ERP 시스템의 복잡한 화면과 파편화된
+                테이블 구조로 인해 탐색에 과도한 시간이 소모되고 있으며, KG ICT로의 수시 Ad-hoc 데이터 추출 요청이 집중되어 IT 운영 공수의 비효율이 발생하고 있습니다.
+            </p>
+
+            <h3>현대자동차 남양연구소 PoC 경험과 시사점</h3>
+            <p>
+                메가존클라우드는 현대자동차 남양연구소와 함께 'BOM 확인 및 검색 챗봇 PoC'를 성공적으로 수행한 레퍼런스를 보유하고 있습니다. 본 제안은 당시 실무에서 검증된 도메인 지식과 한계점을
+                보완하여, 2026년 최신 AI 기술 기반의 완성도 높은 시스템을 KGM에 제안합니다.
+            </p>
+            <p>
+                특히 과거 PoC의 경우 사전에 데이터가 이미 준비되어 있던 특수 케이스였습니다. 실무 프로덕션 적용을 위해서는 <strong>KGM 현업과 IT(KG ICT) 간의 상호 데이터 스키마
+                    정의, 부품 코드 표준화, 결측치 및 테이블 정제 등 체계적인 '상호 데이터 준비(Data Readiness)' 단계가 필수적으로 선행</strong>되어야 합니다.
+            </p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">비교 항목</th>
+                            <th style="width: 40%;">과거 현대자동차 남양연구소 PoC (2024)</th>
+                            <th style="width: 40%;">KGM 차세대 BOM 인텔리전스 (2026 제안)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>핵심 아키텍처</strong></td>
+                            <td>전통적 Text-to-SQL + Milvus RAG 구조</td>
+                            <td><strong>Sandbox Code-Interpreter 에이전트 + Self-Correction 루프</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>추론 방식</strong></td>
+                            <td>한글→영문 번역 → 5개 고정 Intent 분류 → SQL 생성</td>
+                            <td><strong>자율 계획(ReAct) → Python/DuckDB/Kùzu 코드 생성·실행·검증</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>기본 인프라 기반</strong></td>
+                            <td>IBM watsonx, OCP 클라우드 등 특정 외산 솔루션 단독 종속</td>
+                            <td><strong>RHOSAI (Red Hat OpenShift AI) 기반</strong><br>(On-Premise 및 Public Cloud 유연 하이브리드
+                                배포)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>데이터 엔진</strong></td>
+                            <td>Presto / Trino 분산 쿼리 엔진</td>
+                            <td><strong>초고속 임베디드 OLAP (DuckDB) + Graph DB (Kùzu) 듀얼 엔진</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>적용 모델</strong></td>
+                            <td>Llama-3.1-8B, SQLCoder-7B (단순 프롬프트 결합)</td>
+                            <td><strong>Nota.ai 최적화 경량 Qwen2.5-Coder (초저지연 코딩 특화 모델)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>추론 서빙 엔진</strong></td>
+                            <td>단순 API / 기본 컨테이너 서빙</td>
+                            <td><strong>초경량 고속 서빙 엔진 (SGLang / vLLM / llama-server)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>사용자 인터페이스</strong></td>
+                            <td>단순 텍스트 챗봇 API (단답형 결과 출력)</td>
+                            <td><strong>음성 검색(Voice-to-BOM) + 계층적 드릴다운(Drill-down) 트리 UI</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>데이터 준비성</strong></td>
+                            <td>사전 정제 데이터셋 활용 (특수 환경)</td>
+                            <td><strong>상호 데이터 스키마 정의 및 도메인 용어 정제 단계 내재화 (90%+ 정합성)</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 2: 기술 차별화 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Technology Paradigm</div>
+                <h2>2. 2026 차세대 기술 차별화: 왜 Coding Agent인가?</h2>
+            </div>
+            <p>
+                과거의 Text-to-SQL 방식은 단 한 번의 SQL 문법 생성으로 끝나기 때문에 복잡한 테이블 조인 오류나 빈 결과(Empty Result) 발생 시 대응이 불가능했습니다.
+                반면 2026년 차세대 패러다임인 <strong>'Code-Interpreter Agent'</strong>는 코딩 전문 모델이 분석 코드를 작성하고 사내 격리 샌드박스에서 즉시 실행 및
+                자가 수정을 수행하여 현업의 복합 분석 요구를 완벽히 해결합니다.
+            </p>
+
+            <div class="comp-grid">
+                <div class="comp-box past">
+                    <h4>과거 Text-to-SQL 방식의 한계</h4>
+                    <ul class="comp-list">
+                        <li><strong>단발성 생성(Single-shot)의 취약성:</strong> 문법 오류 또는 빈 데이터 발생 시 즉각 실패 응답 반환</li>
+                        <li><strong>복잡한 BOM 계층 구조 해석 불가:</strong> 수백 개 컬럼과 트리 구조를 SQL 단일 쿼리로 표현하는 데 구조적 한계</li>
+                        <li><strong>사양 비교(Diff) 및 복잡 연산 불가:</strong> 단순 조회를 넘어선 트림 간 부품 차이점 계산, 수식 연산 불가능</li>
+                        <li><strong>사전 정의된 고정 Intent 종속:</strong> 5개 인텐트 외의 현업 자유 질문에 대해 오분류 다수 발생</li>
+                    </ul>
+                </div>
+                <div class="comp-box future">
+                    <h4>차세대 Sandbox Code-Interpreter 혁신</h4>
+                    <ul class="comp-list">
+                        <li><strong>실행 및 자가 수정 (Self-Correction Loop):</strong> Python/DuckDB 코드를 샌드박스에서 실행 후 오류 발생 시 스스로 디버깅하여 90%+ 정합성 확보</li>
+                        <li><strong>강력한 프로그래밍 언어 표현력:</strong> 계층 트리 재귀 탐색, Pandas/Polars를 통한 데이터프레임 가공, 정밀 사양 Diff 완벽 처리</li>
+                        <li><strong>자유도 높은 복합 질문 처리:</strong> "토레스와 렉스턴의 서스펜션 부품 차이와 단종 여부" 등 고난이도 복합 질의 즉각 해결</li>
+                        <li><strong>100% 온프레미스 고성능 모델:</strong> Qwen2.5-Coder 32B 등 오픈소스 코딩 특화 모델로 사내 GPU 서버에서 기밀 데이터 격리 구동</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: 엔드투엔드 시스템 아키텍처 및 프로세스 상세 설계 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">End-to-End Architecture</div>
+                <h2>3. 차세대 엔드투엔드 시스템 아키텍처 및 6단계 처리 프로세스</h2>
+            </div>
+            <p>
+                사용자의 음성/텍스트 질의가 유입되어 최종 답변과 계층 트리 UI로 반환되기까지의 <strong>6단계 엔드투엔드 처리 흐름</strong>과, 이를 뒷받침하는 <strong>5대 기능 블록 및 인프라 인스턴스 연동 구조</strong>, 그리고 <strong>원천 BOM DB 무부하 동기화 및 지속적 RAG 현행화(Continuous RAG)</strong>를 정의합니다.
+            </p>
+
+            <h3>3.1 6단계 엔드투엔드 질의-응답 처리 프로세스</h3>
+            <div class="flow-container">
+                <div class="flow-steps" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
+                    <div class="flow-card">
+                        <span class="flow-num">STEP 01</span>
+                        <div class="flow-title">사용자 쿼리 유입</div>
+                        <div class="flow-desc">웹 포털 텍스트 또는 마이크 음성 질의 (Voice-to-BOM, 온프렘 Whisper STT 변환)</div>
+                    </div>
+                    <div class="flow-card active-ai">
+                        <span class="flow-num" style="color: #2563eb;">STEP 02</span>
+                        <div class="flow-title">의미해석 LLM</div>
+                        <div class="flow-desc">시맨틱 캐시(FAQ) 확인 후, 신규 질의 의도(Intent) 분석 및 차종/부품코드 엔티티 추출</div>
+                    </div>
+                    <div class="flow-card active-ai">
+                        <span class="flow-num" style="color: #2563eb;">STEP 03</span>
+                        <div class="flow-title">쿼리/코드 변환 LLM</div>
+                        <div class="flow-desc">Nota.ai 경량 Qwen Coder가 DuckDB SQL, Kùzu Cypher, Diff 연산 Python 코드 동적 작성</div>
+                    </div>
+                    <div class="flow-card sandbox">
+                        <span class="flow-num" style="color: #7c3aed;">STEP 04</span>
+                        <div class="flow-title">격리 샌드박스 탐색</div>
+                        <div class="flow-desc">Docker 런타임에서 DuckDB 수치 집계 및 Kùzu BOM 트리 순회 (Self-Correction 루프 탑재)</div>
+                    </div>
+                    <div class="flow-card">
+                        <span class="flow-num">STEP 05</span>
+                        <div class="flow-title">답변 작성 (합성)</div>
+                        <div class="flow-desc">결과 데이터프레임 기반 부품 비교표 렌더링, 사양 차이점 요약 및 Excel 다운로드 생성</div>
+                    </div>
+                    <div class="flow-card success-card">
+                        <span class="flow-num" style="color: #16a34a;">STEP 06</span>
+                        <div class="flow-title">멀티모달 최종 응답</div>
+                        <div class="flow-desc">대화창 표출, BOM 계층 트리 뷰 동적 확장, 음성 안내(TTS) 및 피드백 DB 자동 적재</div>
+                    </div>
+                </div>
+
+                <div class="self-correct-banner">
+                    <span class="self-correct-icon">🔄</span>
+                    <div>
+                        <strong>에러 자가 수정 루프 (Self-Correction Loop) :</strong><br>
+                        STEP 04 샌드박스 실행 중 문법/조인 에러나 빈 결과(Empty)가 반환될 경우, 외부 개입 없이 에이전트가 런타임 에러 스택을 스스로 해석하여 STEP 03 코드를 자체 디버깅·재실행함으로써 <strong>90% 이상의 정합성</strong>을 보장합니다.
+                    </div>
+                </div>
+            </div>
+
+            <h3>3.2 5대 기능 블록 및 인프라 인스턴스 연동 구조</h3>
+            <div class="feat-grid">
+                <div class="feat-card">
+                    <h5>Layer 1 : Client & UI Layer</h5>
+                    <p>• KGM 사내 웹 포털 (React 기반 대화형 챗 UI)<br>• 온프렘 Whisper 음성 모듈 (Voice-to-BOM STT & TTS)<br>• 계층적 드릴다운 트리 뷰어 (D3.js 부품 어셈블리 네비게이터)</p>
+                </div>
+                <div class="feat-card">
+                    <h5>Layer 2 : Gateway & Orchestration (RHOSAI CPU Pods)</h5>
+                    <p>• API Gateway & Session Manager (FastAPI, 사내 SSO 연계)<br>• Orchestration Controller (LangGraph 기반 ReAct 플래너)<br>• High-Frequency FAQ Semantic Cache (자주 묻는 질문 0.1초 즉시 응답 캐시)</p>
+                </div>
+                <div class="feat-card" style="border: 2px solid var(--secondary); background: #eff6ff;">
+                    <h5>Layer 3 : Cognitive & Serving (RHOSAI GPU Node)</h5>
+                    <p>• 하드웨어: NVIDIA RTX PRO 6000 Ada (48GB x 2EA, 총 96GB VRAM)<br>• 서빙 엔진: SGLang (RadixAttention 캐싱) & vLLM<br>• 탑재 모델: 의미해석 LLM 및 Nota.ai 경량화 Qwen2.5-Coder 32B</p>
+                </div>
+                <div class="feat-card" style="border: 2px solid #8b5cf6; background: #f5f3ff;">
+                    <h5>Layer 4 : Dual Embedded Data Layer (Sandbox)</h5>
+                    <p>• Isolated Docker/Podman Sandbox (격리 실행 환경)<br>• DuckDB (In-Process OLAP): 수치 집계, 사양 Diff 연산<br>• Kùzu (In-Process Graph DB): BOM 다계층 트리 순회, 대체품 경로 탐색<br>• Apache Arrow Zero-Copy: 메모리 복사 없는 초고속 파이프라인 결합</p>
+                </div>
+                <div class="feat-card">
+                    <h5>Layer 5 : Integration & Continuous RAG (원천 연동)</h5>
+                    <p>• KGM 원천 레거시 시스템: PLM (Windchill), ERP (SAP), BOM 원천 RDB<br>• 무부하 복제: Read Replica 및 Airflow CDC 배치 파이프라인<br>• Active RAG: 최신 출시 차종 정보, 신규 부품 변경점, 피드백 DB</p>
+                </div>
+            </div>
+
+            <h3>3.3 원천 BOM DB 연동 및 지속적 RAG 현행화 (Continuous RAG)</h3>
+            <p>
+                BOM 데이터는 매주/매월 설계 변경(ECO) 및 연식 변경에 따라 지속적으로 갱신되므로, 운영계 무부하 복제 및 자동 최신화 파이프라인을 구축합니다:
+            </p>
+            <div class="comp-grid">
+                <div class="comp-box" style="background: #f8fafc; border-color: #cbd5e1;">
+                    <h4 style="color: #0f2d5f;">원천 운영계 무부하 동기화 (Read Replica & CDC)</h4>
+                    <ul class="comp-list" style="list-style: none;">
+                        <li><strong>운영계 부하 차단:</strong> KGM 운영 DB에 직접 질의하지 않고, 읽기 전용 복제본(Read Replica) 및 Parquet 스냅샷을 주기적으로(예: 매일 자정 또는 실시간 CDC) 동기화</li>
+                        <li><strong>데이터 전처리 파이프라인:</strong> 원천 스키마 정규화, KGM 부품 약어/용어사전 매핑, 결측치 보정을 자동 수행하여 DuckDB/Kùzu 인덱스 갱신</li>
+                    </ul>
+                </div>
+                <div class="comp-box" style="background: #eff6ff; border-color: #93c5fd;">
+                    <h4 style="color: #1e40af;">빈출 FAQ 캐싱 & 최신 차종 Active RAG 현행화</h4>
+                    <ul class="comp-list" style="list-style: none;">
+                        <li><strong>빈출 질문(FAQ) 시맨틱 캐싱:</strong> 자주 묻는 질문-답변 쌍을 메모리 시맨틱 캐시에 저장하여 LLM 재추론 없이 0.1초 내 즉시 응답 반환 (GPU 자원 대폭 절약)</li>
+                        <li><strong>신규 차종·부품 자동 벡터화:</strong> 신규 차종 출시나 설계 변경점 발생 시 배치 파이프라인이 메타데이터를 자동 인덱싱하여 RAG 지식베이스를 실시간 최신화</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: 인프라 유연성 (RHOSAI) -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Infrastructure Flexibility</div>
+                <h2>4. 인프라 아키텍처 유연성 : RHOSAI 기반 On-Prem / Public Cloud 대응 전략</h2>
+            </div>
+            <p>
+                과거 특정 상용 솔루션(IBM watsonx) 단독 종속에서 탈피하여, 엔터프라이즈 AI 표준 플랫폼인 <strong>RHOSAI (Red Hat OpenShift AI)</strong>를 기본 아키텍처 출발점으로 채택합니다.
+            </p>
+            <div class="comp-grid">
+                <div class="comp-box" style="background: #f8fafc; border-color: #cbd5e1;">
+                    <h4 style="color: #0f2d5f;">Option A : 사내 온프레미스 (On-Premise)</h4>
+                    <ul class="comp-list" style="list-style: none;">
+                        <li><strong>보안성 극대화:</strong> 차량 설계 사양 및 BOM의 외부 반출이 원천 차단된 사내 전산실 폐쇄망 배포</li>
+                        <li><strong>전용 하드웨어:</strong> NVIDIA RTX PRO 6000 Ada 48GB x 2EA 랙 서버 1식 구축</li>
+                        <li><strong>초저지연 통신:</strong> 사내망 기반 지연 없는 고속 통신 및 고정 인프라 자산화</li>
+                    </ul>
+                </div>
+                <div class="comp-box" style="background: #eff6ff; border-color: #93c5fd;">
+                    <h4 style="color: #1e40af;">Option B : 퍼블릭 클라우드 (Public Cloud)</h4>
+                    <ul class="comp-list" style="list-style: none;">
+                        <li><strong>유연한 확장성:</strong> AWS / GCP / Azure 클라우드 상의 RHOSAI 인스턴스에 즉시 배포 가능</li>
+                        <li><strong>초기 투자 절감:</strong> 대규모 초기 하드웨어 구매 없이 사용량 기반 유연한 자원 할당</li>
+                        <li><strong>글로벌 연계:</strong> 해외 연구소 및 글로벌 생산 법인과의 손쉬운 서비스 횡전개 지원</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: 모델 및 서빙 혁신 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Model & Serving Innovation</div>
+                <h2>5. 모델 및 서빙 혁신 : Nota.ai 경량화 Qwen & 초경량 고속 서빙 엔진</h2>
+            </div>
+            <h3>5.1 Nota.ai NetsPresso® 기반 경량 Qwen2.5-Coder</h3>
+            <p>
+                자동차 BOM 질의는 정확한 코드 생성과 지연 없는 빠른 응답 속도가 핵심입니다. 본 사업에서는 AI 모델 압축 전문 기업인 <strong>Nota.ai의 NetsPresso® 솔루션</strong>을 적용하여, 구조적 프루닝(Pruning), FP8/INT4 정밀 양자화, 지식 증류를 거친 <strong>경량 Qwen2.5-Coder 모델</strong>을 탑재합니다.
+                이를 통해 GPU VRAM 사용량을 40~50% 대폭 절감하면서도 95% 이상의 코딩 정합성을 유지하여 동시 접속 처리량을 2배 이상 확대합니다.
+            </p>
+
+            <h3>5.2 Ollama를 넘어서는 초경량 고속 서빙 엔진</h3>
+            <p>
+                Ollama의 동시 요청 처리 한계와 다단계 에이전트 지연을 극복하기 위해 최신 초경량 고속 추론 엔진을 적용합니다:
+            </p>
+            <div class="feat-grid">
+                <div class="feat-card" style="border-left: 4px solid var(--secondary);">
+                    <h5>SGLang (최우선 추천)</h5>
+                    <p>• <strong>RadixAttention</strong> 기술로 KV 캐시 재사용을 극대화하여, 다단계 에이전트 및 샌드박스 자가수정 루프 실행 시 추론 지연시간 70% 단축<br>• 초당 토큰 처리량(TPS)이 vLLM 대비 1.5~2배 향상되어 복잡한 Coding Agent에 최적</p>
+                </div>
+                <div class="feat-card" style="border-left: 4px solid var(--primary-light);">
+                    <h5>vLLM (엔터프라이즈 표준)</h5>
+                    <p>• PagedAttention 기반 메모리 최적화로 GPU 메모리 파편화 제로 달성<br>• RHOSAI / KServe 공식 네이티브 연동을 통한 운영 안정성 및 오토스케일링 보장</p>
+                </div>
+                <div class="feat-card" style="border-left: 4px solid var(--success);">
+                    <h5>llama-server (llama.cpp)</h5>
+                    <p>• 순수 C/C++ 기반 제로 디펜던시 초경량 바이너리로 극소 메모리 풋프린트 제공<br>• CPU/GPU 하이브리드 오프로딩 완벽 지원으로 자원 제약 환경에 유연 대응</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: 데이터 엔진: DuckDB + Kùzu (Graph DB) -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Hybrid Data Layer</div>
+                <h2>6. 데이터 엔진 혁신 : DuckDB + Kùzu (임베디드 Graph DB) 듀얼 아키텍처</h2>
+            </div>
+            <p>
+                자동차 BOM 데이터는 단순한 표 형태뿐만 아니라, <strong>부품 간 다계층 구조(모듈 ➔ 서브어셈블리 ➔ 단품)</strong>와 <strong>부품 공용화/대체 관계 네트워크</strong>를 지니고 있습니다.
+                이에 따라 본 제안은 <strong>DuckDB(수치 집계 및 Diff 연산)</strong>에 <strong>Kùzu(임베디드 그래프 DB)</strong>를 결합한 하이브리드 인메모리 레이어를 구축합니다.
+            </p>
+
+            <div class="feat-grid">
+                <div class="feat-card">
+                    <h5>DuckDB (임베디드 OLAP DB) 사용 이유</h5>
+                    <p>• <strong>임베디드 OLAP의 압도적 속도:</strong> 수백만 건 부품 테이블을 컬럼 기반 벡터화 연산으로 수 밀리초 내 집계·필터링<br>• <strong>프로세스 내장형 제로 오버헤드:</strong> 별도 DB 서버 데몬 없이 Python 런타임 메모리 내에서 직접 구동<br>• <strong>Python Zero-Copy 통합:</strong> PyArrow/Pandas/Polars와 메모리 복사 없이 연동되어 사양 간 차이점(Diff) 계산에 최적</p>
+                </div>
+                <div class="feat-card">
+                    <h5>Kùzu (임베디드 Graph DB) 채택 이유</h5>
+                    <p>• <strong>초경량 인프로세스 그래프 엔진:</strong> Neo4j 등 무거운 분산 서버 없이 Python 프로세스 내에 직접 내장<br>• <strong>BOM 계층 트리 초고속 순회:</strong> OpenCypher 쿼리로 모듈-어셈블리-단품 간 다계층 트리를 밀리초 내 순회 탐색<br>• <strong>부품 종속성 & 대체 경로 식별:</strong> 특정 부품의 상위 차종 역추적 및 단종 부품의 호환 대체 경로 즉각 식별</p>
+                </div>
+                <div class="feat-card">
+                    <h5>듀얼 엔진 결합 시너지</h5>
+                    <p>• <strong>Apache Arrow 메모리 공유:</strong> Kùzu의 그래프 순회 결과와 DuckDB의 수치 테이블을 단일 프로세스에서 제로카피로 결합<br>• <strong>기존 원천 데이터 직접 연계:</strong> Parquet, CSV, PostgreSQL 복제본 등 기존 KGM 시스템 데이터를 별도 ETL 없이 직접 질의</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: 인터페이스 혁신 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Interactive Interface</div>
+                <h2>7. 인터페이스 혁신 : 음성 검색(Voice-to-BOM) & 계층적 드릴다운 트리 UI</h2>
+            </div>
+            <p>과거의 단순 텍스트 챗봇 API를 넘어, 연구원과 현장 실무자가 직관적으로 BOM을 탐색할 수 있는 차세대 멀티모달 인터랙티브 UI를 구축합니다.</p>
+
+            <div class="comp-grid">
+                <div class="comp-box" style="background: #f0fdf4; border-color: #86efac;">
+                    <h4 style="color: #16a34a;">🎤 음성 검색 : Voice-to-BOM (온프렘 Whisper STT)</h4>
+                    <ul class="comp-list" style="list-style: none;">
+                        <li><strong>핸즈프리 현장 질의:</strong> 연구소 실험실이나 공장에서 장갑을 끼고 작업 중에도 마이크 음성으로 즉각 부품 조회</li>
+                        <li><strong>사내망 보안 음성 인식:</strong> 외부 클라우드 전송 없이 사내 GPU 서버에서 실시간 고품질 한국어 음성-텍스트 변환</li>
+                        <li><strong>복합 멀티모달 응답:</strong> 음성 질의에 대해 음성 요약 안내와 함께 부품 비교표 및 Excel 다운로드 화면 동시 제공</li>
+                    </ul>
+                </div>
+                <div class="comp-box" style="background: #eff6ff; border-color: #93c5fd;">
+                    <h4 style="color: #1e40af;">🌳 계층적 드릴다운 트리 인터페이스</h4>
+                    <ul class="comp-list" style="list-style: none;">
+                        <li><strong>시각적 계층 트리 네비게이터:</strong> 완성차 ➔ 시스템 ➔ 모듈 ➔ 서브어셈블리 ➔ 단품 파트로 이어지는 계층 구조 시각화</li>
+                        <li><strong>챗봇 답변과 트리 뷰 양방향 연동:</strong> 챗봇이 상위 모듈을 답변하면 트리 뷰에서 해당 위치가 자동 하이라이트 및 확장</li>
+                        <li><strong>마우스 클릭 & 자연어 혼합 탐색:</strong> 원하는 모듈을 클릭하여 하위 부품을 드릴다운하거나, 반대로 단품을 선택하여 상위 차종 역추적</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: 파생 가치 및 편의성 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Business Value & Convenience</div>
+                <h2>8. 도입 시 파생되는 비즈니스 가치 및 편의성</h2>
+            </div>
+
+            <div class="feat-grid">
+                <div class="feat-card">
+                    <h5>R&D / 연구소 편의성 극대화</h5>
+                    <p>• <strong>탐색 시간 95% 단축:</strong> 레거시 PLM 화면 이동과 엑셀 수작업 비교(건당 30분)를 자연어 질의 10초로 단축</p>
+                    <p>• <strong>사양 차이 자동 비교:</strong> 차종/트림 간 부품 차이점과 파트넘버를 표 형태로 즉각 시각화</p>
+                    <p>• <strong>설계 부품 재활용 촉진:</strong> 신차 개발 시 기존 플랫폼 부품 적용 가능 여부를 신속히 파악</p>
+                </div>
+                <div class="feat-card">
+                    <h5>원가기획 / 구매 / 생산 효율화</h5>
+                    <p>• <strong>부품 공용화율 극대화:</strong> 타 차종 유사 스펙 부품 크로스 체크를 통해 신규 금형 및 개발비 절감</p>
+                    <p>• <strong>단종/대체 부품 즉각 식별:</strong> 단종 부품의 후속 파트넘버와 적용 호환성을 수초 내 확인</p>
+                    <p>• <strong>원가 변동 시뮬레이션:</strong> 옵션 사양 변경에 따른 부품 수량 및 예상 원가 변동 신속 산출</p>
+                </div>
+                <div class="feat-card">
+                    <h5>KG ICT 조직 경쟁력 강화</h5>
+                    <p>• <strong>반복 Ad-hoc 쿼리 80% 자동화:</strong> 현업의 수시 데이터 추출 요청 부담을 챗봇으로 이관</p>
+                    <p>• <strong>사내 표준 Private AI 플랫폼 확보:</strong> 온프렘 서빙 인프라를 자산화하여 향후 도면 검색, 매뉴얼 Q&A로 확장</p>
+                    <p>• <strong>글로벌 벤더 종속 탈피:</strong> IBM, MS 등 고가의 구독 라이선스 비용 전액 절감으로 TCO 최적화</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: 추진 일정 및 WBS -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Project Schedule</div>
+                <h2>9. 추진 일정 및 WBS (총 4개월 / 16주)</h2>
+            </div>
+            <p>상호 데이터 준비(Data Readiness)부터 모델 서빙, 멀티모달 UI 구현, 현업 100선 검증까지 <strong>총 4개월(16주)</strong> 일정으로 체계화하여 추진합니다.</p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">단계 (Phase)</th>
+                            <th style="width: 15%;">기간</th>
+                            <th style="width: 45%;">주요 활동 및 산출물</th>
+                            <th style="width: 20%;">핵심 마일스톤</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1단계: 데이터 준비 및 인프라 구축</strong></td>
+                            <td>1개월차 (W1~W4)</td>
+                            <td>KGM-KG ICT 상호 BOM 스키마 정의·정제, RHOSAI 클러스터(On-Prem/Cloud) 및 GPU 서버 셋업</td>
+                            <td>데이터 스키마 확정 및 인프라 구축</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2단계: 메타데이터 및 듀얼 데이터 엔진</strong></td>
+                            <td>2개월차 (W5~W8)</td>
+                            <td>차종·트림 코드 표준화, 도메인 용어사전 구축, DuckDB + Kùzu(Graph DB) 파이프라인 및 CDC 연동</td>
+                            <td>듀얼 데이터 레이어 구축 완료</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3단계: Coding Agent & 멀티모달 UI 개발</strong></td>
+                            <td>3개월차 (W9~W12)</td>
+                            <td>Nota.ai 경량 Qwen 모델 및 SGLang/vLLM 서빙, ReAct 에이전트, 음성 검색(STT) 및 계층 트리 UI 개발</td>
+                            <td>에이전트 및 트리 UI 통합</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4단계: 정합성 검증 및 파일럿 오픈</strong></td>
+                            <td>4개월차 (W13~W16)</td>
+                            <td>현업 복합 시나리오 100선 E2E 검증(정합성 90%+), 파일럿(CBT) 운영, 관리자 기술 이전 및 정식 오픈</td>
+                            <td>정식 서비스 오픈 (Go-Live)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 10: 구축 옵션 및 투입 인력 계획 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Deployment Options & Staffing Plan</div>
+                <h2>10. 구축 옵션 비교 및 전문 인력 투입 계획 (총 4개월 / 20.0 M/M)</h2>
+            </div>
+            <p>KG ICT의 인프라 운영 정책에 따라 선택하실 수 있도록 <strong>2가지 구축 옵션(Option A / Option B)</strong>과 <strong>4개월간의 전문 인력 투입 공수(총 20.0 M/M)</strong>를 제시합니다.</p>
+
+            <div class="option-grid">
+                <div class="option-card">
+                    <div class="opt-title">Option A: 온프렘 전용 GPU 서버 도입 포함 패키지</div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">사내 전산실에 NVIDIA RTX PRO 6000 듀얼 GPU 전용 서버를 신규 구축하는 종합 턴키 패키지</p>
+                    <div class="opt-price">총 20.0 M/M (4개월) <span>+ 전용 GPU 서버 1식</span></div>
+                    <ul class="opt-features">
+                        <li><strong>하드웨어:</strong> NVIDIA RTX 6000 Ada (RTX PRO 6000) 48GB x 2EA (총 96GB VRAM) 2U Rack 서버 1식 신규 구축</li>
+                        <li><strong>워런티:</strong> 제조사 정품 3년 24x7 온사이트 NBD 무상 유지보수 보증 포함</li>
+                        <li><strong>SW 개발 공수:</strong> 4개월간 전담 전문 인력 총 20.0 M/M 투입</li>
+                        <li><strong>라이선스:</strong> 오픈소스 스택 기반으로 상용 SW 연간 구독 라이선스 부담 없음</li>
+                    </ul>
+                </div>
+
+                <div class="option-card recommended">
+                    <span class="opt-badge">기보유 인프라 / 클라우드 활용 시</span>
+                    <div class="opt-title">Option B: 기존 인프라 또는 클라우드 활용 (SW 구축)</div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">KG ICT 사내 기보유 GPU 서버 또는 퍼블릭 클라우드(AWS/GCP/Azure)를 활용하는 SW 구축 집중 옵션</p>
+                    <div class="opt-price">총 20.0 M/M (4개월) <span>· SW 구축 집중</span></div>
+                    <ul class="opt-features">
+                        <li><strong>하드웨어:</strong> 고객사 기보유 GPU 서버 또는 퍼블릭 클라우드 인스턴스 활용</li>
+                        <li><strong>SW 개발 공수:</strong> 4개월간 전담 전문 인력 총 20.0 M/M 투입</li>
+                        <li><strong>인력 구성:</strong> AI 아키텍트(특급), 코딩 에이전트(고급), LLM 서빙(고급), 데이터/그래프(중급), UI/UX·QA(중급)</li>
+                        <li><strong>산출물:</strong> 샌드박스 에이전트, DuckDB+Kùzu 엔진, 사내 웹 포털(음성/트리 UI), 운영 매뉴얼 일체</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>투입 인력 공수 세부 내역 (4개월 기준 총 20.0 M/M)</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 24%;">역할 (Role)</th>
+                            <th style="width: 10%;">등급</th>
+                            <th style="width: 14%;">투입 기간</th>
+                            <th style="width: 14%;">투입 공수 (M/M)</th>
+                            <th style="width: 38%;">주요 담당 업무 및 핵심 산출물</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PM / AI 아키텍트</strong></td>
+                            <td>특급</td>
+                            <td>4개월</td>
+                            <td><strong>3.0 M/M</strong></td>
+                            <td>프로젝트 총괄, RHOSAI 아키텍처 설계, 상호 데이터 스키마 표준화 리드</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lead Coding Agent 엔지니어</strong></td>
+                            <td>고급</td>
+                            <td>4개월</td>
+                            <td><strong>4.0 M/M</strong></td>
+                            <td>ReAct 플래너, Docker 격리 샌드박스, Self-Correction 자가수정 루프 개발</td>
+                        </tr>
+                        <tr>
+                            <td><strong>온프렘/클라우드 LLM 엔지니어</strong></td>
+                            <td>고급</td>
+                            <td>4개월</td>
+                            <td><strong>4.0 M/M</strong></td>
+                            <td>Nota.ai 경량 Qwen 최적화, SGLang/vLLM 고속 서빙 구성, 프롬프트 튜닝</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BOM 데이터 / 그래프 엔지니어</strong></td>
+                            <td>중급</td>
+                            <td>4개월</td>
+                            <td><strong>5.0 M/M</strong></td>
+                            <td>BOM 데이터 정제, DuckDB + Kùzu(Graph DB) 듀얼 엔진 및 CDC 파이프라인 구축</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UI/UX 개발 & 음성/QA 엔지니어</strong></td>
+                            <td>중급</td>
+                            <td>4개월</td>
+                            <td><strong>4.0 M/M</strong></td>
+                            <td>Voice-to-BOM 음성 검색(STT), 계층적 드릴다운 트리 UI, 현업 100선 E2E 검증</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td><strong>합계</strong></td>
+                            <td>-</td>
+                            <td><strong>4개월 (16주)</strong></td>
+                            <td><strong>총 20.0 M/M</strong></td>
+                            <td><strong>전담 엔지니어링 팀 밀착 투입 (데이터 정제 ~ 에이전트 ~ 멀티모달 UI 완결)</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 11: 사전 협의 요청 사항 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Next Steps</div>
+                <h2>11. 성공적인 사업 착수를 위한 사전 협의 요청 사항</h2>
+            </div>
+            <p>본 사업의 신속하고 성공적인 론칭을 위해 KG ICT와 다음 3가지 사항에 대한 사전 협의를 요청드립니다.</p>
+            <div class="feat-grid">
+                <div class="feat-card" style="border-left: 4px solid var(--secondary);">
+                    <h5>1. 배포 환경 결정 (On-Prem vs Cloud)</h5>
+                    <p>KG ICT 전산실 내 GPU 인프라 가용 여부 및 클라우드 활용 정책을 확인하여 <strong>Option A (사내 전용 GPU 서버 신규 도입)</strong> 또는 <strong>Option B (기보유 인프라/클라우드 활용 SW 구축)</strong> 방향을 확정하고자 합니다.</p>
+                </div>
+                <div class="feat-card" style="border-left: 4px solid var(--accent);">
+                    <h5>2. 상호 데이터 준비 (Data Readiness) 워크숍</h5>
+                    <p>1차 대상 주력 차종(토레스, 렉스턴, 액티언 등 3~4개 차종)의 원천 BOM 테이블 스키마, 부품 계층 구조 정의서, 현업 약어/용어사전 샘플 데이터를 조기 상호 검토하여 정제 리드타임을 단축하고자 합니다.</p>
+                </div>
+                <div class="feat-card" style="border-left: 4px solid var(--success);">
+                    <h5>3. 현업 대표 질문 셋 (Golden Test Set) 수집</h5>
+                    <p>R&D 연구소 및 원가기획 부서에서 가장 빈번하게 요청하는 대표 BOM 조회 및 사양 비교 질문 30~50건을 사전에 공유해 주시면, 초기 에이전트 정확도 벤치마크 기준으로 즉시 반영하겠습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 12: 전체 핵심 용어집 -->
+        <section class="section-card">
+            <div class="section-header">
+                <div class="section-tag">Glossary</div>
+                <h2>12. 전체 핵심 용어집 (Glossary)</h2>
+            </div>
+            <p>본 제안서 및 BOM AI 인텔리전스 시스템 구축에 사용되는 주요 핵심 기술 및 도메인 용어에 대한 정의입니다.</p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 22%;">용어 (Term)</th>
+                            <th style="width: 28%;">풀네임 / 영문</th>
+                            <th style="width: 50%;">핵심 정의 및 본 사업에서의 역할</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>BOM</strong></td>
+                            <td>Bill of Materials (부품 부품표)</td>
+                            <td>자동차 한 대를 제작하기 위해 필요한 모든 부품, 모듈, 어셈블리의 품번, 명칭, 수량, 계층 구조 및 조립 관계를 정의한 데이터베이스.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EBOM / MBOM</strong></td>
+                            <td>Engineering BOM / Manufacturing BOM</td>
+                            <td><strong>EBOM</strong>: 연구소 설계 관점의 부품 구조표 / <strong>MBOM</strong>: 생산 공장 및 조립 라인 관점의 공정
+                                중심 부품표.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RHOSAI</strong></td>
+                            <td>Red Hat OpenShift AI</td>
+                            <td>쿠버네티스 기반의 엔터프라이즈 오픈 AI 플랫폼. 온프레미스와 퍼블릭 클라우드 간 애플리케이션 일관성과 확장성을 보장하는 핵심 기반 스택.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nota.ai (NetsPresso®)</strong></td>
+                            <td>AI 모델 압축/경량화 플랫폼</td>
+                            <td>구조적 프루닝, 정밀 양자화, 지식 증류를 통해 거대 코딩 모델을 손실 없이 경량화하여 서빙 속도와 동시 처리량을 극대화하는 솔루션.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SGLang</strong></td>
+                            <td>SGLang (초고속 추론 엔진)</td>
+                            <td>RadixAttention 기술로 KV 캐시 재사용을 극대화하여 복잡한 다단계 에이전트 및 자가수정 루프 지연시간을 70% 단축하는 최신 서빙 엔진.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DuckDB</strong></td>
+                            <td>DuckDB (임베디드 분석 OLAP DB)</td>
+                            <td>프로세스 내(In-Process) 직접 구동되는 초고속 컬럼 지향 OLAP 엔진. 파이썬/판다스와 제로카피 연동되어 수백만 건 부품 데이터를 수 밀리초 내
+                                집계·Diff 연산.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kùzu</strong></td>
+                            <td>Kùzu (임베디드 Graph DB)</td>
+                            <td>C++ 기반 초경량 인프로세스 그래프 DB. 별도 서버 없이 Python 내장 구동되며, BOM 계층 트리 순회 및 부품 종속성 경로 탐색에 최적화.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Voice-to-BOM</strong></td>
+                            <td>온프렘 음성 검색 인터페이스</td>
+                            <td>연구원/현장 실무자가 마이크 음성 질의 시 온프렘 Whisper STT를 통해 핸즈프리로 즉각 부품 검색을 수행하는 멀티모달 기능.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drill-down Tree UI</strong></td>
+                            <td>계층적 드릴다운 트리 UI</td>
+                            <td>완성차부터 단품 부품까지 이어지는 BOM 계층 트리를 시각적으로 펼쳐가며 대화와 클릭을 결합하여 직관적으로 탐색하는 인터페이스.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code-Interpreter Agent</strong></td>
+                            <td>Code-Interpreter Agent</td>
+                            <td>사용자의 자연어 질문을 해결하기 위해 LLM이 분석 코드(Python/DuckDB)를 직접 작성하고 격리된 환경에서 실행하여 결과를 도출하는 에이전트.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Self-Correction Loop</strong></td>
+                            <td>자가 수정 루프</td>
+                            <td>생성된 코드가 런타임 에러나 빈 결과(Empty)를 반환할 때, 에이전트가 에러 스택을 스스로 해석하고 코드를 재작성하여 실행함으로써 정합성을 90%+로
+                                끌어올리는 메커니즘.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Text-to-SQL</strong></td>
+                            <td>Text-to-SQL</td>
+                            <td>자연어 질의를 SQL 문장으로 일회성 변환하는 전통적 방식. 복잡한 다중 조인 및 계층 트리 구조에서 문법 오류와 취약성이 높음.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ReAct 패턴</strong></td>
+                            <td>Reasoning + Acting</td>
+                            <td>에이전트가 생각(Reasoning), 도구 실행(Acting), 결과 관찰(Observation)을 반복하여 복합 문제를 자율 해결하는 프롬프트 패러다임.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>vLLM</strong></td>
+                            <td>vLLM (고속 추론 서빙 엔진)</td>
+                            <td>PagedAttention 알고리즘을 통해 GPU 메모리 낭비를 없애고 고속 처리 토큰 수(TPS)를 극대화하는 오픈소스 LLM 서빙 프레임워크.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Qwen2.5-Coder</strong></td>
+                            <td>Alibaba Qwen2.5-Coder (32B)</td>
+                            <td>최신 글로벌 벤치마크 상위 랭킹 오픈소스 코딩 특화 모델. 복잡한 알고리즘 및 데이터 분석 코드 작성 능력 탁월.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>양자화 (Quantization)</strong></td>
+                            <td>AWQ / FP8 Quantization</td>
+                            <td>16비트 모델 가중치를 4/8비트로 압축하여 정확도 손실 없이 GPU VRAM 사용량을 대폭 절감하고 추론 속도를 2배 이상 향상시키는 기술.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>격리 샌드박스</strong></td>
+                            <td>Isolated Sandbox (Docker/Podman)</td>
+                            <td>에이전트가 생성한 Python 코드가 시스템에 위해를 가하지 못하도록 네트워크와 시스템 자원이 안전하게 격리된 실행 런타임.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Diff Analyzer</strong></td>
+                            <td>사양 간 차이 분석기</td>
+                            <td>토레스 가솔린 vs 하이브리드 등 복수 차종/트림 간 적용 부품의 차이점, 변경된 파트넘버, 사양 변경 내역을 자동으로 비교 연산하여 표로 제공하는 기능.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ad-hoc Query</strong></td>
+                            <td>비정형 임시 질의</td>
+                            <td>정형화된 보고서 화면 외에 현업 실무자가 특정 목적을 위해 IT 부서에 수시로 요청하는 임시 SQL 데이터 추출 작업.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Readiness</strong></td>
+                            <td>상호 데이터 준비성</td>
+                            <td>AI 구축 착수 전 고객사(KGM/KG ICT)와 제안사 간의 원천 BOM 스키마 정의, 부품 코드 표준화, 결측치 및 테이블 정제를 수행하는 선행 작업
+                                단계.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>본 제안서는 메가존클라우드(주)의 고유 기술 자산 및 현대차 남양연구소 PoC 수행 노하우를 바탕으로 작성되었습니다.</p>
+        <p style="margin-top: 8px;">Copyright &copy; 2026 MegazoneCloud Corp. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>
