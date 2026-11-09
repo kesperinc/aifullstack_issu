@@ -3,7 +3,7 @@
 KG ICT x KGM 모빌리티 BOM 인텔리전스 챗봇 구축 사업제안서 (.docx 및 .pptx 생성 스크립트)
 - 수행 기간: 총 4개월 (16주)
 - 투입 공수: 총 20.0 M/M (역할별/등급별 세부 M/M 포함)
-- 금액 표기: 제외 (고객 대면 제안 설명용 비가격 버전)
+- 금액 표기 제외 & 특정 상용/오픈소스 제품명 배제 (임베디드 DB, 경량화 솔루션, 경량화 모델 등으로 일반화)
 """
 import os
 import sys
@@ -175,7 +175,7 @@ def create_word_proposal(output_path: str) -> None:
     p_sub = doc.add_paragraph()
     p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
     r_sub = p_sub.add_run(
-        "RHOSAI 표준 플랫폼 · Nota.ai 경량 Qwen2.5-Coder · DuckDB + Kùzu(Graph DB) 듀얼 엔진 ·\n"
+        "표준 컨테이너 AI 플랫폼 · 모델 경량화 솔루션 및 경량화 코딩 모델 · 듀얼 임베디드 DB (분석형/그래프형) ·\n"
         "Voice-to-BOM 음성 검색 및 계층적 드릴다운(Drill-down) 트리 UI 통합 아키텍처"
     )
     r_sub.font.size = Pt(11)
@@ -192,7 +192,7 @@ def create_word_proposal(output_path: str) -> None:
             ["BOM 탐색 소요 시간", "95% 단축", "건당 30분 레거시 수작업 비교 → 자연어/음성 질의 10초 이내 표 출력"],
             ["복합 질의 응답 정합성", "90% 이상", "과거 Text-to-SQL(59%) 한계 극복, 샌드박스 자가수정(Self-Correction) 탑재"],
             ["총 수행 기간 / 공수", "4개월 (16주) / 20.0 M/M", "전담 AI 아키텍트·코딩 에이전트·LLM·데이터·UI 엔지니어 밀착 투입"],
-            ["데이터 보안 및 유연성", "100% On-Prem / Hybrid", "RHOSAI 기반 사내망 완벽 격리 배포 및 퍼블릭 클라우드 유연 확장"]
+            ["데이터 보안 및 유연성", "100% On-Prem / Hybrid", "표준 컨테이너 AI 플랫폼 기반 사내망 완벽 격리 배포 및 클라우드 유연 확장"]
         ]
     )
 
@@ -238,24 +238,24 @@ def create_word_proposal(output_path: str) -> None:
     add_bullet(
         doc,
         "② Text-to-SQL의 한계를 넘어선 Sandbox Coding Agent : ",
-        "단발성 SQL 생성 방식(정합성 59% 수준)에서 탈피하여, 코딩 특화 모델이 Python/DuckDB/Kùzu 분석 코드를 작성하고 격리 샌드박스에서 실행·자가수정(Self-Correction)을 거치는 에이전트 아키텍처로 90% 이상의 정합성을 달성합니다."
+        "단발성 SQL 생성 방식(정합성 59% 수준)에서 탈피하여, 경량화 코딩 특화 모델이 분석 코드 및 임베디드 DB 쿼리를 작성하고 격리 샌드박스에서 실행·자가수정(Self-Correction)을 거치는 에이전트 아키텍처로 90% 이상의 정합성을 달성합니다."
     )
     add_bullet(
         doc,
-        "③ 특정 외산 솔루션 종속 탈피 및 RHOSAI 표준화 : ",
-        "과거 IBM watsonx 등 특정 외산 상용 솔루션 종속에서 벗어나, RHOSAI(Red Hat OpenShift AI)를 기본 플랫폼으로 채택하여 사내 온프레미스(On-Premise)와 퍼블릭 클라우드(Public Cloud) 양쪽 모두에 유연하게 배포할 수 있습니다."
+        "③ 특정 상용 솔루션 종속 탈피 및 표준 컨테이너 AI 플랫폼 적용 : ",
+        "과거 고비용 특정 외산 솔루션 종속에서 벗어나, 엔터프라이즈 표준 컨테이너 AI 플랫폼을 기본 환경으로 채택하여 사내 온프레미스(On-Premise)와 퍼블릭 클라우드(Public Cloud) 양쪽 모두에 유연하게 배포할 수 있습니다."
     )
 
     add_styled_table(
         doc,
         ["비교 항목", "과거 현대자동차 남양연구소 PoC (2024)", "KGM 차세대 BOM 인텔리전스 (2026 본 제안)"],
         [
-            ["핵심 아키텍처", "전통적 Text-to-SQL + Milvus RAG 구조", "Sandbox Code-Interpreter 에이전트 + Self-Correction 루프"],
-            ["추론 방식", "한글→영문 번역 → 5개 고정 Intent 분류 → SQL 생성", "자율 계획(ReAct) → Python/DuckDB/Kùzu 코드 생성·실행·검증"],
-            ["기본 인프라 기반", "IBM watsonx, OCP 클라우드 등 특정 벤더 단독 종속", "RHOSAI (Red Hat OpenShift AI) 기반 On-Prem / Cloud 하이브리드"],
-            ["데이터 엔진", "Presto / Trino 분산 쿼리 엔진", "초고속 임베디드 OLAP (DuckDB) + Graph DB (Kùzu) 듀얼 엔진"],
-            ["적용 모델", "Llama-3.1-8B, SQLCoder-7B (단순 프롬프트 결합)", "Nota.ai 최적화 경량 Qwen2.5-Coder (초저지연 코딩 특화 모델)"],
-            ["추론 서빙 엔진", "단순 API / 기본 컨테이너 서빙", "초경량 고속 서빙 엔진 (SGLang / vLLM / llama-server)"],
+            ["핵심 아키텍처", "전통적 Text-to-SQL + 단순 벡터 RAG 구조", "Sandbox Code-Interpreter 에이전트 + Self-Correction 루프"],
+            ["추론 방식", "한글→영문 번역 → 5개 고정 Intent 분류 → 단일 SQL 생성", "자율 계획(ReAct) → 분석 코드 및 임베디드 DB 쿼리 생성·실행·검증"],
+            ["기본 인프라 기반", "특정 고비용 외산 상용 AI 플랫폼 단독 종속", "표준 컨테이너 AI 플랫폼 기반 On-Prem / Cloud 하이브리드"],
+            ["데이터 엔진", "외부 분산 쿼리 엔진", "초고속 분석형 임베디드 DB + 임베디드 그래프 DB 듀얼 엔진"],
+            ["적용 모델", "초기 소형 언어 모델 (단순 프롬프트 결합)", "모델 경량화 솔루션이 적용된 초저지연 경량화 코딩 특화 모델"],
+            ["추론 서빙 엔진", "상용 플랫폼 기본 서빙 스택", "캐시 재사용 및 메모리 최적화 기반 초경량 고속 서빙 솔루션"],
             ["사용자 인터페이스", "단순 텍스트 챗봇 API (단답형 결과 출력)", "음성 검색(Voice-to-BOM) + 계층적 드릴다운(Drill-down) 트리 UI"],
             ["데이터 준비성", "사전 정제 데이터셋 활용 (특수 환경)", "상호 데이터 스키마 정의 및 도메인 용어 정제 단계 내재화 (90%+ 정합성)"]
         ]
@@ -275,25 +275,25 @@ def create_word_proposal(output_path: str) -> None:
         doc,
         ["단계", "프로세스 명칭", "수행 주체 (모듈)", "상세 처리 내역 및 데이터 흐름"],
         [
-            ["Step 1", "사용자 쿼리 유입", "Web Portal / Whisper STT", "사내 웹 포털 텍스트 입력 또는 마이크 음성 질의(Voice-to-BOM)를 온프렘 Whisper STT가 텍스트로 즉시 변환"],
-            ["Step 2", "의미해석 및 캐시 확인", "Semantic Parser LLM & Cache", "빈출 질문(FAQ) 시맨틱 캐시 히트 시 0.1초 내 즉시 반환. 신규 질문은 의도(Intent) 분석 및 차종/부품코드 엔티티 추출"],
-            ["Step 3", "쿼리/코드 변환", "Nota.ai 경량 Qwen2.5-Coder", "스키마 메타데이터를 참조하여 DuckDB SQL, Kùzu OpenCypher 그래프 쿼리, 사양 Diff 연산용 Python 코드 동적 작성"],
-            ["Step 4", "격리 샌드박스 탐색", "Docker Sandbox (DuckDB+Kùzu)", "격리 컨테이너에서 DuckDB 수치 집계 및 Kùzu BOM 다계층 트리 순회 수행. 에러/빈 결과 발생 시 Self-Correction 루프로 자체 디버깅"],
-            ["Step 5", "답변 작성 (합성)", "Response Synthesizer", "도출된 데이터프레임 결과를 기반으로 부품 비교표 마크다운 렌더링, 핵심 사양 차이점 자연어 요약 및 Excel 다운로드 파일 생성"],
-            ["Step 6", "멀티모달 최종 응답", "Chat UI / Tree UI / TTS", "대화창 표출과 동시에 우측 BOM 계층 트리 뷰에서 해당 모듈 자동 하이라이트·확장, 음성 안내(TTS) 출력 및 피드백 DB 적재"]
+            ["Step 1", "사용자 쿼리 유입", "웹 포털 / 온프렘 음성인식(STT)", "사내 웹 포털 텍스트 입력 또는 마이크 음성 질의(Voice-to-BOM)를 온프렘 음성인식 모델이 텍스트로 즉시 변환"],
+            ["Step 2", "의미해석 및 캐시 확인", "의미해석 LLM & 시맨틱 캐시", "빈출 질문(FAQ) 시맨틱 캐시 히트 시 0.1초 내 즉시 반환. 신규 질문은 의도(Intent) 분석 및 차종/부품코드 엔티티 추출"],
+            ["Step 3", "쿼리/코드 변환", "경량화 코딩 특화 모델", "스키마 메타데이터를 참조하여 분석형 임베디드 DB 쿼리, 임베디드 그래프 DB 탐색 쿼리, 사양 Diff 연산용 코드 동적 작성"],
+            ["Step 4", "격리 샌드박스 탐색", "보안 격리 샌드박스 (듀얼 임베디드 DB)", "격리 컨테이너에서 임베디드 DB 수치 집계 및 임베디드 그래프 DB 다계층 트리 순회 수행. 에러 발생 시 Self-Correction 루프로 자체 디버깅"],
+            ["Step 5", "답변 작성 (합성)", "답변 합성 모듈 (Synthesizer)", "도출된 데이터프레임 결과를 기반으로 부품 비교표 렌더링, 핵심 사양 차이점 자연어 요약 및 스프레드시트 다운로드 파일 생성"],
+            ["Step 6", "멀티모달 최종 응답", "챗 UI / 계층 트리 UI / TTS", "대화창 표출과 동시에 우측 BOM 계층 트리 뷰에서 해당 모듈 자동 하이라이트·확장, 음성 안내(TTS) 출력 및 피드백 DB 적재"]
         ]
     )
 
-    add_sub_heading(doc, "2.2 5대 기능 블록 및 RHOSAI 인프라 레이어 구성")
+    add_sub_heading(doc, "2.2 5대 기능 블록 및 표준 컨테이너 AI 플랫폼 레이어 구성")
     add_styled_table(
         doc,
         ["계층 (Layer)", "구성 모듈 및 인스턴스", "핵심 역할 및 기술 사양"],
         [
-            ["Layer 1 : Client & UI", "React 웹 포털, D3.js 계층 트리 뷰어, 음성 입출력기", "대화형 챗 UI, 완료 결과와 양방향 연동되는 BOM 계층 드릴다운 트리 네비게이터, 핸즈프리 마이크 인터페이스"],
-            ["Layer 2 : Gateway & Orchestration", "FastAPI Gateway, LangGraph ReAct Controller, FAQ Cache", "사내 SSO 인증 연동, 에이전트 다단계 추론 상태 관리, 빈출 질문 시맨틱 캐시(0.1초 즉시 응답) 처리"],
-            ["Layer 3 : Cognitive & Serving", "RHOSAI GPU Node, SGLang / vLLM, Nota.ai Qwen Coder", "RadixAttention/PagedAttention 기반 초고속 추론 서빙, 온프렘 Whisper STT 및 경량 코딩 특화 모델 구동"],
-            ["Layer 4 : Dual Embedded Data", "Isolated Docker Sandbox, DuckDB + Kùzu + Apache Arrow", "네트워크 차단 격리 샌드박스 내에서 DuckDB(OLAP 집계/Diff)와 Kùzu(그래프 트리 순회)를 Zero-Copy 메모리로 통합 구동"],
-            ["Layer 5 : Integration & Continuous RAG", "Read Replica, Airflow CDC, Vector DB, Feedback DB", "KGM 원천 PLM/ERP 무부하 읽기 복제본 연동, 신규 출시 차종/설계변경(ECO) 자동 인덱싱 및 사용자 피드백 축적"]
+            ["Layer 1 : Client & UI", "사내 웹 포털, 계층 트리 뷰어, 음성 입출력기", "대화형 챗 UI, 답변 결과와 양방향 연동되는 BOM 계층 드릴다운 트리 네비게이터, 핸즈프리 마이크 인터페이스"],
+            ["Layer 2 : Gateway & Orchestration", "API 게이트웨이, ReAct 에이전트 컨트롤러, FAQ 캐시", "사내 SSO 인증 연동, 에이전트 다단계 추론 상태 관리, 빈출 질문 시맨틱 캐시(0.1초 즉시 응답) 처리"],
+            ["Layer 3 : Cognitive & Serving", "GPU 추론 노드, 초경량 고속 서빙 솔루션, 경량화 코딩 모델", "프리픽스 캐시 재사용 및 메모리 최적화 기반 초고속 추론 서빙, 온프렘 음성인식(STT) 및 경량화 코딩 특화 모델 구동"],
+            ["Layer 4 : Dual Embedded Data", "보안 격리 샌드박스, 분석형 임베디드 DB + 임베디드 그래프 DB", "네트워크 차단 격리 샌드박스 내에서 분석형 임베디드 DB(집계/Diff)와 임베디드 그래프 DB(트리 순회)를 공유 메모리로 통합 구동"],
+            ["Layer 5 : Integration & Continuous RAG", "읽기 전용 복제본, 자동화 CDC 배치, 지식 저장소, 피드백 DB", "KGM 원천 PLM/ERP 무부하 읽기 복제본 연동, 신규 출시 차종/설계변경(ECO) 자동 인덱싱 및 사용자 피드백 축적"]
         ]
     )
 
@@ -301,65 +301,65 @@ def create_word_proposal(output_path: str) -> None:
     add_bullet(
         doc,
         "• 운영계 부하 원천 차단 (Read-Only Replica & CDC) : ",
-        "KGM의 핵심 운영 시스템(PLM/ERP)에 직접 쿼리를 실행하지 않고, 읽기 전용 복제본(Read Replica) 및 Parquet/Graph 스냅샷을 일 단위 또는 CDC(변경 데이터 캡처) 배치로 동기화하여 운영계 영향을 0%로 유지합니다."
+        "KGM의 핵심 운영 시스템(PLM/ERP)에 직접 쿼리를 실행하지 않고, 읽기 전용 복제본(Read Replica) 및 컬럼형/그래프형 스냅샷을 일 단위 또는 CDC(변경 데이터 캡처) 배치로 동기화하여 운영계 영향을 0%로 유지합니다."
     )
     add_bullet(
         doc,
         "• 최신 차종·사양 Active RAG 자동 현행화 : ",
-        "신규 차종이나 연식 변경, 설계 변경(ECO) 발생 시 Airflow 파이프라인이 변경된 부품 메타데이터와 약어사전을 자동으로 벡터화하여 에이전트가 항상 최신 BOM 정보를 기반으로 코드를 작성하도록 보장합니다."
+        "신규 차종이나 연식 변경, 설계 변경(ECO) 발생 시 자동화 파이프라인이 변경된 부품 메타데이터와 약어사전을 자동으로 벡터화하여 에이전트가 항상 최신 BOM 정보를 기반으로 코드를 작성하도록 보장합니다."
     )
 
     # ==========================================================
-    # 3. 모델 및 서빙 혁신 (Nota.ai 경량 Qwen & SGLang/vLLM)
+    # 3. 모델 및 서빙 혁신 (모델 경량화 솔루션 & 초경량 고속 서빙 엔진)
     # ==========================================================
-    add_section_heading(doc, "3. 모델 및 서빙 혁신 : Nota.ai 경량화 Qwen & 초경량 고속 서빙 엔진")
+    add_section_heading(doc, "3. 모델 및 서빙 혁신 : 모델 경량화 솔루션 & 초경량 고속 서빙 엔진")
     doc.add_paragraph(
-        "자동차 BOM 분석 코딩 에이전트는 정교한 Python/SQL/Cypher 문법 생성 능력과 현업이 체감하는 빠른 응답 속도(Low Latency)를 동시에 만족해야 합니다."
+        "자동차 BOM 분석 코딩 에이전트는 정교한 분석 코드 및 쿼리 문법 생성 능력과 현업이 체감하는 빠른 응답 속도(Low Latency)를 동시에 만족해야 합니다."
     )
     add_bullet(
         doc,
-        "• Nota.ai NetsPresso® 기반 경량 Qwen2.5-Coder : ",
-        "AI 모델 압축 전문 기술인 Nota.ai의 NetsPresso® 플랫폼을 통해 구조적 프루닝(Pruning), INT4/FP8 정밀 양자화, 도메인 지식 증류를 수행합니다. 원본 거대 모델 대비 VRAM 점유율을 40~50% 절감하면서도 코딩 정확도를 95% 이상 보존하여 동시 접속 처리량을 2배 이상 높입니다."
+        "• 모델 경량화 솔루션 기반 초저지연 경량화 코딩 모델 : ",
+        "전문 AI 모델 압축·경량화 솔루션을 통해 구조적 프루닝(Pruning), INT4/FP8 정밀 양자화, 도메인 지식 증류를 수행합니다. 원본 거대 모델 대비 VRAM 점유율을 40~50% 절감하면서도 코딩 정확도를 95% 이상 보존하여 동시 접속 처리량을 2배 이상 높입니다."
     )
     add_bullet(
         doc,
-        "• Ollama의 한계를 넘어서는 엔터프라이즈 서빙 엔진 : ",
-        "단일 사용자 중심인 Ollama 대신, 다중 사용자 동시 요청과 에이전트 반복 루프에 최적화된 SGLang, vLLM, llama-server를 환경에 맞게 구성합니다."
+        "• 기본 로컬 서빙 도구의 한계를 넘어서는 초경량 고속 서빙 솔루션 : ",
+        "단일 사용자 중심인 일반 서빙 도구 대신, 다중 사용자 동시 요청과 에이전트 반복 루프에 최적화된 초경량 고속 서빙 엔진을 환경에 맞게 구성합니다."
     )
 
     add_styled_table(
         doc,
-        ["서빙 엔진", "핵심 기술 특징", "기존 Ollama 대비 강점 및 적용 시나리오"],
+        ["서빙 엔진 유형", "핵심 기술 특징", "기존 서빙 방식 대비 강점 및 적용 시나리오"],
         [
-            ["SGLang (최우선 추천)", "RadixAttention 기반 프롬프트/KV 캐시 재사용 극대화", "다단계 Coding Agent 및 자가수정(Self-Correction) 반복 시 추론 지연시간 70% 단축, 초당 토큰 처리량(TPS) 1.5~2배 향상"],
-            ["vLLM (엔터프라이즈 표준)", "PagedAttention 알고리즘 및 Continuous Batching", "GPU 메모리 파편화 제로화, RHOSAI(OpenShift AI) KServe 표준 런타임 내장 지원으로 엔터프라이즈 안정성 확보"],
-            ["llama-server (llama.cpp)", "순수 C/C++ 기반 제로 디펜던시 초경량 바이너리", "극소 메모리 풋프린트 및 CPU+GPU 하이브리드 오프로딩 지원으로 개발/검증 및 경량 엣지 환경에 즉시 구동"]
+            ["프리픽스 캐시 재사용 기반\n에이전트 특화 서빙 엔진 (권장)", "트리 구조 기반 프롬프트/KV 캐시 재사용 극대화", "다단계 Coding Agent 및 자가수정(Self-Correction) 반복 시 추론 지연시간 70% 단축, 초당 토큰 처리량(TPS) 1.5~2배 향상"],
+            ["메모리 페이지 최적화 기반\n엔터프라이즈 배치 서빙 엔진", "가상 메모리 페이징 알고리즘 및 연속 배치 처리", "GPU 메모리 파편화 제로화, 표준 컨테이너 AI 플랫폼 내장 연동으로 엔터프라이즈 안정성 및 오토스케일링 확보"],
+            ["C/C++ 네이티브 기반\n초경량 제로 디펜던시 런타임", "무거운 프레임워크 종속성 없는 순수 C/C++ 바이너리", "극소 메모리 풋프린트 및 CPU+GPU 하이브리드 오프로딩 지원으로 개발/검증 및 자원 제약 환경에 즉시 구동"]
         ]
     )
 
     # ==========================================================
-    # 4. 데이터 엔진 혁신 : DuckDB + Kùzu 듀얼 아키텍처
+    # 4. 데이터 엔진 혁신 : 임베디드 DB + 임베디드 그래프 DB 듀얼 아키텍처
     # ==========================================================
-    add_section_heading(doc, "4. 데이터 엔진 혁신 : DuckDB + Kùzu (임베디드 Graph DB) 듀얼 아키텍처")
+    add_section_heading(doc, "4. 데이터 엔진 혁신 : 임베디드 DB + 임베디드 그래프 DB 듀얼 아키텍처")
     doc.add_paragraph(
-        "자동차 BOM 데이터는 수십만 건의 부품 단가·수량·사양을 집계하는 '테이블 연산(OLAP)' 성격과, "
+        "자동차 BOM 데이터는 수십만 건의 부품 단가·수량·사양을 집계하는 '테이블 분석(OLAP)' 성격과, "
         "완성차 ➔ 시스템 ➔ 모듈 ➔ 어셈블리 ➔ 단품으로 이어지는 '다계층 트리 및 대체품 네트워크(Graph)' 성격을 동시에 가지고 있습니다. "
-        "본 제안은 별도의 무거운 외부 DB 서버 없이 샌드박스 프로세스 내부에서 동작하는 듀얼 임베디드 엔진을 구축합니다."
+        "본 제안은 별도의 무거운 외부 DB 서버 없이 샌드박스 프로세스 내부에서 동작하는 듀얼 임베디드 DB 아키텍처를 구축합니다."
     )
     add_bullet(
         doc,
-        "• DuckDB (In-Process OLAP 엔진) : ",
-        "수백만 건의 BOM 테이블을 컬럼 기반 벡터화 연산으로 수 밀리초 내 집계·필터링하며, Python Pandas/Polars와 Zero-Copy로 연동되어 트림 간 사양 비교(Diff) 연산을 초고속으로 처리합니다."
+        "• 분석형 임베디드 DB (In-Process OLAP 엔진) : ",
+        "수백만 건의 BOM 테이블을 컬럼 기반 벡터화 연산으로 수 밀리초 내 집계·필터링하며, 인메모리 데이터프레임과 제로카피(Zero-Copy)로 연동되어 트림 간 사양 비교(Diff) 연산을 초고속으로 처리합니다."
     )
     add_bullet(
         doc,
-        "• Kùzu (In-Process Graph DB) : ",
-        "DuckDB와 동일한 임베디드 철학을 가진 초고속 C++ 그래프 DB로, OpenCypher 쿼리를 통해 복잡한 다계층 BOM 트리 순회(Traversal), 특정 단품이 사용된 상위 차종 역추적(Where-Used), 단종 부품의 호환 대체 경로 탐색을 밀리초 단위로 수행합니다."
+        "• 임베디드 그래프 DB (In-Process Graph DB) : ",
+        "별도의 외부 분산 서버 없이 프로세스 내부에 직접 내장되는 초경량 그래프 DB로, 복잡한 다계층 BOM 트리 순회(Traversal), 특정 단품이 사용된 상위 차종 역추적(Where-Used), 단종 부품의 호환 대체 경로 탐색을 밀리초 단위로 수행합니다."
     )
     add_bullet(
         doc,
-        "• Apache Arrow Zero-Copy 통합 시너지 : ",
-        "Kùzu에서 탐색한 부품 관계 그래프 결과를 메모리 복사 없이 Apache Arrow 포맷으로 즉시 DuckDB/Polars로 전달하여 복합 분석을 단일 파이썬 샌드박스에서 완결합니다."
+        "• 공유 메모리 Zero-Copy 통합 시너지 : ",
+        "임베디드 그래프 DB에서 탐색한 부품 관계 네트워크 결과를 메모리 복사 없이 즉시 분석형 임베디드 DB로 전달하여 복합 분석을 단일 보안 샌드박스에서 완결합니다."
     )
 
     # ==========================================================
@@ -368,8 +368,8 @@ def create_word_proposal(output_path: str) -> None:
     add_section_heading(doc, "5. 인터페이스 혁신 : 음성 검색(Voice-to-BOM) & 계층적 드릴다운 트리 UI")
     add_bullet(
         doc,
-        "• 🎤 음성 검색 (Voice-to-BOM, 온프렘 Whisper STT) : ",
-        "연구실이나 조립·정비 현장에서 도면이나 부품을 다루며 키보드 타이핑이 어려운 상황에서도 마이크 음성만으로 즉시 질의할 수 있습니다. 외부 클라우드 API를 사용하지 않고 사내 GPU 서버 내 Whisper 모델로 한국어 및 부품 영문 약어를 정확히 인식합니다."
+        "• 🎤 음성 검색 (Voice-to-BOM, 온프렘 음성인식 STT) : ",
+        "연구실이나 조립·정비 현장에서 도면이나 부품을 다루며 키보드 타이핑이 어려운 상황에서도 마이크 음성만으로 즉시 질의할 수 있습니다. 외부 클라우드 API를 사용하지 않고 사내 GPU 서버 내 음성인식 모델로 한국어 및 부품 영문 약어를 정확히 인식합니다."
     )
     add_bullet(
         doc,
@@ -389,7 +389,7 @@ def create_word_proposal(output_path: str) -> None:
     # ==========================================================
     add_section_heading(doc, "6. 추진 일정 및 WBS (총 4개월 / 16주)")
     doc.add_paragraph(
-        "상호 데이터 준비(Data Readiness)부터 RHOSAI 인프라 셋업, DuckDB+Kùzu 듀얼 엔진 구축, Coding Agent 및 멀티모달 트리 UI 개발, "
+        "상호 데이터 준비(Data Readiness)부터 표준 컨테이너 AI 플랫폼 셋업, 듀얼 임베디드 DB 구축, Coding Agent 및 멀티모달 트리 UI 개발, "
         "현업 시나리오 100선 검증 및 안정화까지 총 4개월(16주) 일정으로 체계적으로 수행합니다."
     )
 
@@ -400,19 +400,19 @@ def create_word_proposal(output_path: str) -> None:
             [
                 "1단계: 데이터 준비 및 인프라 구축",
                 "1개월차\n(W1 ~ W4)",
-                "• KGM-KG ICT 상호 BOM 데이터 스키마 정의 및 정제 기준 수립\n• 주력 차종 원천 테이블 매핑 및 결측치/비표준 코드 정제\n• RHOSAI (On-Prem 또는 Cloud) 클러스터 및 GPU 서빙 환경 셋업",
+                "• KGM-KG ICT 상호 BOM 데이터 스키마 정의 및 정제 기준 수립\n• 주력 차종 원천 테이블 매핑 및 결측치/비표준 코드 정제\n• 표준 컨테이너 AI 플랫폼(On-Prem/Cloud) 및 GPU 서빙 환경 셋업",
                 "• BOM 표준 스키마 정의서\n• 인프라 아키텍처 설계서\n• 개발/검증 클러스터 오픈"
             ],
             [
-                "2단계: 메타데이터 및 듀얼 데이터 엔진",
+                "2단계: 메타데이터 및 듀얼 임베디드 DB",
                 "2개월차\n(W5 ~ W8)",
-                "• KGM 차종·트림·옵션 코드 표준화 및 현업 약어/용어사전 구축\n• DuckDB(OLAP) + Kùzu(Graph DB) 듀얼 인메모리 파이프라인 구축\n• 운영계 무부하 Read Replica 및 Airflow CDC 자동 동기화 구현",
-                "• KGM BOM 도메인 용어사전\n• DuckDB+Kùzu 데이터 엔진\n• CDC 동기화 파이프라인"
+                "• KGM 차종·트림·옵션 코드 표준화 및 현업 약어/용어사전 구축\n• 분석형 임베디드 DB + 임베디드 그래프 DB 인메모리 파이프라인 구축\n• 운영계 무부하 Read Replica 및 자동화 CDC 동기화 구현",
+                "• KGM BOM 도메인 용어사전\n• 듀얼 임베디드 데이터 엔진\n• CDC 동기화 파이프라인"
             ],
             [
                 "3단계: Coding Agent & 멀티모달 UI",
                 "3개월차\n(W9 ~ W12)",
-                "• Nota.ai 경량 Qwen2.5-Coder 탑재 및 SGLang/vLLM 고속 서빙\n• LangGraph ReAct 플래너, Docker 격리 샌드박스, Self-Correction 구현\n• Voice-to-BOM 음성 검색(STT) 및 계층적 드릴다운 트리 웹 UI 개발",
+                "• 경량화 코딩 특화 모델 탑재 및 초경량 고속 서빙 엔진 구성\n• 다단계 ReAct 플래너, 보안 격리 샌드박스, Self-Correction 구현\n• Voice-to-BOM 음성 검색(STT) 및 계층적 드릴다운 트리 웹 UI 개발",
                 "• 샌드박스 Coding Agent\n• FAQ 시맨틱 캐시 모듈\n• 음성/계층 트리 웹 포털"
             ],
             [
@@ -430,7 +430,7 @@ def create_word_proposal(output_path: str) -> None:
     add_section_heading(doc, "7. 구축 옵션 비교 및 전문 인력 투입 계획 (총 4개월 / 20.0 M/M)")
     doc.add_paragraph(
         "KG ICT의 사내 인프라 보유 현황 및 클라우드 운영 정책에 맞춰 선택하실 수 있도록 2가지 구축 옵션(Option A / Option B)과 "
-        "4개월간의 전담 전문 인력 투입 계획(총 20.0 M/M)을 제시합니다. (본 문서는 기술 및 공수 중심 제안 설명용으로 금액 표기를 제외한 버전입니다.)"
+        "4개월간의 전담 전문 인력 투입 계획(총 20.0 M/M)을 제시합니다."
     )
 
     add_sub_heading(doc, "7.1 인프라 구축 옵션 비교 (Option A vs Option B)")
@@ -438,11 +438,11 @@ def create_word_proposal(output_path: str) -> None:
         doc,
         ["구분", "Option A : 온프렘 전용 GPU 서버 도입 포함 패키지", "Option B : 기보유 인프라 / 클라우드 활용 (SW 구축)", "비고"],
         [
-            ["인프라 구성 방식", "사내 전산실 내 전용 듀얼 GPU 랙 서버 1식 신규 도입·구축", "고객사 기보유 GPU 서버 또는 퍼블릭 클라우드(AWS/GCP/Azure) 활용", "RHOSAI 기반 동일 아키텍처"],
-            ["권장 하드웨어 사양", "NVIDIA RTX 6000 Ada (RTX PRO 6000) 48GB x 2EA (총 96GB VRAM) 2U 서버", "기보유 GPU 자원 또는 클라우드 GPU 인스턴스 할당", "SGLang + 경량 Qwen 구동 최적"],
-            ["하드웨어 보증/유지보수", "제조사 정품 3년 24x7 온사이트(NBD) 무상 기술지원 포함", "기존 인프라 또는 클라우드SLA 정책 준용", "안정적 엔터프라이즈 운영"],
+            ["인프라 구성 방식", "사내 전산실 내 전용 듀얼 GPU 랙 서버 1식 신규 도입·구축", "고객사 기보유 GPU 서버 또는 퍼블릭 클라우드 활용", "표준 컨테이너 플랫폼 동일 적용"],
+            ["권장 하드웨어 사양", "엔터프라이즈급 듀얼 GPU (48GB급 VRAM × 2EA, 총 96GB 이상) 2U 서버", "기보유 GPU 자원 또는 클라우드 GPU 인스턴스 할당", "고속 서빙 + 경량 코딩 모델 최적"],
+            ["하드웨어 보증/유지보수", "제조사 정품 3년 24x7 온사이트(NBD) 무상 기술지원 포함", "기존 인프라 또는 클라우드 SLA 정책 준용", "안정적 엔터프라이즈 운영"],
             ["SW 구축 투입 공수", "총 20.0 M/M (4개월간 전담 엔지니어링 팀 투입)", "총 20.0 M/M (4개월간 전담 엔지니어링 팀 투입)", "동일 SW 범위 및 품질 보장"],
-            ["SW 라이선스 정책", "오픈소스 스택 및 RHOSAI 기반으로 외산 독점 라이선스 종속 없음", "오픈소스 스택 및 RHOSAI 기반으로 외산 독점 라이선스 종속 없음", "장기 TCO 절감 및 내재화"]
+            ["SW 라이선스 정책", "오픈소스 및 표준 스택 기반으로 특정 외산 독점 라이선스 종속 없음", "오픈소스 및 표준 스택 기반으로 특정 외산 독점 라이선스 종속 없음", "장기 TCO 절감 및 내재화"]
         ]
     )
 
@@ -451,11 +451,11 @@ def create_word_proposal(output_path: str) -> None:
         doc,
         ["역할 (Role)", "기술 등급", "투입 기간", "투입 공수 (M/M)", "주요 담당 업무 및 핵심 산출물"],
         [
-            ["PM / AI 아키텍트", "특급", "4개월", "3.0 M/M", "프로젝트 총괄 관리, RHOSAI 하이브리드 아키텍처 설계, 상호 데이터 스키마 표준화 리드"],
-            ["Lead Coding Agent 엔지니어", "고급", "4개월", "4.0 M/M", "LangGraph 기반 ReAct 플래너, Docker 격리 샌드박스, Self-Correction 자가수정 루프 개발"],
-            ["온프렘/클라우드 LLM 엔지니어", "고급", "4개월", "4.0 M/M", "Nota.ai 경량 Qwen2.5-Coder 최적화, SGLang/vLLM 고속 서빙 클러스터 구성, 프롬프트 튜닝"],
-            ["BOM 데이터 / 그래프 엔지니어", "중급", "4개월", "5.0 M/M", "원천 BOM 정제, DuckDB(OLAP) + Kùzu(Graph DB) 듀얼 엔진 구축, Read Replica/CDC 파이프라인"],
-            ["UI/UX 개발 & 음성/QA 엔지니어", "중급", "4개월", "4.0 M/M", "Voice-to-BOM 음성 검색(Whisper STT), 계층적 드릴다운 트리 웹 UI, 현업 시나리오 100선 E2E 검증"],
+            ["PM / AI 아키텍트", "특급", "4개월", "3.0 M/M", "프로젝트 총괄 관리, 하이브리드 AI 아키텍처 설계, 상호 데이터 스키마 표준화 리드"],
+            ["Lead Coding Agent 엔지니어", "고급", "4개월", "4.0 M/M", "다단계 ReAct 플래너, 보안 컨테이너 격리 샌드박스, Self-Correction 자가수정 루프 개발"],
+            ["온프렘/클라우드 LLM 엔지니어", "고급", "4개월", "4.0 M/M", "모델 경량화 솔루션 기반 코딩 모델 최적화, 초경량 고속 서빙 클러스터 구성, 프롬프트 튜닝"],
+            ["BOM 데이터 / 그래프 엔지니어", "중급", "4개월", "5.0 M/M", "원천 BOM 정제, 분석형 임베디드 DB + 임베디드 그래프 DB 듀얼 엔진 구축, CDC 파이프라인"],
+            ["UI/UX 개발 & 음성/QA 엔지니어", "중급", "4개월", "4.0 M/M", "Voice-to-BOM 음성 검색(온프렘 STT), 계층적 드릴다운 트리 웹 UI, 현업 시나리오 100선 E2E 검증"],
             ["합계 (Total)", "5개 전문 파트", "총 4개월 (16주)", "총 20.0 M/M", "데이터 정제부터 샌드박스 에이전트·멀티모달 트리 UI까지 엔드투엔드 전담 구축"]
         ],
         highlight_last_row=True
@@ -490,14 +490,14 @@ def create_word_proposal(output_path: str) -> None:
         ["용어 (Term)", "풀네임 / 영문 표기", "핵심 정의 및 본 사업에서의 역할"],
         [
             ["BOM (EBOM / MBOM)", "Bill of Materials", "차량 제작에 필요한 모든 부품·모듈·어셈블리의 품번, 수량, 계층 구조 및 조립 관계를 정의한 핵심 데이터베이스 (설계 EBOM / 생산 MBOM)"],
-            ["RHOSAI", "Red Hat OpenShift AI", "쿠버네티스 기반 엔터프라이즈 표준 AI 플랫폼으로 On-Premise와 Public Cloud 간 완벽한 이식성과 확장성 보장"],
-            ["Code-Interpreter Agent", "Sandbox Coding Agent", "자연어 질의를 해결하기 위해 LLM이 Python/DuckDB/Cypher 분석 코드를 직접 작성하고 격리 샌드박스에서 실행·검증하는 차세대 에이전트"],
+            ["표준 컨테이너 AI 플랫폼", "Enterprise Container AI Platform", "쿠버네티스 기반 엔터프라이즈 표준 AI 플랫폼으로 On-Premise와 Public Cloud 간 완벽한 이식성과 확장성 보장"],
+            ["Code-Interpreter Agent", "Sandbox Coding Agent", "자연어 질의를 해결하기 위해 경량화 코딩 모델이 분석 코드 및 임베디드 DB 쿼리를 직접 작성하고 격리 샌드박스에서 실행·검증하는 차세대 에이전트"],
             ["Self-Correction Loop", "자가 수정 루프", "코드 실행 중 에러나 빈 결과 발생 시 에이전트가 에러 로그를 스스로 해석하여 코드를 재작성·재실행함으로써 정합성을 90%+로 끌어올리는 기술"],
-            ["Nota.ai (NetsPresso®)", "AI Model Compression", "프루닝·양자화(INT4/FP8)·지식증류를 통해 거대 코딩 모델의 VRAM 사용량을 절반으로 줄이면서 추론 속도와 동시 처리량을 극대화하는 기술"],
-            ["SGLang / vLLM", "High-Speed Serving Engine", "RadixAttention(SGLang) 및 PagedAttention(vLLM) 기반으로 다단계 에이전트 반복 추론 지연을 70% 단축하는 초경량 고속 서빙 엔진"],
-            ["DuckDB + Kùzu", "Dual Embedded Data Engine", "인프로세스 OLAP 엔진(DuckDB)과 인프로세스 Graph DB(Kùzu)를 Apache Arrow Zero-Copy로 결합해 수치 집계와 BOM 트리 순회를 동시 고속 처리"],
+            ["모델 경량화 솔루션", "AI Model Compression", "프루닝·양자화(INT4/FP8)·지식증류를 통해 거대 코딩 모델의 VRAM 사용량을 절반으로 줄이면서 추론 속도와 동시 처리량을 극대화하는 기술"],
+            ["초경량 고속 서빙 엔진", "High-Speed Serving Engine", "프리픽스 캐시 재사용 및 메모리 페이지 최적화 기반으로 다단계 에이전트 반복 추론 지연을 70% 단축하는 초경량 고속 서빙 솔루션"],
+            ["듀얼 임베디드 DB", "Dual Embedded Database", "인프로세스 분석형 임베디드 DB(OLAP)와 임베디드 그래프 DB(Graph DB)를 공유 메모리 Zero-Copy로 결합해 수치 집계와 BOM 트리 순회를 동시 고속 처리"],
             ["Continuous RAG", "지속적 RAG 현행화", "운영계 무부하 복제본(Read Replica/CDC) 연동 및 신규 차종·설계변경(ECO) 메타데이터를 자동 인덱싱하는 파이프라인"],
-            ["Voice-to-BOM", "On-Prem Voice Search", "사내 GPU 서버 내 Whisper STT 모델을 활용해 연구소/현장에서 마이크 음성으로 즉각 부품을 조회하는 핸즈프리 인터페이스"],
+            ["Voice-to-BOM", "On-Prem Voice Search", "사내 GPU 서버 내 온프레미스 음성인식(STT) 모델을 활용해 연구소/현장에서 마이크 음성으로 즉각 부품을 조회하는 핸즈프리 인터페이스"],
             ["Drill-down Tree UI", "Hierarchical Tree UI", "완성차부터 단품까지 BOM 다계층 구조를 시각적 트리로 펼쳐보며 대화창과 양방향으로 연동 탐색하는 사용자 인터페이스"]
         ]
     )
@@ -507,7 +507,7 @@ def create_word_proposal(output_path: str) -> None:
 
 
 def create_pptx_proposal(output_path: str) -> None:
-    """KG ICT 제안 설명용 PowerPoint(.pptx) 문서를 생성합니다 (금액 제외, 4개월, 20.0 M/M 반영)."""
+    """KG ICT 제안 설명용 PowerPoint(.pptx) 문서를 생성합니다 (금액 및 특정 제품명 제외, 4개월, 20.0 M/M 반영)."""
     prs = pptx.Presentation()
     prs.slide_width = PptxInches(13.333)
     prs.slide_height = PptxInches(7.5)
@@ -518,7 +518,6 @@ def create_pptx_proposal(output_path: str) -> None:
     C_SKY = PptxRGBColor(230, 242, 255)
     C_LIGHT_BG = PptxRGBColor(248, 250, 252)
     C_DARK = PptxRGBColor(30, 41, 59)
-    C_GRAY = PptxRGBColor(100, 116, 139)
     C_WHITE = PptxRGBColor(255, 255, 255)
     C_CARD_BORDER = PptxRGBColor(226, 232, 240)
 
@@ -562,7 +561,7 @@ def create_pptx_proposal(output_path: str) -> None:
     p2.space_before = PptxPt(12)
 
     p3 = tf1.add_paragraph()
-    p3.text = "RHOSAI 표준 플랫폼 & DuckDB+Kùzu 듀얼 엔진 & 지속적 RAG 현행화(Continuous RAG) 설계"
+    p3.text = "표준 컨테이너 AI 플랫폼 & 듀얼 임베디드 DB & 모델 경량화 솔루션 기반 통합 아키텍처"
     p3.font.size = PptxPt(14)
     p3.font.color.rgb = PptxRGBColor(203, 213, 225)
     p3.space_before = PptxPt(14)
@@ -579,9 +578,9 @@ def create_pptx_proposal(output_path: str) -> None:
 
     cards = [
         ("01. 배경 및 과제", "데이터 준비성 선행과 KGM BOM 복잡도", "과거 PoC와 달리 현업과 IT 간의 상호 데이터 준비(Data Readiness) 선행 필수\n연구소·원가기획 부서의 부품 탐색 병목 해소 및 Ad-hoc 쿼리 요청 80% 자동화"),
-        ("02. 차세대 기술 혁신", "RHOSAI & DuckDB+Kùzu & 경량 모델", "특정 벤더 종속 탈피 RHOSAI 기반 On-Prem/Public 하이브리드 지원\nNota.ai 경량 Qwen 모델과 DuckDB+Kùzu 듀얼 엔진으로 90%+ 정합성 확보"),
+        ("02. 차세대 기술 혁신", "표준 컨테이너 플랫폼 & 임베디드 DB & 경량 모델", "특정 벤더 종속 탈피 표준 컨테이너 플랫폼 기반 On-Prem/Public 하이브리드 지원\n모델 경량화 솔루션을 적용한 코딩 모델과 듀얼 임베디드 DB로 90%+ 정합성 확보"),
         ("03. 파생 가치 및 편의성", "음성 검색 & 계층 트리 UI & 전사 AI 허브", "핸즈프리 음성 질의(Voice-to-BOM) 및 부품 계층 드릴다운 뷰 제공\n부품 공용화율 제고로 신규 금형비 절감 및 KG ICT AI 표준 플랫폼 자산화"),
-        ("04. 수행 기간 및 투입 인력", "총 4개월 (16주) · 20.0 M/M 투입", "총 기간: 4개월 (16주) / 전문 인력 20.0 M/M 밀착 투입\nOption A: 온프렘 전용 GPU 서버(RTX PRO 6000 x 2) 신규 도입 패키지\nOption B: 기보유 GPU 인프라 또는 클라우드 활용 SW 구축\n오픈소스 스택 기반으로 상용 라이선스 종속 탈피")
+        ("04. 수행 기간 및 투입 인력", "총 4개월 (16주) · 20.0 M/M 투입", "총 기간: 4개월 (16주) / 전문 인력 20.0 M/M 밀착 투입\nOption A: 온프렘 전용 듀얼 GPU 서버 신규 도입 패키지\nOption B: 기보유 GPU 인프라 또는 클라우드 활용 SW 구축\n오픈소스 및 표준 스택 기반으로 상용 라이선스 종속 탈피")
     ]
 
     for idx, (step, title, desc) in enumerate(cards):
@@ -623,11 +622,11 @@ def create_pptx_proposal(output_path: str) -> None:
     add_header(s3, "엔드투엔드 시스템 아키텍처 및 6단계 처리 프로세스")
 
     steps = [
-        ("Step 1. 쿼리 유입", "사내 웹 포털 텍스트 또는\n마이크 음성(Voice-to-BOM)\n온프렘 Whisper STT 변환"),
+        ("Step 1. 쿼리 유입", "사내 웹 포털 텍스트 또는\n마이크 음성(Voice-to-BOM)\n온프렘 음성인식(STT) 변환"),
         ("Step 2. 의미해석 LLM", "FAQ 시맨틱 캐시 확인(0.1초 응답)\n신규 질의 의도(Intent) 분석\n엔티티/부품코드 추출 및 라우팅"),
-        ("Step 3. 쿼리/코드 변환", "Nota.ai 경량 Qwen Coder\nDuckDB용 SQL 생성\nKùzu용 Cypher 쿼리 생성\n사양 Diff 연산 Python 코드"),
-        ("Step 4. 샌드박스 탐색", "Docker 격리 샌드박스 실행\nDuckDB 수치 집계 & Diff\nKùzu BOM 계층 트리 순회\nSelf-Correction 자가수정 루프"),
-        ("Step 5. 답변 합성", "데이터프레임 결과 집계\n부품 사양 비교표 렌더링\n자연어 요약 설명 생성\nExcel/CSV 다운로드 링크"),
+        ("Step 3. 쿼리/코드 변환", "경량화 코딩 특화 모델 구동\n분석형 임베디드 DB용 쿼리 생성\n임베디드 그래프 DB용 쿼리 생성\n사양 Diff 연산 분석 코드 작성"),
+        ("Step 4. 샌드박스 탐색", "보안 컨테이너 격리 샌드박스 실행\n임베디드 DB 수치 집계 & Diff\n임베디드 그래프 DB 트리 순회\nSelf-Correction 자가수정 루프"),
+        ("Step 5. 답변 합성", "데이터프레임 결과 집계\n부품 사양 비교표 렌더링\n자연어 요약 설명 생성\n스프레드시트 다운로드 링크"),
         ("Step 6. 멀티모달 응답", "대화창 결과 표출\nBOM 계층 트리 뷰 동적 확장\n음성 안내(TTS) 출력\n피드백 DB 자동 적재")
     ]
 
@@ -684,12 +683,12 @@ def create_pptx_proposal(output_path: str) -> None:
             p.font.color.rgb = C_WHITE
 
     mm_rows = [
-        ("PM / AI 아키텍트", "특급", "4개월", "3.0 M/M", "프로젝트 총괄, RHOSAI 아키텍처 설계, 상호 데이터 스키마 표준화 리드"),
-        ("Lead Coding Agent 엔지니어", "고급", "4개월", "4.0 M/M", "ReAct 플래너, Docker 격리 샌드박스, Self-Correction 자가수정 루프 개발"),
-        ("온프렘/클라우드 LLM 엔지니어", "고급", "4개월", "4.0 M/M", "Nota.ai 경량 Qwen 최적화, SGLang/vLLM 고속 서빙 구성, 프롬프트 튜닝"),
-        ("BOM 데이터 / 그래프 엔지니어", "중급", "4개월", "5.0 M/M", "BOM 데이터 정제, DuckDB + Kùzu(Graph DB) 듀얼 엔진 및 CDC 파이프라인"),
+        ("PM / AI 아키텍트", "특급", "4개월", "3.0 M/M", "프로젝트 총괄, 하이브리드 AI 아키텍처 설계, 상호 데이터 스키마 표준화 리드"),
+        ("Lead Coding Agent 엔지니어", "고급", "4개월", "4.0 M/M", "ReAct 플래너, 보안 컨테이너 격리 샌드박스, Self-Correction 자가수정 루프 개발"),
+        ("온프렘/클라우드 LLM 엔지니어", "고급", "4개월", "4.0 M/M", "모델 경량화 솔루션 기반 코딩 모델 최적화, 초경량 고속 서빙 구성, 프롬프트 튜닝"),
+        ("BOM 데이터 / 그래프 엔지니어", "중급", "4개월", "5.0 M/M", "BOM 데이터 정제, 분석형 임베디드 DB + 임베디드 그래프 DB 듀얼 엔진 및 CDC 파이프라인"),
         ("UI/UX 개발 & 음성/QA 엔지니어", "중급", "4개월", "4.0 M/M", "Voice-to-BOM 음성 검색(STT), 계층적 드릴다운 트리 UI, 100선 E2E 검증"),
-        ("합계 (Option A / B 공통 SW 공수)", "-", "4개월 (16주)", "총 20.0 M/M", "Option A(전용 GPU 서버 신규 도입) / Option B(기보유 인프라·클라우드 활용)")
+        ("합계 (Option A / B 공통 SW 공수)", "-", "4개월 (16주)", "총 20.0 M/M", "Option A(전용 듀얼 GPU 서버 신규 도입) / Option B(기보유 인프라·클라우드 활용)")
     ]
     for ri, rdata in enumerate(mm_rows, start=1):
         bg_col = PptxRGBColor(219, 234, 254) if ri == 6 else (C_SKY if ri % 2 == 1 else C_WHITE)
