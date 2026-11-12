@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[회의 요약본] 대구 수성알파시티 피지컬 AI 데이터센터(AIDC) × 한국로봇산업진흥원(KIRIA) 생태계 협력 요약서</title>
+    <!-- 구글 폰트 적용 (Outfit & Noto Sans KR) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(22, 25, 32, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #3b82f6;
+            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --accent: #ef4444;
+            --success: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.12) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 네비게이션 가이드 */
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        
+        .nav-back a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-back a:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        /* 메인 리포트 카드 */
+        .report-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 45px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 타이틀 스타일 */
+        header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 마크다운 요소별 렌더링 스타일링 */
+        h2 {
+            font-size: 1.5rem;
+            color: #93c5fd;
+            margin-top: 35px;
+            margin-bottom: 18px;
+            border-left: 4px solid var(--primary);
+            padding-left: 14px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #a7f3d0;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: #e5e7eb;
+            font-size: 0.98rem;
+        }
+
+        /* 목록 스타일링 (순서 없는 리스트) */
+        ul {
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 22px;
+            color: #d1d5db;
+        }
+
+        li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* 마크다운 표(Table) 스타일링 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.92rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 12px 14px;
+            font-weight: 600;
+            color: #93c5fd;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e5e7eb;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* 인용구(Blockquote) 스타일링 */
+        blockquote {
+            border-left: 4px solid var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+            color: #93c5fd;
+            font-weight: 500;
+        }
+
+        /* 수평선 스타일 */
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 30px 0;
+        }
+
+        /* Mermaid 코드블럭 또는 일반 이미지 렌더링 스타일 */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 20px 0;
+        }
+
+        /* 각주 / 미주 (Footnotes) 스타일 */
+        .footnote {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .footnote ol {
+            padding-left: 20px;
+        }
+
+        .footnote li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .footnote-ref {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 2px;
+        }
+
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+
+        .footnote-backref {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        /* 꼬리말 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="../../README.html">← 메인 README 메인 화면으로 돌아가기</a>
+    </div>
+
+    <div class="report-card">
+        <header>
+            <span class="meta-tag">공동 사업 기획 기획 검토서</span>
+            <h1>[회의 요약본] 대구 수성알파시티 피지컬 AI 데이터센터(AIDC) × 한국로봇산업진흥원(KIRIA) 생태계 협력 요약서</h1>
+        </header>
+
+        <main>
+            <p><strong>문서 번호</strong>: BRIEF-DGU-KIRIA-2026-1112<br />
+<strong>작성 일자</strong>: 2026년 11월<br />
+<strong>대상 회의</strong>: 대구광역시 · 한국로봇산업진흥원(KIRIA) · 메가존클라우드(MZC) 1차 협력 회의<br />
+<strong>문서 목적</strong>: 수성알파시티 AIDC(1단계 10MW / 공공 연계 5MW)와 KIRIA 핵심 로봇 국책사업 간의 전략적 결합 방향 및 상위 5대 공동 기획 아이템 요약 브리핑  </p>
+<hr />
+<h2>1. 추진 배경 및 기본 사업 구도</h2>
+<ul>
+<li><strong>사업 개요</strong>: 메가존클라우드는 대구 수성알파시티 내 <strong>최종 40MW(1단계 10MW, <code>'29년</code> 가동 목표)</strong> 규모의 차세대 AI 데이터센터(AIDC) 건립을 추진 중이며, 대구시는 이 중 <strong>5MW 규모를 지역 로봇·AX 국책사업과 연계</strong>하여 국내 최고 수준의 <strong>'피지컬 AI(Physical AI) 로봇 트레이닝 및 실증 클라우드 허브'</strong>로 조성하고자 함.</li>
+<li><strong>민·관 선순환 구조</strong>:</li>
+<li><strong>정부 · 대구광역시</strong>: 휴머노이드 특화단지, 5극3특 성장엔진, 국가로봇테스트필드 등 국책 R&amp;D·실증·기업 AX 전환 지원금 공급</li>
+<li><strong>한국로봇산업진흥원(KIRIA)</strong>: 물리 실증 인프라 운영 총괄, 로봇 데이터 표준화, 안전성·신뢰성 국가 공인 인증 및 해외 수출 전진기지 총괄</li>
+<li><strong>메가존클라우드(MZC)</strong>: 고밀도 액랭(DLC) AIDC 인프라, 피지컬 AI 시뮬레이션·파운데이션 모델 학습 플랫폼(GPUaaS) 및 글로벌 엣지 클라우드 구축·운영</li>
+</ul>
+<hr />
+<h2>2. 핵심 협력 비전: 달성군(KIRIA) × 수성구(MZC AIDC) 'Twin-Hub' 모델</h2>
+<p>수성알파시티 AIDC는 달성군 국가로봇테스트필드와 기능이 중복되는 시설이 아니라, <strong>물리적 테스트필드에 초거대 AI 연산 두뇌와 글로벌 수출 클라우드 날개를 달아주는 완벽한 상호보완(Twin-Hub) 인프라</strong>입니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">구분</th>
+<th style="text-align: left;"><strong>[Physical Hub] 달성군 테크노폴리스 (KIRIA)</strong></th>
+<th style="text-align: left;"><strong>[Digital Brain Hub] 수성알파시티 (MZC AIDC)</strong></th>
+<th style="text-align: left;"><strong>[Global Export Hub] 해외 현지 (MZC + Akamai)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>핵심 거점</strong></td>
+<td style="text-align: left;">국가로봇테스트필드(<code>1,997.5억</code>) · 휴머노이드 안전인증센터(<code>187억</code>)</td>
+<td style="text-align: left;">1단계 10MW(공공 5MW) 고밀도 액랭 AIDC 및 피지컬 AI 플랫폼</td>
+<td style="text-align: left;">전 세계 4,000여 개 분산 엣지 PoP 및 초저지연 제어망</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>전담 기능</strong></td>
+<td style="text-align: left;">• 물류·상업·생활·실외 <strong>실환경 주행·작업 실증</strong><br/>• 실물 로봇 충돌 안전성·내구성 공인 시험 및 인증</td>
+<td style="text-align: left;">• 테스트필드 전용선 직결 <strong>실증 데이터 통합 저장·가공</strong><br/>• 물리 실증 투입 전 <strong>가상환경 사전 시운전(Sim-to-Real)</strong><br/>• 로봇 파운데이션 모델(RFM) 학습 및 사이버보안 검증</td>
+<td style="text-align: left;">• 인증 완료 수출 로봇의 <strong>해외 현지 실시간 원격관제</strong><br/>• AI 정책 모델 무선 업데이트(OTA) 및 이상 제어 개입<br/>• 유럽(EU CRA·AI법) 및 북미 현지 규제 준수 대응</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. 집중 추진 제안: 상위 5대 공동 사업 아이템 (Top 5 Killer Items)</h2>
+<p>이미 수행 컨소시엄이 구성된 기존 사업과의 마찰을 피하고, <strong><code>'26년 말 ~ '27년</code> 이후 신규 기획·공모될 예정 사업</strong>을 중심으로 KIRIA의 정책 주도권과 기업의 실질적 AI 수요를 동시에 충족하는 <strong>5대 핵심 과제</strong>를 제안합니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">순위</th>
+<th style="text-align: left;">추천 공동 사업 아이템명</th>
+<th style="text-align: left;">연계 예정 국책사업 (모사업 예산)</th>
+<th style="text-align: center;"><strong>추정 사업규모 (5년 누적 / 연간)</strong></th>
+<th style="text-align: left;">수용 용량 · 핵심 모델</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Top 1</strong></td>
+<td style="text-align: left;"><strong>국가로봇테스트필드 '실증 데이터 레이크 &amp; 사전 가상실증' 백엔드</strong></td>
+<td style="text-align: left;">테스트필드 데이터 저장·활용 인프라(<code>255.7억</code>) 및 가상실증 고도화</td>
+<td style="text-align: center;"><strong><code>220억 ~ 280억 원</code></strong><br/><em>(구축 <code>80~100억</code> + 운영 <code>연 30~35억</code>)</em></td>
+<td style="text-align: left;"><code>0.8MW</code> / 전용망 직결 스토리지 + Isaac Sim 시운전</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Top 2</strong></td>
+<td style="text-align: left;"><strong>휴머노이드 'AI 신뢰성 · 극한 충돌 · 사이버보안(EU CRA)' 가상 인증</strong></td>
+<td style="text-align: left;">신규 휴머노이드 로봇 안전인증센터 구축(<code>'26~'30, 187억</code>)</td>
+<td style="text-align: center;"><strong><code>120억 ~ 150억 원</code></strong><br/><em>(구축 <code>35~45억</code> + 운영 <code>연 20~25억</code>)</em></td>
+<td style="text-align: left;"><code>0.5MW</code> / 병렬 충돌·해킹 방어 시뮬레이션 인증</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Top 3</strong></td>
+<td style="text-align: left;"><strong>휴머노이드 특화단지 '가변식 가상 테스트베드 &amp; 통합 원격관제 센터'</strong></td>
+<td style="text-align: left;">휴머노이드 특화단지 지자체 건의(<code>5년 3,000~5,000억</code> 중 기반사업)</td>
+<td style="text-align: center;"><strong><code>200억 ~ 250억 원</code></strong><br/><em>(구축 <code>50~70억</code> + 운영 <code>연 30~35억</code>)</em></td>
+<td style="text-align: left;"><code>0.5MW</code> / Tele-op Fallback 관제 + OpenUSD 카탈로그</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Top 4</strong></td>
+<td style="text-align: left;"><strong>5극3특 'K-로봇 파운데이션 모델(RFM) 허브 &amp; R&amp;D GPU 바우처제'</strong></td>
+<td style="text-align: left;">5극3특 대형 R&amp;D + M.AX R&amp;D(<code>3,000~5,000억</code> 풀) + 초광역특구</td>
+<td style="text-align: center;"><strong><code>600억 ~ 800억 원</code></strong><br/><em>(바우처·전용노드 <code>연 120~160억</code>)</em></td>
+<td style="text-align: left;"><code>1.4MW</code> / 연구비 15% GPU 바우처 + 비식별 유예존</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Top 5</strong></td>
+<td style="text-align: left;"><strong>수출형 K-로봇 '글로벌 원격관제 · OTA 클라우드 브릿지'</strong></td>
+<td style="text-align: left;">KIRIA 수출지원 + 5극3특 수출바우처 + 기정원 제조 AX 바우처</td>
+<td style="text-align: center;"><strong><code>350억 ~ 450억 원</code></strong><br/><em>(구독·바우처 <code>연 70~90억</code>)</em></td>
+<td style="text-align: left;"><code>0.6MW</code> / 수성 AIDC + Akamai 글로벌 엣지 번들링</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>합계</strong></td>
+<td style="text-align: left;"><strong>상위 5대 공동 사업 총계</strong> <em>(산하기관 통합 코로케이션 <code>1.2MW</code> 별도)</em></td>
+<td style="text-align: left;"><strong>신규 예정 국책 인프라 · 대형 R&amp;D · AX 바우처 패키지 결합</strong></td>
+<td style="text-align: center;"><strong><code>1,490억 ~ 1,930억 원</code></strong><br/><em>(연간 운영 <code>270~345억</code> 수준)</em></td>
+<td style="text-align: left;"><strong><code>3.8MW</code></strong> <em>(+기관 통합 <code>1.2MW</code> = </em><em>공공 5.0MW 완결</em><em>)</em></td>
+</tr>
+</tbody>
+</table>
+<h3>① [Top 1] 국가로봇테스트필드 '실증 데이터 레이크 &amp; 가상실증(Sim-to-Real)' 클라우드 백엔드</h3>
+<ul>
+<li><strong>연계 사업</strong>: 국가로봇테스트필드 내 <code>로봇실증 데이터 저장 및 활용 인프라 구축(공모, 255.7억)</code> 및 <code>'27~'28년</code> 실·가상 연동 실증 고도화</li>
+<li><strong>추진 내용</strong>: 달성군 3개 실증동에서 생성되는 대용량 센서·비전 데이터를 초고속 전용망으로 수성 AIDC에 통합 저장·자산화하여 테스트필드의 개별 대규모 전산실 구축·유지 부담을 해소하고, 물리 실증동 입소 전 <strong>Omniverse / Isaac Sim 기반 사전 가상 시운전(Pre-Test Pass)</strong> 체계를 표준화함.</li>
+</ul>
+<h3>② [Top 2] 휴머노이드 로봇 'AI 신뢰성 · 극한 충돌 · 유럽 사이버보안(EU CRA)' 가상 인증 클라우드</h3>
+<ul>
+<li><strong>연계 사업</strong>: 신규 <code>휴머노이드 로봇 안전인증센터 구축('26~'30, 187억, KIRIA 총괄)</code></li>
+<li><strong>추진 내용</strong>: 고가 휴머노이드의 반복 물리 파괴 시험 한계를 극복하고 유럽 수출 규제(EU CRA 및 AI법)에 선제 대응하기 위해, 수성 AIDC의 대규모 병렬 GPU 환경에서 <strong>수만 회 비정형 충돌 시뮬레이션 및 해킹·센서 교란 방어 테스트</strong>를 수행하여 KIRIA 공인 인증 성적서를 발급함.</li>
+</ul>
+<h3>③ [Top 3] 대구·경북 휴머노이드 특화단지 '가변식 가상 테스트베드 &amp; 국가 통합 원격관제 센터'</h3>
+<ul>
+<li><strong>연계 사업</strong>: 대구시 휴머노이드 국가첨단전략산업 특화단지 육성계획(<code>'26.11</code> 운영계획 제출, <code>'26.12~</code> 국비 건의) 4대 중점사업</li>
+<li><strong>추진 내용</strong>: 특화단지 핵심 기반사업인 <strong>가변식 실증 테스트베드</strong>와 <strong>휴머노이드 원격관제지원체계</strong>의 중앙 클라우드 관제 본부를 수성 AIDC에 구축하여 현장 로봇의 예외상황 원격 개입(Tele-op Fallback) 및 즉시 재학습을 지원하고, 지역 부품사 CAD 도면의 <strong>OpenUSD 디지털 부품 카탈로그화</strong>를 병행함.</li>
+</ul>
+<h3>④ [Top 4] 5극3특 성장엔진 연계 'K-로봇 파운데이션 모델(RFM) 허브 &amp; 국책 R&amp;D GPU 바우처제'</h3>
+<ul>
+<li><strong>연계 사업</strong>: <code>5극3특 성장엔진(로봇) 대형 R&amp;D</code>, 특화단지 <code>M.AX 자율형 제조공정 R&amp;D</code>, <code>로봇 초광역특구 규제샌드박스</code></li>
+<li><strong>추진 내용</strong>: 신규 로봇 국책 R&amp;D 과제 수행 시 개별 소규모 GPU 서버 중복 구매 대신 <strong>연구비의 일정 비율(15~20%)을 '대구 AIDC 공동활용 GPUaaS 바우처'로 편성</strong>하도록 유도하고, 초광역특구 규제특례로 <strong>'수성 AIDC 보안 격리 구역 내 모자이크 없는 원본 영상 학습 허용'</strong>을 추진하여 수도권 로봇 기업 수요까지 대구로 유치함.</li>
+</ul>
+<h3>⑤ [Top 5] 수출형 K-로봇 '글로벌 원격관제 · OTA 클라우드 브릿지' (수출 전진기지 구현)</h3>
+<ul>
+<li><strong>연계 사업</strong>: KIRIA 테스트필드 수출 지원 사업, 5극3특 <code>수출바우처(성장엔진 전용)</code> 및 중기부·기정원 AX 전환 바우처</li>
+<li><strong>추진 내용</strong>: 테스트필드 실증·인증을 마친 로봇이 해외 공장에 수출될 때 <strong>수성 AIDC(코어 재학습) + Akamai 글로벌 분산 엣지(현지 10ms 제어·전송료 0원)</strong> 패키지를 기본 탑재하여 원스톱 수출 경쟁력을 완성함.</li>
+</ul>
+<hr />
+<h2>4. 기업 수용성 제고 및 조기 가동(Bridge) 실행 방안</h2>
+<ol>
+<li><strong>대구TP 수요조사(88개사) 애로사항 완벽 해소</strong>:</li>
+<li><strong>비용 부담 완화</strong>: 정부 AX 바우처 매칭 및 단일 GPU 다중 모델 공유 기술 적용으로 <strong>중소기업 실질 자부담 월 50만 원대</strong> 구독 요금제 구현.</li>
+<li><strong>보안·무중단 보장</strong>: 기업별 기밀 격리 존(Trusted Enclave)으로 데이터 유출 우려(66%)를 차단하고, <code>공장 내 소형 엣지 추론 박스 + 수성 AIDC 야간 학습</code> 하이브리드 구조로 공정 중단 리스크(95%) 해소.</li>
+<li><strong>AIDC 준공 전 24개월 공백을 메우는 '2027년 임대형 GPUaaS 브릿지' 가동</strong>:</li>
+<li><code>'27년</code>부터 즉시 착수되는 국책사업과 기업 수요를 수용하기 위해 <strong>메가존의 대외 GPUaaS 인프라를 활용한 '대구 사전 브릿지 클라우드'를 <code>'27년 상반기</code> 즉시 오픈</strong>하고, <code>'29년</code> 수성 AIDC 완공 시 데이터를 무중단 이관함.</li>
+</ol>
+<hr />
+<h2>5. 1차 회의 주요 협의 및 요청사항 (Action Items)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">구분</th>
+<th style="text-align: left;">단기 중점 추진 과제</th>
+<th style="text-align: center;">목표 시기</th>
+<th style="text-align: left;">협력 주체</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>대구 피지컬 AI · AIDC 공동 기획 실무 워킹그룹(TF) 구성</strong></td>
+<td style="text-align: center;"><code>'26. 11월 말</code></td>
+<td style="text-align: left;">대구시 · KIRIA · 대구TP · MZC</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>휴머노이드 특화단지 운영계획 및 국비 건의안 내 '수성 AIDC 연동' 반영</strong></td>
+<td style="text-align: center;"><code>'26. 11 ~ 12월</code></td>
+<td style="text-align: left;">대구시 기계로봇과 · KIRIA · MZC</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>국가로봇테스트필드 데이터 인프라(<code>255.7억</code>) 및 안전인증센터(<code>187억</code>) 클라우드 연계 검토</strong></td>
+<td style="text-align: center;"><code>'26. 12 ~ '27. 1분기</code></td>
+<td style="text-align: left;">KIRIA · 대구시 · MZC</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: left;"><strong>2027년 상반기 '사전 임대형 GPUaaS 브릿지' 시범사업 대상 과제 선정</strong></td>
+<td style="text-align: center;"><code>'27. 1분기</code></td>
+<td style="text-align: left;">대구시 · KIRIA · 대구TP · MZC</td>
+</tr>
+</tbody>
+</table>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2026 AKAMAI & NVIDIA & MZC HYBRID PROJECT COOPERATIVE GROUP.</p>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[재무·예산 구조서] 대구 수성알파시티 AIDC 예산 구조(부지·시설·컴퓨트·운영) 재무 테이블 및 5MW/10MW 매출 퍼즐 분석서</title>
+    <!-- 구글 폰트 적용 (Outfit & Noto Sans KR) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(22, 25, 32, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #3b82f6;
+            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --accent: #ef4444;
+            --success: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.12) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 네비게이션 가이드 */
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        
+        .nav-back a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-back a:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        /* 메인 리포트 카드 */
+        .report-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 45px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 타이틀 스타일 */
+        header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 마크다운 요소별 렌더링 스타일링 */
+        h2 {
+            font-size: 1.5rem;
+            color: #93c5fd;
+            margin-top: 35px;
+            margin-bottom: 18px;
+            border-left: 4px solid var(--primary);
+            padding-left: 14px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #a7f3d0;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: #e5e7eb;
+            font-size: 0.98rem;
+        }
+
+        /* 목록 스타일링 (순서 없는 리스트) */
+        ul {
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 22px;
+            color: #d1d5db;
+        }
+
+        li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* 마크다운 표(Table) 스타일링 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.92rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 12px 14px;
+            font-weight: 600;
+            color: #93c5fd;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e5e7eb;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* 인용구(Blockquote) 스타일링 */
+        blockquote {
+            border-left: 4px solid var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+            color: #93c5fd;
+            font-weight: 500;
+        }
+
+        /* 수평선 스타일 */
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 30px 0;
+        }
+
+        /* Mermaid 코드블럭 또는 일반 이미지 렌더링 스타일 */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 20px 0;
+        }
+
+        /* 각주 / 미주 (Footnotes) 스타일 */
+        .footnote {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .footnote ol {
+            padding-left: 20px;
+        }
+
+        .footnote li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .footnote-ref {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 2px;
+        }
+
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+
+        .footnote-backref {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        /* 꼬리말 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="../../README.html">← 메인 README 메인 화면으로 돌아가기</a>
+    </div>
+
+    <div class="report-card">
+        <header>
+            <span class="meta-tag">공동 사업 기획 기획 검토서</span>
+            <h1>[재무·예산 구조서] 대구 수성알파시티 AIDC 예산 구조(부지·시설·컴퓨트·운영) 재무 테이블 및 5MW/10MW 매출 퍼즐 분석서</h1>
+        </header>
+
+        <main>
+            <p><strong>문서 번호</strong>: FIN-PUZZLE-DGU-2026-1112<br />
+<strong>작성 일자</strong>: 2026년 11월 12일<br />
+<strong>문서 성격</strong>: 메가존클라우드 대구 수성알파시티 AIDC(1단계 10MW / 대구시 공공 연계 5MW) 사업 타당성 검토를 위한 <strong>항목별 표준 예산 구조(CapEx/OpEx) 재무 테이블 및 국책·민간 연계 매출 퍼즐(Revenue Puzzle) 정밀 설계서</strong><br />
+<strong>보안 등급</strong>: 대외비 (Confidential — 내부 투자심의 및 사업기획 기준용)  </p>
+<hr />
+<h2>1. 분석 기준 및 핵심 설계 원칙 (Financial Guardrails)</h2>
+<ol>
+<li><strong>1단계 수전 및 IT 가용 전력 기준</strong>:</li>
+<li><strong>전체 마스터플랜</strong>: 40MW / <strong>1단계 착공 기준</strong>: 한전 수전 <strong>10.0 MW</strong> (대구시 공공 연계 <strong>5.0 MW</strong> + 민간·역외 유치 <strong>5.0 MW</strong>).</li>
+<li><strong>냉각 효율 및 순수 IT 부하</strong>: 칩셋 직결 수랭식(DLC) 적용 목표 <strong>PUE 1.20~1.25</strong> 기준, 수전 10MW 중 순수 IT 서버 가용 전력은 <strong>약 7.8~8.0 MW</strong> (<strong>대구시 5MW 몫의 순수 IT 가용 전력은 약 3.9~4.0 MW</strong>).</li>
+<li><strong>과투자 리스크 차단용 '하이브리드(3:2) 용량 배분' 원칙</strong>:</li>
+<li>5MW 전량을 개소 첫날 자체 자금으로 GPU(약 2,500장, 약 2,000억 원) 매입 시 매년 680억 원 이상의 순수 클라우드 매출을 뽑아야 하므로 지역 국책예산 한도를 초과함.</li>
+<li>따라서 대구시 5MW를 <strong><code>① 공공 코로케이션·스토리지 위탁 구역 3.0MW (60%)</code> + <code>② 메가존 직영 고성능 GPUaaS 구역 2.0MW (40%, H200/B200 약 800~1,000장)</code></strong>로 배분하여 CapEx 부담을 절반 이하로 줄이고 투자회수 확실성을 극대화함.</li>
+<li><strong>부동산(PropCo)과 운영·플랫폼(OpCo) 분리 원칙</strong>:</li>
+<li>토지·건축·기반설비(물리 CapEx)는 지역활성화투자펀드·리츠·PF 대주단 중심의 <strong>SPC(PropCo)</strong>로 구조화하고, 메가존은 <strong>기술 PM + 핵심 MEP 부분 시공 + 10년 장기 운영권(OpCo) + 수요 확정분 연동 GPUaaS(B2B 렌탈/리스 병행)</strong>에 집중함.</li>
+</ol>
+<hr />
+<h2>2. 항목별 상세 예산 구조 재무 테이블 (부지 · 건축 · MEP · 컴퓨트 · 운영)</h2>
+<h3>2.1. 총 투자비(CapEx) 5대 영역 상세 분해표 (1단계 10MW &amp; 공공 5MW 기준)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">대분류</th>
+<th style="text-align: left;">세부 구성 항목</th>
+<th style="text-align: left;">산출 단가 기준</th>
+<th style="text-align: center;"><strong>1단계 10MW 전체</strong></th>
+<th style="text-align: center;"><strong>대구시 연계 5MW</strong></th>
+<th style="text-align: center;">5MW 비중</th>
+<th style="text-align: left;">내용연수 / 조달 및 회수 특성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 부지 (Land)</strong></td>
+<td style="text-align: left;">• 수성알파시티 데이터센터 부지 매입<br/>• 건축 인허가, 전력계통영향평가<br/>• 한전 154kV/22.9kV 2회선 수전부담금</td>
+<td style="text-align: left;">토지 약 15억/MW<br/>인허가·수전 7억/MW<br/><em>(계: 22억/MW)</em></td>
+<td style="text-align: center;"><strong>220억 원</strong></td>
+<td style="text-align: center;"><strong>110억 원</strong></td>
+<td style="text-align: center;"><strong>6.3%</strong></td>
+<td style="text-align: left;">• 비상각 자산 (토지)<br/>• 대구시 시유지 장기임대 또는 조성원가 공급 특례 적용 시 초기 현금 지출 30~50% 절감 가능</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 건축 시설</strong><br/><em>(Core &amp; Shell)</em></td>
+<td style="text-align: left;">• 지하·지상 골조 및 외장 공사<br/>• 고하중 슬래브(3.0~5.0 ton/㎡)<br/>• 진동 격리(Floating Pad) 및 방진 공조<br/>• 통합 원격관제실 및 실증 연동 공간</td>
+<td style="text-align: left;">특수 중량구조 기준<br/>평당 약 850~950만<br/><em>(계: 63억/MW)</em></td>
+<td style="text-align: center;"><strong>630억 원</strong></td>
+<td style="text-align: center;"><strong>315억 원</strong></td>
+<td style="text-align: center;"><strong>18.0%</strong></td>
+<td style="text-align: left;">• 내용연수 <strong>30~40년</strong><br/>• 선순위/중순위 PF 및 지역활성화투자펀드로 조달, 1군 시공사 책임준공 약정</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 기반 설비</strong><br/><em>(MEP Infrastructure)</em></td>
+<td style="text-align: left;">• <strong>전기</strong>: 특고압 수변전, 리튬 UPS(2N), 비상발전기(N+1), 버스덕트<br/>• <strong>기계/액랭</strong>: DLC 수랭 칠러, CDU(냉각분배장치), RDHx, 항온항습<br/>• <strong>통신/보안</strong>: 다중 광인입, 소방(가스계), 물리보안</td>
+<td style="text-align: left;">전기 약 60억/MW<br/>액랭·기계 45억/MW<br/>통신·소방 10억/MW<br/><em>(계: 115억/MW)</em></td>
+<td style="text-align: center;"><strong>1,150억 원</strong></td>
+<td style="text-align: center;"><strong>575억 원</strong></td>
+<td style="text-align: center;"><strong>32.9%</strong></td>
+<td style="text-align: left;">• 내용연수 <strong>10~15년</strong><br/>• 물리 센터 원가의 핵심(57.5%)<br/>• <strong>메가존 DC TF가 액랭·전산 MEP 핵심 구간 분할 수주 시 약 12~18% 시공 마진 확보 가능</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>소계 A: 물리 센터</strong></td>
+<td style="text-align: left;"><strong>토지 + 코어 건축 + MEP 설비 합계</strong></td>
+<td style="text-align: left;"><strong>200억 원 / MW</strong></td>
+<td style="text-align: center;"><strong>2,000억 원</strong></td>
+<td style="text-align: center;"><strong>1,000억 원</strong></td>
+<td style="text-align: center;"><strong>57.2%</strong></td>
+<td style="text-align: left;"><em>기존 대구시 40MW = 8,000억 원 산식과 정확히 일치</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4-A. 코로케이션 구역</strong><br/><em>(공공·민간 입고분)</em></td>
+<td style="text-align: left;">• <strong>대구시 5MW 중 3MW</strong> (10MW 중 6MW)<br/>• KIRIA 실증 스토리지, 인증센터 서버, 대구 6개 산하기관 및 앵커기업 자체 서버</td>
+<td style="text-align: left;">상면·전력·랙만 제공<br/><em>(서버는 고객 국비 조달)</em></td>
+<td style="text-align: center;"><strong>0원</strong><br/><em>(고객 자산)</em></td>
+<td style="text-align: center;"><strong>0원</strong><br/><em>(기관 국비 자산)</em></td>
+<td style="text-align: center;"><strong>0.0%</strong></td>
+<td style="text-align: left;">• 각 국책사업의 '장비구축비'로 발주되며, <strong>메가존은 장비 납품·구축 SI 매출 및 마진(8~15%) 별도 획득</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4-B. 직영 컴퓨트</strong><br/><em>(GPUaaS &amp; Platform)</em></td>
+<td style="text-align: left;">• <strong>대구시 5MW 중 2MW</strong> (10MW 중 4MW)<br/>• <strong>H200/B200 급 800~1,000장</strong>(100~125노드)<br/>• Quantum-2 800G InfiniBand 네트워크<br/>• All-Flash 병렬 스토리지(2PB) + 오브젝트(10PB)<br/>• Sovereign AI(Articul8, Omniverse) SW</td>
+<td style="text-align: left;">GPU노드 약 600억<br/>스토리지·망 100억<br/>플랫폼 구축 50억<br/><em>(5MW 내 2MW 기준)</em></td>
+<td style="text-align: center;"><strong>1,500억 원</strong><br/><em>(4MW 직영 기준)</em></td>
+<td style="text-align: center;"><strong>750억 원</strong><br/><em>(2MW 직영 기준)</em></td>
+<td style="text-align: center;"><strong>42.8%</strong></td>
+<td style="text-align: left;">• 내용연수 <strong>5년 정액 상각</strong> (연 150억 상각)<br/>• 국책 바우처 약정 물량에 연동하여 <strong>B2B IT 렌탈(36~60개월) 또는 벤더 리스</strong>로 일시 CapEx 분산</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>총계 (Total CapEx)</strong></td>
+<td style="text-align: left;"><strong>하이브리드 표준안 총 투자비 (A + 4-B)</strong></td>
+<td style="text-align: left;"><strong>350억 원 / MW</strong></td>
+<td style="text-align: center;"><strong>3,500억 원</strong></td>
+<td style="text-align: center;"><strong>1,750억 원</strong></td>
+<td style="text-align: center;"><strong>100.0%</strong></td>
+<td style="text-align: left;"><strong>가장 건전한 재무 표준 기준선</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>※ 참고 (시나리오 비교)</em>:<br />
+- <strong>최소 투자안 (순수 코로케이션 100%)</strong>: 10MW <strong>2,000억 원</strong> / 5MW <strong>1,000억 원</strong> (GPU 직접 투자 0원)<br />
+- <strong>최대 투자안 (전 구간 자체 GPU 100% 직영)</strong>: 10MW <strong>6,000억 원</strong> / 5MW <strong>3,000억 원</strong> (물리 1,000억 + GPU 2,500장 2,000억)</p>
+</blockquote>
+<hr />
+<h3>2.2. 연간 운영비(OpEx) 및 자본비용(Capital Charge) 상세 구조표</h3>
+<p>데이터센터 준공 후 매년 고정적으로 지출되거나 회수해야 하는 <strong>연간 총원가(Annual Total Cost Base)</strong> 테이블입니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">비용 구분</th>
+<th style="text-align: left;">세부 산출 내역 (산식 기준)</th>
+<th style="text-align: center;"><strong>1단계 10MW 전체 (연간)</strong></th>
+<th style="text-align: center;"><strong>대구시 연계 5MW (연간)</strong></th>
+<th style="text-align: center;"><strong>5MW 5년 누적</strong></th>
+<th style="text-align: left;">비용 절감 레버리지</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>① 산업용 전력요금</strong></td>
+<td style="text-align: left;">5MW × 8,760시간 × 평균부하율 80% × 약 157원/kWh</td>
+<td style="text-align: center;">연 110억 원</td>
+<td style="text-align: center;"><strong>연 55억 원</strong></td>
+<td style="text-align: center;">275억 원</td>
+<td style="text-align: left;">5극3특 <code>#97 지역별 차등 전기요금제</code> 도입 시 연 8~10억 절감</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>② 시설관리 · 보안(FM)</strong></td>
+<td style="text-align: left;">24시간 수변전·공조 특급기술자 상주, 냉각수, 설비 유지보수, 보험·재산세</td>
+<td style="text-align: center;">연 26억 원</td>
+<td style="text-align: center;"><strong>연 13억 원</strong></td>
+<td style="text-align: center;">65억 원</td>
+<td style="text-align: left;">코로케이션 임차인 Triple-Net 관리비 전가 가능</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>③ MSP · AI 플랫폼 운영</strong></td>
+<td style="text-align: left;">클라우드/Slurm/K8s 엔지니어, 원격관제 인력, 통신회선(전용선) 비용</td>
+<td style="text-align: center;">연 24억 원</td>
+<td style="text-align: center;"><strong>연 12억 원</strong></td>
+<td style="text-align: center;">60억 원</td>
+<td style="text-align: left;">Akamai 연동 시 데이터 Egress 전송료 0원화</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>소계 ①: 순수 현금 OpEx</strong></td>
+<td style="text-align: left;"><strong>매년 실제 현금으로 지출되는 운영 고정비</strong></td>
+<td style="text-align: center;"><strong>연 160억 원</strong></td>
+<td style="text-align: center;"><strong>연 80억 원</strong></td>
+<td style="text-align: center;"><strong>400억 원</strong></td>
+<td style="text-align: left;"><strong>현금흐름(EBITDA) 손익분기 기준선</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>④ 물리 센터 자본회수비</strong></td>
+<td style="text-align: left;">물리 CapEx(5MW 1,000억)에 대한 PF 이자·원금상환 및 PropCo 목표 배당(NOI Yield ~9.5%)</td>
+<td style="text-align: center;">연 190억 원</td>
+<td style="text-align: center;"><strong>연 95억 원</strong></td>
+<td style="text-align: center;">475억 원</td>
+<td style="text-align: left;"><code>#1 성장엔진 특별보조금</code> 수혜 시 원리금 대폭 축소</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>⑤ GPU 감가상각 · 금융비</strong></td>
+<td style="text-align: left;">직영 컴퓨트 CapEx(5MW 내 750억) 5년 정액 상각(연 150억) + 리스금융비(연 20억)</td>
+<td style="text-align: center;">연 340억 원</td>
+<td style="text-align: center;"><strong>연 170억 원</strong></td>
+<td style="text-align: center;">850억 원</td>
+<td style="text-align: left;">5년 내 100% 원금 회수 완료 구조</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>⑥ MZC 목표 순마진</strong></td>
+<td style="text-align: left;">플랫폼 라이선스(Articul8 등) 및 운영 사업자 목표 초과이익</td>
+<td style="text-align: center;">연 70억 원</td>
+<td style="text-align: center;"><strong>연 35억 원</strong></td>
+<td style="text-align: center;">175억 원</td>
+<td style="text-align: left;">가동률 80%+ 달성 시 초과 업사이드 발생</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>총계: 연간 목표 회수 매출</strong></td>
+<td style="text-align: left;"><strong>투자원금 회수 + 운영비 + 목표이익을 모두 충족하는 필요 매출</strong></td>
+<td style="text-align: center;"><strong>연 760억 원</strong></td>
+<td style="text-align: center;"><strong>연 380억 원</strong></td>
+<td style="text-align: center;"><strong>1,900억 원</strong></td>
+<td style="text-align: left;"><strong>대구시 5MW 매출 퍼즐의 타깃 모수</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. 대구시 5MW 투자회수 '연간 380억 원(5년 1,900억 원)' 매출 퍼즐 설계</h2>
+<p>위 재무 테이블에서 도출된 <strong>대구시 5MW 연간 목표 회수액 <code>380억 원</code> (상면 코로케이션 3MW에서 <code>연 140억 원</code> + 직영 GPUaaS 2MW에서 <code>연 240억 원</code>)</strong>을 신규 예정 국책사업 및 민간 수요로 채우는 <strong>5조각 매출 퍼즐</strong>입니다.</p>
+<div class="mermaid">flowchart TB
+    subgraph Target [&quot;대구시 연계 5.0 MW 연간 회수 목표: 연 380억 원 (5년 1,900억 원)&quot;]
+        direction LR
+        Colo[&quot;공공 코로케이션 · 데이터 위탁 (3.0 MW)&lt;br/&gt;목표 매출: 연 140억 원 (36.9%)&quot;]
+        GPU[&quot;메가존 직영 GPUaaS · 플랫폼 (2.0 MW / GPU ~900장)&lt;br/&gt;목표 매출: 연 240억 원 (63.1%)&quot;]
+    end
+
+    subgraph Puzzle [&quot;5조각 세부 매출 퍼즐 구성&quot;]
+        P1[&quot;퍼즐 ① KIRIA 실증데이터·인증·관제&lt;br/&gt;1.8 MW | 연 90억 원 (23.7%)&quot;]
+        P2[&quot;퍼즐 ② 대구 6대 산하기관 통합 수용&lt;br/&gt;1.2 MW | 연 50억 원 (13.2%)&quot;]
+        P3[&quot;퍼즐 ③ 신규 국책 R&amp;D GPU 바우처(15%)&lt;br/&gt;GPU 450장 | 연 120억 원 (31.6%)&quot;]
+        P4[&quot;퍼즐 ④ 기업 AX 전환 &amp; 수출 바우처&lt;br/&gt;GPU 250장 | 연 80억 원 (21.0%)&quot;]
+        P5[&quot;퍼즐 ⑤ 선도 앵커 RFM &amp; 규제특구 유치&lt;br/&gt;GPU 200장 | 연 40억 원 (10.5%)&quot;]
+    end
+
+    Colo --&gt; P1
+    Colo --&gt; P2
+    GPU --&gt; P3
+    GPU --&gt; P4
+    GPU --&gt; P5
+</div>
+<h3>3.1. 5조각 매출 퍼즐 상세 산식 및 예산 매핑표</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">퍼즐 조각</th>
+<th style="text-align: center;">배정 인프라</th>
+<th style="text-align: left;">단가 및 물량 산식 (근거)</th>
+<th style="text-align: center;"><strong>연간 매출</strong></th>
+<th style="text-align: center;"><strong>5년 누적</strong></th>
+<th style="text-align: left;">타깃 국책사업 및 예산 출처</th>
+<th style="text-align: center;">회수 확실성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>퍼즐 ①</strong><br/><strong>KIRIA 실증·인증·관제 백엔드</strong></td>
+<td style="text-align: center;">코로케이션 <strong>1.8 MW</strong><br/>+ 가상실증 연동</td>
+<td style="text-align: left;">• 고밀도 상면·전력·전용선·관리형 스토리지 위탁 (MW당 월 3.2억 × 1.8MW ≈ 연 70억)<br/>• 사전 가상실증·EU CRA 보안인증 플랫폼 운영(연 20억)</td>
+<td style="text-align: center;"><strong>90억 원</strong><br/><em>(23.7%)</em></td>
+<td style="text-align: center;"><strong>450억 원</strong></td>
+<td style="text-align: left;">• 테스트필드 데이터 저장·활용 인프라(<code>255.7억</code>)<br/>• 휴머노이드 안전인증센터(<code>187억</code>)<br/>• 특화단지 가변식 테스트베드·원격관제 기반사업</td>
+<td style="text-align: center;"><strong>상</strong><br/><em>(차주 KIRIA 협의 직결)</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>퍼즐 ②</strong><br/><strong>대구 6대 산하기관 서버실 통합</strong></td>
+<td style="text-align: center;">코로케이션 <strong>1.2 MW</strong></td>
+<td style="text-align: left;">• 6개 기관(KIRIA·DMI·대구TP·KIAPI·경북대·DIP) 신규·교체 서버/GPU 상면 통합 (MW당 월 3.47억 × 1.2MW ≈ 연 50억)</td>
+<td style="text-align: center;"><strong>50억 원</strong><br/><em>(13.2%)</em></td>
+<td style="text-align: center;"><strong>250억 원</strong></td>
+<td style="text-align: left;">• 대구시 인공지능정책관실 산하 6개 기관 인프라 예산<br/>• DMI 제조밸류체인(<code>225.4억</code>)·대구TP 플랫폼 연계</td>
+<td style="text-align: center;"><strong>상</strong><br/><em>(대구시 행정 조정 가능)</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>퍼즐 ③</strong><br/><strong>신규 국책 R&amp;D GPUaaS 의무할당</strong></td>
+<td style="text-align: center;">직영 GPU <strong>1.0 MW</strong><br/><em>(H200/B200 약 450장)</em></td>
+<td style="text-align: left;">• GPU 450장 × 연평균 가동률 80% × 시간당 약 3,800원(공공 약정 할인가) ≈ <strong>연 120억 원</strong><br/><em>(연간 약 800억 규모 R&amp;D 예산의 15% 흡수)</em></td>
+<td style="text-align: center;"><strong>120억 원</strong><br/><em>(31.6%)</em></td>
+<td style="text-align: center;"><strong>600억 원</strong></td>
+<td style="text-align: left;">• ① 휴머노이드 특화단지 R&amp;D(9개 사업, <code>'27~</code>)<br/>• ② 5극3특 성장엔진(로봇파운데이션모델) 대형 R&amp;D<br/>• ⑤ 수성알파시티 지역거점 AX 후속 연차 과제</td>
+<td style="text-align: center;"><strong>중상</strong><br/><em>(과제 RFP 공동장비 의무화 필수)</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>퍼즐 ④</strong><br/><strong>기업 제조 AX &amp; 수출 브릿지 구독</strong></td>
+<td style="text-align: center;">직영 GPU <strong>0.6 MW</strong><br/><em>(H200/B200 약 250장)</em></td>
+<td style="text-align: left;">• 지역 제조·로봇 기업 <strong>250개사 × 연 3,200만 원</strong>(정부 바우처 80% + 기업 월 53만 자부담) = <strong>연 80억 원</strong><br/><em>(ModelMesh GPU 분할 공유로 250장 수용 충분)</em></td>
+<td style="text-align: center;"><strong>80억 원</strong><br/><em>(21.0%)</em></td>
+<td style="text-align: center;"><strong>400억 원</strong></td>
+<td style="text-align: left;">• 5극3특 <code>#52 AI팩토리</code>, <code>#56 AX스프린트</code>, <code>#16 수출바우처</code><br/>• 중기부·기정원 지역주력산업 AX 전환 바우처<br/>• 대구 AI 공급기업(ISV) SaaS 백엔드 호스팅</td>
+<td style="text-align: center;"><strong>중상</strong><br/><em>(바우처 공급기업 풀 등록)</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>퍼즐 ⑤</strong><br/><strong>선도 앵커 RFM &amp; 규제특구 역외유치</strong></td>
+<td style="text-align: center;">직영 GPU <strong>0.4 MW</strong><br/><em>(H200/B200 약 200장)</em></td>
+<td style="text-align: left;">• 앵커 컨소시엄 4개군 × 전용 4~8노드 연간 예약(각 연 6~7억 = 25억) + 수도권 로봇기업 원본영상 샌드박스 학습(연 15억)</td>
+<td style="text-align: center;"><strong>40억 원</strong><br/><em>(10.5%)</em></td>
+<td style="text-align: center;"><strong>200억 원</strong></td>
+<td style="text-align: left;">• 특화단지 선도기업(HD현대로보틱스, 대동, 에스엘 등) 자체 R&amp;D 투자금<br/>• ③ 로봇 초광역특구 데이터 규제샌드박스 특례 수요</td>
+<td style="text-align: center;"><strong>중</strong><br/><em>(앵커 협약 및 특구 지정 연동)</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>합계</strong></td>
+<td style="text-align: center;"><strong>총 5.0 MW</strong><br/><em>(상면 3 + GPU 2)</em></td>
+<td style="text-align: left;"><strong>코로케이션 연 140억 + GPUaaS/플랫폼 연 240억</strong></td>
+<td style="text-align: center;"><strong>380억 원</strong><br/><strong>(100%)</strong></td>
+<td style="text-align: center;"><strong>1,900억 원</strong></td>
+<td style="text-align: left;"><strong>공공 베이스로드(37%) + 국책바우처(53%) + 민간(10%)</strong></td>
+<td style="text-align: center;"><strong>포트폴리오 분산 완성</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. 잔여 민간 5MW 확장 시 1단계 '10MW 전체' 완성형 매출 구조 요약</h2>
+<p>대구시 공공 연계 5MW(연 380억 원)가 베이스캠프로 안착하면, 1단계 10MW의 나머지 <strong>민간 5MW</strong>는 다음과 같이 채워 전체 10MW 손익을 완성합니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">구분</th>
+<th style="text-align: center;">용량</th>
+<th style="text-align: left;">핵심 타깃 고객군</th>
+<th style="text-align: center;">연간 목표 매출</th>
+<th style="text-align: left;">핵심 유치 무기</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Part A. 대구시 공공 연계분</strong></td>
+<td style="text-align: center;"><strong>5.0 MW</strong></td>
+<td style="text-align: left;">KIRIA, 대구 6개 기관, 국책 R&amp;D, 제조 AX 바우처 기업</td>
+<td style="text-align: center;"><strong>연 380억 원</strong></td>
+<td style="text-align: left;">국비·지방비 바우처 할당 및 공공 위탁 협약</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Part B. 영남권 · 민간 확장분</strong></td>
+<td style="text-align: center;"><strong>5.0 MW</strong></td>
+<td style="text-align: left;">• 구미·포항·울산·경남 대기업 자율제조(한화오션·포스코DX·차부품사 등) 프라이빗 AI 클라우드 (2.5MW)<br/>• 메가존 그룹 전사 GPUaaS / TokenaaS 및 수도권 배치 학습 오프로딩 물량 (2.5MW)</td>
+<td style="text-align: center;"><strong>연 380억 원</strong></td>
+<td style="text-align: left;">• 영남권 초광역 벨트 인접성 (40~60분 내)<br/>• 지역 차등 전기요금제 기반 수도권 대비 <strong>20~25% 저단가 학습 클러스터</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>1단계 10MW 합계</strong></td>
+<td style="text-align: center;"><strong>10.0 MW</strong></td>
+<td style="text-align: left;"><strong>공공 50% (안정성) + 민간·초광역 50% (수익 확장성)</strong></td>
+<td style="text-align: center;"><strong>연 760억 원</strong><br/><em>(5년 3,800억)</em></td>
+<td style="text-align: left;"><strong>초기 가동률 50% 공공 보장으로 PF 금리 최소화</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. 메가존클라우드(MZC) 수익원별 현금 회수 타임라인 요약</h2>
+<p>부동산 시행 지분(PropCo) 투자를 최소화하고 메가존이 각 사업 단계마다 회수하는 <strong>실질 수익원(Gross/Operating Margin)</strong> 정리표입니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">회수 시점</th>
+<th style="text-align: left;">수익원 항목</th>
+<th style="text-align: left;">대상 모수 (10MW 기준)</th>
+<th style="text-align: center;">예상 매출 규모</th>
+<th style="text-align: center;">기대 이익률</th>
+<th style="text-align: left;">누적 회수 기여 성격</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>착공 전 (<code>'27~'28</code>)</strong></td>
+<td style="text-align: left;">임대형 GPUaaS 브릿지 선제 공급</td>
+<td style="text-align: left;">대구 초기 국책과제·앵커 사전 학습</td>
+<td style="text-align: center;">연 50억 ~ 100억 원</td>
+<td style="text-align: center;"><strong>15% ~ 20%</strong></td>
+<td style="text-align: left;">CapEx 지출 전 <strong>무자본 조기 이익</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>건설기 (<code>'27.하~'28</code>)</strong></td>
+<td style="text-align: left;">① 데이터센터 개발 기술 PM 용역<br/>② 액랭·전산 특화 MEP 분할 시공<br/>③ 공공 코로케이션 입주장비 SI 납품</td>
+<td style="text-align: left;">• 전체 개발 사업비 관리<br/>• MEP 1,150억 중 특화 구간<br/>• KIRIA·기관 국비 구매 서버/스토리지</td>
+<td style="text-align: center;">약 40억 ~ 60억 원<br/>약 400억 ~ 500억 원<br/>약 300억 ~ 400억 원</td>
+<td style="text-align: center;"><strong>25% ~ 35%</strong><br/><strong>12% ~ 18%</strong><br/><strong>8% ~ 15%</strong></td>
+<td style="text-align: left;"><strong>건설 기간 중 약 100억~150억 원의 현금 영업이익 선회수</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>운영기 (<code>'29~'33</code>, 5년)</strong></td>
+<td style="text-align: left;">④ 센터 전체 위탁운영권(OpCo/MSP)<br/>⑤ 직영 GPUaaS &amp; 피지컬 AI 플랫폼</td>
+<td style="text-align: left;">• 상면·시설·네트워크 통합 운영<br/>• 공공 2MW + 민간 2MW GPUaaS</td>
+<td style="text-align: center;">연 120억 ~ 150억 원<br/>연 450억 ~ 500억 원</td>
+<td style="text-align: center;"><strong>18% ~ 25%</strong><br/><strong>35% ~ 45%</strong>*</td>
+<td style="text-align: left;"><em>(※ EBITDA 마진 기준)</em><br/>5년 내 GPU 원금 상각 완료 및 <strong>연 100억+ 순현금 창출</strong></td>
+</tr>
+</tbody>
+</table>
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+</script>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2026 AKAMAI & NVIDIA & MZC HYBRID PROJECT COOPERATIVE GROUP.</p>
+    </footer>
+</div>
+
+</body>
+</html>
