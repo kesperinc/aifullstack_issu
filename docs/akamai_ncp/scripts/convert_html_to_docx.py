@@ -163,12 +163,14 @@ def preprocess_soup_for_docx(soup):
     <script>, <style>, Mermaid 코드 블록, 이스케이프된 <br/> 태그 등이
     워드(.docx) 본문에 날것으로 노출되지 않도록 전처리합니다.
     """
-    # 1. 불필요한 스크립트, 스타일, 상단 배지(.tag), 하단 푸터(.footer), 각주 역참조 제거
+    # 1. 불필요한 스크립트, 스타일, 상단 배지(.tag), 컨트롤바(.control-bar), 하단 푸터(.footer/.s-footer), 각주 역참조 제거
     for tag in soup.find_all(['script', 'style']):
         tag.decompose()
     for badge in soup.find_all('div', class_='tag'):
         badge.decompose()
-    for footer in soup.find_all('div', class_='footer'):
+    for ctrl in soup.find_all(class_='control-bar'):
+        ctrl.decompose()
+    for footer in soup.find_all('div', class_=['footer', 's-footer']):
         footer.decompose()
     for backref in soup.find_all('a', class_='footnote-backref'):
         backref.decompose()

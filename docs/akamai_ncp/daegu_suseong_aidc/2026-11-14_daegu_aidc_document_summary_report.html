@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[총괄 요약 리포트] 대구 수성알파시티 AIDC & 피지컬 AI 프로젝트 전체 산출물 가이드 및 링크 모음</title>
+    <!-- 구글 폰트 적용 (Outfit & Noto Sans KR) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(22, 25, 32, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #3b82f6;
+            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --accent: #ef4444;
+            --success: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.12) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 네비게이션 가이드 */
+        .nav-back {
+            margin-bottom: 20px;
+        }
+        
+        .nav-back a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-back a:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        /* 메인 리포트 카드 */
+        .report-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 45px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 타이틀 스타일 */
+        header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 마크다운 요소별 렌더링 스타일링 */
+        h2 {
+            font-size: 1.5rem;
+            color: #93c5fd;
+            margin-top: 35px;
+            margin-bottom: 18px;
+            border-left: 4px solid var(--primary);
+            padding-left: 14px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #a7f3d0;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: #e5e7eb;
+            font-size: 0.98rem;
+        }
+
+        /* 목록 스타일링 (순서 없는 리스트) */
+        ul {
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 22px;
+            color: #d1d5db;
+        }
+
+        li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* 마크다운 표(Table) 스타일링 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.92rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 12px 14px;
+            font-weight: 600;
+            color: #93c5fd;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e5e7eb;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* 인용구(Blockquote) 스타일링 */
+        blockquote {
+            border-left: 4px solid var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+            color: #93c5fd;
+            font-weight: 500;
+        }
+
+        /* 수평선 스타일 */
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 30px 0;
+        }
+
+        /* Mermaid 코드블럭 또는 일반 이미지 렌더링 스타일 */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 20px 0;
+        }
+
+        /* 각주 / 미주 (Footnotes) 스타일 */
+        .footnote {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .footnote ol {
+            padding-left: 20px;
+        }
+
+        .footnote li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .footnote-ref {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 2px;
+        }
+
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+
+        .footnote-backref {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        /* 꼬리말 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-back">
+        <a href="../../README.html">← 메인 README 메인 화면으로 돌아가기</a>
+    </div>
+
+    <div class="report-card">
+        <header>
+            <span class="meta-tag">공동 사업 기획 기획 검토서</span>
+            <h1>[총괄 요약 리포트] 대구 수성알파시티 AIDC & 피지컬 AI 프로젝트 전체 산출물 가이드 및 링크 모음</h1>
+        </header>
+
+        <main>
+            <ul>
+<li><strong>문서 구분</strong>: 프로젝트 전체 산출물 요약 리포트 (Master Document Index &amp; Summary Report)</li>
+<li><strong>대상 디렉터리</strong>: <code>docs/akamai_ncp/daegu_suseong_aidc/</code> (총 11종 핵심 문서 세트 · 33개 파일)</li>
+<li><strong>최종 업데이트</strong>: 2026년 11월 14일</li>
+</ul>
+<hr />
+<h2>1. 미팅 및 목적별 빠른 선택 가이드 (Quick Start)</h2>
+<p>회의 참석 대상과 보안 수준에 따라 아래 <strong>권장 문서 세트</strong>를 즉시 선택하여 활용하십시오.<br />
+- <strong>🟢 대외용 문서</strong>: 사내 수익률(IRR/영업이익), JB동탄 DC, AWS 내부 매입 전환, 부지 시세차익·지식산업센터 분양 수익 및 특정 인명이 <strong>100% 배제</strong>된 안전한 대외 협력 문서입니다.<br />
+- <strong>🔴 사내 대외비 문서</strong>: 메가존클라우드 내부 투자심의, PF 금융 구조화, 부지 복합개발 분양 수익 보전 및 AWS 매입 오프로딩 손익 시뮬레이션을 담은 내부 전략 문서입니다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">활용 상황 / 대상</th>
+<th style="text-align: left;">최우선 추천 문서 (클릭 시 열기)</th>
+<th style="text-align: left;">보조 지참 / 배포 추천 문서</th>
+<th style="text-align: center;">보안 등급</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>월요일 대구시 기계로봇과 실무 미팅</strong><br/><em>(기존사업 전환·데이터팩토리 아이디어 제안)</em></td>
+<td style="text-align: left;"><strong><a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.html">① 월요일 제안용 16:9 PPT 슬라이드 (HTML)</a></strong></td>
+<td style="text-align: left;"><strong><a href="./2026-11-14_daegu_robot_division_monday_proposal_narrative.html">② 월요일 제안서 서술형 DOCX 뷰어 (HTML)</a></strong> (<a href="./2026-11-14_daegu_robot_division_monday_proposal_narrative.docx">Word</a>)</td>
+<td style="text-align: center;">🟢 대외용</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>한국로봇산업진흥원(KIRIA) 임원진 1차 미팅</strong><br/><em>(상위 5대 공동사업 및 추정 사업규모 협의)</em></td>
+<td style="text-align: left;"><strong><a href="./2026-11-12_kiria_1st_meeting_presentation_deck.html">④ KIRIA 1차 미팅 10장 발표장표 (HTML)</a></strong></td>
+<td style="text-align: left;"><strong><a href="./2026-11-12_kiria_1st_meeting_executive_summary.html">⑤ KIRIA 1차 미팅 핵심 요약본 (HTML)</a></strong> (<a href="./2026-11-12_kiria_1st_meeting_executive_summary.docx">Word</a>)</td>
+<td style="text-align: center;">🟢 대외용</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>대구시·산하기관 공식 본 제안서 제출</strong><br/><em>(센터 구축·운영 종합 제안 및 기술 아키텍처)</em></td>
+<td style="text-align: left;"><strong><a href="./daegu_suseong_robot_training_center_proposal.html">⑨ 수성 피지컬 AI 트레이닝 센터 제안서 V2.1 (HTML)</a></strong></td>
+<td style="text-align: left;"><strong><a href="./daegu_physical_ai_robot_training_center_proposal.html">⑩ 피지컬 AI 트레이닝 센터 기술 상세판 (HTML)</a></strong></td>
+<td style="text-align: center;">🟢 대외용</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>MZC 경영진 · 투자심의 · 사업개발 내부 검토</strong><br/><em>(원가부지 분양보전·AWS 전환·PF 수익률)</em></td>
+<td style="text-align: left;"><strong><a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.html">③ MZC 사내 전략: 부지·AWS 전환·5+5MW 검토서 (HTML)</a></strong></td>
+<td style="text-align: left;"><strong><a href="./2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.html">⑥ 표준 예산·매출퍼즐</a></strong> &amp; <strong><a href="./2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.html">⑦ PF 리스크·동탄 비교</a></strong></td>
+<td style="text-align: center;">🔴 사내대외비</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. 전체 산출물(11종) 한눈에 보기 요약표</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">번호</th>
+<th style="text-align: center;">분류 / 보안</th>
+<th style="text-align: left;">문서명 및 포맷별 링크 (<code>HTML</code> / <code>DOCX</code> / <code>MD</code>)</th>
+<th style="text-align: center;">작성일</th>
+<th style="text-align: left;">핵심 요약 (주요 수록 내용)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>01</strong></td>
+<td style="text-align: center;"><strong>발표 PPT</strong><br/>🟢 대외용</td>
+<td style="text-align: left;"><strong><a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.html">대구시 기계로봇과 · KIRIA 협력 제안 16:9 PPT</a></strong><br/>(<a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.docx">Word</a> | <a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-14</code></td>
+<td style="text-align: left;"><strong>월요일 미팅 현장 투사용 12장 풀스크린 슬라이드 쇼</strong>. 정부 사업 중복성 회피용 ‘KIRIA 전문가 매칭+AIDC 전환’ 모델, RFM·훈련데이터(DaaS), <code>Isaac×Unity</code> 결합, 로봇·City DT <code>45PB</code> 데이터 팩토리 시각화</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>02</strong></td>
+<td style="text-align: center;"><strong>서술형 제안</strong><br/>🟢 대외용</td>
+<td style="text-align: left;"><strong><a href="./2026-11-14_daegu_robot_division_monday_proposal_narrative.html">대구시 기계로봇과 · KIRIA 협력 제안서 (서술형 DOCX형)</a></strong><br/>(<a href="./2026-11-14_daegu_robot_division_monday_proposal_narrative.docx">Word</a> | <a href="./2026-11-14_daegu_robot_division_monday_proposal_narrative.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-14</code></td>
+<td style="text-align: left;"><strong>월요일 미팅 배포·정독용 A4 7쪽 Word 문서 형태 뷰어</strong>. 01번 PPT의 모든 아젠다를 공문서·제안서 문체의 완결된 서술형 문장(전 6장)과 정량 산출표로 상세 풀어쓴 문서</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>03</strong></td>
+<td style="text-align: center;"><strong>사내 전략</strong><br/>🔴 대외비</td>
+<td style="text-align: left;"><strong><a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.html">MZC 사내 전략: 부지·분양, AWS 전환 &amp; 5+5MW 검토서</a></strong><br/>(<a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.docx">Word</a> | <a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-14</code></td>
+<td style="text-align: left;">수성지구 <code>4~6천평</code> 원가 매입(시세 3배) + 지산센터 분양(<code>+330억</code>)·오피스 임대 보전, MZC 매출 80% AWS 매입분 중 <code>10%~25%</code> 전환 시 손익(<code>연 +365억 OP</code>), <code>5+5MW</code> 스윙 전략 검증</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>04</strong></td>
+<td style="text-align: center;"><strong>발표 PPT</strong><br/>🟢 대외용</td>
+<td style="text-align: left;"><strong><a href="./2026-11-12_kiria_1st_meeting_presentation_deck.html">KIRIA 1차 협력 미팅 발표 장표 (10-Slide Deck)</a></strong><br/>(<a href="./2026-11-12_kiria_1st_meeting_presentation_deck.docx">Word</a> | <a href="./2026-11-12_kiria_1st_meeting_presentation_deck.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-12</code></td>
+<td style="text-align: left;">한국로봇산업진흥원 임원진 미팅용 10장 슬라이드. 달성(물리 Body) × 수성(AI Brain) Twin-Hub 구도 및 <strong>신규 예정 상위 5대 추천 사업 아이템(추정 사업규모 포함)</strong> 집중 부각</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>05</strong></td>
+<td style="text-align: center;"><strong>회의 요약</strong><br/>🟢 대외용</td>
+<td style="text-align: left;"><strong><a href="./2026-11-12_kiria_1st_meeting_executive_summary.html">KIRIA 1차 협력 미팅 핵심 요약본 (Executive Handout)</a></strong><br/>(<a href="./2026-11-12_kiria_1st_meeting_executive_summary.docx">Word</a> | <a href="./2026-11-12_kiria_1st_meeting_executive_summary.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-12</code></td>
+<td style="text-align: left;">04번 발표장표와 짝을 이루는 회의 테이블 배포용 요약 유인물. Top 5 공동 기획 과제(<code>5년 1,490~1,930억</code>), <code>'27.1H</code> 클라우드 브릿지 조기 가동 및 실무 TF 안건 수록</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>06</strong></td>
+<td style="text-align: center;"><strong>재무 기준</strong><br/>🔴 대외비</td>
+<td style="text-align: left;"><strong><a href="./2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.html">대구 AIDC 표준 예산 구조 재무 테이블 및 매출퍼즐</a></strong><br/>(<a href="./2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.docx">Word</a> | <a href="./2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-12</code></td>
+<td style="text-align: left;">하이브리드(코로케이션 3 : 자체 GPU 2) 기준 <strong>10MW(<code>3,500억</code>) / 5MW(<code>1,750억</code>) CapEx·OpEx 상세 테이블</strong> 및 대구 5MW 연간 목표 매출(<code>연 380억</code> / 5년 <code>1,900억</code>) 5대 매출퍼즐 매핑</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>07</strong></td>
+<td style="text-align: center;"><strong>PF · 리스크</strong><br/>🔴 대외비</td>
+<td style="text-align: left;"><strong><a href="./2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.html">비용 역산출, PF 단계별 수익률 및 JB동탄 DC 비교 분석</a></strong><br/>(<a href="./2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.docx">Word</a> | <a href="./2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-12</code></td>
+<td style="text-align: left;">부동산 분양사업 유사 관점의 6단계 개발 리스크·목표 IRR 분석, LOI 금융 가치, 구미 앤트로픽 무산 사례 교훈 및 <strong>JB동탄 DC 운영권 심사 논리와의 비교·벤치마킹</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>08</strong></td>
+<td style="text-align: center;"><strong>사업 풀(Pool)</strong><br/>🟡 기획참조</td>
+<td style="text-align: left;"><strong><a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.html">9대 국책사업 검증 및 5MW 회수 26대 사업 아이디에이션</a></strong><br/>(<a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.docx">Word</a> | <a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-12</code></td>
+<td style="text-align: left;">대구시 전달 자료(<code>27면 PDF</code>) 내 9대 로봇 국책사업 예산 실체 팩트체크(기 확정 vs 신규 예정 구분), 대구TP 88개사 수요 분석 및 <strong>6대 트랙 × 26개 세부 사업 아이템 총람</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>09</strong></td>
+<td style="text-align: center;"><strong>본 제안서</strong><br/>🟢 대외용</td>
+<td style="text-align: left;"><strong><a href="./daegu_suseong_robot_training_center_proposal.html">대구 수성 피지컬 AI 로봇 트레이닝 센터 제안서 (V2.1)</a></strong><br/>(<a href="./daegu_suseong_robot_training_center_proposal.docx">Word</a> | <a href="./daegu_suseong_robot_training_center_proposal.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-12</code></td>
+<td style="text-align: left;">대구광역시 및 산하기관 제출용 <strong>공식 종합 사업제안서 최신판</strong>. 센터 구축 개요, 서비스 구성, 운영 모델 및 제7장 ‘9대 국책사업 연계 Twin-Hub 전략’ 통합 반영</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>10</strong></td>
+<td style="text-align: center;"><strong>기술 상세</strong><br/>🟢 대외용</td>
+<td style="text-align: left;"><strong><a href="./daegu_physical_ai_robot_training_center_proposal.html">대구 피지컬 AI 로봇 트레이닝 센터 구축 제안서 (상세판)</a></strong><br/>(<a href="./daegu_physical_ai_robot_training_center_proposal.docx">Word</a> | <a href="./daegu_physical_ai_robot_training_center_proposal.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-09</code></td>
+<td style="text-align: left;">피지컬 AI 아키텍처 기술 레퍼런스 문서. NVIDIA Omniverse, Isaac Lab, Cosmos 월드모델 기반 합성 데이터 생성 및 VLA 학습 파이프라인 세부 기술 명세 수록</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>11</strong></td>
+<td style="text-align: center;"><strong>선행 조사</strong><br/>🟢 기초자료</td>
+<td style="text-align: left;"><strong><a href="./daegu_aidc_physical_ai_preliminary_study.html">대구 AIDC &amp; 피지컬 AI 선행 조사 보고서</a></strong><br/>(<a href="./daegu_aidc_physical_ai_preliminary_study.docx">Word</a> | <a href="./daegu_aidc_physical_ai_preliminary_study.md">MD</a>)</td>
+<td style="text-align: center;"><code>2026-11-09</code></td>
+<td style="text-align: left;">프로젝트 초기 기초 조사 보고서. 수성알파시티 입지 여건, 전력·통신 인프라 현황, 국내외 로봇 트레이닝 센터 벤치마킹 및 초기 정책 부합성 분석</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. 카테고리별 각 파일 상세 요약</h2>
+<h3>A. [2026-11-14 신규] 월요일 대구시 기계로봇과 제안 패키지 (대외용 2종)</h3>
+<h4>① <code>2026-11-14_daegu_robot_division_monday_proposal_ppt</code> (16:9 발표용 PPT 슬라이드)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.html">HTML 슬라이드 쇼</a> | <a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.docx">DOCX</a> | <a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.md">MD</a></li>
+<li><strong>형태 및 기능</strong>: <code>1600×900</code> 고정 16:9 비율 자동 스케일링 풀스크린 프레젠테이션 앱 (발표자 노트 <code>N</code>, 레이저 포인터 <code>L</code>, 회의실 밝은 테마 전환 <code>T</code>, 목차 <code>M</code>, 전체화면 <code>F</code> 지원).</li>
+<li><strong>핵심 요약</strong>:</li>
+<li><strong>중복성 심사 회피 논리</strong>: 신규 시설 중복 건립이 아니라 기존 국책사업(국가로봇테스트필드·안전인증·R&amp;D)을 <strong>‘KIRIA 1:1 전문가 매칭 + 수성 AIDC 공유자원 활용’</strong>으로 전환해 고도화하는 명분 제시.</li>
+<li><strong>플랫폼 서비스</strong>: 수집 후 정제·표준화(<code>RLDS/LeRobot</code>) 기반 <strong>로봇 훈련 데이터 서비스(DaaS)</strong> 및 <strong>한국형 로봇 파운데이션 모델(K-RFM)</strong> 보급.</li>
+<li><strong>듀얼 Sim-to-Real</strong>: 정밀 물리·강화학습(<strong><code>NVIDIA Isaac Sim</code></strong>)과 CAD 경량화·초실사 비전·군중 HRI·VR 원격조작 및 지역 개발자 흡수(<strong><code>Unity</code></strong>) 결합.</li>
+<li><strong>통합 데이터 팩토리 정량 설계</strong>: 로봇 대당 쓰루풋(<code>150~550 Mbps</code>, <code>0.5~1.9 TB/일</code>) 및 대구 City DT 4대 수집 채널(<code>~65 TB/일</code>) 산출 기반 <strong>유효용량 <code>45 PB</code> 3-Tier 스토리지 + <code>100~400G</code> 전용 광망</strong> 아키텍처 제시.</li>
+</ul>
+<h4>② <code>2026-11-14_daegu_robot_division_monday_proposal_narrative</code> (서술형 DOCX 문서 형태)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./2026-11-14_daegu_robot_division_monday_proposal_narrative.html">HTML Word 문서형 뷰어</a> | <a href="./2026-11-14_daegu_robot_division_monday_proposal_narrative.docx">DOCX</a> | <a href="./2026-11-14_daegu_robot_division_monday_proposal_narrative.md">MD</a></li>
+<li><strong>형태 및 기능</strong>: MS Word A4 7페이지 문서와 동일한 레이아웃을 웹 브라우저에서 구현한 서술형 보고서 뷰어 (상단 리본 바, 장별 이동, 글자 크기 조절, A4 인쇄 최적화 탑재).</li>
+<li><strong>핵심 요약</strong>: ①번 PPT의 개조식 핵심 키워드를 대구시 주무관 및 진흥원 실무자가 회의 후 그대로 공문·기획안 초안으로 인용할 수 있도록 <strong>배경 논리 → 전환 프로세스 → 서비스 구조 → 듀얼 엔진 아키텍처 → 쓰루풋·스토리지 산정 근거 → 단계별 로드맵(전 6장)</strong> 순의 완결된 서술형 문장으로 상세 기술한 문서.</li>
+</ul>
+<hr />
+<h3>B. [2026-11-14 신규] MZC 사내 전용 투자·수익성·앵커 전략서 (사내 대외비)</h3>
+<h4>③ <code>2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw</code></h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.html">HTML 뷰어</a> | <a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.docx">DOCX</a> | <a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.md">MD</a></li>
+<li><strong>핵심 요약</strong>:</li>
+<li><strong>부지 가치 및 복합개발 수익 보전</strong>: 대구시가 조성원가(<code>약 180~270억</code>) 수준에 매각 검토 중인 수성지구 <code>4,000~6,000평</code> 부지(시세 약 3배 상승, 평가차익 담보력 확보) 중 동대구역 인접 입지를 살려 <strong>지식산업센터 분양(<code>순분양익 약 +330억 원</code>으로 AIDC 초기 CapEx 상쇄)</strong> 및 <strong>R&amp;D 오피스 임대(<code>연 +40~48억 원</code> NOI)</strong>를 병행하는 복합개발 모델 검증.</li>
+<li><strong>AWS 매입 컴퓨트 전환 손익 점검</strong>: MZC 전체 매출 중 약 80%를 차지하는 AWS 사업(매출 <code>약 1.2조 원</code>, 순수 컴퓨트 원가 <code>약 5,800억 원</code> 추정)에서 1/4(<code>25% = 1,450억 원</code>)은 약 <code>9~10MW</code> 규모에 해당함을 규명. 즉 <strong>AWS 컴퓨트 매입의 단 <code>10%</code>만 별도 대구 AIDC 법인으로 오프로딩해도 자체 수요 <code>5MW</code>가 즉시 100% 완판</strong>되며, 그룹 연결 영업이익이 <strong><code>연간 약 +365억 원</code> 극대화</strong>됨과 동시에 AWS EDP 할인 협상력 강화 및 해외 네오클라우드·대형 테넌트 유치(‘선 채움 후 고수익 교체’) 레버리지로 작동함을 입증.</li>
+<li><strong><code>5MW + 5MW</code> 스윙 구조 &amp; <code>45PB</code> 스토리지 사업성</strong>: 대구 공공·로봇 수요 부족 시 MZC 자체 물량을 <code>6~7MW</code>로 탄력 확대하는 무공실 안전판과, <code>45PB</code> 데이터 팩토리 추가 투자(<code>약 200억 원</code>)를 통한 연간 <code>65~95억 원</code> 고마진 DaaS 부가수익 구조 제시.</li>
+</ul>
+<hr />
+<h3>C. [2026-11-12 구축] KIRIA 미팅 패키지 · 예산/PF 분석 · 26대 사업 풀 (5종)</h3>
+<h4>④ <code>2026-11-12_kiria_1st_meeting_presentation_deck</code> (KIRIA 1차 미팅 10장 발표장표)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./2026-11-12_kiria_1st_meeting_presentation_deck.html">HTML 슬라이드</a> | <a href="./2026-11-12_kiria_1st_meeting_presentation_deck.docx">DOCX</a> | <a href="./2026-11-12_kiria_1st_meeting_presentation_deck.md">MD</a></li>
+<li><strong>핵심 요약</strong>: KIRIA 원장단·본부장급 미팅을 겨냥해 기 확정 사업을 제외한 <strong>신규 예정 상위 5대 추천 아이템</strong>(① 테스트필드 데이터 레이크 <code>220~280억</code>, ② 휴머노이드 가상 안전인증 <code>120~150억</code>, ③ 특화단지 통합 원격관제 <code>200~250억</code>, ④ 5극3특 K-RFM &amp; R&amp;D GPU 의무할당 <code>600~800억</code>, ⑤ 수출형 로봇 글로벌 OTA 브릿지 <code>350~450억</code> — <strong>5년 합계 <code>1,490~1,930억 원</code></strong>)을 제안하는 10장 발표덱.</li>
+</ul>
+<h4>⑤ <code>2026-11-12_kiria_1st_meeting_executive_summary</code> (KIRIA 미팅 핵심 요약 핸드아웃)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./2026-11-12_kiria_1st_meeting_executive_summary.html">HTML 뷰어</a> | <a href="./2026-11-12_kiria_1st_meeting_executive_summary.docx">DOCX</a> | <a href="./2026-11-12_kiria_1st_meeting_executive_summary.md">MD</a></li>
+<li><strong>핵심 요약</strong>: ④번 발표장표의 핵심 표(상위 5대 아이템 및 추정 사업규모, 중소 로봇기업 4대 애로 해소 효과, <code>'27년 상반기</code> 임대형 클라우드 브릿지 조기 착수안)만 압축한 대외 배포용 요약서.</li>
+</ul>
+<h4>⑥ <code>2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle</code> (표준 예산 및 매출퍼즐 기준서)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.html">HTML 뷰어</a> | <a href="./2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.docx">DOCX</a> | <a href="./2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.md">MD</a></li>
+<li><strong>핵심 요약</strong>: 부지·토목건축·MEP 수전/액침냉각·컴퓨트(GPU/네트워크)·연간 OpEx 항목별로 <strong>10MW(<code>3,500억 원</code>) 및 5MW(<code>1,750억 원</code>) 표준 예산 테이블</strong>을 정립하고, 대구 5MW 타깃 연간 <code>380억 원</code>(5년 <code>1,900억 원</code>) 회수를 위한 5개 트랙별 전력(MW)·매출 퍼즐을 수치로 매핑한 재무 기준서.</li>
+</ul>
+<h4>⑦ <code>2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis</code> (PF 리스크·수익률 &amp; 동탄 비교)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.html">HTML 뷰어</a> | <a href="./2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.docx">DOCX</a> | <a href="./2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.md">MD</a></li>
+<li><strong>핵심 요약</strong>: 일반 아파트·지식산업센터 개발사업과 유사한 AIDC 개발 6단계(토지→인허가/수전→착공PF→MEP→선임대→운영)별 리스크 프리미엄 및 기대 IRR(<code>22%+ → 7~9%</code>)을 산정하여 최적 진입 시점을 도출하고, 구미 앤트로픽 취소 교훈 및 <strong>JB동탄 DC 금융권 심사 대응 논리</strong>를 비교 분석한 내부 심화 보고서.</li>
+</ul>
+<h4>⑧ <code>2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation</code> (9대 국책사업 검증 &amp; 26대 사업 총람)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.html">HTML 뷰어</a> | <a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.docx">DOCX</a> | <a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.md">MD</a></li>
+<li><strong>핵심 요약</strong>: 대구시 기계로봇과 공유 PDF(27면) 내 9대 로봇 국책사업 각각의 예산 구조와 컨소시엄 확정 여부를 정밀 검증하고, 수성 AIDC 5MW를 채울 수 있는 <strong>6대 분야 총 26개 신규 사업 아이디어 풀(백과사전)</strong>을 집대성한 기획 원천 문서.</li>
+</ul>
+<hr />
+<h3>D. 기본 본 제안서 및 기초 기술·선행조사 문서 (3종)</h3>
+<h4>⑨ <code>daegu_suseong_robot_training_center_proposal</code> (통합 본 제안서 V2.1)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./daegu_suseong_robot_training_center_proposal.html">HTML 뷰어</a> | <a href="./daegu_suseong_robot_training_center_proposal.docx">DOCX</a> | <a href="./daegu_suseong_robot_training_center_proposal.md">MD</a></li>
+<li><strong>핵심 요약</strong>: 대구시 및 유관기관 제출용 공식 통합 제안서 최신판으로, 수성알파시티 입지 강점, 센터 구축·운영 아키텍처 및 제7장(9대 국책사업 연계 Twin-Hub 전략)까지 포괄 수록.</li>
+</ul>
+<h4>⑩ <code>daegu_physical_ai_robot_training_center_proposal</code> (피지컬 AI 기술 상세 제안서)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./daegu_physical_ai_robot_training_center_proposal.html">HTML 뷰어</a> | <a href="./daegu_physical_ai_robot_training_center_proposal.docx">DOCX</a> | <a href="./daegu_physical_ai_robot_training_center_proposal.md">MD</a></li>
+<li><strong>핵심 요약</strong>: NVIDIA Omniverse / Isaac Lab / Cosmos 기반 피지컬 AI 모델 학습 파이프라인, 하드웨어 클러스터 사양 및 MLOps 기술 구성을 심층 서술한 기술 레퍼런스 문서.</li>
+</ul>
+<h4>⑪ <code>daegu_aidc_physical_ai_preliminary_study</code> (초기 선행 조사 보고서)</h4>
+<ul>
+<li><strong>파일 링크</strong>: <a href="./daegu_aidc_physical_ai_preliminary_study.html">HTML 뷰어</a> | <a href="./daegu_aidc_physical_ai_preliminary_study.docx">DOCX</a> | <a href="./daegu_aidc_physical_ai_preliminary_study.md">MD</a></li>
+<li><strong>핵심 요약</strong>: 대구 수성알파시티 AIDC 추진 배경, 국내외 피지컬 AI 로봇 트레이닝 센터 구축 동향 및 초기 정책·시장 타당성을 정리한 기초 리서치 자료.</li>
+</ul>
+<hr />
+<h2>4. 연관 작업계획서(Plans) · 변경명세서(Specs) · 상위 README 링크</h2>
+<ul>
+<li><strong>상위 워크스페이스 통합 README</strong>: <a href="../README.html">docs/akamai_ncp/README.html</a> (<a href="../README.md">MD</a> | <a href="../README.docx">DOCX</a>)</li>
+<li><strong>2026-11-14 작업계획서 (Plan)</strong>: <a href="../../plans/2026-11-14_daegu_robot_division_ppt_and_internal_strategy_plan.html">2026-11-14_daegu_robot_division_ppt_and_internal_strategy_plan.html</a> (<a href="../../plans/2026-11-14_daegu_robot_division_ppt_and_internal_strategy_plan.md">MD</a> | <a href="../../plans/2026-11-14_daegu_robot_division_ppt_and_internal_strategy_plan.docx">DOCX</a>)</li>
+<li><strong>2026-11-14 상세변경명세서 (Spec)</strong>: <a href="../../specs/2026-11-14_daegu_robot_division_ppt_and_internal_strategy_spec.html">2026-11-14_daegu_robot_division_ppt_and_internal_strategy_spec.html</a> (<a href="../../specs/2026-11-14_daegu_robot_division_ppt_and_internal_strategy_spec.md">MD</a> | <a href="../../specs/2026-11-14_daegu_robot_division_ppt_and_internal_strategy_spec.docx">DOCX</a>)</li>
+</ul>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2026 AKAMAI & NVIDIA & MZC HYBRID PROJECT COOPERATIVE GROUP.</p>
+    </footer>
+</div>
+
+</body>
+</html>

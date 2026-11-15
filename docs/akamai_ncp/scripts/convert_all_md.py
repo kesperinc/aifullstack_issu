@@ -341,13 +341,15 @@ def main():
     prefix = 'docs/' if has_docs_subdir else ''
 
     # 변환 대상 마크다운 파일과 출력될 HTML 파일 맵
-    # financial_simulation_report.md 및 2026-11-12_kiria_1st_meeting_presentation_deck.html(인터랙티브 슬라이드 덱)은 커스텀 UI 보존을 위해 단순 자동 변환에서 예외(Skip) 처리
+    # financial_simulation_report.md, 2026-11-12_kiria_1st_meeting_presentation_deck.html, 2026-11-14_daegu_robot_division_monday_proposal_ppt.html(16:9 PPT 슬라이드 덱) 및 2026-11-14_daegu_robot_division_monday_proposal_narrative.html(A4 DOCX 문서형 뷰어)은 커스텀 UI 보존을 위해 단순 자동 변환에서 예외(Skip) 처리
     conversion_targets = {
         'README.md': 'README.html',
         'handover.md': 'handover.html',
         f'{prefix}research/akamai_nvidia_partnership.md': f'{prefix}research/akamai_nvidia_partnership.html',
         f'{prefix}research/nvidia_ncp_market_analysis.md': f'{prefix}research/nvidia_ncp_market_analysis.html',
         f'{prefix}proposal/mzc_akamai_partnership.md': f'{prefix}proposal/mzc_akamai_partnership.html',
+        f'{prefix}daegu_suseong_aidc/2026-11-14_daegu_aidc_document_summary_report.md': f'{prefix}daegu_suseong_aidc/2026-11-14_daegu_aidc_document_summary_report.html',
+        f'{prefix}daegu_suseong_aidc/2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.md': f'{prefix}daegu_suseong_aidc/2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.html',
         f'{prefix}daegu_suseong_aidc/2026-11-12_kiria_1st_meeting_executive_summary.md': f'{prefix}daegu_suseong_aidc/2026-11-12_kiria_1st_meeting_executive_summary.html',
         f'{prefix}daegu_suseong_aidc/2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.md': f'{prefix}daegu_suseong_aidc/2026-11-12_daegu_aidc_budget_structure_and_revenue_puzzle.html',
         f'{prefix}daegu_suseong_aidc/2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.md': f'{prefix}daegu_suseong_aidc/2026-11-12_daegu_aidc_reverse_costing_pf_risk_and_jb_dongtan_analysis.html',
