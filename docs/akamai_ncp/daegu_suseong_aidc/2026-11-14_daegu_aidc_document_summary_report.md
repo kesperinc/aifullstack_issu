@@ -14,6 +14,8 @@
 
 | 활용 상황 / 대상 | 최우선 추천 문서 (클릭 시 열기) | 보조 지참 / 배포 추천 문서 | 보안 등급 |
 | :--- | :--- | :--- | :---: |
+| **[🆕 최신] 대구시 · KIRIA · 사업단 발표 PPT**<br/>*(11.16 회의 반영 14장 슬라이드 & PPTX)* | **[★ 11.17 통합 생태계 16:9 웹 PPT (HTML)](./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_ppt.html)** | **[PPTX 파워포인트 다운로드](./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_ppt.pptx)** \| **[MD](./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_ppt.md)** | 🟢 대외용 |
+| **[🆕 최신] 대구시 · KIRIA · 사업단 공유**<br/>*(11.16 회의 반영 종합 생태계·MOU 보고서)* | **[★ 11.17 통합 생태계 마스터 보고서 v3.0 (HTML)](./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_report.html)** | **[Word 다운로드](./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_report.docx)** \| **[MD](./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_report.md)** | 🟢 대외용 |
 | **월요일 대구시 기계로봇과 실무 미팅**<br/>*(기존사업 전환·데이터팩토리 아이디어 제안)* | **[① 월요일 제안용 16:9 PPT 슬라이드 (HTML)](./2026-11-14_daegu_robot_division_monday_proposal_ppt.html)** | **[② 월요일 제안서 서술형 DOCX 뷰어 (HTML)](./2026-11-14_daegu_robot_division_monday_proposal_narrative.html)** ([Word](./2026-11-14_daegu_robot_division_monday_proposal_narrative.docx)) | 🟢 대외용 |
 | **한국로봇산업진흥원(KIRIA) 임원진 1차 미팅**<br/>*(상위 5대 공동사업 및 추정 사업규모 협의)* | **[④ KIRIA 1차 미팅 10장 발표장표 (HTML)](./2026-11-12_kiria_1st_meeting_presentation_deck.html)** | **[⑤ KIRIA 1차 미팅 핵심 요약본 (HTML)](./2026-11-12_kiria_1st_meeting_executive_summary.html)** ([Word](./2026-11-12_kiria_1st_meeting_executive_summary.docx)) | 🟢 대외용 |
 | **대구시·산하기관 공식 본 제안서 제출**<br/>*(센터 구축·운영 종합 제안 및 기술 아키텍처)* | **[⑨ 수성 피지컬 AI 트레이닝 센터 제안서 V2.1 (HTML)](./daegu_suseong_robot_training_center_proposal.html)** | **[⑩ 피지컬 AI 트레이닝 센터 기술 상세판 (HTML)](./daegu_physical_ai_robot_training_center_proposal.html)** | 🟢 대외용 |
