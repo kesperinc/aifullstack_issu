@@ -163,17 +163,22 @@ def preprocess_soup_for_docx(soup):
     <script>, <style>, Mermaid 코드 블록, 이스케이프된 <br/> 태그 등이
     워드(.docx) 본문에 날것으로 노출되지 않도록 전처리합니다.
     """
-    # 1. 불필요한 스크립트, 스타일, 상단 배지(.tag), 컨트롤바(.control-bar), 하단 푸터(.footer/.s-footer), 각주 역참조 제거
+    # 1. 불필요한 스크립트, 스타일, 상단 배지(.tag, .meta-tag), 컨트롤바(.control-bar, .doc-toolbar, .review-nav-bar, .nav-back), 하단 푸터(.footer/.s-footer), 각주 역참조 제거
     for tag in soup.find_all(['script', 'style']):
         tag.decompose()
-    for badge in soup.find_all('div', class_='tag'):
+    for badge in soup.find_all(['div', 'span'], class_=['tag', 'meta-tag']):
         badge.decompose()
-    for ctrl in soup.find_all(class_='control-bar'):
+    for ctrl in soup.find_all(class_=['control-bar', 'doc-toolbar', 'review-nav-bar', 'nav-back']):
         ctrl.decompose()
-    for footer in soup.find_all('div', class_=['footer', 's-footer']):
+    for footer in soup.find_all(['div', 'footer'], class_=['footer', 's-footer']):
         footer.decompose()
     for backref in soup.find_all('a', class_='footnote-backref'):
         backref.decompose()
+
+    # 1-1. 타 부서 자료보완/확인 필요 강조(.review-red)에 인라인 빨간색 스타일 부여
+    for rev in soup.find_all(class_='review-red'):
+        existing = rev.get('style', '')
+        rev['style'] = (existing + '; color: #EE0000;' if existing else 'color: #EE0000;')
 
     # 2. Mermaid 다이어그램(<div class="mermaid">)을 깔끔한 요약 표(<table>)로 변환
     for m_div in soup.find_all('div', class_='mermaid'):
@@ -389,6 +394,14 @@ def convert_html_to_docx(html_path, docx_path):
     print(f"변환 완료: {docx_path}")
 
 
+# 사용자가 Word에서 직접 정밀 편집·포맷팅한 마스터 정본 DOCX 보호 목록 (일괄 변환 시 덮어쓰기 방지)
+PROTECTED_DOCX_BASENAMES = {
+    '20261118_wonik_robotics_ax_center_rfi_response.docx',
+    'wonik_robotics_ax_center_rfi_response.docx',
+    'wonik_robotics_ax_center_rfi_response_scp_draft.docx',
+}
+
+
 def main():
     # 스크립트 파일 기준으로 상위(akamai_ncp) 폴더 절대 경로 찾기
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -406,6 +419,9 @@ def main():
 
     for html_file in html_files:
         docx_file = os.path.splitext(html_file)[0] + '.docx'
+        if os.path.basename(docx_file) in PROTECTED_DOCX_BASENAMES and os.path.exists(docx_file):
+            print(f"[보호 생략] 수동 편집 정본 DOCX 유지: {docx_file}")
+            continue
         try:
             convert_html_to_docx(html_file, docx_file)
         except Exception as e:

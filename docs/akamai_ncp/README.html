@@ -1,22 +1,65 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKAMAI & NVIDIA & MZC 한국형 GPUaaS 공동 사업 타당성 검토 프로젝트</title>
-    <!-- 구글 폰트 적용 (Outfit & Noto Sans KR) -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- 한글 가독성 최적화 웹폰트 (Pretendard & Noto Sans KR) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0c10;
-            --card-bg: rgba(22, 25, 32, 0.7);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --canvas-bg: #e8edf3;
+            --card-bg: #ffffff;
+            --card-border: #cfd8e3;
+            --primary: #185abd;
+            --primary-soft: #eef4fc;
+            --heading-h1: #0f172a;
+            --heading-h2: #1e3a8a;
+            --heading-h3: #0f172a;
+            --heading-h4: #1d4ed8;
+            --text-main: #1e293b;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --table-border: #cbd5e1;
+            --table-head-bg: #f1f5f9;
+            --table-head-text: #0f172a;
+            --table-hover: #f8fafc;
+            --quote-bg: #f8fafc;
+            --quote-text: #1e3a8a;
+            --code-bg: #f1f5f9;
+            --code-text: #0f172a;
+            --review-red: #ee0000;
+            --review-row-bg: #fff5f5;
+            --toolbar-bg: #ffffff;
+            --toolbar-border: #cbd5e1;
+        }
+
+        [data-theme="dark"] {
+            --canvas-bg: #0b0c10;
+            --card-bg: #151922;
+            --card-border: rgba(255, 255, 255, 0.12);
             --primary: #3b82f6;
-            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            --accent: #ef4444;
-            --success: #10b981;
-            --text-main: #f3f4f6;
+            --primary-soft: rgba(59, 130, 246, 0.15);
+            --heading-h1: #f8fafc;
+            --heading-h2: #93c5fd;
+            --heading-h3: #a7f3d0;
+            --heading-h4: #bfdbfe;
+            --text-main: #e5e7eb;
+            --text-sub: #d1d5db;
             --text-muted: #9ca3af;
+            --table-border: rgba(255, 255, 255, 0.14);
+            --table-head-bg: rgba(30, 41, 59, 0.85);
+            --table-head-text: #93c5fd;
+            --table-hover: rgba(255, 255, 255, 0.03);
+            --quote-bg: rgba(59, 130, 246, 0.08);
+            --quote-text: #93c5fd;
+            --code-bg: rgba(255, 255, 255, 0.08);
+            --code-text: #f3f4f6;
+            --review-red: #ff6b6b;
+            --review-row-bg: rgba(239, 68, 68, 0.12);
+            --toolbar-bg: #111827;
+            --toolbar-border: rgba(255, 255, 255, 0.12);
         }
 
         * {
@@ -25,286 +68,521 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.12) 0, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
-            background-attachment: fixed;
-            font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+            background-color: var(--canvas-bg);
+            font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', sans-serif;
             color: var(--text-main);
-            line-height: 1.7;
-            padding: 40px 20px;
+            line-height: 1.76;
+            word-break: keep-all;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 50px;
         }
 
-        .container {
-            max-width: 1000px;
+        /* 상단 고정 문서 컨트롤 바 (인쇄 및 DOCX 변환 시 자동 제외) */
+        .doc-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--toolbar-bg);
+            border-bottom: 1px solid var(--toolbar-border);
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+        }
+
+        .toolbar-inner {
+            max-width: 1120px;
             margin: 0 auto;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        /* 네비게이션 가이드 */
-        .nav-back {
-            margin-bottom: 20px;
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        
-        .nav-back a {
+
+        .nav-back-link {
             color: var(--primary);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-        
-        .nav-back a:hover {
-            color: #60a5fa;
-            text-decoration: underline;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--primary-soft);
+            transition: opacity 0.15s ease;
         }
 
-        /* 메인 리포트 카드 */
+        .nav-back-link:hover {
+            opacity: 0.85;
+        }
+
+        .doc-badge {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: -0.01em;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .t-btn {
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--table-border);
+            background: var(--card-bg);
+            color: var(--text-main);
+            transition: all 0.15s ease;
+        }
+
+        .t-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .t-btn.active-hl {
+            background: #fff1f2;
+            border-color: #ee0000;
+            color: #ee0000;
+        }
+
+        /* 내부 논의용 타 부서 자료보완 항목 바로가기 바 */
+        .review-nav-bar {
+            background: #fff8f8;
+            border-top: 1px solid #fecaca;
+            padding: 8px 24px;
+        }
+
+        [data-theme="dark"] .review-nav-bar {
+            background: rgba(127, 29, 29, 0.25);
+            border-top-color: rgba(248, 113, 113, 0.3);
+        }
+
+        .review-nav-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .review-nav-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--review-red);
+            margin-right: 4px;
+        }
+
+        .rev-chip {
+            display: inline-block;
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: #b91c1c;
+            background: #ffffff;
+            border: 1px solid #fca5a5;
+            border-radius: 999px;
+            padding: 2px 10px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        [data-theme="dark"] .rev-chip {
+            color: #fca5a5;
+            background: rgba(15, 23, 42, 0.7);
+            border-color: rgba(248, 113, 113, 0.45);
+        }
+
+        .rev-chip:hover {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        /* 메인 컨테이너 및 문서 카드 (Word 용지 스타일) */
+        .container {
+            max-width: 1120px;
+            margin: 28px auto 0;
+            padding: 0 20px;
+        }
+
         .report-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 45px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            padding: 52px 58px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
         }
 
-        /* 타이틀 스타일 */
+        @media (max-width: 768px) {
+            .report-card {
+                padding: 28px 20px;
+            }
+        }
+
+        /* 문서 헤더 스타일 (Word 16pt/14pt/12pt 계층 반영) */
         header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 24px;
-            margin-bottom: 30px;
+            border-bottom: 2px solid var(--table-border);
+            padding-bottom: 22px;
+            margin-bottom: 28px;
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 1.75rem;
             font-weight: 800;
-            background: linear-gradient(to right, #ffffff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            line-height: 1.3;
+            color: var(--heading-h1);
+            line-height: 1.35;
+            letter-spacing: -0.02em;
         }
 
-        .meta-tag {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.12);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: #93c5fd;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        /* 마크다운 요소별 렌더링 스타일링 */
+        /* 본문 제목 위계 */
         h2 {
-            font-size: 1.5rem;
-            color: #93c5fd;
-            margin-top: 35px;
-            margin-bottom: 18px;
+            font-size: 1.38rem;
+            font-weight: 800;
+            color: var(--heading-h2);
+            margin-top: 38px;
+            margin-bottom: 16px;
             border-left: 4px solid var(--primary);
-            padding-left: 14px;
+            padding-left: 12px;
+            line-height: 1.4;
+        }
+
+        main > h2:first-child {
+            margin-top: 8px;
         }
 
         h3 {
-            font-size: 1.2rem;
-            color: #a7f3d0;
-            margin-top: 25px;
+            font-size: 1.16rem;
+            font-weight: 700;
+            color: var(--heading-h3);
+            margin-top: 26px;
             margin-bottom: 12px;
-            padding-left: 4px;
+            line-height: 1.45;
+        }
+
+        h4 {
+            font-size: 1.04rem;
+            font-weight: 700;
+            color: var(--heading-h4);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            line-height: 1.45;
         }
 
         p {
-            margin-bottom: 18px;
-            color: #e5e7eb;
-            font-size: 0.98rem;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            font-size: 0.97rem;
         }
 
-        /* 목록 스타일링 (순서 없는 리스트) */
+        /* 메타 정보 문단 박스 정돈 */
+        p.doc-meta-box {
+            background: var(--table-hover);
+            border: 1px solid var(--table-border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            font-size: 0.92rem;
+            line-height: 1.85;
+            margin-bottom: 24px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Menlo', monospace;
+            font-size: 0.88em;
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        pre code {
+            display: block;
+            padding: 14px 16px;
+            overflow-x: auto;
+            line-height: 1.55;
+        }
+
+        /* 목록 스타일링 — 상위 그룹 헤더와 1·2단계 하위 목록 명확 분리 (Word 수정 포맷 반영) */
+        ol {
+            margin-top: 6px;
+            margin-bottom: 18px;
+            padding-left: 24px;
+            list-style-type: decimal;
+        }
+
         ul {
-            margin-bottom: 20px;
-            padding-left: 10px;
+            margin-top: 6px;
+            margin-bottom: 18px;
+            padding-left: 22px;
+            list-style-type: disc;
         }
 
         li {
+            margin-bottom: 8px;
+            color: var(--text-sub);
+            font-size: 0.96rem;
+            line-height: 1.72;
+            padding-left: 3px;
+        }
+
+        /* 하위 목록을 품은 대항목(그룹 항목) 간 호흡 여백 확보 */
+        li.has-sublist {
+            margin-top: 14px;
+            margin-bottom: 14px;
+            color: var(--text-main);
+        }
+
+        li.has-sublist > ul,
+        li.has-sublist > ol {
+            margin-top: 7px;
+            margin-bottom: 8px;
+            padding-left: 24px;
+        }
+
+        /* 2단계 이상 중첩 목록 (예: R3 실적의 계약 주체 / 준공 여부) */
+        ul ul, ol ul {
+            list-style-type: disc;
+        }
+
+        ul ul ul, ol ul ul, ul ol ul {
+            list-style-type: circle;
+            margin-top: 4px;
+            margin-bottom: 6px;
+            padding-left: 24px;
+        }
+
+        /* 대괄호 카테고리 헤더 (예: [Physical AI / 제조 특화 AI 아키텍처 실적]) — 불릿 제거 */
+        li.category-header {
+            list-style: none;
+            margin-left: -18px;
+            margin-top: 18px;
             margin-bottom: 10px;
-            position: relative;
-            padding-left: 22px;
-            color: #d1d5db;
+            color: var(--heading-h3);
         }
 
-        li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
+        /* 표(Table) 스타일링 — Word Table Grid 가독성 반영 */
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            margin: 18px 0 24px;
         }
 
-        /* 마크다운 표(Table) 스타일링 */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.92rem;
-            border-radius: 8px;
-            overflow: hidden;
+            font-size: 0.89rem;
+            line-height: 1.58;
+            border: 1px solid var(--table-border);
         }
 
         th {
-            background: rgba(30, 41, 59, 0.6);
-            padding: 12px 14px;
-            font-weight: 600;
-            color: #93c5fd;
-            border-bottom: 2px solid var(--card-border);
+            background: var(--table-head-bg);
+            color: var(--table-head-text);
+            font-weight: 700;
+            padding: 10px 12px;
+            border: 1px solid var(--table-border);
+            border-bottom: 2px solid #94a3b8;
+            text-align: left;
+            vertical-align: middle;
         }
 
         td {
-            padding: 10px 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: #e5e7eb;
+            padding: 9px 12px;
+            border: 1px solid var(--table-border);
+            color: var(--text-main);
+            vertical-align: top;
         }
 
         tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--table-hover);
         }
 
-        /* 인용구(Blockquote) 스타일링 */
+        /* 타 부서 자료보완 / 현행화 확인 필요 표시 (Word COLOR=#EE0000 1:1 매핑) */
+        .review-red {
+            color: var(--review-red) !important;
+        }
+
+        body.highlight-review .review-red {
+            background-color: rgba(238, 0, 0, 0.09);
+            box-shadow: 0 0 0 2px rgba(238, 0, 0, 0.15);
+            border-radius: 3px;
+            padding: 1px 3px;
+        }
+
+        tr.review-row td {
+            background-color: var(--review-row-bg);
+        }
+
+        @keyframes pulseFocus {
+            0% { background-color: #fef08a; box-shadow: 0 0 0 6px #fef08a; }
+            100% { background-color: transparent; box-shadow: none; }
+        }
+
+        .jump-focus {
+            animation: pulseFocus 2.2s ease-out;
+            border-radius: 4px;
+        }
+
+        /* 인용구(Blockquote) */
         blockquote {
             border-left: 4px solid var(--primary);
-            background: rgba(59, 130, 246, 0.05);
-            padding: 16px 20px;
-            margin: 20px 0;
+            background: var(--quote-bg);
+            padding: 14px 18px;
+            margin: 18px 0;
             border-radius: 0 8px 8px 0;
         }
-        
-        blockquote p {
-            margin-bottom: 0;
-            color: #93c5fd;
-            font-weight: 500;
+
+        blockquote p, blockquote li {
+            color: var(--quote-text);
+            margin-bottom: 4px;
         }
 
-        /* 수평선 스타일 */
         hr {
             border: 0;
             height: 1px;
-            background: rgba(255, 255, 255, 0.08);
-            margin: 30px 0;
+            background: var(--table-border);
+            margin: 28px 0;
         }
 
-        /* Mermaid 코드블럭 또는 일반 이미지 렌더링 스타일 */
+        .mermaid {
+            background: #f8fafc;
+            border: 1px solid var(--table-border);
+            border-radius: 8px;
+            padding: 18px;
+            margin: 14px 0 22px;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        [data-theme="dark"] .mermaid {
+            background: rgba(15, 23, 42, 0.6);
+        }
+
         img {
             max-width: 100%;
             height: auto;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid var(--table-border);
+            margin: 16px 0;
         }
 
-        /* 각주 / 미주 (Footnotes) 스타일 */
         .footnote {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.15);
-            font-size: 0.88rem;
+            margin-top: 36px;
+            padding-top: 18px;
+            border-top: 1px dashed var(--table-border);
+            font-size: 0.86rem;
             color: var(--text-muted);
         }
 
-        .footnote ol {
-            padding-left: 20px;
-        }
-
-        .footnote li {
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .footnote-ref {
-            color: var(--primary);
-            font-weight: bold;
-            text-decoration: none;
-            padding: 0 2px;
-        }
-
-        .footnote-ref:hover {
-            text-decoration: underline;
-        }
-
-        .footnote-backref {
-            color: var(--primary);
-            text-decoration: none;
-            margin-left: 5px;
-        }
-
-        /* 꼬리말 */
-        footer {
+        footer.doc-footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 36px;
             color: var(--text-muted);
             font-size: 0.8rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 25px;
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+            }
+            .doc-toolbar {
+                display: none !important;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .report-card {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="nav-back">
-        <a href="../../README.html">← 메인 README 메인 화면으로 돌아가기</a>
+<div class="doc-toolbar">
+    <div class="toolbar-inner">
+        <div class="toolbar-left">
+            
+            <span class="doc-badge">MZC 하이브리드 클라우드 & AI 인프라 사업 기획</span>
+        </div>
+        <div class="toolbar-actions">
+            
+            <button type="button" class="t-btn" id="themeToggleBtn" onclick="toggleTheme()">다크 모드</button>
+            <button type="button" class="t-btn" onclick="window.print()">인쇄 / PDF 저장</button>
+        </div>
     </div>
+    
+</div>
 
+<div class="container">
     <div class="report-card">
         <header>
-            <span class="meta-tag">공동 사업 기획 기획 검토서</span>
             <h1>AKAMAI & NVIDIA & MZC 한국형 GPUaaS 공동 사업 타당성 검토 프로젝트</h1>
         </header>
 
-        <main>
+        <main id="docContent">
             <p>본 프로젝트는 한국 시장 내 GPU 서버 수급의 한계를 극복하고, 저비용·고효율의 인공지능 추론 및 학습 환경을 제공하기 위한 <strong>AKAMAI - NVIDIA - MZC(메가존클라우드) 공동 GPUaaS(GPU-as-a-Service) 사업 기획안</strong>과 이에 대한 다차원적 타당성 검증(Feasibility Study) 보고서를 수립하는 워크스페이스입니다.</p>
-<hr />
+<hr/>
 <h2>1. 사업 추진 배경 및 필요성</h2>
 <ol>
 <li><strong>국내 GPU 서버 확보 한계</strong>: 글로벌 GPU 공급망 병목 및 규제 요인으로 인해 한국 내 기업들의 GPU 하드웨어 도입 리드타임이 수개월에서 1년 이상 지연되고 있습니다.</li>
 <li><strong>비용 및 Egress 장벽</strong>: 기존 대형 하이퍼스케일러(AWS, GCP, Azure)의 GPU 클라우드는 높은 사용료와 특히 거대한 데이터 전송 요금(Egress Fees)으로 인해 기업들의 AI 운영 TCO(총소유비용)를 급격히 상승시키고 있습니다.</li>
 <li><strong>엣지 분산 AI 수요 증가</strong>: 스마트 팩토리, 자율주행, 실시간 미디어 스트리밍 등 저지연 추론이 요구되는 분야가 급증함에 따라 중앙 집중식 AI 공장에서 분산 엣지 구조로의 패러다임 전환이 필요합니다.</li>
 </ol>
-<hr />
+<hr/>
 <h2>2. 삼사(AKAMAI - NVIDIA - MZC) 파트너십 협력 구조</h2>
 <p>본 기획안은 <strong>"아카마이의 자본력/글로벌 인프라 + 엔비디아의 AI 플랫폼 + MZC의 로컬 하드웨어 및 운영 역량"</strong>을 결합한 하이브리드 위탁 운영 모델을 제안합니다.</p>
 <div class="mermaid">graph TD
-    MZC[MZC 메가존클라우드] -- &quot;1. GPU 하드웨어 자산 공급&quot; --&gt; Akamai[AKAMAI Connected Cloud]
-    Akamai -- &quot;2. CapEx 매입 &amp; IDC 구축 투자&quot; --&gt; Edge[한국 내 분산 GPUaaS 노드 구축]
-    NVIDIA[NVIDIA AI 플랫폼 기술] -- &quot;3. NIM, Triton, NCP 플랫폼 제공&quot; --&gt; Edge
-    Edge -- &quot;4. 위탁 운영 및 영업 관리 위임&quot; --&gt; MZC
-    MZC -- &quot;5. 국내 영업 및 MSP 관리&quot; --&gt; Customer[국내 AI 연구소 / 기업 고객]
-    Customer -- &quot;6. GPUaaS 사용 및 비용 지불&quot; --&gt; Edge
-    Edge -- &quot;7. 수익 배분 (Revenue Share)&quot; --&gt; MZC
+    MZC[MZC 메가존클라우드] -- "1. GPU 하드웨어 자산 공급" --&gt; Akamai[AKAMAI Connected Cloud]
+    Akamai -- "2. CapEx 매입 &amp; IDC 구축 투자" --&gt; Edge[한국 내 분산 GPUaaS 노드 구축]
+    NVIDIA[NVIDIA AI 플랫폼 기술] -- "3. NIM, Triton, NCP 플랫폼 제공" --&gt; Edge
+    Edge -- "4. 위탁 운영 및 영업 관리 위임" --&gt; MZC
+    MZC -- "5. 국내 영업 및 MSP 관리" --&gt; Customer[국내 AI 연구소 / 기업 고객]
+    Customer -- "6. GPUaaS 사용 및 비용 지불" --&gt; Edge
+    Edge -- "7. 수익 배분 (Revenue Share)" --&gt; MZC
 </div>
 <h3>파트너별 세부 역할:</h3>
 <ul>
-<li><strong>AKAMAI (투자 및 글로벌 인프라)</strong><ul>
+<li class="has-sublist"><strong>AKAMAI (투자 및 글로벌 인프라)</strong><ul>
 <li>MZC가 기 확보한 GPU 하드웨어 장비를 일시 매입하여 초기 자본 투자(CapEx) 부담 완화.</li>
 <li>한국 내 코로케이션 IDC를 임차하여 Akamai Connected Cloud 전용 GPUaaS 엣지 노드로 편입.</li>
 <li><strong>요금 초강수 제안</strong>: H100 시간당 <strong>$2.50</strong> (약 3,300원), L40S 시간당 <strong>$1.10</strong> (약 1,450원) 및 <strong>초저가 Egress 요금($0.005/GB)</strong> 적용 (국내 Naver/NHN의 시간당 7,000~8,000원대 GPU 요금 및 90~130원대 Egress 요금 대비 최소 50%~95%의 비용 절감 메리트 제공).</li>
 </ul>
 </li>
-<li><strong>NVIDIA (AI 솔루션 및 공급망)</strong><ul>
+<li class="has-sublist"><strong>NVIDIA (AI 솔루션 및 공급망)</strong><ul>
 <li>NVIDIA Cloud Partner(NCP) 인증 및 DGX Cloud 레퍼런스 아키텍처 제공.</li>
 <li>NVIDIA NIM 및 Triton Inference Server 탑재를 통한 풀스택 AI 추론 파이프라인 소프트웨어 최적화 보장.</li>
 </ul>
 </li>
-<li><strong>MZC (장비 공급, 위탁 운영 및 영업)</strong><ul>
+<li class="has-sublist"><strong>MZC (장비 공급, 위탁 운영 및 영업)</strong><ul>
 <li>글로벌 공급난 속에서 기 확보된 GPU 하드웨어 솔루션의 아카마이 매각 파이프라인 확보.</li>
 <li>한국 내 GPUaaS 인프라의 24/7 전문 위탁 운영(Ops) 및 기술 지원.</li>
 <li>국내 엔터프라이즈, AI 스타트업, 공공기관 대상 총판 영업 및 기술 컨설팅 수행.</li>
 </ul>
 </li>
 </ul>
-<hr />
+<hr/>
 <h2>3. 디렉토리 구조 및 산출물 안내</h2>
 <p>프로젝트 분석 문서와 타당성 시뮬레이션 자료는 아래 경로에 체계적으로 자산화됩니다.</p>
 <pre><code>akamai_ncp/
@@ -335,7 +613,7 @@
 <li><strong>[2026-11-12] 10MW/5MW 표준 예산 구조 · 매출퍼즐 · PF 단계별 수익률 정립</strong>: 하이브리드 3:2 모델 기준 예산 테이블(<code>10MW 3,500억</code> / <code>5MW 1,750억</code>), <code>연 380억 원</code>(5년 <code>1,900억 원</code>) 5대 매출퍼즐 및 JB동탄 DC 비교 전략 문서화.</li>
 </ol>
 <h4>🗂️ <code>daegu_suseong_aidc/</code> 전체 문서 리스트 요약표</h4>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align: center;">구분</th>
@@ -430,12 +708,12 @@
 <td style="text-align: left;"><strong>[기초 리서치]</strong> 수성알파시티 입지 여건, 국내외 로봇 트레이닝 센터 동향 및 초기 타당성 조사 보고서</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h4>🚀 KIRIA 1차 미팅 집중 부각 '상위 5대 추천 사업 아이템' 및 추정 사업규모</h4>
 <blockquote>
 <p><strong>산정 기준</strong>: 이미 컨소시엄이 확정된 기 진행 과제는 제외하고 <strong><code>'26년 말 ~ '27년+</code> 신규 기획·공모 예정 사업</strong>을 대상으로 산출함. 추정 사업규모는 <strong>모사업 국책 예산 규모</strong>와 이 중 수성 AIDC(코로케이션·GPUaaS·플랫폼 구축/운영)로 유입 가능한 <strong>MZC 타깃 추정 사업규모(5년 누적 및 연간 환산)</strong>를 구분하여 표기함.</p>
 </blockquote>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align: center;">순위</th>
@@ -489,12 +767,14 @@
 <td style="text-align: left;">산하기관 통합 코로케이션(<code>1.2MW</code>, <code>연 50억</code>) 합산 시 <strong>대구 5MW 목표(<code>연 380억</code> / 5년 <code>1,900억</code>) 100% 달성</strong></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>📄 원익로보틱스 AX 트레이닝 센터 산출물 (<code>wonik_ax_center/</code>):</h3>
 <ul>
-<li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.html">원익로보틱스 AX Center RFI 공식 서면 질의서</a></strong> (<a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.docx">Word 다운로드</a>)</li>
-<li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.html">원익로보틱스 AX Center RFI 공식 회신서 (MZC 구축 + 삼성 SCP 임대 브릿지)</a></strong> (<a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response_scp_draft.docx">Word 다운로드</a>)</li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/20261118_wonik_robotics_ax_center_rfi_response.html">2026-11-18 원익로보틱스 AX Center RFI 공식 회신서 (내부 논의 · 타 부서 자료보완 정본)</a></strong> (<a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/20261118_wonik_robotics_ax_center_rfi_response.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/20261118_wonik_robotics_ax_center_rfi_response.docx">Word 정본</a>)</li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response.html">원익로보틱스 AX Center RFI 공식 회신서 (최신 동기화본)</a></strong> (<a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_response.docx">Word 다운로드</a>)</li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/2026-11-11_wonik_robotics_ax_center_proposal_v2.html">2026-11-11 설명회 팩트 반영 개정 사업제안서 (v2.0)</a></strong> (<a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/2026-11-11_wonik_robotics_ax_center_proposal_v2.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/2026-11-11_wonik_robotics_ax_center_proposal_v2.docx">Word 다운로드</a>)</li>
 <li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_proposal.html">원익로보틱스 AX Center (피지컬 AI 로봇 트레이닝 센터) 구축 사업제안서</a></strong> (<a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_proposal.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_proposal.docx">Word 다운로드</a>)</li>
+<li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.html">원익로보틱스 AX Center RFI 공식 서면 질의서</a></strong> (<a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.md">Markdown 원본</a> / <a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/wonik_robotics_ax_center_rfi_written_inquiry.docx">Word 다운로드</a>)</li>
 <li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/wonik_ax_center/archive/">원익로보틱스 이전 비교/권고 분석 보고서 (Archive)</a></strong></li>
 </ul>
 <h3>📄 AKAMAI - NVIDIA - MZC 공동 사업 산출물 바로가기:</h3>
@@ -504,24 +784,53 @@
 <li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/proposal/mzc_akamai_partnership.html">MZC-아카마이 공동 사업 제안서</a></strong></li>
 <li><strong><a href="file:///c:/dev/antigravity-workspace/aifullstack/docs/akamai_ncp/feasibility/financial_simulation_report.html">재무적 타당성 시뮬레이션 보고서</a></strong></li>
 </ul>
-<hr />
+<hr/>
 <h2>4. 타당성 점검 마일스톤</h2>
-<p>본 워크스페이스는 다음과 같은 4단계 타당성 평가 프로세스를 거쳐 기획을 구체화합니다:<br />
-1. <strong>기술 적합성</strong>: LKE 및 가상화 노드 상에서의 NVIDIA AI 엔터프라이즈 성능 벤치마크 및 엣지 지연 시간 검증.<br />
-2. <strong>비즈니스 및 경제성</strong>: 파이썬 시뮬레이션을 활용한 투자 규모별 BEP(손익분기 가동률) 및 ROI 도출.<br />
-3. <strong>시장성</strong>: 하이퍼스케일러(AWS, GCP, Azure) 대비 가격 경쟁력 포지셔닝 분석.<br />
+<p>본 워크스페이스는 다음과 같은 4단계 타당성 평가 프로세스를 거쳐 기획을 구체화합니다:<br/>
+1. <strong>기술 적합성</strong>: LKE 및 가상화 노드 상에서의 NVIDIA AI 엔터프라이즈 성능 벤치마크 및 엣지 지연 시간 검증.<br/>
+2. <strong>비즈니스 및 경제성</strong>: 파이썬 시뮬레이션을 활용한 투자 규모별 BEP(손익분기 가동률) 및 ROI 도출.<br/>
+3. <strong>시장성</strong>: 하이퍼스케일러(AWS, GCP, Azure) 대비 가격 경쟁력 포지셔닝 분석.<br/>
 4. <strong>규제 및 보안</strong>: 망분리, 개인정보보호법 및 데이터 주권 요건 검토.</p>
 <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
 </script>
         </main>
     </div>
 
-    <footer>
-        <p>© 2026 AKAMAI & NVIDIA & MZC HYBRID PROJECT COOPERATIVE GROUP.</p>
+    <footer class="doc-footer">
+        <p>© 2026 MEGAZONECLOUD HYBRID CLOUD & AI INFRASTRUCTURE GROUP.</p>
     </footer>
 </div>
 
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const btn = document.getElementById('themeToggleBtn');
+        if (html.getAttribute('data-theme') === 'dark') {
+            html.setAttribute('data-theme', 'light');
+            btn.textContent = '다크 모드';
+        } else {
+            html.setAttribute('data-theme', 'dark');
+            btn.textContent = '라이트 모드(문서형)';
+        }
+    }
+
+    function toggleReviewHighlight(btn) {
+        document.body.classList.toggle('highlight-review');
+        btn.classList.toggle('active-hl');
+    }
+
+    function jumpToReview(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const y = el.getBoundingClientRect().top + window.pageYOffset - 120;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        const target = el.closest('tr') || el.closest('li') || el.closest('p') || el;
+        target.classList.remove('jump-focus');
+        void target.offsetWidth;
+        target.classList.add('jump-focus');
+    }
+</script>
 </body>
 </html>
