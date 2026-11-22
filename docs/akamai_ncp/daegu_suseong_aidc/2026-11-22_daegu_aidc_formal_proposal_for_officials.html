@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[공식 사업구상서] 대구 수성알파시티 AI 데이터센터(10MW→40MW) 구축 및 피지컬 AI · 지역산업 통합 생태계 조성 방안</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --word-blue: #185abd;
+            --word-blue-dark: #0f3a7d;
+            --word-blue-soft: #eef4fc;
+            --canvas-bg: #e2e8f0;
+            --paper-bg: #ffffff;
+            --paper-border: #cbd5e1;
+            --ink-title: #0f172a;
+            --ink-body: #1e293b;
+            --ink-muted: #475569;
+            --ink-subtle: #64748b;
+            --table-border: #94a3b8;
+            --table-head-bg: #e8eef7;
+            --table-even-bg: #f8fafc;
+            --accent-teal: #0f766e;
+            --callout-bg: #f8fafc;
+            --doc-font-size: 15.2px;
+        }
+        body.dark-theme {
+            --word-blue: #60a5fa;
+            --word-blue-dark: #93c5fd;
+            --word-blue-soft: rgba(59, 130, 246, 0.15);
+            --canvas-bg: #0b0f19;
+            --paper-bg: #131a2a;
+            --paper-border: #263248;
+            --ink-title: #f8fafc;
+            --ink-body: #e2e8f0;
+            --ink-muted: #94a3b8;
+            --ink-subtle: #64748b;
+            --table-border: #334155;
+            --table-head-bg: #1e293b;
+            --table-even-bg: #172033;
+            --accent-teal: #2dd4bf;
+            --callout-bg: #192338;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--canvas-bg);
+            color: var(--ink-body);
+            font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
+            font-size: var(--doc-font-size);
+            line-height: 1.82;
+            word-break: keep-all;
+            -webkit-font-smoothing: antialiased;
+        }
+        .docx-ribbon {
+            position: sticky; top: 0; z-index: 1000;
+            background: var(--paper-bg);
+            border-bottom: 1px solid var(--paper-border);
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.09);
+        }
+        .ribbon-top {
+            background: linear-gradient(90deg, #185abd 0%, #1e3a8a 100%);
+            color: #ffffff; padding: 8px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 10px; font-size: 13.5px;
+        }
+        .ribbon-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+        .word-badge {
+            background: #ffffff; color: #185abd; font-weight: 900;
+            font-size: 11.5px; padding: 2px 8px; border-radius: 4px;
+        }
+        .ribbon-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .r-btn {
+            appearance: none; border: 1px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.12); color: #ffffff;
+            font-family: inherit; font-size: 12.5px; font-weight: 600;
+            padding: 5px 11px; border-radius: 5px; cursor: pointer;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .r-btn:hover { background: rgba(255,255,255,0.24); }
+        .r-btn-white { background: #ffffff; color: #185abd; border-color: #ffffff; font-weight: 700; }
+        .r-btn-white:hover { background: #f1f5f9; }
+        .ribbon-sub {
+            padding: 7px 24px; background: var(--paper-bg);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 8px; font-size: 12.8px;
+            border-top: 1px solid var(--paper-border);
+        }
+        .chap-nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+        .chap-link {
+            color: var(--ink-muted); text-decoration: none;
+            padding: 4px 8px; border-radius: 4px; font-weight: 600;
+        }
+        .chap-link:hover { background: var(--word-blue-soft); color: var(--word-blue); }
+        .view-controls { display: flex; align-items: center; gap: 6px; }
+        .tool-chip {
+            border: 1px solid var(--paper-border); background: var(--paper-bg);
+            color: var(--ink-body); font-family: inherit; font-size: 12px; font-weight: 600;
+            padding: 4px 9px; border-radius: 4px; cursor: pointer;
+        }
+        .tool-chip:hover { border-color: var(--word-blue); color: var(--word-blue); }
+
+        .docx-workspace { padding: 30px 16px 64px; display: flex; justify-content: center; }
+        .report-card { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 26px; }
+        body.continuous-mode .report-card {
+            gap: 0; background: var(--paper-bg);
+            border: 1px solid var(--paper-border); box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+        }
+        body.continuous-mode .doc-sheet {
+            border: none; box-shadow: none; border-bottom: 1px dashed var(--paper-border);
+            padding-top: 44px; padding-bottom: 44px;
+        }
+        .doc-sheet {
+            background: var(--paper-bg); border: 1px solid var(--paper-border);
+            box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+            padding: 58px 64px 52px; position: relative;
+        }
+        .running-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 10px; margin-bottom: 24px;
+            border-bottom: 1px solid var(--paper-border);
+            font-size: 12px; color: var(--ink-subtle);
+        }
+        .running-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 12px; margin-top: 32px;
+            border-top: 1px solid var(--paper-border);
+            font-size: 12px; color: var(--ink-subtle);
+        }
+        .doc-title-frame {
+            border-top: 4px solid var(--word-blue);
+            border-bottom: 2px solid var(--ink-title);
+            padding: 24px 8px 22px; margin-bottom: 22px; text-align: center;
+        }
+        .doc-category {
+            display: inline-block; font-size: 12.5px; font-weight: 800;
+            color: var(--word-blue); background: var(--word-blue-soft);
+            border: 1px solid rgba(24, 90, 189, 0.25);
+            padding: 4px 14px; border-radius: 999px; margin-bottom: 12px;
+        }
+        h1.doc-main-title {
+            font-size: 25.5px; font-weight: 800; color: var(--ink-title);
+            line-height: 1.38; margin: 0 0 10px; letter-spacing: -0.025em;
+        }
+        .doc-subtitle { font-size: 15px; color: var(--ink-muted); font-weight: 500; margin: 0; line-height: 1.55; }
+
+        table.meta-grid { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 13.8px; }
+        table.meta-grid th, table.meta-grid td { border: 1px solid var(--table-border); padding: 8px 12px; text-align: left; }
+        table.meta-grid th { width: 17%; background: var(--table-head-bg); color: var(--ink-title); font-weight: 700; text-align: center; }
+        table.meta-grid td { width: 33%; color: var(--ink-body); }
+
+        h2 {
+            font-size: 19.5px; font-weight: 800; color: var(--ink-title);
+            margin: 6px 0 16px; padding: 10px 14px;
+            background: var(--callout-bg);
+            border-left: 5px solid var(--word-blue);
+            border-bottom: 1px solid var(--paper-border);
+            line-height: 1.4;
+        }
+        h3 {
+            font-size: 16.5px; font-weight: 800; color: var(--word-blue-dark);
+            margin: 22px 0 10px; padding-bottom: 4px;
+            border-bottom: 1px dotted var(--paper-border); line-height: 1.45;
+        }
+        h4 { font-size: 15px; font-weight: 700; color: var(--ink-title); margin: 16px 0 6px; }
+        p { margin: 0 0 13px; text-align: justify; color: var(--ink-body); }
+        ul, ol { margin: 6px 0 16px; padding-left: 24px; }
+        li { margin-bottom: 7px; text-align: justify; }
+        li strong { color: var(--ink-title); }
+        code {
+            font-family: 'Consolas', 'Courier New', monospace; font-size: 0.9em;
+            background: var(--word-blue-soft); color: var(--word-blue-dark);
+            padding: 1px 5px; border-radius: 4px;
+        }
+        sup.note-ref { color: var(--word-blue); font-weight: 800; font-size: 0.78em; }
+        .docx-callout {
+            background: var(--callout-bg); border: 1px solid var(--paper-border);
+            border-left: 4px solid var(--word-blue); padding: 15px 18px; margin: 16px 0 20px;
+        }
+        .docx-callout-teal {
+            background: rgba(15, 118, 110, 0.06); border: 1px solid rgba(15, 118, 110, 0.28);
+            border-left: 4px solid var(--accent-teal);
+        }
+        .docx-callout-title { font-weight: 800; font-size: 14.5px; color: var(--word-blue-dark); margin-bottom: 6px; display: block; }
+        .docx-callout-teal .docx-callout-title { color: var(--accent-teal); }
+
+        table.docx-table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; font-size: 13.5px; line-height: 1.56; }
+        table.docx-table th, table.docx-table td { border: 1px solid var(--table-border); padding: 9px 11px; vertical-align: middle; }
+        table.docx-table thead th { background: var(--table-head-bg); color: var(--ink-title); font-weight: 800; text-align: center; border-bottom: 2px solid var(--table-border); }
+        table.docx-table tbody tr:nth-child(even) td { background: var(--table-even-bg); }
+        .td-center { text-align: center; }
+        .td-bold { font-weight: 700; color: var(--ink-title); }
+        .td-highlight { background: var(--word-blue-soft) !important; font-weight: 700; color: var(--word-blue-dark); }
+
+        .toc-box { border: 1px solid var(--paper-border); background: var(--callout-bg); padding: 16px 22px; margin: 16px 0 4px; }
+        .toc-title { font-size: 14.2px; font-weight: 800; color: var(--ink-title); margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid var(--paper-border); }
+        .toc-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 5px; font-size: 13.5px; }
+        .toc-list a { color: var(--ink-body); text-decoration: none; display: flex; justify-content: space-between; border-bottom: 1px dotted var(--paper-border); padding-bottom: 2px; }
+        .toc-list a:hover { color: var(--word-blue); font-weight: 700; }
+
+        .formula-box {
+            background: var(--callout-bg); border: 1px solid var(--paper-border);
+            padding: 12px 16px; border-radius: 6px; font-family: 'Consolas', monospace;
+            font-size: 13.5px; text-align: center; margin: 10px 0 18px; color: var(--word-blue-dark); font-weight: 700;
+        }
+        .glossary-dt { font-weight: 800; color: var(--word-blue-dark); margin-top: 10px; }
+        .glossary-dd { margin: 2px 0 8px 14px; font-size: 14.3px; }
+
+        @media (max-width: 768px) { .doc-sheet { padding: 30px 20px; } h1.doc-main-title { font-size: 21px; } }
+        @media print {
+            @page { size: A4 portrait; margin: 14mm 15mm; }
+            body { background: #ffffff; color: #000000; font-size: 10pt; line-height: 1.65; }
+            .docx-ribbon, .control-bar { display: none !important; }
+            .docx-workspace { padding: 0; display: block; }
+            .report-card { max-width: 100%; gap: 0; }
+            .doc-sheet { border: none; box-shadow: none; padding: 0; page-break-after: always; }
+            .doc-sheet:last-child { page-break-after: auto; }
+            table.docx-table, .docx-callout { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="docx-ribbon control-bar">
+        <div class="ribbon-top">
+            <div class="ribbon-brand">
+                <span class="word-badge">공식 문서형 뷰어 (v4.0)</span>
+                <span>대구 수성알파시티 AI 데이터센터(10MW→40MW) 구축 및 생태계 조성 사업구상서</span>
+            </div>
+            <div class="ribbon-actions">
+                <a class="r-btn" href="2026-11-22_daegu_aidc_formal_proposal_ppt.html">📊 발표용 요약 PPT 열기</a>
+                <a class="r-btn" href="2026-11-22_daegu_aidc_formal_proposal_for_officials.docx" download>📥 Word(.docx) 다운로드</a>
+                <button class="r-btn r-btn-white" onclick="window.print()">🖨️ A4 인쇄 / PDF</button>
+            </div>
+        </div>
+        <div class="ribbon-sub">
+            <nav class="chap-nav">
+                <a class="chap-link" href="#sec-exec">요약문</a>
+                <a class="chap-link" href="#sec-p1">제1부 비전·격리</a>
+                <a class="chap-link" href="#sec-p2">제2부 데이터(A)매핑</a>
+                <a class="chap-link" href="#sec-p3">제3부 대구시 기여</a>
+                <a class="chap-link" href="#sec-p4">제4부 MOU·협조요청</a>
+                <a class="chap-link" href="#sec-notes">미주·부록</a>
+                <a class="chap-link" href="#sec-glossary">용어·참고문헌</a>
+            </nav>
+            <div class="view-controls">
+                <button class="tool-chip" onclick="adjustFont(-1)">A-</button>
+                <button class="tool-chip" onclick="adjustFont(1)">A+</button>
+                <button class="tool-chip" id="themeBtn" onclick="toggleTheme()">🌙 다크모드</button>
+                <button class="tool-chip" id="modeBtn" onclick="togglePageMode()">연속 보기</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="docx-workspace">
+        <div class="report-card" id="docxRoot">
+
+            <!-- PAGE 1: 표지 & 요약문 -->
+            <article class="doc-sheet" id="sec-exec">
+                <div class="running-header control-bar">
+                    <span>대구광역시 · KIRIA · DGIST 공식 제출용 사업구상서 (v4.0)</span>
+                    <span>Formal Edition · A4 Standard</span>
+                </div>
+
+                <div class="doc-title-frame">
+                    <span class="doc-category">공식 실무 협의 및 사업구상서 · 2026.11.22 정본</span>
+                    <h1 class="doc-main-title">
+                        대구 수성알파시티 AI 데이터센터(10MW→40MW) 구축 및<br/>
+                        피지컬 AI · 지역산업 통합 생태계 조성 방안
+                    </h1>
+                    <p class="doc-subtitle">
+                        앵커기업 1:1 맞춤형 구축 · 10MW 30~50% 데이터양(A) 정량 매핑(Part 1·2) ·<br/>
+                        AI 멘토링/마켓플레이스/인재양성 기여 · 연내 MOU 및 행정 인센티브 협의안
+                    </p>
+                </div>
+
+                <table class="meta-grid">
+                    <tbody>
+                        <tr>
+                            <th>제 출 대 상</th>
+                            <td>대구광역시(기계로봇과·투자유치과·기업지원과·AI정책관실) / KIRIA / DGIST</td>
+                            <th>작 성 일 자</th>
+                            <td>2026년 11월 22일</td>
+                        </tr>
+                        <tr>
+                            <th>제 안 기 관</th>
+                            <td>메가존클라우드(주) (MegazoneCloud)</td>
+                            <th>부 지 · 규 모</th>
+                            <td>수성알파시티 약 3,000평 / 초기 10MW → 40MW</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="toc-box control-bar">
+                    <div class="toc-title">목 차 (Table of Contents)</div>
+                    <ul class="toc-list">
+                        <li><a href="#sec-exec"><span><strong>요약문 (Executive Summary)</strong></span><span>Page 01</span></a></li>
+                        <li><a href="#sec-p1"><span><strong>제1부</strong> 수성알파시티 AI 데이터센터(10MW→40MW) 추진 비전 및 차별화 전략</span><span>Page 02</span></a></li>
+                        <li><a href="#sec-p2"><span><strong>제2부</strong> 10MW AI DC 조기 가동을 위한 충분한 데이터 확보 방안 (Part 1 &amp; Part 2)</span><span>Page 03</span></a></li>
+                        <li><a href="#sec-p3"><span><strong>제3부</strong> 메가존 AI DC의 대구광역시 산업 · 인재 · 생태계 기여 방안</span><span>Page 04</span></a></li>
+                        <li><a href="#sec-p4"><span><strong>제4부</strong> 조기 MOU 체결 후속 실행 계획 및 대구광역시 협조 요청 사항</span><span>Page 05</span></a></li>
+                        <li><a href="#sec-notes"><span><strong>미주 (Endnotes) &amp; 부록 (Appendix A ~ D)</strong></span><span>Page 06</span></a></li>
+                        <li><a href="#sec-glossary"><span><strong>용어 설명 (Glossary) &amp; 참고문헌 (References)</strong></span><span>Page 07</span></a></li>
+                    </ul>
+                </div>
+
+                <h2>요약문 (Executive Summary)</h2>
+                <p>
+                    본 구상서는 대구광역시와 메가존클라우드가 추진 방향에 합의한 <strong>‘수성알파시티 AI 데이터센터(초기 <code>10MW</code> 구축 → 최종 <code>40MW</code> 단계적 확대, 부지 약 <code>3,000평</code> 규모)’</strong>의 성공적인 건립과 조기 가동을 위해, 연내(<code>2026년 내</code>) <strong><code>10MW AI 데이터센터 구축 업무협약(MOU)</code></strong> 체결 및 후속 공동 사업 추진 방안을 공식 제안하는 문서임.
+                </p>
+                <p>
+                    메가존클라우드는 단순한 전산 상면 임대형 데이터센터가 아니라, <strong><code>AI 데이터센터(AI DC) + 피지컬 AI R&amp;D 센터 + 로봇 훈련 센터 + AI 교육·체험(Experience) 센터 + 24/7 운영센터</code></strong>가 하나로 결합된 복합 AI 캠퍼스를 수성알파시티에 조성하고자 함. 특히 정부 재정사업 심의 시 우려되는 유사·중복성 문제를 원천 해소하기 위해, <strong>기 구축 물리 인프라(국가로봇테스트필드, DGIST 리빙랩 등)와 지역 기업의 AI·데이터·연산 병목 구간을 ‘전문가 매칭 + 수성 AIDC 공유 플랫폼’으로 연결·고도화</strong>하는 상생 구조를 채택함.
+                </p>
+
+                <div class="docx-callout">
+                    <span class="docx-callout-title">■ 대구광역시 실무 피드백을 반영한 4부 핵심 구성 요약</span>
+                    <ol style="margin-bottom:0;">
+                        <li><strong>제1부 (인프라 비전 및 구축 순서)</strong>: <code>10MW → 40MW</code> 단계적 구축 방향, 기존 일반 IDC 및 타 지역 AI DC와의 차별성, <strong>지역 앵커기업 1:1 프로젝트 협업을 통한 대구 맞춤형 최적 구축 사전 준비</strong>, 그리고 <strong>‘데이터 인입 허용 · 원본 외부 반출 차단(Data Isolation)’</strong> 기반의 안심 플랫폼 모델을 제시함.</li>
+                        <li><strong>제2부 (데이터 확보 정량 검증 — 10MW 30~50% 가동 기준 데이터양 A 매핑)</strong>: 초기 <code>10MW</code> 자원의 핵심 가동률(<code>30~50%</code>)을 충족하는 목표 데이터양(<code>A</code>)을 정량 정의하고, <strong>Part 1(국가로봇테스트필드·지역거점 AX 휴머노이드 6종·DGIST 리빙랩 5종·지역 제조공장 AX·DMI 공구센터 등)</strong>만으로도 데이터양 <code>A</code>를 충분히 확보할 수 있음을 입증하며, <strong>Part 2(스마트시티·의료 EMR·KIAPI·뿌리·바이오)</strong>를 통한 중장기 확장성을 함께 제시함.</li>
+                        <li><strong>제3부 (대구광역시 지역 경제 · 산업 · 인재 기여 방안)</strong>: 중소기업 3대 애로 해소 및 <strong>AI 멘토링 서비스</strong>, <strong>AI 모델러·협력기업 대구 유치</strong>, <strong>지역 대학(DGIST·경북대 등) 역할 분담형 전주기 AI 인재 양성</strong>, <strong>수성알파시티 SW·AI 기업 통합 마켓플레이스 및 글로벌 수출 지원</strong>, <strong>데이터·모델 마켓 활성화</strong>, 그리고 <strong>초기 지역 인력 <code>000명(150명 이상)</code> 직접 고용</strong> 효과를 구체화함.</li>
+                        <li><strong>제4부 (조기 MOU 추진 및 대구시 협조 요청 사항)</strong>: 연내 <code>10MW</code> 사전 MOU 체결 및 직후 상세 실행 로드맵과 함께, 대구시 유관 부서(투자유치과·기업지원과·기계로봇과)에 건의하는 부지·세제·전력·R&amp;D·신규 GPU 확보 인센티브 협의 안건을 정리함.</li>
+                    </ol>
+                </div>
+
+                <div class="running-footer control-bar">
+                    <span>메가존클라우드(주) · 대구광역시 공식 제출용 사업구상서</span>
+                    <span>Page 1 / 7</span>
+                </div>
+            </article>
+
+            <!-- PAGE 2: 제1부 -->
+            <article class="doc-sheet" id="sec-p1">
+                <div class="running-header control-bar">
+                    <span>제1부 수성알파시티 AI 데이터센터(10MW→40MW) 추진 비전 및 차별화 전략</span>
+                    <span>Formal Edition</span>
+                </div>
+
+                <h2>제1부. 수성알파시티 AI 데이터센터(<code>10MW→40MW</code>) 추진 비전 및 차별화 전략</h2>
+
+                <h3>1.1 추진 목표, 부지 규모 및 ‘5대 기능 일체형 대구 AI 캠퍼스’ 구성</h3>
+                <p>
+                    본 사업은 수성알파시티 내 <strong>약 <code>3,000평</code> 부지</strong>를 기반으로 초기 <strong><code>10MW</code> 규모의 AI 데이터센터</strong>를 1단계 기준선으로 구축하고, 지역 로봇·자율제조·스마트시티·의료 데이터 수요 성장에 발맞추어 최종 <strong><code>40MW</code> 규모</strong>로 단계적 확장을 추진하는 것을 목표로 함. 단순 전산 상면 임대를 넘어 아래 5대 기능이 결합된 복합 AI 캠퍼스로 조성함.
+                </p>
+                <ol>
+                    <li><strong>코어 AI 데이터센터 (AI DC)</strong>: 최신 고밀도 GPU/NPU 연산 클러스터(<code>H200</code>급 기준 초기 <code>300~500대</code> 규모), <code>45 PB</code> 계층형 대용량 스토리지, 초고속 전용 광전송망 구축.</li>
+                    <li><strong>피지컬 AI R&amp;D 센터</strong>: 지역 기업·대학·연구기관이 파운데이션 모델(K-RFM), 자율제조, 스마트시티 AI 기술을 공동 연구·개발하는 거점.</li>
+                    <li><strong>로봇 훈련 센터 (Physical AI Training Center)</strong>: 가상 시뮬레이션(<code>Isaac Sim · Unity · 오픈소스</code>)과 실증 데이터를 연계하여 로봇 제어 지능을 집중 훈련하는 전용 공간.</li>
+                    <li><strong>AI 교육 · 체험(Experience) 센터</strong>: 지역 인재·재직자·시민 대상 실무 AI 교육 및 기업·공공기관 대상 AI 서비스 체험 쇼케이스 운영.</li>
+                    <li><strong>24/7 통합 운영·원격 관제 센터</strong>: 데이터센터 인프라 무중단 운영 및 휴머노이드 특화단지·스마트시티 이동체(로봇·드론) 원격 안전 관제 지원.</li>
+                </ol>
+
+                <h3>1.2 기존 일반 IDC 및 타 지역 AI DC와의 근본적 차별성</h3>
+                <table class="docx-table">
+                    <thead>
+                        <tr>
+                            <th style="width:17%;">비교 항목</th>
+                            <th style="width:26%;">기존 일반 데이터센터 (IDC)</th>
+                            <th style="width:25%;">타 지역 범용 AI DC</th>
+                            <th style="width:32%;">대구 수성알파시티 AI 통합 센터</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-center td-bold">핵심 기능</td>
+                            <td>단순 상면·전력·냉각 임대(코로케이션) 중심</td>
+                            <td>범용 LLM 학습용 GPU 단순 시간 임대</td>
+                            <td class="td-highlight">AI DC + R&amp;D + 로봇 훈련 + 교육·Experience 통합 캠퍼스</td>
+                        </tr>
+                        <tr>
+                            <td class="td-center td-bold">인프라 설계</td>
+                            <td>공랭식 저밀도 랙(<code>5~10kW</code>), 범용 네트워크</td>
+                            <td>일반 클라우드형 네트워크</td>
+                            <td>고밀도 수랭/액랭(<code>40~100kW+</code>), <code>400G/800G</code> 무손실 패브릭 및 <code>45PB</code> 스토리지</td>
+                        </tr>
+                        <tr>
+                            <td class="td-center td-bold">산업 특화성</td>
+                            <td>특정 산업 연계 없는 범용 전산실</td>
+                            <td>텍스트·이미지 위주 범용 AI 연산</td>
+                            <td class="td-highlight">피지컬 AI(로봇·제조·모빌리티) + 스마트시티 + 의료 특화 데이터 팩토리</td>
+                        </tr>
+                        <tr>
+                            <td class="td-center td-bold">기업 지원 모델</td>
+                            <td>인프라 제공 후 기업이 알아서 활용</td>
+                            <td>단순 API/서버 과금 구조</td>
+                            <td><strong>앵커기업 1:1 사전 협업 + 전문가 매칭 + 데이터/모델 마켓플레이스 일괄 지원</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="td-center td-bold">데이터 거버넌스</td>
+                            <td>외부 클라우드 전송에 따른 유출 우려</td>
+                            <td>타 지역·해외 리전으로 데이터 반출</td>
+                            <td class="td-highlight">대구 역내 데이터 안심 격리(Data Isolation) 및 기여 기업 인프라 비용 절감</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>1.3 단계별 사업 추진 순서 (사전 ‘지역 앵커기업 1:1 협업’ 맞춤형 구축 강조)</h3>
+                <p>
+                    대규모 센터를 먼저 짓고 입주 기업을 사후 모집하는 기존 방식의 미스매치 리스크를 제거하기 위해 다음 <strong>4단계 순서</strong>로 사업을 추진함.
+                </p>
+                <ul>
+                    <li><strong>[1단계] 연내 <code>10MW AI DC</code> 사전 MOU 체결 및 공동 기획 TF 가동 (<code>2026.11~12</code>)</strong>: 공식 협약을 체결하여 공공 데이터 연계 및 차년도 국책과제 공동 기획의 행정 동력을 확보함.</li>
+                    <li><strong>[2단계] 지역 앵커기업 1:1 프로젝트 협업을 통한 대구 맞춤형 AI DC 최적 설계 (<code>2027~</code>)</strong>: 본 센터 상세 설계 및 구축 과정에서 메가존클라우드가 대구·경북 주요 앵커기업들과 직접 <strong>1:1 파일럿 프로젝트</strong>를 수행함. 이를 통해 지역 제조·로봇·의료 기업들의 <strong>실제 워크로드·보안 요건·센서 규격을 현장에서 정밀 파악</strong>하고, 이를 설계에 즉시 반영하여 <strong>‘대구 산업 맞춤형 AI DC’를 사전 최적 준비</strong>함.</li>
+                    <li><strong>[3단계] 클라우드 브릿지 조기 가동 및 데이터 선제 축적 (<code>2027.상~2028</code>)</strong>: 완공 전 메가존클라우드의 가용 클라우드 자원을 브릿지로 연결해 앵커기업 및 테스트필드 시범 사업을 즉시 가동하고 초기 데이터를 선제 수집함.</li>
+                    <li><strong>[4단계] <code>10MW</code> AI 통합 센터 본가동(<code>2029</code>) 및 <code>40MW</code> 확장(<code>2030+</code>)</strong>: 축적된 데이터와 수요를 본 센터로 무중단 이관하고 소버린 피지컬 AI 허브로 스케일업함.</li>
+                </ul>
+
+                <h3>1.4 대구형 ‘데이터 안심 격리(Data Isolation)’ 및 기업 상생 원칙</h3>
+                <p>
+                    대구시와 지역 기업이 가장 우려하는 핵심 공정 데이터·개인영상·공공 데이터의 외부 유출을 원천 방지하기 위해, 수집된 <strong>원본 데이터는 수성 AIDC 역내 폐쇄형 안심 격리 존(Isolation Zone) 외부로 절대 반출할 수 없도록 통제(<code>Ingest Open / Raw Egress Block</code>)</strong>함. 외부로 반출되는 것은 학습이 완료된 <strong>‘AI 모델 가중치(Weights)’와 ‘서비스 API’</strong>로 제한함<sup class="note-ref">[1]</sup>. 메가존클라우드가 플랫폼 내 데이터 보안·비식별화·접근 통제에 대한 운영 책임을 부담하며, 데이터를 제공하는 지역 기업에는 <strong>① 플랫폼·GPU 이용 비용 대폭 절감(저가 공급)</strong> 및 <strong>② 기업 맞춤형 특화 AI 모델 개발 지원</strong>을 제공하여 데이터의 확대 재생산을 유도함.
+                </p>
+
+                <div class="running-footer control-bar">
+                    <span>메가존클라우드(주) · 대구광역시 공식 제출용 사업구상서</span>
+                    <span>Page 2 / 7</span>
+                </div>
+            </article>
+
+            <!-- PAGE 3: 제2부 -->
+            <article class="doc-sheet" id="sec-p2">
+                <div class="running-header control-bar">
+                    <span>제2부 10MW AI DC 조기 가동을 위한 충분한 데이터 확보 방안 (Part 1 &amp; Part 2)</span>
+                    <span>Formal Edition</span>
+                </div>
+
+                <h2>제2부. <code>10MW</code> AI DC 조기 가동을 위한 충분한 데이터 확보 방안</h2>
+
+                <h3>2.1 <code>10MW</code> AI DC의 <code>30~50%</code> 가동을 위한 목표 데이터양(<code>A</code>) 정의</h3>
+                <p>
+                    초기 <code>10MW</code> AI 데이터센터가 안정적으로 가동되기 위해서는 전체 자원의 핵심 구간인 <strong>가동률 <code>30~50%</code> 수준(전력 기준 약 <code>3~5MW</code> 상당의 피지컬 AI·데이터 팩토리 전용 워크로드)</strong>을 상시 회전시킬 수 있는 충분한 학습·실증 데이터의 확보가 필수적임.
+                </p>
+                <ul>
+                    <li><strong>목표 데이터양(<code>A</code>) 정의</strong>: 단일·통합 GPU 클러스터(<code>H200</code>급 <code>300~500대</code> 수준)가 연간 연속 학습·시뮬레이션·파인튜닝 사이클을 중단 없이 가동하기 위한 <strong>연간 순증 정제 학습 데이터 규모(<code>A</code>)를 최소 <code>10 ~ 15 PB / 년</code>(3개년 누적 핵심 학습셋 <code>30 ~ 45 PB</code> 풀)으로 정의</strong>함<sup class="note-ref">[2]</sup>.</li>
+                    <li><strong>로봇 대수 및 가동일수 기준 역산 검증</strong>: 멀티모달 센서(RGB-D, 3D LiDAR, <code>1kHz</code> 관절 토크·촉각)를 탑재한 로봇 1대가 실가동 <code>8시간/일</code> 기준 실시간 압축 전송 시 평균 <strong>약 <code>1.0 TB/일·대</code></strong>(휴머노이드 <code>1.2~1.9 TB</code>, 협동로봇 <code>0.5~0.8 TB</code>, 실외 이동로봇 <code>1.0~1.6 TB</code>)의 데이터를 생성함<sup class="note-ref">[3]</sup>. 핵심 에피소드 상위 <code>20%</code> 선별 정제와 시뮬레이션 합성 증강을 적용하면 <strong>로봇 <code>150~250대</code>가 연간 <code>250일</code>만 가동되어도 연간 <code>10~15 PB</code>의 정제 데이터양(<code>A</code>)이 즉시 산출</strong>됨(상세 산출식은 <strong>부록 A</strong> 참조).</li>
+                </ul>
+
+                <h3>2.2 Part 1: 구체성이 확보된 핵심 사업 중심 데이터 매핑 (로봇 중심 + α ➔ <code>A</code> 100% 충족)</h3>
+                <p>
+                    이미 추진 중이거나 구체적 과업·수요가 확인된 <strong>5대 핵심 사업군(Part 1)</strong>만 수성 AIDC와 연결하더라도 <code>10MW</code>의 <code>30~50%</code>를 채우는 목표 데이터양(<code>A</code>: <code>연 10~15 PB</code>)을 충분히 확보할 수 있음. 이때 기존 사업의 진입장벽을 낮추기 위해 <strong>KIRIA·대학 교수진 전문가 그룹이 기업과 1:1 매칭 개입</strong>하여 데이터 수집·실증 설계를 밀착 지원함.
+                </p>
+
+                <table class="docx-table">
+                    <thead>
+                        <tr>
+                            <th style="width:22%;">Part 1 매핑 사업명</th>
+                            <th style="width:33%;">주요 대상 로봇 · 도메인 및 수집 데이터 성격</th>
+                            <th style="width:20%;">가동 규모 및 연간 정제량</th>
+                            <th style="width:25%;">전문가 개입 및 AIDC 연계 방식</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-bold">1. KIRIA 국가로봇테스트필드</td>
+                            <td>• 도심·물류·상업·악천후 트랙의 다종 실내·외 모바일 로봇 실증 데이터 (수요조사 <strong>268개사</strong>)</td>
+                            <td class="td-center">실증 로봇 <code>80~120대</code><br/><strong><code>연 4.0 ~ 5.0 PB</code></strong></td>
+                            <td><strong>KIRIA 전문위원 1:1 매칭</strong> + 가상 사전실증 + 전용망 자동 수집</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">2. 지역거점 AX 전환 사업</td>
+                            <td>• 제조 영역 특화 <strong>휴머노이드 로봇 6종 RFM(파운데이션 모델) 개발</strong> (양팔·촉각·비전)</td>
+                            <td class="td-center">휴머노이드 <code>40~60대</code><br/><strong><code>연 2.5 ~ 3.5 PB</code></strong></td>
+                            <td>교수진·MZC 아키텍트 공동 참여, K-RFM 기반 6종 지능 학습</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">3. DGIST 휴머노이드 리빙랩</td>
+                            <td>• 가사·돌봄·의료보조 등 서비스 영역 <strong>국산 휴머노이드 로봇 5종</strong> 및 비제조 특화모델 데이터</td>
+                            <td class="td-center">리빙랩 <code>30~40대</code><br/><strong><code>연 1.5 ~ 2.5 PB</code></strong></td>
+                            <td>DGIST 연구진 매칭, 비제조 일상 작업 데이터 표준화 및 특화 RFM</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">4. 지역 제조공장의 AX 전환</td>
+                            <td>• 대구 앵커기업 제조 공장에 제조·물류·휴머노이드 로봇 직접 투입 (스마트 팩토리 피지컬 AI)</td>
+                            <td class="td-center">앵커 공장 <code>40~60대</code><br/><strong><code>연 2.0 ~ 3.0 PB</code></strong></td>
+                            <td><strong>1:1 앵커 프로젝트</strong>로 공정 데이터 인입 시 플랫폼 저가 제공</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">5. DMI 공구센터 사업 등 (+α)</td>
+                            <td>• 대구기계부품연구원(DMI) 공구·절삭·정밀가공 센서 및 특화단지 원격관제 데이터</td>
+                            <td class="td-center">정밀 공정·관제 연동<br/><strong><code>연 0.5 ~ 1.0 PB</code></strong></td>
+                            <td>기존 제조 AI 데이터 플랫폼(MIDAS)과 연계한 정밀 가공 AI 고도화</td>
+                        </tr>
+                        <tr>
+                            <td class="td-center td-highlight">Part 1 합계</td>
+                            <td class="td-highlight">구체성 확보 5대 로봇·제조 사업군 통합</td>
+                            <td class="td-center td-highlight">190~280대 / 연 10.5~15 PB</td>
+                            <td class="td-highlight">목표 데이터양(A) 100% 이상 단독 충족</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>2.3 Part 2: Part 1 외 추가 확장 사업 매핑 (중장기 스케일업 및 <code>40MW</code> 도약 기반)</h3>
+                <p>
+                    Part 1만으로도 초기 <code>10MW</code>의 목표 데이터양(<code>A</code>)을 충분히 달성할 수 있으며, 이에 더해 대구시가 보유한 <strong>Part 2 전략 사업군</strong>을 단계적으로 추가 매핑할 경우 <code>10MW</code> 잔여 용량의 완전 소진은 물론 향후 <strong><code>40MW</code> 확장 단계</strong>까지 끊김 없는 데이터 공급망을 확보할 수 있음.
+                </p>
+
+                <table class="docx-table">
+                    <thead>
+                        <tr>
+                            <th style="width:24%;">Part 2 확장 사업군</th>
+                            <th style="width:38%;">주요 연계 거점 및 데이터 자산</th>
+                            <th style="width:16%;">추가 확보 규모</th>
+                            <th style="width:22%;">수성 AIDC 연계 가치</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-bold">① 수성알파시티 스마트시티 (City DT)</td>
+                            <td>수성 유·무선 자가망 연계 자율주행 로봇·드론 이동체 스캔 및 스마트교차로·AI CCTV(비식별) 데이터</td>
+                            <td class="td-center td-bold"><code>연 7.5 ~ 11.5 PB</code></td>
+                            <td><code>Cesium</code> 3D 도시 디지털트윈 및 안전 관제 구현</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">② 의료 · 헬스케어 EMR 백업·DR</td>
+                            <td>대구 첨복단지, 상급병원, <strong>전국/지역 보건소·국가지정 센터 법정 10년 의무보관 전자의무기록(EMR)</strong></td>
+                            <td class="td-center td-bold"><code>수십 PB급</code> 누적</td>
+                            <td>초고신뢰 백업·보안·DR 및 가명처리 의료 AI 유통</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">③ 모빌리티 · 주행시험장 (KIAPI)</td>
+                            <td>지능형자동차부품진흥원(KIAPI) 주행시험장 극한 주행·전장 센서 및 자율주행 실증 로그</td>
+                            <td class="td-center td-bold"><code>연 3.0 ~ 5.0 PB</code></td>
+                            <td>SDV 및 자율주행 End-to-End 월드모델 학습 허브</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">④ 뿌리산업 · 바이오 · 뇌과학</td>
+                            <td>성서·달성 산단 금형·용접·사출 공정 및 지역거점 AX 바이오·뇌신경·재활로봇 임상 데이터</td>
+                            <td class="td-center td-bold"><code>연 2.0 ~ 3.0 PB</code></td>
+                            <td>지역 주력 제조업 자율제조 및 바이오 AI 연산 지원</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="running-footer control-bar">
+                    <span>메가존클라우드(주) · 대구광역시 공식 제출용 사업구상서</span>
+                    <span>Page 3 / 7</span>
+                </div>
+            </article>
+
+            <!-- PAGE 4: 제3부 -->
+            <article class="doc-sheet" id="sec-p3">
+                <div class="running-header control-bar">
+                    <span>제3부 메가존 AI DC의 대구광역시 산업 · 인재 · 생태계 기여 방안</span>
+                    <span>Formal Edition</span>
+                </div>
+
+                <h2>제3부. 메가존 AI DC의 대구광역시 산업 · 인재 · 생태계 기여 방안</h2>
+
+                <h3>3.1 수요기업 3대 애로 해소 및 ‘AI 멘토링 서비스’ 제공</h3>
+                <p>
+                    개별 중소·중견기업이 AI 도입 시 직면하는 <strong>① 고가 GPU·스토리지 투자 부담, ② AI 전문 인력 확보 부담, ③ 대용량 데이터 저장·보안 부담</strong>을 수성 AIDC 공유 플랫폼으로 일거에 해소함. 나아가 단순 인프라 대여에 그치지 않고, 메가존클라우드·KIRIA·대학 전문가가 참여하는 <strong>‘현장 밀착형 AI 멘토링 서비스’</strong>를 상시 운영하여 비IT 제조기업도 쉽게 AI 과제를 기획·실증할 수 있도록 지원함.
+                </p>
+
+                <h3>3.2 AI 생태계 보완: 역외 협력사 및 ‘AI 모델러 선도기업’ 대구 유치</h3>
+                <p>
+                    현재 수성알파시티(입주기업 <code>333개사</code>, 종사자 <code>약 4,000명</code>)와 대경ICT산업협회(회원사 <code>약 340개사</code>, 연 총 매출 <code>약 1.2조 원</code>)는 우수한 SW·SI 기반을 갖추고 있으나<sup class="note-ref">[4]</sup>, 초거대 모델·피지컬 AI 전문 모델러 기업 층은 보완이 필요한 상황임. 메가존클라우드는 자사의 글로벌·국내 AI 파트너 네트워크와 수성 AIDC의 풍부한 로봇·제조 데이터(안심 격리 플랫폼)를 유인책으로 삼아 <strong>수도권 및 역외 유망 AI 모델러(Modeler) 기업·협력사들의 대구 지사·연구소 유치</strong>를 적극 추진함으로써 지역 ICT 기업과의 기술 융합 생태계를 완성함.
+                </p>
+
+                <h3>3.3 지역 대학(DGIST · 경북대 등) 역할 분담형 전주기 AI 인재 양성</h3>
+                <ul>
+                    <li><strong>AI 최고급 전문가 양성 (DGIST · 경북대 연계)</strong>: 피지컬 AI, VLA 파운데이션 모델, 로보틱스 제어 석·박사급 연구 인력 공동 프로젝트 및 <code>NVIDIA Isaac × Unity × 오픈소스</code> 실전 캡스톤 지원.</li>
+                    <li><strong>지역 기업 재직자 전환 교육</strong>: 기존 자동차부품·기계·SW 기업 재직자를 AI 엔지니어 및 로봇 시뮬레이션·데이터 오퍼레이터로 전환하는 실무 부트캠프 운영.</li>
+                    <li><strong>지역 일반인(청소년 · 중장년층) AI 리터러시 교육</strong>: AI 교육·체험(Experience) 센터를 개방하여 대구 지역 청소년 진로 체험 및 중장년층 대상 AI 활용·데이터 라벨링 직무 교육을 실시, 시민 체감형 AI 도시 문화 확산.</li>
+                </ul>
+
+                <h3>3.4 수성알파시티 SW·AI 기업 ‘통합 마켓플레이스’ 및 글로벌 수출 지원</h3>
+                <div class="docx-callout docx-callout-teal">
+                    <span class="docx-callout-title">■ 지역 벤처·중소 SW/AI 기업 제품 통합 상용화 및 해외 수출 플랫폼</span>
+                    <ul style="margin-bottom:0;">
+                        <li><strong>통합 AI 마켓플레이스 구축</strong>: 수성알파시티 내 벤처·중소 SW·AI 기업들의 제품들을 <strong>단일 통합 마켓플레이스 플랫폼에 탑재하여 공동 마케팅, 24/7 유지보수, 수정·보안 배포(CI/CD)를 일괄 대행 서비스</strong>함.</li>
+                        <li><strong>글로벌 플랫폼 연계 수출 지원</strong>: 마켓플레이스에 등록된 대구 기업의 솔루션을 메가존클라우드의 글로벌 클라우드·파트너 네트워크(전 세계 거점 및 글로벌 엣지 망)와 연결하여 해외 시장 진출을 직접 지원함.</li>
+                    </ul>
+                </div>
+
+                <h3>3.5 데이터 마켓 · 모델 마켓 활성화 및 대형 국책사업 공동 발굴</h3>
+                <ul>
+                    <li><strong>데이터 마켓(Data Market) 활성화</strong>: 안전한 데이터 거래 플랫폼을 구축하여, <strong>기업들이 보유한 정제 산업 데이터가 단순 비용이 아닌 새로운 수입원(Data Monetization)</strong>으로 전환되도록 지원함.</li>
+                    <li><strong>모델 마켓(Model Market) 활성화</strong>: 대구 플랫폼에서 개발된 제조·물류·돌봄·안전 분야 특화 AI 모델을 API·컨테이너 형태로 판매·유통하는 모델 마켓을 운영함.</li>
+                    <li><strong>대형 국책사업 공동 발굴</strong>: 구축된 AI DC 및 데이터 플랫폼을 기반으로 대구시·KIRIA·DIP·지역 기업들과 컨소시엄을 구성하여 차년도 정부 대형 R&amp;D 및 5극3특 성장엔진 국책사업을 상시 공동 기획·수주함.</li>
+                </ul>
+
+                <h3>3.6 기대효과: 지역 고급 일자리 창출 및 산업 파급효과</h3>
+                <p>
+                    수성 AI 통합 캠퍼스(<code>AI 데이터센터 운영센터 + 피지컬 AI R&amp;D 센터 + AI 교육·체험 센터 + 로봇 훈련 센터</code>)의 상시 운영 및 연구 인력을 대구 지역에서 우선 채용하여 <strong>초기 <code>000명(약 150명 이상 규모 협의)</code> 이상의 양질의 지역 일자리 창출</strong>을 추진함. 이를 통해 지역 제조·로봇 기업의 AI 전환 기간을 단축하고 대구를 비수도권 최대 피지컬 AI 거점으로 육성함.
+                </p>
+
+                <div class="running-footer control-bar">
+                    <span>메가존클라우드(주) · 대구광역시 공식 제출용 사업구상서</span>
+                    <span>Page 4 / 7</span>
+                </div>
+            </article>
+
+            <!-- PAGE 5: 제4부 -->
+            <article class="doc-sheet" id="sec-p4">
+                <div class="running-header control-bar">
+                    <span>제4부 조기 MOU 체결 후속 실행 계획 및 대구광역시 협조 요청 사항</span>
+                    <span>Formal Edition</span>
+                </div>
+
+                <h2>제4부. 조기 MOU 체결 후속 실행 계획 및 대구광역시 협조 요청 사항</h2>
+
+                <h3>4.1 연내(<code>2026년 내</code>) MOU 조기 추진 및 MOU 직후 상세 실행 계획</h3>
+                <p>
+                    공공·실증 데이터 개방 및 정부 국책사업 공동 기획의 골든타임을 확보하기 위해 <strong>2026년 내 『대구광역시 – 메가존클라우드 10MW AI 데이터센터 구축 및 AI 생태계 조성 MOU』 조기 체결</strong>을 추진하며, MOU 체결 직후 아래의 상세 실행 단계를 즉시 가동함.
+                </p>
+
+                <table class="docx-table">
+                    <thead>
+                        <tr>
+                            <th style="width:22%;">추진 단계</th>
+                            <th style="width:16%;">목표 시기</th>
+                            <th style="width:62%;">MOU 체결 직후 상세 실행 계획 및 주요 산출물</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-bold">Phase 0. 조기 MOU 체결</td>
+                            <td class="td-center td-bold"><code>2026.11~12</code></td>
+                            <td class="td-highlight">• <strong>대구시 – 메가존클라우드 <code>10MW(→40MW)</code> AI DC 구축 사전 MOU 체결</strong><br/>• 대구시(기계로봇과·투자유치과·기업지원과·AI정책관실)–KIRIA–DGIST–DIP–MZC 합동 실무 추진단(TF) 발족</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">Phase 1. 앵커 협업 &amp; 설계</td>
+                            <td class="td-center td-bold"><code>2027.1Q~2Q</code></td>
+                            <td>• 지역 앵커기업 대상 <strong>1:1 파일럿 프로젝트 착수 및 요구사항 정밀 실사</strong><br/>• 수성알파시티 <code>3,000평</code> 부지 기반 맞춤형 설계 확정 및 인허가·수전 절차 개시<br/>• 가용 클라우드 기반 <strong>‘클라우드 브릿지’ 조기 시범 가동</strong> (테스트필드·AX과제 연결)</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">Phase 2. 생태계 선제 가동</td>
+                            <td class="td-center td-bold"><code>2027.3Q~2028</code></td>
+                            <td>• DGIST·경북대 역할 분담형 AI 인재 양성 및 일반인 AI 교육 프로그램 선제 오픈<br/>• 역외 AI 모델러 협력사 대구 유치 착수 및 <strong>통합 마켓플레이스(1차)</strong> 시범 개통<br/>• Part 1 중심 로봇·제조 핵심 데이터 수집 및 <code>Data Isolation</code> 안심 존 구축 완료</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">Phase 3. <code>10MW</code> 준공·가동</td>
+                            <td class="td-center td-bold"><code>2029년</code></td>
+                            <td>• <strong>수성 <code>10MW</code> AI 통합 센터 건축·장비 구축 완료 및 브릿지 데이터 무중단 이관</strong><br/>• 데이터·모델 마켓 정식 가동 및 Part 2(스마트시티·의료 EMR·KIAPI) 전면 확대</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">Phase 4. <code>40MW</code> 확장</td>
+                            <td class="td-center td-bold"><code>2030년+</code></td>
+                            <td>• 누적 수요 성장에 따른 <strong><code>40MW</code> 규모 확장 착수</strong> 및 글로벌 K-로봇·AI 수출 관제 허브 완성</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>4.2 대구광역시 유관 부서별 행정 · 인센티브 협조 요청 사항</h3>
+                <p>
+                    본 사업의 신속한 착수와 지역 기업 대상 저가 인프라·멘토링·마켓플레이스 제공이라는 공익적 환원 구조를 실현하기 위해, 기 실무 협의에서 논의된 사항을 포함한 아래의 행정·제도적 협조를 공식 건의함 <em>(구체적 비율·한도는 본 계약 및 투자협약 단계에서 세부 협의)</em>.
+                </p>
+
+                <table class="docx-table">
+                    <thead>
+                        <tr>
+                            <th style="width:16%;">소관 부서</th>
+                            <th style="width:49%;">협조 및 인센티브 검토 요청 사항</th>
+                            <th style="width:35%;">기대 효과 및 사업 연계 명분</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-center td-bold">투자유치과</td>
+                            <td>
+                                1. <strong>부지 비용 감면</strong>: 수성알파시티 AI DC 부지(<code>약 3,000평</code>) <strong>공시지가 5% 수준</strong> 공급 또는 장기 임대 감면 검토<br/>
+                                2. <strong>세제 및 운영비 지원</strong>: <strong>지방세 50% 감면(전략산업 지정 시 100% 감면)</strong> 및 <strong>산업용 전기세 지원</strong><br/>
+                                3. <strong>R&amp;D 비용 직접 지원</strong>: 데이터센터와 연계한 <strong>피지컬 AI R&amp;D 센터 설립 시 사업비 50% 매칭 지원</strong>
+                            </td>
+                            <td>• 초기 부지·운영 원가 절감분을 지역 중소기업 플랫폼 이용료 인하 및 AI 멘토링·교육 재원으로 직접 환원 가능</td>
+                        </tr>
+                        <tr>
+                            <td class="td-center td-bold">기업지원과</td>
+                            <td>
+                                1. <strong>필요 전력 적기 공급 지원</strong>: 초기 <code>10MW</code> 및 향후 <code>40MW</code> 확장을 위한 변전소·수전 인허가 행정 패스트트랙 지원<br/>
+                                2. <strong>재생에너지 전력 지원(일부)</strong>: 글로벌 AI 기업 유치 및 RE100·ESG 요건 충족을 위한 일부 재생에너지 전력 연계 지원
+                            </td>
+                            <td>• 글로벌 앵커 테넌트 및 국내 대기업 연구소의 대구 입주 핵심 요건 충족</td>
+                        </tr>
+                        <tr>
+                            <td class="td-center td-bold">기계로봇과</td>
+                            <td>
+                                1. <strong>중앙정부 협조를 통한 신규 GPU 확보 지원</strong>: 산업부·과기부 등 정부 AI 컴퓨팅 확충 사업과 연계한 수성 AIDC 내 공공·연구용 신규 GPU 할당 협조<br/>
+                                2. <strong>기존 로봇 국책사업 전환 고도화 행정 연계</strong>: 테스트필드·AX 6종·특화단지 원격관제 사업의 수성 AIDC 데이터 연계 승인
+                            </td>
+                            <td>• 국가 예산 중복 투자 방지 및 대한민국 최고 수준의 피지컬 AI·로봇 데이터 팩토리 조기 완성</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="running-footer control-bar">
+                    <span>메가존클라우드(주) · 대구광역시 공식 제출용 사업구상서</span>
+                    <span>Page 5 / 7</span>
+                </div>
+            </article>
+
+            <!-- PAGE 6: 미주 & 부록 -->
+            <article class="doc-sheet" id="sec-notes">
+                <div class="running-header control-bar">
+                    <span>미주 (Endnotes) 및 기술·제도 부록 (Appendix A ~ D)</span>
+                    <span>Formal Edition</span>
+                </div>
+
+                <h2>미주 (Endnotes)</h2>
+                <ol style="font-size:14.2px;">
+                    <li><strong>[1] 대구형 데이터 안심 격리(Data Isolation) 보안 아키텍처</strong>: 데이터 인입(Ingest) 구간에는 전용 광망 및 암호화 터널을 개방하되, 스토리지 영역은 물리적·논리적 망분리를 적용하여 원본 파일(영상·CAD·EMR 등)의 외부 다운로드 및 API Egress를 방화벽·DLP 정책으로 원천 차단하고, 사전 검증(가중치·추론 API 서명)을 통과한 모델 산출물만 반출을 허용하는 구조를 의미함.</li>
+                    <li><strong>[2] <code>10MW</code> 대비 <code>30~50%</code> 데이터양(<code>A</code>) 산출 기준</strong>: <code>10MW</code> 데이터센터 내 IT 부하(PUE 1.3~1.4 기준 약 <code>7.0~7.5MW</code>) 중 피지컬 AI·로봇·데이터 팩토리 전용 핵심 클러스터(<code>30~50%</code>, 약 <code>3.0~4.5MW</code>, <code>H200</code>급 <code>300~500대</code>)가 유휴 시간 없이 상시 다중 에포크 학습과 합성 증강을 수행하기 위해 필요한 연간 신규 정제 데이터 유입량을 뜻함.</li>
+                    <li><strong>[3] 로봇 1대당 일일 데이터 산출량 기준</strong>: 카메라(RGB-D 30~60fps), 3D LiDAR(10~20Hz), 관절·힘/토크 센서(<code>1kHz</code>)가 동시 작동하는 실가동 8시간 기준 실측·추정치임.</li>
+                    <li><strong>[4] 수성알파시티 및 대경ICT산업협회 현황 출처</strong>: 대구광역시 공개 현황(입주기업 333개사, 종사자 약 4,000명, 국가 디지털 혁신 시범단지 <code>2023~2030년</code>) 및 2026년 대경ICT산업협회 발표 자료(회원사 약 340개사, 연 총 매출 1.2조 원 규모)를 인용함.</li>
+                </ol>
+
+                <h2>부록 (Appendices)</h2>
+
+                <h3>[부록 A] 목표 데이터양(<code>A</code>) 산출 근거 및 <code>45 PB</code> 3-Tier 스토리지 · 네트워크 정량 설계</h3>
+                <table class="docx-table">
+                    <thead>
+                        <tr>
+                            <th>로봇 유형</th>
+                            <th>탑재 멀티모달 센서 구성</th>
+                            <th>원시 대역폭</th>
+                            <th>압축 전송률</th>
+                            <th>1대당 일일 수집량 (8h)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-bold">양팔 휴머노이드 로봇</td>
+                            <td>듀얼 스테레오 RGB-D(4ch, 60fps) + 3D LiDAR + 양손 촉각 + 6축 F/T + 관절(<code>1kHz</code>)</td>
+                            <td class="td-center"><code>3.2~4.5 Gbps</code></td>
+                            <td class="td-center"><code>350~550 Mbps</code></td>
+                            <td class="td-center td-bold"><code>1.2 ~ 1.9 TB / 일</code></td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">산업용 협동·매니퓰레이터</td>
+                            <td>손목/고정 고해상도 RGB-D(2~3ch) + 관절 토크(<code>1kHz</code>) + 그리퍼 압력 센서</td>
+                            <td class="td-center"><code>1.2~2.0 Gbps</code></td>
+                            <td class="td-center"><code>150~250 Mbps</code></td>
+                            <td class="td-center td-bold"><code>0.5 ~ 0.8 TB / 일</code></td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">실외 자율주행·순찰 로봇</td>
+                            <td>서라운드 카메라(6ch) + 128ch 3D LiDAR + Radar + RTK-GPS/IMU + 열화상</td>
+                            <td class="td-center"><code>2.5~3.8 Gbps</code></td>
+                            <td class="td-center"><code>300~450 Mbps</code></td>
+                            <td class="td-center td-bold"><code>1.0 ~ 1.6 TB / 일</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="formula-box">
+                    연간 정제 데이터양(A) = (로봇 N대 × 1.0 TB/일 × 250일) × 핵심 선별률(20%) × 합성 증강 배수(1 + 2배) ≈ 10 ~ 15 PB/년
+                </div>
+
+                <table class="docx-table">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">인프라 계층</th>
+                            <th style="width:15%;">설계 규모</th>
+                            <th style="width:32%;">핵심 기술 규격</th>
+                            <th style="width:33%;">목표 성능 및 수용 워크로드</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-bold">GPU 클러스터</td>
+                            <td class="td-center td-bold"><code>H200</code>급 <code>300~500대</code></td>
+                            <td>고밀도 액랭(DLC) 랙, K8s/Slurm 스케줄링</td>
+                            <td><code>15PB</code> 단일 클러스터 학습, 평균 유효 활용률 30% 버퍼 반영</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">Tier 1: Hot</td>
+                            <td class="td-center td-bold">유효 <code>5 PB</code></td>
+                            <td>NVMe All-Flash 병렬 파일시스템 (<code>Lustre/GPFS</code>)</td>
+                            <td>집계 읽기 <strong><code>600 GB/s ~ 1 TB/s+</code></strong> (I/O 병목 제거)</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">Tier 2: Warm</td>
+                            <td class="td-center td-bold">유효 <code>15 PB</code></td>
+                            <td>고성능 S3 오브젝트 스토리지 + <code>Iceberg</code> DB</td>
+                            <td><code>150 ~ 250 GB/s</code> (DaaS 구독 및 <code>Cesium/OpenUSD</code> 서빙)</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">Tier 3: Cold</td>
+                            <td class="td-center td-bold">유효 <code>25 PB</code></td>
+                            <td>고밀도 HDD Erasure Coding + WORM(위변조방지)</td>
+                            <td>테스트필드 원본 증적 및 <strong>법정 10년 의료 EMR 백업/DR</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">광대역 네트워크</td>
+                            <td class="td-center td-bold">내부 <code>400G/800G</code><br/>외부 <code>100G~400G</code></td>
+                            <td>무손실 RDMA 패브릭 + 달성·DGIST 전용 광망 + 수성 무선자가망 게이트웨이</td>
+                            <td>실증 원본 무손실 수집 및 원격 관제 초저지연(<code>&lt;2ms</code>) 제어</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>[부록 B] 시뮬레이션 3원화 (<code>NVIDIA Isaac</code> × <code>Unity</code> × <code>오픈소스</code>) 기술 구조</h3>
+                <table class="docx-table">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">시뮬레이션 축</th>
+                            <th style="width:23%;">구성 솔루션</th>
+                            <th style="width:30%;">기술 강점 및 주력 영역</th>
+                            <th style="width:27%;">대구 생태계 연계 효과</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-bold">정밀 물리 · RL</td>
+                            <td><code>NVIDIA Isaac Sim/Lab</code></td>
+                            <td><code>PhysX 5</code> 접촉 역학, GPU 병렬 강화학습</td>
+                            <td>휴머노이드 보행·양팔 파지 정책 훈련</td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">DT · HRI · XR</td>
+                            <td><code>Unity Industry / Pixyz</code></td>
+                            <td>CAD 경량화, <code>HDRP</code> 비전, 군중 HRI, VR 원격조작</td>
+                            <td><strong>수성알파시티 게임·XR 인력 즉시 흡수</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="td-bold">오픈소스 표준</td>
+                            <td><code>MuJoCo · Gazebo · ROS 2</code></td>
+                            <td>라이선스 비용 없는 글로벌 표준 엔진·미들웨어</td>
+                            <td>중소기업·스타트업·대학 진입장벽 제거</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>[부록 C &amp; D] 기초 현황 요약 및 데이터센터 법정 면허 준수 체계</h3>
+                <ul>
+                    <li><strong>[부록 C] 국가로봇테스트필드·수성알파시티 현황</strong>: 테스트필드(<code>'24~'28</code>, <code>1,997.5억 원</code>, 5개 실증동, 3차 수요조사 <strong>268개사</strong> 참여의향), 수성알파시티(<code>333개사</code>, 약 <code>4,000명</code>), 대경ICT산업협회(<code>약 340개사</code>, 연 매출 <code>1.2조 원</code>).</li>
+                    <li><strong>[부록 D] 법정 면허 및 분담이행 컨소시엄 체계</strong>: IT·SW 영역(<strong>정보통신공사업 <code>0036</code> · 소프트웨어사업자 <code>1468</code></strong>)과 기반 설비(<strong>전기·기계설비·전문소방시설·건축공사업</strong>) 전문 시공사의 적법한 분담이행방식 컨소시엄을 통해 무면허·일괄 하도급 리스크를 원천 차단함.</li>
+                </ul>
+
+                <div class="running-footer control-bar">
+                    <span>메가존클라우드(주) · 대구광역시 공식 제출용 사업구상서</span>
+                    <span>Page 6 / 7</span>
+                </div>
+            </article>
+
+            <!-- PAGE 7: 용어 설명 & 참고문헌 -->
+            <article class="doc-sheet" id="sec-glossary">
+                <div class="running-header control-bar">
+                    <span>용어 설명 (Glossary) 및 참고문헌 (References)</span>
+                    <span>Formal Edition</span>
+                </div>
+
+                <h2>용어 설명 (Glossary)</h2>
+                <dl style="margin:0 0 24px;">
+                    <dt class="glossary-dt">1. 피지컬 AI (Physical AI)</dt>
+                    <dd class="glossary-dd">화면 속 텍스트·이미지 처리를 넘어, 로봇·자율주행차·드론 등 물리적 신체를 가진 기기가 현실 세계의 공간·중력·마찰·접촉을 인지하고 직접 물리적 행동을 수행하도록 학습된 차세대 인공지능 기술.</dd>
+
+                    <dt class="glossary-dt">2. K-RFM (Korean Robot Foundation Model)</dt>
+                    <dd class="glossary-dd">제조·물류·가사·공공서비스 등 다양한 로봇 작업에 공통으로 활용할 수 있는 한국형 범용 로봇 파운데이션 모델.</dd>
+
+                    <dt class="glossary-dt">3. VLA (Vision-Language-Action) 모델</dt>
+                    <dd class="glossary-dd">카메라 시각 정보(Vision)와 인간의 자연어 명령(Language)을 동시에 이해하여 로봇의 관절 제어 행동(Action)을 실시간으로 생성하는 통합 AI 아키텍처.</dd>
+
+                    <dt class="glossary-dt">4. 월드 모델 (World Model)</dt>
+                    <dd class="glossary-dd">현실 세계의 물리 법칙과 인과관계를 학습하여, 로봇이 특정 행동을 했을 때 미래에 발생할 물리적 변화와 결과 영상을 가상으로 예측·시뮬레이션하는 AI 모델.</dd>
+
+                    <dt class="glossary-dt">5. Sim-to-Real (Simulation-to-Reality)</dt>
+                    <dd class="glossary-dd">가상 시뮬레이터 환경에서 수만~수백만 회 고속으로 학습한 로봇 AI 제어 정책을 실제 물리적 로봇 하드웨어에 오차 없이 이식·적용하는 기술.</dd>
+
+                    <dt class="glossary-dt">6. 데이터 안심 격리 (Data Isolation)</dt>
+                    <dd class="glossary-dd">데이터의 센터 내 유입(Ingest)은 허용하되 원본 데이터의 외부 반출(Egress)은 물리적·논리적으로 차단하고, 안전하게 학습된 AI 모델 가중치나 서비스 결과만 외부로 제공하는 보안 거버넌스 체계.</dd>
+
+                    <dt class="glossary-dt">7. 데이터 플라이휠 (Data Flywheel)</dt>
+                    <dd class="glossary-dd">현장 로봇 가동·원격 관제에서 발생한 예외 데이터 수집 ➔ AIDC 재학습 ➔ 모델 성능 개선 및 OTA 무선 배포 ➔ 더 많은 현장 데이터 확보로 이어지는 자가 진화형 선순환 구조.</dd>
+
+                    <dt class="glossary-dt">8. DaaS (Data-as-a-Service)</dt>
+                    <dd class="glossary-dd">수집된 원시 센서 데이터를 정밀 동기화·정제·비식별화·표준 포맷(<code>RLDS</code>, <code>LeRobot</code> 등)으로 가공하여 구독형 또는 API 형태로 제공하는 훈련 데이터 서비스.</dd>
+
+                    <dt class="glossary-dt">9. OpenUSD (Universal Scene Description)</dt>
+                    <dd class="glossary-dd">글로벌 표준 3D 가상공간·로봇 에셋 상호운용 파일 포맷으로, <code>Isaac Sim</code>과 <code>Unity</code> 등 이기종 시뮬레이터 간 3D 모델 완벽 호환을 지원함.</dd>
+
+                    <dt class="glossary-dt">10. City DT (City Digital Twin)</dt>
+                    <dd class="glossary-dd">도시의 건물·도로·교통·환경 센서와 이동체(로봇·드론) 데이터를 3D 가상공간에 실시간으로 복제·동기화하여 도시 관제 및 자율주행 시뮬레이션에 활용하는 도시 디지털트윈 플랫폼.</dd>
+                </dl>
+
+                <h2>참고문헌 (References)</h2>
+                <ol style="font-size:14.2px;">
+                    <li>산업통상자원부 · 한국로봇산업진흥원(KIRIA), 『국가로봇테스트필드 사업 추진 현황 및 실증 인프라 구축 계획』, 2023.12.</li>
+                    <li>대구광역시 · 대구디지털혁신진흥원(DIP), 『수성알파시티 디지털 혁신 거점 및 기업육성 계획 현황 자료』, 2026.</li>
+                    <li>대경ICT산업협회, 『2026년 대경ICT산업협회 회원사 현황 및 산업 분야 분석 자료』, 2026.</li>
+                    <li>대구광역시 기계로봇과, 『메가존 AI DC 사업 구상안 실무 검토 피드백 및 유관 부서 협조 검토 사항』, 2026.11.</li>
+                    <li>메가존클라우드(주), 『지역거점 AX 혁신 기술개발 연계 대구 AIDC 운영·확산 모델 및 데이터센터 건설·장비 구축 법정 면허 검토서』, 2026.11.</li>
+                    <li>NVIDIA Corporation, <em>NVIDIA Isaac Sim, Isaac Lab &amp; Cosmos World Foundation Model Technical Documentation</em>, 2025–2026.</li>
+                    <li>Open X-Embodiment Collaboration &amp; HuggingFace, <em>RLDS (Reinforcement Learning Datasets) &amp; LeRobot Open-Source Robotics Data Standards</em>, 2024–2026.</li>
+                </ol>
+
+                <p style="margin-top:26px; text-align:center; color:var(--ink-subtle); font-size:13.5px;">
+                    — 끝 (End of Document) —
+                </p>
+
+                <div class="running-footer control-bar">
+                    <span>메가존클라우드(주) · 대구광역시 공식 제출용 사업구상서</span>
+                    <span>Page 7 / 7</span>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <script>
+        let currentFont = 15.2;
+        function adjustFont(delta) {
+            currentFont = Math.min(18.5, Math.max(12.8, currentFont + delta * 0.8));
+            document.documentElement.style.setProperty('--doc-font-size', currentFont + 'px');
+        }
+        function togglePageMode() {
+            const btn = document.getElementById('modeBtn');
+            document.body.classList.toggle('continuous-mode');
+            btn.textContent = document.body.classList.contains('continuous-mode') ? 'A4 페이지 보기' : '연속 보기';
+        }
+        function toggleTheme() {
+            const btn = document.getElementById('themeBtn');
+            document.body.classList.toggle('dark-theme');
+            btn.textContent = document.body.classList.contains('dark-theme') ? '☀️ 라이트모드' : '🌙 다크모드';
+        }
+    </script>
+</body>
+</html>

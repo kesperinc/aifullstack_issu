@@ -1,22 +1,65 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[총괄 요약 리포트] 대구 수성알파시티 AIDC & 피지컬 AI 프로젝트 전체 산출물 가이드 및 링크 모음</title>
-    <!-- 구글 폰트 적용 (Outfit & Noto Sans KR) -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- 한글 가독성 최적화 웹폰트 (Pretendard & Noto Sans KR) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0c10;
-            --card-bg: rgba(22, 25, 32, 0.7);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --canvas-bg: #e8edf3;
+            --card-bg: #ffffff;
+            --card-border: #cfd8e3;
+            --primary: #185abd;
+            --primary-soft: #eef4fc;
+            --heading-h1: #0f172a;
+            --heading-h2: #1e3a8a;
+            --heading-h3: #0f172a;
+            --heading-h4: #1d4ed8;
+            --text-main: #1e293b;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --table-border: #cbd5e1;
+            --table-head-bg: #f1f5f9;
+            --table-head-text: #0f172a;
+            --table-hover: #f8fafc;
+            --quote-bg: #f8fafc;
+            --quote-text: #1e3a8a;
+            --code-bg: #f1f5f9;
+            --code-text: #0f172a;
+            --review-red: #ee0000;
+            --review-row-bg: #fff5f5;
+            --toolbar-bg: #ffffff;
+            --toolbar-border: #cbd5e1;
+        }
+
+        [data-theme="dark"] {
+            --canvas-bg: #0b0c10;
+            --card-bg: #151922;
+            --card-border: rgba(255, 255, 255, 0.12);
             --primary: #3b82f6;
-            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            --accent: #ef4444;
-            --success: #10b981;
-            --text-main: #f3f4f6;
+            --primary-soft: rgba(59, 130, 246, 0.15);
+            --heading-h1: #f8fafc;
+            --heading-h2: #93c5fd;
+            --heading-h3: #a7f3d0;
+            --heading-h4: #bfdbfe;
+            --text-main: #e5e7eb;
+            --text-sub: #d1d5db;
             --text-muted: #9ca3af;
+            --table-border: rgba(255, 255, 255, 0.14);
+            --table-head-bg: rgba(30, 41, 59, 0.85);
+            --table-head-text: #93c5fd;
+            --table-hover: rgba(255, 255, 255, 0.03);
+            --quote-bg: rgba(59, 130, 246, 0.08);
+            --quote-text: #93c5fd;
+            --code-bg: rgba(255, 255, 255, 0.08);
+            --code-text: #f3f4f6;
+            --review-red: #ff6b6b;
+            --review-row-bg: rgba(239, 68, 68, 0.12);
+            --toolbar-bg: #111827;
+            --toolbar-border: rgba(255, 255, 255, 0.12);
         }
 
         * {
@@ -25,256 +68,491 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.12) 0, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
-            background-attachment: fixed;
-            font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+            background-color: var(--canvas-bg);
+            font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', sans-serif;
             color: var(--text-main);
-            line-height: 1.7;
-            padding: 40px 20px;
+            line-height: 1.76;
+            word-break: keep-all;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 50px;
         }
 
-        .container {
-            max-width: 1000px;
+        /* 상단 고정 문서 컨트롤 바 (인쇄 및 DOCX 변환 시 자동 제외) */
+        .doc-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--toolbar-bg);
+            border-bottom: 1px solid var(--toolbar-border);
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+        }
+
+        .toolbar-inner {
+            max-width: 1120px;
             margin: 0 auto;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        /* 네비게이션 가이드 */
-        .nav-back {
-            margin-bottom: 20px;
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        
-        .nav-back a {
+
+        .nav-back-link {
             color: var(--primary);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-        
-        .nav-back a:hover {
-            color: #60a5fa;
-            text-decoration: underline;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--primary-soft);
+            transition: opacity 0.15s ease;
         }
 
-        /* 메인 리포트 카드 */
+        .nav-back-link:hover {
+            opacity: 0.85;
+        }
+
+        .doc-badge {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: -0.01em;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .t-btn {
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--table-border);
+            background: var(--card-bg);
+            color: var(--text-main);
+            transition: all 0.15s ease;
+        }
+
+        .t-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .t-btn.active-hl {
+            background: #fff1f2;
+            border-color: #ee0000;
+            color: #ee0000;
+        }
+
+        /* 내부 논의용 타 부서 자료보완 항목 바로가기 바 */
+        .review-nav-bar {
+            background: #fff8f8;
+            border-top: 1px solid #fecaca;
+            padding: 8px 24px;
+        }
+
+        [data-theme="dark"] .review-nav-bar {
+            background: rgba(127, 29, 29, 0.25);
+            border-top-color: rgba(248, 113, 113, 0.3);
+        }
+
+        .review-nav-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .review-nav-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--review-red);
+            margin-right: 4px;
+        }
+
+        .rev-chip {
+            display: inline-block;
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: #b91c1c;
+            background: #ffffff;
+            border: 1px solid #fca5a5;
+            border-radius: 999px;
+            padding: 2px 10px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        [data-theme="dark"] .rev-chip {
+            color: #fca5a5;
+            background: rgba(15, 23, 42, 0.7);
+            border-color: rgba(248, 113, 113, 0.45);
+        }
+
+        .rev-chip:hover {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        /* 메인 컨테이너 및 문서 카드 (Word 용지 스타일) */
+        .container {
+            max-width: 1120px;
+            margin: 28px auto 0;
+            padding: 0 20px;
+        }
+
         .report-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 45px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            padding: 52px 58px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
         }
 
-        /* 타이틀 스타일 */
+        @media (max-width: 768px) {
+            .report-card {
+                padding: 28px 20px;
+            }
+        }
+
+        /* 문서 헤더 스타일 (Word 16pt/14pt/12pt 계층 반영) */
         header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 24px;
-            margin-bottom: 30px;
+            border-bottom: 2px solid var(--table-border);
+            padding-bottom: 22px;
+            margin-bottom: 28px;
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 1.75rem;
             font-weight: 800;
-            background: linear-gradient(to right, #ffffff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            line-height: 1.3;
+            color: var(--heading-h1);
+            line-height: 1.35;
+            letter-spacing: -0.02em;
         }
 
-        .meta-tag {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.12);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: #93c5fd;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        /* 마크다운 요소별 렌더링 스타일링 */
+        /* 본문 제목 위계 */
         h2 {
-            font-size: 1.5rem;
-            color: #93c5fd;
-            margin-top: 35px;
-            margin-bottom: 18px;
+            font-size: 1.38rem;
+            font-weight: 800;
+            color: var(--heading-h2);
+            margin-top: 38px;
+            margin-bottom: 16px;
             border-left: 4px solid var(--primary);
-            padding-left: 14px;
+            padding-left: 12px;
+            line-height: 1.4;
+        }
+
+        main > h2:first-child {
+            margin-top: 8px;
         }
 
         h3 {
-            font-size: 1.2rem;
-            color: #a7f3d0;
-            margin-top: 25px;
+            font-size: 1.16rem;
+            font-weight: 700;
+            color: var(--heading-h3);
+            margin-top: 26px;
             margin-bottom: 12px;
-            padding-left: 4px;
+            line-height: 1.45;
+        }
+
+        h4 {
+            font-size: 1.04rem;
+            font-weight: 700;
+            color: var(--heading-h4);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            line-height: 1.45;
         }
 
         p {
-            margin-bottom: 18px;
-            color: #e5e7eb;
-            font-size: 0.98rem;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            font-size: 0.97rem;
         }
 
-        /* 목록 스타일링 (순서 없는 리스트) */
+        /* 메타 정보 문단 박스 정돈 */
+        p.doc-meta-box {
+            background: var(--table-hover);
+            border: 1px solid var(--table-border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            font-size: 0.92rem;
+            line-height: 1.85;
+            margin-bottom: 24px;
+        }
+
+        code {
+            font-family: 'Consolas', 'Menlo', monospace;
+            font-size: 0.88em;
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        pre code {
+            display: block;
+            padding: 14px 16px;
+            overflow-x: auto;
+            line-height: 1.55;
+        }
+
+        /* 목록 스타일링 — 상위 그룹 헤더와 1·2단계 하위 목록 명확 분리 (Word 수정 포맷 반영) */
+        ol {
+            margin-top: 6px;
+            margin-bottom: 18px;
+            padding-left: 24px;
+            list-style-type: decimal;
+        }
+
         ul {
-            margin-bottom: 20px;
-            padding-left: 10px;
+            margin-top: 6px;
+            margin-bottom: 18px;
+            padding-left: 22px;
+            list-style-type: disc;
         }
 
         li {
+            margin-bottom: 8px;
+            color: var(--text-sub);
+            font-size: 0.96rem;
+            line-height: 1.72;
+            padding-left: 3px;
+        }
+
+        /* 하위 목록을 품은 대항목(그룹 항목) 간 호흡 여백 확보 */
+        li.has-sublist {
+            margin-top: 14px;
+            margin-bottom: 14px;
+            color: var(--text-main);
+        }
+
+        li.has-sublist > ul,
+        li.has-sublist > ol {
+            margin-top: 7px;
+            margin-bottom: 8px;
+            padding-left: 24px;
+        }
+
+        /* 2단계 이상 중첩 목록 (예: R3 실적의 계약 주체 / 준공 여부) */
+        ul ul, ol ul {
+            list-style-type: disc;
+        }
+
+        ul ul ul, ol ul ul, ul ol ul {
+            list-style-type: circle;
+            margin-top: 4px;
+            margin-bottom: 6px;
+            padding-left: 24px;
+        }
+
+        /* 대괄호 카테고리 헤더 (예: [Physical AI / 제조 특화 AI 아키텍처 실적]) — 불릿 제거 */
+        li.category-header {
+            list-style: none;
+            margin-left: -18px;
+            margin-top: 18px;
             margin-bottom: 10px;
-            position: relative;
-            padding-left: 22px;
-            color: #d1d5db;
+            color: var(--heading-h3);
         }
 
-        li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
+        /* 표(Table) 스타일링 — Word Table Grid 가독성 반영 */
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            margin: 18px 0 24px;
         }
 
-        /* 마크다운 표(Table) 스타일링 */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.92rem;
-            border-radius: 8px;
-            overflow: hidden;
+            font-size: 0.89rem;
+            line-height: 1.58;
+            border: 1px solid var(--table-border);
         }
 
         th {
-            background: rgba(30, 41, 59, 0.6);
-            padding: 12px 14px;
-            font-weight: 600;
-            color: #93c5fd;
-            border-bottom: 2px solid var(--card-border);
+            background: var(--table-head-bg);
+            color: var(--table-head-text);
+            font-weight: 700;
+            padding: 10px 12px;
+            border: 1px solid var(--table-border);
+            border-bottom: 2px solid #94a3b8;
+            text-align: left;
+            vertical-align: middle;
         }
 
         td {
-            padding: 10px 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: #e5e7eb;
+            padding: 9px 12px;
+            border: 1px solid var(--table-border);
+            color: var(--text-main);
+            vertical-align: top;
         }
 
         tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--table-hover);
         }
 
-        /* 인용구(Blockquote) 스타일링 */
+        /* 타 부서 자료보완 / 현행화 확인 필요 표시 (Word COLOR=#EE0000 1:1 매핑) */
+        .review-red {
+            color: var(--review-red) !important;
+        }
+
+        body.highlight-review .review-red {
+            background-color: rgba(238, 0, 0, 0.09);
+            box-shadow: 0 0 0 2px rgba(238, 0, 0, 0.15);
+            border-radius: 3px;
+            padding: 1px 3px;
+        }
+
+        tr.review-row td {
+            background-color: var(--review-row-bg);
+        }
+
+        @keyframes pulseFocus {
+            0% { background-color: #fef08a; box-shadow: 0 0 0 6px #fef08a; }
+            100% { background-color: transparent; box-shadow: none; }
+        }
+
+        .jump-focus {
+            animation: pulseFocus 2.2s ease-out;
+            border-radius: 4px;
+        }
+
+        /* 인용구(Blockquote) */
         blockquote {
             border-left: 4px solid var(--primary);
-            background: rgba(59, 130, 246, 0.05);
-            padding: 16px 20px;
-            margin: 20px 0;
+            background: var(--quote-bg);
+            padding: 14px 18px;
+            margin: 18px 0;
             border-radius: 0 8px 8px 0;
         }
-        
-        blockquote p {
-            margin-bottom: 0;
-            color: #93c5fd;
-            font-weight: 500;
+
+        blockquote p, blockquote li {
+            color: var(--quote-text);
+            margin-bottom: 4px;
         }
 
-        /* 수평선 스타일 */
         hr {
             border: 0;
             height: 1px;
-            background: rgba(255, 255, 255, 0.08);
-            margin: 30px 0;
+            background: var(--table-border);
+            margin: 28px 0;
         }
 
-        /* Mermaid 코드블럭 또는 일반 이미지 렌더링 스타일 */
+        .mermaid {
+            background: #f8fafc;
+            border: 1px solid var(--table-border);
+            border-radius: 8px;
+            padding: 18px;
+            margin: 14px 0 22px;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        [data-theme="dark"] .mermaid {
+            background: rgba(15, 23, 42, 0.6);
+        }
+
         img {
             max-width: 100%;
             height: auto;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid var(--table-border);
+            margin: 16px 0;
         }
 
-        /* 각주 / 미주 (Footnotes) 스타일 */
         .footnote {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.15);
-            font-size: 0.88rem;
+            margin-top: 36px;
+            padding-top: 18px;
+            border-top: 1px dashed var(--table-border);
+            font-size: 0.86rem;
             color: var(--text-muted);
         }
 
-        .footnote ol {
-            padding-left: 20px;
-        }
-
-        .footnote li {
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .footnote-ref {
-            color: var(--primary);
-            font-weight: bold;
-            text-decoration: none;
-            padding: 0 2px;
-        }
-
-        .footnote-ref:hover {
-            text-decoration: underline;
-        }
-
-        .footnote-backref {
-            color: var(--primary);
-            text-decoration: none;
-            margin-left: 5px;
-        }
-
-        /* 꼬리말 */
-        footer {
+        footer.doc-footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 36px;
             color: var(--text-muted);
             font-size: 0.8rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 25px;
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+            }
+            .doc-toolbar {
+                display: none !important;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .report-card {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="nav-back">
-        <a href="../../README.html">← 메인 README 메인 화면으로 돌아가기</a>
+<div class="doc-toolbar">
+    <div class="toolbar-inner">
+        <div class="toolbar-left">
+            <a class="nav-back-link" href="../README.html">← 전체 문서 목록(README)</a>
+            <span class="doc-badge">대구 수성알파시티 AIDC & 피지컬 AI 로봇 트레이닝 센터 기획</span>
+        </div>
+        <div class="toolbar-actions">
+            
+            <button type="button" class="t-btn" id="themeToggleBtn" onclick="toggleTheme()">다크 모드</button>
+            <button type="button" class="t-btn" onclick="window.print()">인쇄 / PDF 저장</button>
+        </div>
     </div>
+    
+</div>
 
+<div class="container">
     <div class="report-card">
         <header>
-            <span class="meta-tag">공동 사업 기획 기획 검토서</span>
             <h1>[총괄 요약 리포트] 대구 수성알파시티 AIDC & 피지컬 AI 프로젝트 전체 산출물 가이드 및 링크 모음</h1>
         </header>
 
-        <main>
+        <main id="docContent">
             <ul>
 <li><strong>문서 구분</strong>: 프로젝트 전체 산출물 요약 리포트 (Master Document Index &amp; Summary Report)</li>
 <li><strong>대상 디렉터리</strong>: <code>docs/akamai_ncp/daegu_suseong_aidc/</code> (총 11종 핵심 문서 세트 · 33개 파일)</li>
 <li><strong>최종 업데이트</strong>: 2026년 11월 14일</li>
 </ul>
-<hr />
+<hr/>
 <h2>1. 미팅 및 목적별 빠른 선택 가이드 (Quick Start)</h2>
-<p>회의 참석 대상과 보안 수준에 따라 아래 <strong>권장 문서 세트</strong>를 즉시 선택하여 활용하십시오.<br />
-- <strong>🟢 대외용 문서</strong>: 사내 수익률(IRR/영업이익), JB동탄 DC, AWS 내부 매입 전환, 부지 시세차익·지식산업센터 분양 수익 및 특정 인명이 <strong>100% 배제</strong>된 안전한 대외 협력 문서입니다.<br />
+<p>회의 참석 대상과 보안 수준에 따라 아래 <strong>권장 문서 세트</strong>를 즉시 선택하여 활용하십시오.<br/>
+- <strong>🟢 대외용 문서</strong>: 사내 수익률(IRR/영업이익), JB동탄 DC, AWS 내부 매입 전환, 부지 시세차익·지식산업센터 분양 수익 및 특정 인명이 <strong>100% 배제</strong>된 안전한 대외 협력 문서입니다.<br/>
 - <strong>🔴 사내 대외비 문서</strong>: 메가존클라우드 내부 투자심의, PF 금융 구조화, 부지 복합개발 분양 수익 보전 및 AWS 매입 오프로딩 손익 시뮬레이션을 담은 내부 전략 문서입니다.</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align: left;">활용 상황 / 대상</th>
@@ -285,7 +563,13 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>[🆕 최신] 대구시 · KIRIA · 사업단 발표 PPT</strong><br/><em>(11.16 회의 반영 14장 슬라이드 &amp; PPTX)</em></td>
+<td style="text-align: left;"><strong>[🆕 11.22 정본] 공무원 공식 제출 · 브리핑용</strong><br/><em>(대구시 피드백 4부 체계·3,000평·부록/용어/참고문헌)</em></td>
+<td style="text-align: left;"><strong><a href="./2026-11-22_daegu_aidc_formal_proposal_for_officials.html">★ 11.22 공무원용 공식 사업구상서 (HTML)</a></strong> (<a href="./2026-11-22_daegu_aidc_formal_proposal_for_officials.docx">Word</a>)</td>
+<td style="text-align: left;"><strong><a href="./2026-11-22_daegu_aidc_formal_proposal_ppt.html">★ 11.22 발표용 요약 12장 PPT (HTML)</a></strong> (<a href="./2026-11-22_daegu_aidc_formal_proposal_ppt.md">MD</a> | <a href="./2026-11-22_daegu_aidc_formal_proposal_ppt.docx">DOCX</a>)</td>
+<td style="text-align: center;">🟢 대외용</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>[11.17 통합] 대구시 · KIRIA · 사업단 발표 PPT</strong><br/><em>(11.16 회의 반영 14장 슬라이드 &amp; PPTX)</em></td>
 <td style="text-align: left;"><strong><a href="./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_ppt.html">★ 11.17 통합 생태계 16:9 웹 PPT (HTML)</a></strong></td>
 <td style="text-align: left;"><strong><a href="./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_ppt.pptx">PPTX 파워포인트 다운로드</a></strong> | <strong><a href="./2026-11-17_daegu_aidc_ecosystem_and_kiria_master_ppt.md">MD</a></strong></td>
 <td style="text-align: center;">🟢 대외용</td>
@@ -321,10 +605,10 @@
 <td style="text-align: center;">🔴 사내대외비</td>
 </tr>
 </tbody>
-</table>
-<hr />
+</table></div>
+<hr/>
 <h2>2. 전체 산출물(11종) 한눈에 보기 요약표</h2>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align: center;">번호</th>
@@ -413,19 +697,21 @@
 <td style="text-align: left;">프로젝트 초기 기초 조사 보고서. 수성알파시티 입지 여건, 전력·통신 인프라 현황, 국내외 로봇 트레이닝 센터 벤치마킹 및 초기 정책 부합성 분석</td>
 </tr>
 </tbody>
-</table>
-<hr />
+</table></div>
+<hr/>
 <h2>3. 카테고리별 각 파일 상세 요약</h2>
 <h3>A. [2026-11-14 신규] 월요일 대구시 기계로봇과 제안 패키지 (대외용 2종)</h3>
 <h4>① <code>2026-11-14_daegu_robot_division_monday_proposal_ppt</code> (16:9 발표용 PPT 슬라이드)</h4>
 <ul>
 <li><strong>파일 링크</strong>: <a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.html">HTML 슬라이드 쇼</a> | <a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.docx">DOCX</a> | <a href="./2026-11-14_daegu_robot_division_monday_proposal_ppt.md">MD</a></li>
 <li><strong>형태 및 기능</strong>: <code>1600×900</code> 고정 16:9 비율 자동 스케일링 풀스크린 프레젠테이션 앱 (발표자 노트 <code>N</code>, 레이저 포인터 <code>L</code>, 회의실 밝은 테마 전환 <code>T</code>, 목차 <code>M</code>, 전체화면 <code>F</code> 지원).</li>
-<li><strong>핵심 요약</strong>:</li>
+<li class="has-sublist"><strong>핵심 요약</strong>:<ol>
 <li><strong>중복성 심사 회피 논리</strong>: 신규 시설 중복 건립이 아니라 기존 국책사업(국가로봇테스트필드·안전인증·R&amp;D)을 <strong>‘KIRIA 1:1 전문가 매칭 + 수성 AIDC 공유자원 활용’</strong>으로 전환해 고도화하는 명분 제시.</li>
 <li><strong>플랫폼 서비스</strong>: 수집 후 정제·표준화(<code>RLDS/LeRobot</code>) 기반 <strong>로봇 훈련 데이터 서비스(DaaS)</strong> 및 <strong>한국형 로봇 파운데이션 모델(K-RFM)</strong> 보급.</li>
 <li><strong>듀얼 Sim-to-Real</strong>: 정밀 물리·강화학습(<strong><code>NVIDIA Isaac Sim</code></strong>)과 CAD 경량화·초실사 비전·군중 HRI·VR 원격조작 및 지역 개발자 흡수(<strong><code>Unity</code></strong>) 결합.</li>
 <li><strong>통합 데이터 팩토리 정량 설계</strong>: 로봇 대당 쓰루풋(<code>150~550 Mbps</code>, <code>0.5~1.9 TB/일</code>) 및 대구 City DT 4대 수집 채널(<code>~65 TB/일</code>) 산출 기반 <strong>유효용량 <code>45 PB</code> 3-Tier 스토리지 + <code>100~400G</code> 전용 광망</strong> 아키텍처 제시.</li>
+</ol>
+</li>
 </ul>
 <h4>② <code>2026-11-14_daegu_robot_division_monday_proposal_narrative</code> (서술형 DOCX 문서 형태)</h4>
 <ul>
@@ -433,17 +719,19 @@
 <li><strong>형태 및 기능</strong>: MS Word A4 7페이지 문서와 동일한 레이아웃을 웹 브라우저에서 구현한 서술형 보고서 뷰어 (상단 리본 바, 장별 이동, 글자 크기 조절, A4 인쇄 최적화 탑재).</li>
 <li><strong>핵심 요약</strong>: ①번 PPT의 개조식 핵심 키워드를 대구시 주무관 및 진흥원 실무자가 회의 후 그대로 공문·기획안 초안으로 인용할 수 있도록 <strong>배경 논리 → 전환 프로세스 → 서비스 구조 → 듀얼 엔진 아키텍처 → 쓰루풋·스토리지 산정 근거 → 단계별 로드맵(전 6장)</strong> 순의 완결된 서술형 문장으로 상세 기술한 문서.</li>
 </ul>
-<hr />
+<hr/>
 <h3>B. [2026-11-14 신규] MZC 사내 전용 투자·수익성·앵커 전략서 (사내 대외비)</h3>
 <h4>③ <code>2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw</code></h4>
 <ul>
 <li><strong>파일 링크</strong>: <a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.html">HTML 뷰어</a> | <a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.docx">DOCX</a> | <a href="./2026-11-14_mzc_internal_strategy_land_aws_offload_and_hybrid_10mw.md">MD</a></li>
-<li><strong>핵심 요약</strong>:</li>
+<li class="has-sublist"><strong>핵심 요약</strong>:<ol>
 <li><strong>부지 가치 및 복합개발 수익 보전</strong>: 대구시가 조성원가(<code>약 180~270억</code>) 수준에 매각 검토 중인 수성지구 <code>4,000~6,000평</code> 부지(시세 약 3배 상승, 평가차익 담보력 확보) 중 동대구역 인접 입지를 살려 <strong>지식산업센터 분양(<code>순분양익 약 +330억 원</code>으로 AIDC 초기 CapEx 상쇄)</strong> 및 <strong>R&amp;D 오피스 임대(<code>연 +40~48억 원</code> NOI)</strong>를 병행하는 복합개발 모델 검증.</li>
 <li><strong>AWS 매입 컴퓨트 전환 손익 점검</strong>: MZC 전체 매출 중 약 80%를 차지하는 AWS 사업(매출 <code>약 1.2조 원</code>, 순수 컴퓨트 원가 <code>약 5,800억 원</code> 추정)에서 1/4(<code>25% = 1,450억 원</code>)은 약 <code>9~10MW</code> 규모에 해당함을 규명. 즉 <strong>AWS 컴퓨트 매입의 단 <code>10%</code>만 별도 대구 AIDC 법인으로 오프로딩해도 자체 수요 <code>5MW</code>가 즉시 100% 완판</strong>되며, 그룹 연결 영업이익이 <strong><code>연간 약 +365억 원</code> 극대화</strong>됨과 동시에 AWS EDP 할인 협상력 강화 및 해외 네오클라우드·대형 테넌트 유치(‘선 채움 후 고수익 교체’) 레버리지로 작동함을 입증.</li>
 <li><strong><code>5MW + 5MW</code> 스윙 구조 &amp; <code>45PB</code> 스토리지 사업성</strong>: 대구 공공·로봇 수요 부족 시 MZC 자체 물량을 <code>6~7MW</code>로 탄력 확대하는 무공실 안전판과, <code>45PB</code> 데이터 팩토리 추가 투자(<code>약 200억 원</code>)를 통한 연간 <code>65~95억 원</code> 고마진 DaaS 부가수익 구조 제시.</li>
+</ol>
+</li>
 </ul>
-<hr />
+<hr/>
 <h3>C. [2026-11-12 구축] KIRIA 미팅 패키지 · 예산/PF 분석 · 26대 사업 풀 (5종)</h3>
 <h4>④ <code>2026-11-12_kiria_1st_meeting_presentation_deck</code> (KIRIA 1차 미팅 10장 발표장표)</h4>
 <ul>
@@ -470,7 +758,7 @@
 <li><strong>파일 링크</strong>: <a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.html">HTML 뷰어</a> | <a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.docx">DOCX</a> | <a href="./2026-11-12_daegu_aidc_kiria_meeting_and_5mw_business_ideation.md">MD</a></li>
 <li><strong>핵심 요약</strong>: 대구시 기계로봇과 공유 PDF(27면) 내 9대 로봇 국책사업 각각의 예산 구조와 컨소시엄 확정 여부를 정밀 검증하고, 수성 AIDC 5MW를 채울 수 있는 <strong>6대 분야 총 26개 신규 사업 아이디어 풀(백과사전)</strong>을 집대성한 기획 원천 문서.</li>
 </ul>
-<hr />
+<hr/>
 <h3>D. 기본 본 제안서 및 기초 기술·선행조사 문서 (3종)</h3>
 <h4>⑨ <code>daegu_suseong_robot_training_center_proposal</code> (통합 본 제안서 V2.1)</h4>
 <ul>
@@ -487,7 +775,7 @@
 <li><strong>파일 링크</strong>: <a href="./daegu_aidc_physical_ai_preliminary_study.html">HTML 뷰어</a> | <a href="./daegu_aidc_physical_ai_preliminary_study.docx">DOCX</a> | <a href="./daegu_aidc_physical_ai_preliminary_study.md">MD</a></li>
 <li><strong>핵심 요약</strong>: 대구 수성알파시티 AIDC 추진 배경, 국내외 피지컬 AI 로봇 트레이닝 센터 구축 동향 및 초기 정책·시장 타당성을 정리한 기초 리서치 자료.</li>
 </ul>
-<hr />
+<hr/>
 <h2>4. 연관 작업계획서(Plans) · 변경명세서(Specs) · 상위 README 링크</h2>
 <ul>
 <li><strong>상위 워크스페이스 통합 README</strong>: <a href="../README.html">docs/akamai_ncp/README.html</a> (<a href="../README.md">MD</a> | <a href="../README.docx">DOCX</a>)</li>
@@ -497,10 +785,39 @@
         </main>
     </div>
 
-    <footer>
-        <p>© 2026 AKAMAI & NVIDIA & MZC HYBRID PROJECT COOPERATIVE GROUP.</p>
+    <footer class="doc-footer">
+        <p>© 2026 MEGAZONECLOUD CORP. — 대구 AIDC & Physical AI 추진 TF</p>
     </footer>
 </div>
 
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const btn = document.getElementById('themeToggleBtn');
+        if (html.getAttribute('data-theme') === 'dark') {
+            html.setAttribute('data-theme', 'light');
+            btn.textContent = '다크 모드';
+        } else {
+            html.setAttribute('data-theme', 'dark');
+            btn.textContent = '라이트 모드(문서형)';
+        }
+    }
+
+    function toggleReviewHighlight(btn) {
+        document.body.classList.toggle('highlight-review');
+        btn.classList.toggle('active-hl');
+    }
+
+    function jumpToReview(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const y = el.getBoundingClientRect().top + window.pageYOffset - 120;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        const target = el.closest('tr') || el.closest('li') || el.closest('p') || el;
+        target.classList.remove('jump-focus');
+        void target.offsetWidth;
+        target.classList.add('jump-focus');
+    }
+</script>
 </body>
 </html>
