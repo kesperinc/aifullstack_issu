@@ -10,12 +10,12 @@
             --bg-outer: #070b14;
             --slide-bg: #0f172a;
             --slide-bg2: #111c33;
-            --panel-bg: rgba(30, 41, 59, 0.78);
-            --panel-alt: rgba(15, 23, 42, 0.88);
-            --panel-border: rgba(148, 163, 184, 0.24);
+            --panel-bg: rgba(30, 41, 59, 0.80);
+            --panel-alt: rgba(15, 23, 42, 0.90);
+            --panel-border: rgba(148, 163, 184, 0.26);
             --text-strong: #f8fafc;
             --text-body: #e2e8f0;
-            --text-muted: #94a3b8;
+            --text-muted: #cbd5e1;
             --blue: #38bdf8;
             --blue-solid: #2563eb;
             --emerald: #34d399;
@@ -50,7 +50,7 @@
             word-break: keep-all;
         }
         .progress-track { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: rgba(148,163,184,0.18); z-index: 200; }
-        .progress-fill { height: 100%; width: 8.33%; background: linear-gradient(90deg, #2563eb, #10b981); transition: width 0.25s ease; }
+        .progress-fill { height: 100%; width: 7.14%; background: linear-gradient(90deg, #2563eb, #10b981); transition: width 0.25s ease; }
         .stage-wrap { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; padding-bottom: 54px; }
         .ppt-canvas { width: 1600px; height: 900px; position: relative; transform-origin: center center; }
         .slide {
@@ -59,56 +59,57 @@
                         radial-gradient(circle at 12% 88%, rgba(16, 185, 129, 0.10), transparent 38%),
                         linear-gradient(145deg, var(--slide-bg) 0%, var(--slide-bg2) 100%);
             border: 1px solid var(--panel-border); border-radius: 18px;
-            box-shadow: var(--shadow); padding: 40px 54px 32px;
+            box-shadow: var(--shadow); padding: 36px 52px 28px;
             display: none; flex-direction: column; justify-content: space-between; overflow: hidden;
         }
         .slide.active { display: flex; animation: slideIn 0.2s ease-out; }
         @keyframes slideIn { from { opacity: 0.45; transform: scale(0.992); } to { opacity: 1; transform: scale(1); } }
 
-        .s-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--panel-border); padding-bottom: 14px; margin-bottom: 18px; }
+        .s-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--panel-border); padding-bottom: 12px; margin-bottom: 16px; }
         .s-kicker {
-            display: inline-block; font-size: 14.5px; font-weight: 800; color: var(--blue);
-            background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35);
-            padding: 4px 13px; border-radius: 999px; margin-bottom: 7px;
+            display: inline-block; font-size: 16.5px; font-weight: 800; color: var(--blue);
+            background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px; border-radius: 999px; margin-bottom: 7px;
         }
-        .s-title { font-size: 33px; font-weight: 900; color: var(--text-strong); line-height: 1.24; letter-spacing: -0.02em; }
-        .s-page { font-size: 16px; font-weight: 800; color: var(--text-muted); background: var(--panel-alt); border: 1px solid var(--panel-border); padding: 6px 14px; border-radius: 10px; white-space: nowrap; }
+        .s-title { font-size: 38px; font-weight: 900; color: var(--text-strong); line-height: 1.22; letter-spacing: -0.02em; }
+        .s-page { font-size: 18px; font-weight: 800; color: var(--text-muted); background: var(--panel-alt); border: 1px solid var(--panel-border); padding: 7px 15px; border-radius: 10px; white-space: nowrap; }
         .s-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-        .s-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--panel-border); font-size: 14px; color: var(--text-muted); font-weight: 600; }
+        .s-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid var(--panel-border); font-size: 16px; color: var(--text-muted); font-weight: 600; }
 
         .g-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .g-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
         .g-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
         .g-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-        .g-2-1 { display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px; }
 
         .ppt-card {
             background: var(--panel-bg); border: 1.5px solid var(--panel-border);
-            border-radius: 14px; padding: 20px 22px; display: flex; flex-direction: column; gap: 9px;
+            border-radius: 14px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px;
         }
-        .ppt-card h3 { font-size: 21px; font-weight: 800; color: var(--text-strong); line-height: 1.3; }
-        .ppt-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .ppt-list li { position: relative; padding-left: 18px; font-size: 17.5px; line-height: 1.44; color: var(--text-body); }
+        .ppt-card h3 { font-size: 24px; font-weight: 800; color: var(--text-strong); line-height: 1.28; }
+        .ppt-card p { font-size: 19.5px; line-height: 1.46; color: var(--text-body); }
+        .ppt-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+        .ppt-list li { position: relative; padding-left: 20px; font-size: 20px; line-height: 1.45; color: var(--text-body); }
         .ppt-list li::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-weight: 900; }
         .ppt-list strong { color: var(--text-strong); }
 
-        .pill { display: inline-block; width: fit-content; font-size: 13.5px; font-weight: 800; padding: 3px 10px; border-radius: 6px; }
+        .pill { display: inline-block; width: fit-content; font-size: 15.5px; font-weight: 800; padding: 4px 11px; border-radius: 6px; }
         .pill-blue { background: rgba(37, 99, 235, 0.22); color: var(--blue); }
         .pill-green { background: rgba(16, 185, 129, 0.2); color: var(--emerald); }
         .pill-purple { background: rgba(168, 85, 247, 0.2); color: var(--purple); }
         .pill-amber { background: rgba(245, 158, 11, 0.2); color: var(--amber); }
         .pill-rose { background: rgba(244, 63, 94, 0.2); color: var(--rose); }
 
-        .big-num { font-size: 40px; font-weight: 900; line-height: 1.1; }
+        .big-num { font-size: 46px; font-weight: 900; line-height: 1.1; }
         .banner {
             background: linear-gradient(90deg, rgba(37,99,235,0.22), rgba(16,185,129,0.16));
             border: 1.5px solid rgba(56,189,248,0.4); border-radius: 12px;
-            padding: 14px 22px; font-size: 18.5px; font-weight: 700; color: var(--text-strong);
+            padding: 14px 22px; font-size: 21px; font-weight: 700; color: var(--text-strong); line-height: 1.4;
         }
 
         .ppt-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--panel-border); }
-        .ppt-table th { background: var(--panel-alt); color: var(--text-strong); font-size: 17px; font-weight: 800; padding: 12px 15px; text-align: left; border-bottom: 2px solid var(--blue); }
-        .ppt-table td { background: var(--panel-bg); color: var(--text-body); font-size: 16.8px; padding: 12px 15px; border-bottom: 1px solid var(--panel-border); line-height: 1.42; vertical-align: middle; }
+        .ppt-table th { background: var(--panel-alt); color: var(--text-strong); font-size: 20px; font-weight: 800; padding: 12px 15px; text-align: left; border-bottom: 2px solid var(--blue); }
+        .ppt-table td { background: var(--panel-bg); color: var(--text-body); font-size: 19.2px; padding: 11px 15px; border-bottom: 1px solid var(--panel-border); line-height: 1.42; vertical-align: middle; }
+        code { font-family: 'Consolas', monospace; font-size: 0.92em; color: var(--blue); font-weight: 700; }
 
         .presenter-dock {
             position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
@@ -119,28 +120,28 @@
         }
         .dock-btn {
             appearance: none; border: 1px solid rgba(148, 163, 184, 0.25); background: rgba(30, 41, 59, 0.85);
-            color: #e2e8f0; font-family: inherit; font-size: 13px; font-weight: 700;
+            color: #e2e8f0; font-family: inherit; font-size: 13.5px; font-weight: 700;
             padding: 6px 11px; border-radius: 999px; cursor: pointer; text-decoration: none; white-space: nowrap;
         }
         .dock-btn:hover { background: #2563eb; color: #fff; border-color: #38bdf8; }
         .dock-btn.active-btn { background: #059669; color: #fff; border-color: #34d399; }
-        .dock-counter { font-size: 14px; font-weight: 800; color: #38bdf8; padding: 0 7px; min-width: 64px; text-align: center; }
+        .dock-counter { font-size: 14.5px; font-weight: 800; color: #38bdf8; padding: 0 7px; min-width: 68px; text-align: center; }
 
         .toc-drawer {
-            position: fixed; top: 18px; left: 18px; bottom: 72px; width: 350px;
+            position: fixed; top: 18px; left: 18px; bottom: 72px; width: 370px;
             background: rgba(15, 23, 42, 0.96); border: 1px solid rgba(148, 163, 184, 0.3);
             border-radius: 14px; padding: 18px; z-index: 350; display: none; flex-direction: column;
             overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
         }
         .toc-drawer.open { display: flex; }
-        .toc-item { padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; color: #cbd5e1; margin-bottom: 5px; border: 1px solid transparent; }
+        .toc-item { padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 14.5px; color: #cbd5e1; margin-bottom: 5px; border: 1px solid transparent; }
         .toc-item:hover { background: rgba(56, 189, 248, 0.14); color: #fff; }
         .toc-item.current { background: rgba(37, 99, 235, 0.32); border-color: #38bdf8; color: #fff; font-weight: 800; }
 
         .speaker-note-bar {
-            position: fixed; bottom: 68px; left: 50%; transform: translateX(-50%); width: min(1120px, 92vw);
+            position: fixed; bottom: 68px; left: 50%; transform: translateX(-50%); width: min(1140px, 92vw);
             background: rgba(15, 23, 42, 0.96); border: 1.5px solid #38bdf8; border-radius: 14px;
-            padding: 13px 20px; z-index: 290; display: none; color: #f8fafc; font-size: 15px; line-height: 1.55;
+            padding: 14px 20px; z-index: 290; display: none; color: #f8fafc; font-size: 16.5px; line-height: 1.55;
         }
         .speaker-note-bar.open { display: block; }
         #laserDot {
@@ -164,14 +165,14 @@
 
 <aside class="toc-drawer" id="tocDrawer">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <strong style="color:#fff; font-size:16px;">발표 슬라이드 목차 (12장)</strong>
+        <strong style="color:#fff; font-size:17px;">발표 슬라이드 목차 (14장)</strong>
         <button class="dock-btn" onclick="toggleToc()">닫기 ✕</button>
     </div>
     <div id="tocList"></div>
 </aside>
 
 <div class="speaker-note-bar" id="noteBar">
-    <div style="color:#38bdf8; font-weight:800; font-size:13px; margin-bottom:4px;">🎤 발표자 구두 브리핑 멘트 (N키로 숨기기)</div>
+    <div style="color:#38bdf8; font-weight:800; font-size:14px; margin-bottom:4px;">🎤 발표자 구두 브리핑 멘트 (N키로 숨기기)</div>
     <div id="noteContent"></div>
 </div>
 
@@ -179,42 +180,42 @@
     <div class="ppt-canvas deck-viewport" id="pptCanvas">
 
         <!-- SLIDE 01 -->
-        <section class="slide active" data-title="01. 표지: 대구 수성 AI DC 통합 구상" data-note="안녕하십니까. 대구시 실무 피드백을 반영하여 재정비한 수성알파시티 AI 데이터센터(초기 10MW에서 40MW 단계적 확대, 부지 약 3,000평) 구축 및 지역산업 생태계 조성 요약 브리핑을 시작하겠습니다.">
+        <section class="slide active" data-title="01. 표지: 대구 수성 AI DC 통합 구상" data-note="안녕하십니까. 기존 피지컬 AI·중복성 해소 전략과 대구시 실무 피드백을 종합 반영한 수성알파시티 AI 데이터센터 구축 및 통합 생태계 조성 요약 브리핑을 시작하겠습니다.">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="s-kicker">대구광역시 · KIRIA · DGIST 협력 브리핑 (v4.0 요약본)</span>
-                <span class="s-page">01 / 12</span>
+                <span class="s-kicker">대구광역시 · KIRIA · DGIST 협력 브리핑 (통합 요약본)</span>
+                <span class="s-page">01 / 14</span>
             </div>
             <div style="margin:auto 0;">
-                <div style="font-weight:800; font-size:19px; color:var(--emerald); letter-spacing:0.05em; margin-bottom:12px;">
+                <div style="font-weight:800; font-size:21px; color:var(--emerald); letter-spacing:0.05em; margin-bottom:12px;">
                     DAEGU SUSEONG ALPHA CITY · AI DATA CENTER &amp; PHYSICAL AI ECOSYSTEM
                 </div>
-                <h1 style="font-size:52px; font-weight:900; color:var(--text-strong); line-height:1.24; margin-bottom:22px;">
+                <h1 style="font-size:56px; font-weight:900; color:var(--text-strong); line-height:1.22; margin-bottom:22px;">
                     대구 수성알파시티 AI 데이터센터 구축 및<br/>
                     피지컬 AI · 지역산업 통합 생태계 조성 방안
                 </h1>
-                <p style="font-size:22px; color:var(--text-muted); line-height:1.5; margin-bottom:34px;">
-                    수성알파시티 <strong>약 3,000평</strong> 부지 · 연내 <strong>10MW 사전 MOU</strong> 추진 · 앵커기업 1:1 맞춤형 구축
+                <p style="font-size:24px; color:var(--text-muted); line-height:1.5; margin-bottom:34px;">
+                    수성알파시티 <strong>약 3,000평</strong> 부지 · 초기 <strong>10MW → 40MW</strong> 단계적 확장 · 연내 <strong>사전 MOU</strong> 추진
                 </p>
                 <div class="g-4">
                     <div class="ppt-card" style="border-top:5px solid var(--blue);">
                         <span class="pill pill-blue">제1부 · 비전 &amp; 차별성</span>
                         <h3>5대 기능 AI 캠퍼스</h3>
-                        <p style="font-size:16.5px; color:var(--text-muted);">10→40MW 확대 · 앵커 1:1 사전 설계 · <strong>원본 반출 차단(Data Isolation)</strong></p>
+                        <p>앵커 1:1 맞춤형 설계 · <strong>원본 반출 차단(Data Isolation)</strong></p>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--emerald);">
-                        <span class="pill pill-green">제2부 · 데이터 확보(A)</span>
-                        <h3>10MW 30~50% 충족</h3>
-                        <p style="font-size:16.5px; color:var(--text-muted);">목표 데이터양 A(연 10~15PB) 정의 · <strong>Part 1(로봇) + Part 2(확장)</strong></p>
+                        <span class="pill pill-green">기존핵심 · 플랫폼</span>
+                        <h3>중복성 돌파 · K-RFM</h3>
+                        <p>전문가 매칭 전환 · DaaS · <strong>Isaac × Unity × 오픈소스</strong></p>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--purple);">
-                        <span class="pill pill-purple">제3부 · 대구시 기여</span>
-                        <h3>생태계 · 마켓 · 고용</h3>
-                        <p style="font-size:16.5px; color:var(--text-muted);">AI 멘토링 · 모델러 유치 · 대학 교육 · 수출 마켓 · <strong>150명+ 채용</strong></p>
+                        <span class="pill pill-purple">제2부 · 데이터 확보</span>
+                        <h3>10MW 30~50% 충족</h3>
+                        <p>목표량 A(연 10~15PB) · <strong>Part 1(로봇) + Part 2(확장)</strong></p>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--amber);">
-                        <span class="pill pill-amber">제4부 · MOU &amp; 요청</span>
-                        <h3>조기 MOU &amp; 인센티브</h3>
-                        <p style="font-size:16.5px; color:var(--text-muted);">연내 MOU 직후 상세 로드맵 · 부지·세제·전력·GPU 협조 건의</p>
+                        <span class="pill pill-amber">제3·4부 · 기여 &amp; MOU</span>
+                        <h3>생태계 · 마켓 · 인센티브</h3>
+                        <p>AI 멘토링 · 대학 교육 · 수출 마켓 · <strong>150명+ 채용</strong></p>
                     </div>
                 </div>
             </div>
@@ -225,41 +226,41 @@
         </section>
 
         <!-- SLIDE 02 -->
-        <section class="slide" data-title="02. [1부] 3,000평 5대 AI 캠퍼스 및 차별화 전략" data-note="1부 핵심입니다. 수성알파시티 약 3,000평 부지에 초기 10MW에서 40MW로 확장되는 본 센터는 단순 서버실이 아니라 AI DC, 피지컬 AI R&D, 로봇 훈련, 교육·Experience, 24/7 관제센터가 결합된 5대 기능 복합 캠퍼스입니다.">
+        <section class="slide" data-title="02. [1부] 3,000평 5대 AI 캠퍼스 및 차별화 전략" data-note="1부 핵심입니다. 수성알파시티 약 3,000평 부지에 초기 10MW에서 40MW로 확장되는 본 센터는 단순 전산실이 아니라 AI DC, 피지컬 AI R&D, 로봇 훈련, 교육·Experience, 24/7 관제센터가 결합된 5대 기능 복합 캠퍼스입니다.">
             <div class="s-top">
                 <div><span class="s-kicker">제1부 · 추진 비전 및 차별성</span><h2 class="s-title">약 3,000평 부지 ‘5대 기능 AI 캠퍼스’ 구성 및 차별화</h2></div>
-                <span class="s-page">02 / 12</span>
+                <span class="s-page">02 / 14</span>
             </div>
             <div class="s-body">
                 <div class="g-5">
                     <div class="ppt-card" style="border-top:4px solid var(--blue);">
                         <span class="pill pill-blue">센터 01</span>
                         <h3>코어 AI DC</h3>
-                        <p style="font-size:15.5px; color:var(--text-muted);">H200급 300~500대, 45PB 스토리지, 400G/800G 광패브릭</p>
+                        <p>H200급 300~500대, 45PB 스토리지, 400G/800G 광망</p>
                     </div>
                     <div class="ppt-card" style="border-top:4px solid var(--emerald);">
                         <span class="pill pill-green">센터 02</span>
                         <h3>피지컬 AI R&amp;D</h3>
-                        <p style="font-size:15.5px; color:var(--text-muted);">K-RFM · 자율제조 · 스마트시티 AI 산학연 공동연구</p>
+                        <p>K-RFM · 자율제조 · 스마트시티 공동연구 거점</p>
                     </div>
                     <div class="ppt-card" style="border-top:4px solid var(--purple);">
                         <span class="pill pill-purple">센터 03</span>
                         <h3>로봇 훈련 센터</h3>
-                        <p style="font-size:15.5px; color:var(--text-muted);">Isaac × Unity × 오픈소스 기반 로봇 지능 집중 훈련</p>
+                        <p>Isaac × Unity × 오픈소스 로봇 지능 집중 훈련</p>
                     </div>
                     <div class="ppt-card" style="border-top:4px solid var(--amber);">
                         <span class="pill pill-amber">센터 04</span>
                         <h3>교육·Experience</h3>
-                        <p style="font-size:15.5px; color:var(--text-muted);">전문가·재직자·일반인 교육 및 상설 AI 체험 쇼케이스</p>
+                        <p>전문가·시민 실무 교육 및 상설 AI 체험 쇼케이스</p>
                     </div>
                     <div class="ppt-card" style="border-top:4px solid var(--rose);">
                         <span class="pill pill-rose">센터 05</span>
                         <h3>24/7 운영·관제</h3>
-                        <p style="font-size:15.5px; color:var(--text-muted);">DC 무중단 운영 및 특화단지·도시 이동체 원격 안전관제</p>
+                        <p>DC 무중단 운영 및 특화단지·도시 이동체 안전관제</p>
                     </div>
                 </div>
                 <table class="ppt-table">
-                    <thead><tr><th style="width:18%;">비교 구분</th><th style="width:27%;">기존 일반 IDC</th><th style="width:25%;">타 지역 범용 AI DC</th><th style="width:30%;">대구 수성 AI 통합 캠퍼스</th></tr></thead>
+                    <thead><tr><th style="width:18%;">비교 구분</th><th style="width:27%;">기존 일반 IDC</th><th style="width:24%;">타 지역 범용 AI DC</th><th style="width:31%;">대구 수성 AI 통합 캠퍼스</th></tr></thead>
                     <tbody>
                         <tr><td><strong>사업 모델</strong></td><td>단순 상면·전력 임대</td><td>LLM용 GPU 시간 임대</td><td><strong>앵커 1:1 협업 + R&amp;D + 마켓플레이스 일괄 지원</strong></td></tr>
                         <tr><td><strong>설비·특화성</strong></td><td>저밀도 공랭식(`5~10kW`)</td><td>범용 텍스트·이미지 중심</td><td><strong>고밀도 액랭(`40~100kW+`) · 로봇/제조/도시/의료 특화</strong></td></tr>
@@ -271,33 +272,33 @@
         </section>
 
         <!-- SLIDE 03 -->
-        <section class="slide" data-title="03. [1부] 4단계 추진 순서(앵커 1:1) & 데이터 안심 격리" data-note="추진 순서 중 특히 2단계가 핵심입니다. 메가존이 지역 앵커기업과 1:1 프로젝트를 먼저 수행하며 대구 기업의 실 요구사항을 파악해 대구 맞춤형 AI DC를 사전 최적 준비합니다. 또한 원본 데이터는 절대 밖으로 나가지 않는 안심 격리 원칙을 적용합니다.">
+        <section class="slide" data-title="03. [1부] 4단계 추진 순서(앵커 1:1) & 데이터 안심 격리" data-note="추진 순서 중 2단계가 핵심입니다. 메가존이 지역 앵커기업과 1:1 프로젝트를 먼저 수행해 대구 기업의 실 요구사항을 파악하고 대구 맞춤형 AI DC를 사전 최적 준비합니다. 또한 원본 데이터는 밖으로 나가지 않는 안심 격리 원칙을 적용합니다.">
             <div class="s-top">
-                <div><span class="s-kicker">제1부 · 추진 순서 및 데이터 거버넌스</span><h2 class="s-title">앵커기업 1:1 사전 맞춤형 구축 순서 &amp; ‘데이터 안심 격리’</h2></div>
-                <span class="s-page">03 / 12</span>
+                <div><span class="s-kicker">제1부 · 추진 순서 및 데이터 거버넌스</span><h2 class="s-title">앵커기업 1:1 사전 맞춤형 구축 &amp; ‘데이터 안심 격리’</h2></div>
+                <span class="s-page">03 / 14</span>
             </div>
             <div class="s-body">
                 <div class="g-4">
-                    <div class="ppt-card"><span class="pill pill-blue">Step 1 (`26 연내)</span><h3>10MW 사전 MOU</h3><p style="font-size:16px;">공공 데이터 연계 및 국책과제 공동기획 공식 착수</p></div>
-                    <div class="ppt-card" style="border:2px solid var(--emerald); background:rgba(16,185,129,0.08);"><span class="pill pill-green">Step 2 (핵심 · 사전준비)</span><h3>앵커 1:1 협업·맞춤설계</h3><p style="font-size:16px;"><strong>지역 앵커기업과 1:1 프로젝트</strong> 수행 ➔ 실 요구사항 파악 · <strong>대구 맞춤형 최적 구축</strong></p></div>
-                    <div class="ppt-card"><span class="pill pill-purple">Step 3 (`27.상~`28)</span><h3>클라우드 브릿지 가동</h3><p style="font-size:16px;">완공 전 가용 클라우드 선연결 · 초기 핵심 데이터 축적</p></div>
-                    <div class="ppt-card"><span class="pill pill-amber">Step 4 (`29~`30+)</span><h3>10MW 준공 → 40MW</h3><p style="font-size:16px;">본 센터 무중단 이관 및 전국 기업 참여 허브 확장</p></div>
+                    <div class="ppt-card"><span class="pill pill-blue">Step 1 (`26 연내)</span><h3>10MW 사전 MOU</h3><p>공공 데이터 연계 및 국책과제 공동기획 착수</p></div>
+                    <div class="ppt-card" style="border:2px solid var(--emerald); background:rgba(16,185,129,0.08);"><span class="pill pill-green">Step 2 (핵심 · 사전준비)</span><h3>앵커 1:1 협업·맞춤설계</h3><p><strong>지역 앵커기업 1:1 프로젝트</strong> ➔ 실 요구사항 파악 · <strong>대구 맞춤형 최적 구축</strong></p></div>
+                    <div class="ppt-card"><span class="pill pill-purple">Step 3 (`27.상~`28)</span><h3>클라우드 브릿지</h3><p>완공 전 가용 클라우드 선연결 · 초기 데이터 축적</p></div>
+                    <div class="ppt-card"><span class="pill pill-amber">Step 4 (`29~`30+)</span><h3>10MW 준공 → 40MW</h3><p>본 센터 무중단 이관 및 소버린 AI 허브 확장</p></div>
                 </div>
-                <div class="g-2" style="margin-top:6px;">
+                <div class="g-2" style="margin-top:4px;">
                     <div class="ppt-card" style="border-left:6px solid var(--blue);">
                         <h3>🔒 데이터 안심 격리 (`Ingest Open / Raw Egress Block`)</h3>
                         <ul class="ppt-list">
-                            <li><strong>원본 데이터 유입만 허용</strong>, 대구 안심 존 외부 반출은 원천 차단</li>
-                            <li>외부로 나가는 것은 검증 완료된 <strong>‘AI 모델(Weights) · 서비스 API’</strong>뿐</li>
+                            <li><strong>원본 데이터 유입만 허용</strong>, 대구 안심 존 외부 반출 원천 차단</li>
+                            <li>외부 반출은 검증 완료된 <strong>‘AI 모델(Weights) · 서비스 API’</strong>뿐</li>
                             <li>메가존클라우드가 플랫폼 내 <strong>데이터 보안·비식별화 책임</strong> 전담</li>
                         </ul>
                     </div>
                     <div class="ppt-card" style="border-left:6px solid var(--emerald);">
                         <h3>🎁 데이터 기여 기업 상생 인센티브</h3>
                         <ul class="ppt-list">
-                            <li>현장 데이터를 제공하는 기업에 <strong>플랫폼·인프라 이용 비용 대폭 절감</strong></li>
-                            <li>기업 현장 애로를 해결하는 <strong>맞춤형 특화 AI 모델 개발 기술 지원</strong></li>
-                            <li>자발적 데이터 유입 ➔ 모델 고도화 ➔ 기업 재환원의 선순환 구조</li>
+                            <li>현장 데이터를 제공하는 기업에 <strong>플랫폼·인프라 이용 비용 절감</strong></li>
+                            <li>기업 현장 애로를 해결하는 <strong>맞춤형 특화 AI 모델 개발 지원</strong></li>
+                            <li>자발적 데이터 유입 ➔ 모델 고도화 ➔ 기업 재환원 선순환</li>
                         </ul>
                     </div>
                 </div>
@@ -306,34 +307,119 @@
         </section>
 
         <!-- SLIDE 04 -->
-        <section class="slide" data-title="04. [2부] 10MW 30~50% 가동 데이터양(A) 정의 및 역산" data-note="2부는 데이터 확보 검증입니다. 초기 10MW의 30~50% 핵심 자원을 상시 가동하기 위한 목표 데이터양 A를 연간 정제 10~15PB로 정의했습니다. 로봇 평균 일 1TB 기준 150~250대가 연 250일만 돌아도 충분히 나오는 수치입니다.">
+        <section class="slide" data-title="04. [기존핵심] 정부 중복성 돌파: 전문가 매칭 + 테스트필드 전환" data-note="기존 제안의 핵심 명분입니다. 신규 물리 시설 중복 건립이 아니라, KIRIA와 대학 교수진의 1:1 전문가 매칭과 수성 AIDC 공유 클라우드를 결합해 국가로봇테스트필드 등 기존 국책사업을 4단계로 고도화합니다.">
+            <div class="s-top">
+                <div><span class="s-kicker">기존 핵심 전략 ① · 정부 예산 유사·중복성 원천 해소</span><h2 class="s-title">‘전문가 매칭 + 공유 AIDC 전환’ 기반 테스트필드 4단계 고도화</h2></div>
+                <span class="s-page">04 / 14</span>
+            </div>
+            <div class="s-body">
+                <table class="ppt-table">
+                    <thead><tr><th style="width:20%;">비교 구분</th><th style="width:38%;">기존 개별 실증·R&amp;D 방식 (As-Is)</th><th style="width:42%;">제안 전환·고도화 모델 (To-Be)</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>예산 심의</strong></td><td>물리 장비·센터 신설 중심 (중복성 심의 부담)</td><td><strong>기 구축 물리 인프라(달성·DGIST) 성과 극대화 (중복성 해소)</strong></td></tr>
+                        <tr><td><strong>참여·장비</strong></td><td>기업 단독 신청 · 과제별 워크스테이션 분산 구매</td><td><strong>KIRIA·교수진 1:1 매칭 + 수성 AIDC 공유 GPU 공동 할당</strong></td></tr>
+                        <tr><td><strong>결과물</strong></td><td>단발성 물리 성적서 발급 · 외장하드 데이터 사장</td><td><strong>공인 성적서 + 재학습 완료 고도화 AI 모델(Weights) 반환</strong></td></tr>
+                    </tbody>
+                </table>
+                <div class="g-4">
+                    <div class="ppt-card"><span class="pill pill-blue">Step 1 · 설계 진단</span><h3>전문가 1:1 매칭</h3><p>KIRIA·교수진·MZC가 시나리오·계측 공동 설계</p></div>
+                    <div class="ppt-card"><span class="pill pill-green">Step 2 · 사전 검증</span><h3>가상 사전실증</h3><p>수성 AIDC 디지털트윈에서 충돌·오류 사전 교정</p></div>
+                    <div class="ppt-card"><span class="pill pill-purple">Step 3 · 물리 실증</span><h3>전용망 자동 수집</h3><p>달성 물리 실증 데이터를 `100~400G` 망으로 실시간 수집</p></div>
+                    <div class="ppt-card"><span class="pill pill-amber">Step 4 · 지능 반환</span><h3>AI 재학습·OTA</h3><p>엣지케이스 재학습 후 개선 모델 기업 반환</p></div>
+                </div>
+            </div>
+            <div class="s-footer"><span>기존 핵심 · 달성(물리 Body) × 수성(AI Brain) Twin-Hub</span><span>중복성 심사 돌파 논리</span></div>
+        </section>
+
+        <!-- SLIDE 05 -->
+        <section class="slide" data-title="05. [기존핵심] DaaS · VLA 통합 K-RFM · 휴머노이드 가상 사전인증" data-note="수성 AIDC에서 제공하는 3대 핵심 피지컬 AI 플랫폼 서비스입니다. 1ms 정밀 동기화 기반 훈련 데이터 DaaS, 비전·언어·행동 통합 K-RFM 및 월드 모델, 그리고 10만 회 병렬 충돌·사이버보안 가상 사전인증 체계를 구축합니다.">
+            <div class="s-top">
+                <div><span class="s-kicker">기존 핵심 전략 ② · 3대 피지컬 AI 플랫폼 서비스</span><h2 class="s-title">훈련 데이터(DaaS) · K-RFM(VLA) · 휴머노이드 가상 사전인증</h2></div>
+                <span class="s-page">05 / 14</span>
+            </div>
+            <div class="s-body">
+                <div class="g-3">
+                    <div class="ppt-card" style="border-top:5px solid var(--blue);">
+                        <span class="pill pill-blue">서비스 01 · DaaS</span>
+                        <h3>로봇 훈련 데이터 서비스</h3>
+                        <ul class="ppt-list">
+                            <li>멀티모달 센서 <strong>`1ms` 정밀 시간 동기화</strong> · 결측 자동 정제</li>
+                            <li>비식별화 후 <strong>`RLDS · LeRobot`</strong> 글로벌 표준 패키징</li>
+                            <li>희귀·위험 상황 물리 기반 <strong>합성 데이터 100배 증강</strong></li>
+                        </ul>
+                    </div>
+                    <div class="ppt-card" style="border-top:5px solid var(--emerald);">
+                        <span class="pill pill-green">서비스 02 · K-RFM</span>
+                        <h3>VLA 통합 파운데이션 모델</h3>
+                        <ul class="ppt-list">
+                            <li>시각·언어·물리 행동 통합 <strong>VLA 및 월드 모델(`Cosmos`)</strong> 호스팅</li>
+                            <li>소량 시연 업로드만으로 <strong>Low-Code 미세조정</strong></li>
+                            <li>로봇 칩셋(`Jetson/NPU`) <strong>양자화 경량화 및 OTA 배포</strong></li>
+                        </ul>
+                    </div>
+                    <div class="ppt-card" style="border-top:5px solid var(--purple);">
+                        <span class="pill pill-purple">서비스 03 · 인증 클라우드</span>
+                        <h3>휴머노이드 가상 사전인증</h3>
+                        <ul class="ppt-list">
+                            <li>실물 파손 없는 <strong>10만 회 병렬 충돌·낙상 안전성</strong> 검증</li>
+                            <li>센서 스푸핑·해킹 방어 <strong>EU CRA 사이버보안</strong> 가상 심사</li>
+                            <li>저신뢰 외산 로봇 유입 방지 및 국산 인증 기간 절반 단축</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="s-footer"><span>기존 핵심 · DaaS · K-RFM · 가상 사전인증</span><span>중소 로봇기업 AI 전환 가속</span></div>
+        </section>
+
+        <!-- SLIDE 06 -->
+        <section class="slide" data-title="06. [기존핵심] 시뮬레이션 3원화: Isaac × Unity × 오픈소스" data-note="시뮬레이션 플랫폼은 특정 툴에 종속되지 않고 3원화합니다. 정밀 물리의 NVIDIA Isaac Sim, CAD 경량화·HRI·VR 원격조작 및 지역 게임·XR 인력 흡수가 가능한 Unity, 그리고 라이선스 부담이 없는 MuJoCo·Gazebo 등 오픈소스를 OpenUSD로 통합 지원합니다.">
+            <div class="s-top">
+                <div><span class="s-kicker">기존 핵심 전략 ③ · 멀티 시뮬레이션 3원화</span><h2 class="s-title"><code>NVIDIA Isaac</code> × <code>Unity</code> × <code>오픈소스</code> 상호보완 시뮬레이션</h2></div>
+                <span class="s-page">06 / 14</span>
+            </div>
+            <div class="s-body">
+                <table class="ppt-table">
+                    <thead><tr><th style="width:20%;">시뮬레이션 축</th><th style="width:24%;">핵심 솔루션</th><th style="width:30%;">주력 역할 및 기술 강점</th><th style="width:26%;">기업 · 대구 생태계 효과</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>정밀 물리 · RL</strong></td><td><code>NVIDIA Isaac Sim/Lab</code></td><td>`PhysX 5` 다관절 접촉 동역학 및 GPU 수천 병렬 강화학습</td><td>휴머노이드 보행 · 양팔 정밀 파지 정책 초고속 훈련</td></tr>
+                        <tr><td><strong>DT · HRI · XR</strong></td><td><code>Unity Industry / Pixyz</code></td><td>대용량 CAD 경량화, `HDRP` 실사 비전, 군중 HRI, VR 원격조작</td><td><strong>수성알파시티 게임·XR·유니티 인력 즉시 흡수</strong></td></tr>
+                        <tr><td><strong>오픈소스 표준</strong></td><td><code>MuJoCo · Gazebo · ROS 2</code></td><td>상용 라이선스 비용 제로 글로벌 표준 물리 엔진 컨테이너</td><td><strong>중소기업·스타트업·대학 라이선스 진입장벽 제거</strong></td></tr>
+                        <tr><td><strong>공통 에셋 표준</strong></td><td><code>OpenUSD &amp; URDF</code></td><td>단일 3D 에셋 공유 및 이기종 물리엔진 간 교차 검증</td><td>중복 제작비 절감 및 Sim-to-Real 격차 해소</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="s-footer"><span>기존 핵심 · MZC NVIDIA·Unity 공식 총판 역량 결합</span><span>지역 SW/XR 개발자 생태계 동반 성장</span></div>
+        </section>
+
+        <!-- SLIDE 07 -->
+        <section class="slide" data-title="07. [2부-1] 10MW 30~50% 가동 목표 데이터양(A) 정의 및 역산" data-note="이제 2부 데이터 확보 검증입니다. 초기 10MW의 30~50% 핵심 자원을 상시 가동하기 위한 목표 데이터양 A를 연간 정제 10~15PB로 정의했으며, 로봇 150~250대가 연 250일만 가동되어도 충분히 산출됩니다.">
             <div class="s-top">
                 <div><span class="s-kicker">제2부 · 데이터 확보 정량 검증</span><h2 class="s-title">10MW `30~50%` 가동 목표 데이터양(A) 정의 및 역산</h2></div>
-                <span class="s-page">04 / 12</span>
+                <span class="s-page">07 / 14</span>
             </div>
             <div class="s-body">
                 <div class="g-3">
                     <div class="ppt-card" style="border-top:5px solid var(--blue);">
                         <span class="pill pill-blue">기준 가동 구간</span>
                         <div class="big-num" style="color:var(--blue);">10MW × 30~50%</div>
-                        <p style="font-size:16.5px; color:var(--text-muted);">피지컬 AI 전용 핵심 클러스터(`3~5MW`, `H200`급 `300~500대` 규모)</p>
+                        <p>피지컬 AI 핵심 클러스터(`3~5MW`, `H200`급 `300~500대` 규모)</p>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--emerald);">
                         <span class="pill pill-green">목표 데이터양 (A)</span>
                         <div class="big-num" style="color:var(--emerald);">연 10 ~ 15 PB</div>
-                        <p style="font-size:16.5px; color:var(--text-muted);">연간 순증 정제 학습 데이터 (`3년 누적 30~45 PB` 통합 풀)</p>
+                        <p>연간 순증 정제 학습 데이터 (`3년 누적 30~45 PB` 통합 풀)</p>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--purple);">
                         <span class="pill pill-purple">역산 필요 로봇 수</span>
                         <div class="big-num" style="color:var(--purple);">150 ~ 250 대</div>
-                        <p style="font-size:16.5px; color:var(--text-muted);">대당 평균 `1.0 TB/일` × `250일` × 선별 `20%` × 증강 `3배` 기준</p>
+                        <p>평균 `1.0 TB/일` × `250일` × 선별 `20%` × 합성 `3배`</p>
                     </div>
                 </div>
                 <table class="ppt-table">
-                    <thead><tr><th>로봇 유형</th><th>주요 센서 구성</th><th>압축 전송률</th><th>1대당 일일 수집량 (8h)</th></tr></thead>
+                    <thead><tr><th>로봇 유형</th><th>주요 탑재 센서</th><th>압축 전송률</th><th>1대당 일일 수집량 (8h)</th></tr></thead>
                     <tbody>
-                        <tr><td><strong>양팔 휴머노이드 로봇</strong></td><td>듀얼 RGB-D(4ch) + 3D LiDAR + 양손 촉각 + 1kHz 관절</td><td><code>350 ~ 550 Mbps</code></td><td><strong><code>1.2 ~ 1.9 TB / 일</code></strong></td></tr>
-                        <tr><td><strong>산업용 협동·매니퓰레이터</strong></td><td>손목·고정 RGB-D + 관절 토크(1kHz) + 그리퍼 압력</td><td><code>150 ~ 250 Mbps</code></td><td><strong><code>0.5 ~ 0.8 TB / 일</code></strong></td></tr>
+                        <tr><td><strong>양팔 휴머노이드 로봇</strong></td><td>듀얼 RGB-D(4ch) + 3D LiDAR + 양손 촉각 + `1kHz` 관절</td><td><code>350 ~ 550 Mbps</code></td><td><strong><code>1.2 ~ 1.9 TB / 일</code></strong></td></tr>
+                        <tr><td><strong>산업용 협동·매니퓰레이터</strong></td><td>손목·고정 RGB-D + 관절 토크(`1kHz`) + 그리퍼 압력</td><td><code>150 ~ 250 Mbps</code></td><td><strong><code>0.5 ~ 0.8 TB / 일</code></strong></td></tr>
                         <tr><td><strong>실외 자율주행·순찰 로봇</strong></td><td>6ch 서라운드 + 128ch LiDAR + Radar + RTK-GPS</td><td><code>300 ~ 450 Mbps</code></td><td><strong><code>1.0 ~ 1.6 TB / 일</code></strong></td></tr>
                     </tbody>
                 </table>
@@ -341,15 +427,15 @@
             <div class="s-footer"><span>제2부 · 목표 데이터양(A) 정량 정의</span><span>상세 산출식은 공식 보고서 부록 A 참조</span></div>
         </section>
 
-        <!-- SLIDE 05 -->
-        <section class="slide" data-title="05. [2부] Part 1: 구체성 확보 5대 로봇·제조 사업 매핑" data-note="목표 데이터양 A를 놓고 구체성이 높은 Part 1 5대 사업을 매핑한 결과입니다. 테스트필드, 지역거점 AX 휴머노이드 6종, DGIST 리빙랩 5종, 앵커 제조공장 AX, DMI 공구센터만 연결해도 목표 A를 100% 이상 채울 수 있습니다.">
+        <!-- SLIDE 08 -->
+        <section class="slide" data-title="08. [2부-2] Part 1: 구체성 확보 5대 로봇·제조 사업 매핑" data-note="목표 데이터양 A를 놓고 구체성이 확보된 Part 1 5대 사업을 매핑했습니다. 테스트필드, 지역거점 AX 휴머노이드 6종 RFM, DGIST 리빙랩 5종, 지역 제조공장 AX, DMI 공구센터만 연결해도 목표 A를 100% 이상 단독 달성합니다.">
             <div class="s-top">
                 <div><span class="s-kicker">제2부 · Part 1 핵심 사업 매핑 (로봇 중심 + α)</span><h2 class="s-title">Part 1 (5대 사업) 매핑만으로 목표 데이터양(A) 100% 충족</h2></div>
-                <span class="s-page">05 / 12</span>
+                <span class="s-page">08 / 14</span>
             </div>
             <div class="s-body">
                 <table class="ppt-table">
-                    <thead><tr><th style="width:24%;">Part 1 매핑 사업</th><th style="width:36%;">대상 로봇 · 도메인</th><th style="width:18%;">연간 정제 기여</th><th style="width:22%;">전문가 개입 · 연계</th></tr></thead>
+                    <thead><tr><th style="width:25%;">Part 1 매핑 사업</th><th style="width:36%;">대상 로봇 · 도메인</th><th style="width:17%;">연간 정제 기여</th><th style="width:22%;">전문가 개입 · 연계</th></tr></thead>
                     <tbody>
                         <tr><td><strong>① 국가로봇테스트필드</strong></td><td>다종 실내·외 모바일 로봇 실증 (수요 <strong>268개사</strong>)</td><td><strong><code>연 4.0~5.0 PB</code></strong></td><td>KIRIA 전문위원 1:1 매칭</td></tr>
                         <tr><td><strong>② 지역거점 AX 전환 사업</strong></td><td>제조 영역 <strong>휴머노이드 6종 RFM 개발</strong></td><td><strong><code>연 2.5~3.5 PB</code></strong></td><td>교수진·MZC 공동 RFM</td></tr>
@@ -359,50 +445,50 @@
                     </tbody>
                 </table>
                 <div class="banner">
-                    ✅ <strong>Part 1 합계</strong>: 실증·현장 로봇 <strong><code>190 ~ 280대</code></strong> 순환 가동 ➔ <strong>연간 정제 데이터 <code>10.5 ~ 15.0 PB</code></strong> (목표 A 단독 충족 입증!)
+                    ✅ <strong>Part 1 합계</strong>: 실증·현장 로봇 <strong><code>190 ~ 280대</code></strong> 순환 가동 ➔ <strong>연간 정제 <code>10.5 ~ 15.0 PB</code></strong> (목표 A 단독 충족!)
                 </div>
             </div>
-            <div class="s-footer"><span>제2부 · Part 1 매핑 구조</span><span>중복성 회피: 전문가 그룹 1:1 매칭</span></div>
+            <div class="s-footer"><span>제2부 · Part 1 매핑 구조</span><span>전문가 그룹 개입으로 기업 참여율 극대화</span></div>
         </section>
 
-        <!-- SLIDE 06 -->
-        <section class="slide" data-title="06. [2부] Part 2: 추가 확장 도메인 (스마트시티·EMR·KIAPI·뿌리)" data-note="Part 1만으로도 10MW 핵심 가동에는 충분하지만, Part 2인 수성알파시티 스마트시티, 의료 EMR 10년 백업/DR, KIAPI 주행시험장, 뿌리·바이오 데이터까지 연계하면 10MW 잔여분은 물론 향후 40MW 확장까지 탄탄히 뒷받침됩니다.">
+        <!-- SLIDE 09 -->
+        <section class="slide" data-title="09. [2부-3] Part 2 확장: 스마트시티(City DT) · 의료 EMR · KIAPI" data-note="Part 1만으로도 충분하지만, Part 2인 수성알파시티 무선자가망 스마트시티(City DT), 보건소·병원 10년 의무보관 의료 EMR 백업·DR, KIAPI 주행시험장, 뿌리·바이오까지 연결하면 40MW 확장까지 데이터 공급이 완성됩니다.">
             <div class="s-top">
-                <div><span class="s-kicker">제2부 · Part 2 추가 확장 파이프라인</span><h2 class="s-title">Part 1 외 Part 2 전략 데이터 확장 (`10MW → 40MW` 성장 엔진)</h2></div>
-                <span class="s-page">06 / 12</span>
+                <div><span class="s-kicker">제2부 · Part 2 추가 확장 파이프라인</span><h2 class="s-title">Part 1 외 Part 2 전략 데이터 확장 (`10MW → 40MW` 엔진)</h2></div>
+                <span class="s-page">09 / 14</span>
             </div>
             <div class="s-body">
                 <div class="g-2">
                     <div class="ppt-card" style="border-left:6px solid var(--blue);">
                         <span class="pill pill-blue">확장 ① · 연 7.5 ~ 11.5 PB</span>
                         <h3>수성알파시티 스마트시티 (City DT)</h3>
-                        <p style="font-size:16.5px;">수성 무선자가망 기반 자율주행 로봇·드론 변화분 스캔 + 스마트교차로·AI CCTV(비식별) + <code>Cesium</code> 3D 도시맵</p>
+                        <p>수성 무선자가망 + 원격관제 결합, 로봇·드론 변화분(Delta) 스캔 + AI CCTV(비식별) + <code>Cesium</code> 3D 도시맵</p>
                     </div>
                     <div class="ppt-card" style="border-left:6px solid var(--emerald);">
                         <span class="pill pill-green">확장 ② · 수십 PB급 장기 누적</span>
                         <h3>의료 · 헬스케어 EMR 백업 및 DR</h3>
-                        <p style="font-size:16.5px;">첨복단지·상급병원·<strong>보건소/국가지정센터 법정 10년 의무보관 EMR 백업·보안·DR</strong> 및 가명처리 의료 AI 연구 유통</p>
+                        <p>첨복단지·상급병원·<strong>보건소/국가지정센터 법정 10년 의무보관 EMR 백업·보안·DR</strong> 및 가명처리 연구 유통</p>
                     </div>
                     <div class="ppt-card" style="border-left:6px solid var(--purple);">
                         <span class="pill pill-purple">확장 ③ · 연 3.0 ~ 5.0 PB</span>
                         <h3>모빌리티 · 주행시험장 (KIAPI)</h3>
-                        <p style="font-size:16.5px;">지능형자동차부품진흥원(KIAPI) 극한 주행·전장 센서 및 도심 자율주행 로그 기반 SDV 월드모델 학습</p>
+                        <p>지능형자동차부품진흥원(KIAPI) 극한 주행·전장 센서 및 도심 자율주행 로그 기반 SDV 월드모델 학습</p>
                     </div>
                     <div class="ppt-card" style="border-left:6px solid var(--amber);">
                         <span class="pill pill-amber">확장 ④ · 연 2.0 ~ 3.0 PB</span>
                         <h3>뿌리산업 · 바이오 · 뇌과학</h3>
-                        <p style="font-size:16.5px;">성서·달성 산단 금형·용접·사출 공정 데이터 및 지역거점 AX 바이오·뇌신경·재활로봇 임상 데이터</p>
+                        <p>성서·달성 산단 금형·용접·사출 공정 데이터 및 지역거점 AX 바이오·뇌신경·재활로봇 임상 데이터</p>
                     </div>
                 </div>
             </div>
             <div class="s-footer"><span>제2부 · Part 2 중장기 확장성</span><span>초기 로봇 최우선 집중 ➔ 4대 산업 확산</span></div>
         </section>
 
-        <!-- SLIDE 07 -->
-        <section class="slide" data-title="07. [3부] 기업 애로 해소·AI 멘토링 및 모델러 기업 유치" data-note="3부는 메가존 AI DC가 대구에 기여하는 부분입니다. 기존 수요기업의 3대 애로 해소에 더해 AI 멘토링을 제공하고, 수성알파시티 333개사·대경ICT 340개사 기반 위에 역외 AI 모델러 기업들을 대구로 유치해 생태계를 보완합니다.">
+        <!-- SLIDE 10 -->
+        <section class="slide" data-title="10. [3부-1] 기업 애로 해소 · AI 멘토링 · 모델러 기업 유치" data-note="3부는 대구시 기여 방안입니다. 수요기업 3대 애로 해소에 더해 현장 밀착 AI 멘토링을 제공하고, 수성알파시티 333개사·대경ICT 340개사 기반 위에 역외 AI 모델러 기업들을 대구로 유치해 생태계를 보완합니다.">
             <div class="s-top">
                 <div><span class="s-kicker">제3부 · 대구시 기여 ① 산업 생태계 보완</span><h2 class="s-title">기업 애로 해소 · AI 멘토링 및 ‘AI 모델러 기업’ 대구 유치</h2></div>
-                <span class="s-page">07 / 12</span>
+                <span class="s-page">10 / 14</span>
             </div>
             <div class="s-body">
                 <div class="g-2">
@@ -410,10 +496,10 @@
                         <span class="pill pill-blue">현실적 애로 해결 + 멘토링</span>
                         <h3>수요기업 3대 부담 해소 &amp; AI 멘토링</h3>
                         <ul class="ppt-list" style="margin-top:6px;">
-                            <li><strong>인프라 투자 부담 제로</strong>: 수억 원대 GPU·스토리지 공유 활용</li>
-                            <li><strong>전문 인력 부담 해소</strong>: KIRIA·교수진·MZC 전문가 매칭</li>
-                            <li><strong>데이터 보안 부담 해소</strong>: 안심 격리 존 위탁 저장·관리</li>
-                            <li><strong>현장 밀착 AI 멘토링</strong>: 비IT 제조기업 과제 기획·실증 상시 코칭</li>
+                            <li><strong>인프라 부담 제로</strong>: 수억 원대 GPU·스토리지 공유 활용</li>
+                            <li><strong>인력 부담 해소</strong>: KIRIA·교수진·MZC 전문가 매칭</li>
+                            <li><strong>데이터 보안 해소</strong>: 안심 격리 존 위탁 저장·비식별 관리</li>
+                            <li><strong>현장 AI 멘토링</strong>: 비IT 제조기업 과제 기획·실증 상시 코칭</li>
                         </ul>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--emerald);">
@@ -421,8 +507,8 @@
                         <h3>협력사 · ‘AI 모델러 기업’ 대구 유치</h3>
                         <ul class="ppt-list" style="margin-top:6px;">
                             <li><strong>지역 기반</strong>: 수성알파시티 <strong>333개사</strong>(4,000명) · 대경ICT <strong>340개사</strong>(연 1.2조)</li>
-                            <li><strong>유치 전략</strong>: 풍부한 대구 로봇·제조 데이터(안심 존)를 유인책으로 메가존 협력 <strong>수도권 AI 모델러 기업 대구 지사·연구소 유치</strong></li>
-                            <li><strong>국책사업 발굴</strong>: 지역 기업과 대형 국책 R&amp;D 컨소시엄 공동 수주</li>
+                            <li><strong>유치 전략</strong>: 풍부한 대구 로봇·제조 데이터(안심 존)를 유인책으로 메가존 협력 <strong>역외 AI 모델러 기업 대구 지사·연구소 유치</strong></li>
+                            <li><strong>국책사업 발굴</strong>: 지역 기업과 대형 국책 R&amp;D 공동 기획·수주</li>
                         </ul>
                     </div>
                 </div>
@@ -430,28 +516,28 @@
             <div class="s-footer"><span>제3부 · 기업 지원 및 생태계 보완</span><span>DIP · 대경ICT산업협회 시너지</span></div>
         </section>
 
-        <!-- SLIDE 08 -->
-        <section class="slide" data-title="08. [3부] 대학 협력 전주기 AI 인재 양성 및 고용(150명+)" data-note="인재 양성 측면에서는 DGIST·경북대 등 지역 대학과 역할을 분담해 AI 전문가부터 재직자 전환, 그리고 청소년·중장년층 등 지역 일반인 AI 교육까지 전주기를 커버하며, 캠퍼스 내 초기 150명 이상의 지역 인력을 직접 채용합니다.">
+        <!-- SLIDE 11 -->
+        <section class="slide" data-title="11. [3부-2] 대학 역할 분담 전주기 AI 교육 및 지역 고용(150명+)" data-note="인재 양성 측면에서는 DGIST·경북대 등 지역 대학과 역할을 분담해 AI 전문가부터 재직자 전환, 그리고 청소년·중장년층 등 지역 일반인 AI 교육까지 전주기를 커버하며, 캠퍼스 내 초기 150명 이상의 지역 인력을 직접 채용합니다.">
             <div class="s-top">
                 <div><span class="s-kicker">제3부 · 대구시 기여 ② 인재 양성 &amp; 일자리</span><h2 class="s-title">대학 역할 분담 전주기 AI 교육 및 지역 고용(`150명+`)</h2></div>
-                <span class="s-page">08 / 12</span>
+                <span class="s-page">11 / 14</span>
             </div>
             <div class="s-body">
                 <div class="g-3">
                     <div class="ppt-card" style="border-top:5px solid var(--blue);">
                         <span class="pill pill-blue">Track 1 · 고급 인재</span>
                         <h3>AI 전문가 양성</h3>
-                        <p style="font-size:16.5px;"><strong>DGIST · 경북대 역할 분담 협업</strong><br/>VLA 파운데이션 모델·피지컬 AI 석박사 공동 연구 및 실전 캡스톤</p>
+                        <p><strong>DGIST · 경북대 역할 분담 협업</strong><br/>VLA 파운데이션 모델·피지컬 AI 석박사 공동 연구 및 실전 캡스톤</p>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--emerald);">
                         <span class="pill pill-green">Track 2 · 산업 인력</span>
                         <h3>재직자 전환 교육</h3>
-                        <p style="font-size:16.5px;">지역 기계·차부품·SW 재직자를 <strong>AI·시뮬레이션 엔지니어</strong>로 전환하는 실무 부트캠프</p>
+                        <p>지역 기계·차부품·SW 재직자를 <strong>AI·시뮬레이션 엔지니어</strong>로 전환하는 실무 부트캠프</p>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--purple);">
                         <span class="pill pill-purple">Track 3 · 시민 확산</span>
                         <h3>지역 일반인 AI 교육</h3>
-                        <p style="font-size:16.5px;">Experience 센터 개방형 <strong>청소년 AI 진로 체험</strong> 및 <strong>중장년층 AI 활용·라벨링 교육</strong></p>
+                        <p>Experience 센터 개방형 <strong>청소년 진로 체험</strong> 및 <strong>중장년층 AI 활용·라벨링 교육</strong></p>
                     </div>
                 </div>
                 <div class="banner">
@@ -461,11 +547,11 @@
             <div class="s-footer"><span>제3부 · DGIST·경북대 협력 및 고용 효과</span><span>청년·재직자·일반인 전주기</span></div>
         </section>
 
-        <!-- SLIDE 09 -->
-        <section class="slide" data-title="09. [3부] 통합 마켓플레이스(글로벌 수출) & 데이터/모델 마켓" data-note="수성알파시티 중소·벤처 SW/AI 기업의 제품들을 하나의 마켓플레이스에 담아 마케팅, 유지보수, 수정배포를 일괄 서비스하고 메가존의 글로벌 플랫폼으로 해외 수출까지 지원합니다. 아울러 기업의 데이터가 수익원이 되는 데이터 마켓과 모델 마켓을 활성화합니다.">
+        <!-- SLIDE 12 -->
+        <section class="slide" data-title="12. [3부-3] 통합 마켓플레이스(글로벌 수출) & 데이터/모델 마켓" data-note="수성알파시티 중소·벤처 SW/AI 기업 제품들을 단일 마켓플레이스에 담아 마케팅, 유지보수, 수정배포를 일괄 서비스하고 메가존 글로벌 망으로 해외 수출까지 지원합니다. 아울러 데이터 마켓과 모델 마켓을 활성화합니다.">
             <div class="s-top">
-                <div><span class="s-kicker">제3부 · 대구시 기여 ③ 사업화 · 수출 플랫폼</span><h2 class="s-title">통합 마켓플레이스(수출 지원) &amp; 데이터·모델 마켓 활성화</h2></div>
-                <span class="s-page">09 / 12</span>
+                <div><span class="s-kicker">제3부 · 대구시 기여 ③ 사업화 · 수출 플랫폼</span><h2 class="s-title">통합 마켓플레이스(수출 지원) &amp; 데이터·모델 마켓</h2></div>
+                <span class="s-page">12 / 14</span>
             </div>
             <div class="s-body">
                 <div class="g-3">
@@ -473,9 +559,9 @@
                         <span class="pill pill-blue">SW·AI 기업 통합 플랫폼</span>
                         <h3>통합 마켓플레이스 &amp; 수출</h3>
                         <ul class="ppt-list">
-                            <li>수성알파시티 벤처·중소 SW/AI 제품을 <strong>단일 플랫폼에 통합 탑재</strong></li>
+                            <li>수성알파시티 벤처·중소 SW/AI 제품을 <strong>단일 플랫폼에 탑재</strong></li>
                             <li><strong>마케팅 · 24/7 유지보수 · 수정배포</strong> 일괄 대행 서비스</li>
-                            <li>메가존 글로벌 플랫폼·엣지 망 연계 <strong>해외 수출 직접 지원</strong></li>
+                            <li>메가존 글로벌 플랫폼·엣지 망 연계 <strong>해외 수출 지원</strong></li>
                         </ul>
                     </div>
                     <div class="ppt-card" style="border-left:6px solid var(--emerald);">
@@ -483,7 +569,7 @@
                         <h3>데이터 마켓 활성화</h3>
                         <ul class="ppt-list">
                             <li>안심 존 기반 <strong>안전한 데이터 거래·구독 플랫폼</strong> 구축</li>
-                            <li>기업 보유 산업 데이터가 비용이 아닌 <strong>새로운 수입원</strong>으로 전환</li>
+                            <li>기업 보유 데이터가 비용이 아닌 <strong>새로운 수입원</strong>으로 전환</li>
                             <li><code>RLDS/LeRobot</code> 표준 카탈로그 제공</li>
                         </ul>
                     </div>
@@ -492,7 +578,7 @@
                         <h3>모델 마켓 활성화</h3>
                         <ul class="ppt-list">
                             <li>제조·물류·돌봄·안전 분야 <strong>특화 AI 모델 판매 플랫폼</strong></li>
-                            <li>Low-Code 미세조정 및 로봇 온보드 <strong>OTA 무선 배포</strong> 원스톱</li>
+                            <li>Low-Code 미세조정 및 로봇 온보드 <strong>OTA 무선 배포</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -500,20 +586,20 @@
             <div class="s-footer"><span>제3부 · 마켓플레이스 및 데이터 수익화</span><span>지역 기업 매출·수출 직접 견인</span></div>
         </section>
 
-        <!-- SLIDE 10 -->
-        <section class="slide" data-title="10. [4부] 연내 MOU 조기 추진 및 MOU 후 상세 실행 계획" data-note="4부는 실행 및 협조 요청입니다. 올해 안에 10MW AI DC 사전 MOU를 조기 체결하고, 직후 앵커기업 1:1 파일럿과 클라우드 브릿지를 가동해 2029년 본센터 준공, 2030년 40MW 확장으로 이어지는 상세 일정을 추진합니다.">
+        <!-- SLIDE 13 -->
+        <section class="slide" data-title="13. [4부-1] 연내 MOU 조기 추진 및 MOU 후 상세 실행 로드맵" data-note="4부는 실행 계획입니다. 연내에 10MW AI DC 사전 MOU를 조기 체결하고, 직후 앵커기업 1:1 파일럿과 클라우드 브릿지를 가동해 2029년 본센터 준공, 2030년 40MW 확장으로 이어지는 상세 로드맵을 추진합니다.">
             <div class="s-top">
                 <div><span class="s-kicker">제4부 · 조기 MOU 및 후속 실행 로드맵</span><h2 class="s-title">연내(`2026`) 사전 MOU 체결 및 직후 상세 실행 계획</h2></div>
-                <span class="s-page">10 / 12</span>
+                <span class="s-page">13 / 14</span>
             </div>
             <div class="s-body">
                 <table class="ppt-table">
-                    <thead><tr><th style="width:22%;">단계</th><th style="width:16%;">목표 시기</th><th style="width:62%;">MOU 직후 상세 실행 과업</th></tr></thead>
+                    <thead><tr><th style="width:23%;">추진 단계</th><th style="width:17%;">목표 시기</th><th style="width:60%;">MOU 직후 상세 실행 과업</th></tr></thead>
                     <tbody>
-                        <tr><td><strong>Phase 0. 조기 MOU</strong></td><td><code>2026.11~12</code></td><td><strong>대구시–MZC 『10MW(→40MW) AI DC MOU』 연내 체결</strong> · 다부서·KIRIA·DGIST·DIP 합동 TF 출범</td></tr>
-                        <tr><td><strong>Phase 1. 앵커·브릿지</strong></td><td><code>2027.1Q~2Q</code></td><td><strong>앵커기업 1:1 파일럿 착수</strong> · <code>3,000평</code> 맞춤설계 확정 · <strong>클라우드 브릿지 조기 가동</strong>(테스트필드·AX과제)</td></tr>
-                        <tr><td><strong>Phase 2. 생태계 가동</strong></td><td><code>2027.3Q~'28</code></td><td>대학 연계 AI·일반인 교육 오픈 · AI 모델러 유치 · 통합 마켓플레이스(1차) 개통 · Part 1 수집</td></tr>
-                        <tr><td><strong>Phase 3. 10MW 본가동</strong></td><td><code>2029년</code></td><td><strong>수성 `10MW` AI 통합 캠퍼스 준공·무중단 이관</strong> · 데이터/모델 마켓 정식 운영 · Part 2 확대</td></tr>
+                        <tr><td><strong>Phase 0. 조기 MOU</strong></td><td><code>2026.11~12</code></td><td><strong>대구시–MZC 『10MW AI DC MOU』 연내 체결</strong> · 다부서·KIRIA·DGIST·DIP TF 출범</td></tr>
+                        <tr><td><strong>Phase 1. 앵커·브릿지</strong></td><td><code>2027.1Q~2Q</code></td><td><strong>앵커기업 1:1 파일럿 착수</strong> · <code>3,000평</code> 맞춤설계 · <strong>클라우드 브릿지 조기 가동</strong></td></tr>
+                        <tr><td><strong>Phase 2. 생태계 가동</strong></td><td><code>2027.3Q~'28</code></td><td>대학·일반인 교육 오픈 · AI 모델러 유치 · 통합 마켓플레이스(1차) · Part 1 수집</td></tr>
+                        <tr><td><strong>Phase 3. 10MW 본가동</strong></td><td><code>2029년</code></td><td><strong>수성 `10MW` 캠퍼스 준공·무중단 이관</strong> · 데이터/모델 마켓 · Part 2 확대</td></tr>
                         <tr><td><strong>Phase 4. 40MW 확장</strong></td><td><code>2030년+</code></td><td><strong>최종 `40MW` 단계적 확장</strong> 및 글로벌 K-로봇·AI 수출 관제 허브 완성</td></tr>
                     </tbody>
                 </table>
@@ -521,80 +607,45 @@
             <div class="s-footer"><span>제4부 · 연내 MOU 및 Phase 0~4 마일스톤</span><span>골든타임 확보 최우선</span></div>
         </section>
 
-        <!-- SLIDE 11 -->
-        <section class="slide" data-title="11. [4부] 대구시 유관 부서별 행정·인센티브 협조 요청" data-note="부록/4부로 정리한 대구시 유관 부서 협조 요청 사항입니다. 투자유치과(부지 공시지가 5%·지방세 50~100%·전기세·R&D 50% 매칭), 기업지원과(전력 및 재생에너지 지원), 기계로봇과(중앙정부 협조 신규 GPU 확보)의 적극적 검토를 건의드립니다.">
+        <!-- SLIDE 14 -->
+        <section class="slide" data-title="14. [4부-2] 대구시 부서별 협조 요청 & 인프라·면허 요약" data-note="마지막으로 대구시 투자유치과, 기업지원과, 기계로봇과에 건의드리는 인센티브 협조 사항과 45PB 3-Tier 스토리지 및 법정 면허 준수 체계입니다. 세부 기술 근거는 공식 사업구상서 부록에 수록되어 있습니다. 감사합니다.">
             <div class="s-top">
-                <div><span class="s-kicker">제4부 · 대구광역시 협조 및 인센티브 협의안</span><h2 class="s-title">대구시 유관 부서별 행정 · 인센티브 협조 요청 사항</h2></div>
-                <span class="s-page">11 / 12</span>
+                <div><span class="s-kicker">제4부 · 대구시 협조 요청 &amp; 부록 요약</span><h2 class="s-title">대구시 유관 부서 협조 요청 사항 &amp; 45PB · 면허 요약</h2></div>
+                <span class="s-page">14 / 14</span>
             </div>
             <div class="s-body">
                 <div class="g-3">
                     <div class="ppt-card" style="border-top:5px solid var(--blue);">
-                        <span class="pill pill-blue">소관 01 · 투자유치과</span>
-                        <h3>부지 · 세제 · R&amp;D 지원</h3>
-                        <ul class="ppt-list" style="margin-top:6px;">
-                            <li><strong>부지 비용 감면</strong>: 수성알파시티 `3,000평` <strong>공시지가 5% 수준</strong> 검토</li>
-                            <li><strong>세금·전기세</strong>: <strong>지방세 50% 감면</strong> (전략산업 <strong>100% 감면</strong>) &amp; 전기세 지원</li>
-                            <li><strong>R&amp;D 직접 지원</strong>: AI DC 연계 <strong>R&amp;D 센터 설립 시 50% 매칭</strong></li>
+                        <span class="pill pill-blue">투자유치과</span>
+                        <h3>부지 · 세제 · R&amp;D</h3>
+                        <ul class="ppt-list">
+                            <li>`3,000평` 부지 <strong>공시지가 5% 수준</strong> 검토</li>
+                            <li>지방세 50%(전략산업 100%)·전기세 지원</li>
+                            <li>연계 R&amp;D 센터 <strong>50% 매칭 지원</strong></li>
                         </ul>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--emerald);">
-                        <span class="pill pill-green">소관 02 · 기업지원과</span>
-                        <h3>전력 · 재생에너지 지원</h3>
-                        <ul class="ppt-list" style="margin-top:6px;">
-                            <li><strong>필요 전력 적기 지원</strong>: 초기 `10MW` 및 `40MW` 확장 수전 인허가 패스트트랙</li>
-                            <li><strong>재생에너지 전력 지원(일부)</strong>: 글로벌 기업 유치·RE100 대응용 일부 연계</li>
+                        <span class="pill pill-green">기업지원과</span>
+                        <h3>전력 · 재생에너지</h3>
+                        <ul class="ppt-list">
+                            <li>`10MW→40MW` <strong>필요 전력 패스트트랙</strong> 공급</li>
+                            <li>글로벌 기업 유치용 <strong>재생에너지 일부 지원</strong></li>
                         </ul>
                     </div>
                     <div class="ppt-card" style="border-top:5px solid var(--purple);">
-                        <span class="pill pill-purple">소관 03 · 기계로봇과</span>
-                        <h3>신규 GPU · 국책사업 연계</h3>
-                        <ul class="ppt-list" style="margin-top:6px;">
-                            <li><strong>중앙정부 협조 신규 GPU 확보</strong>: 정부 AI 컴퓨팅 확충 사업 연계 할당</li>
-                            <li><strong>기존 로봇사업 고도화 연계</strong>: 테스트필드·AX 6종·특화단지 데이터 연계 승인</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="banner" style="font-size:16.5px;">
-                    💡 지원받는 원가 절감분은 <strong>지역 중소기업 플랫폼 저가 공급 · AI 멘토링 · 시민 교육 · 마켓플레이스 운영 재원</strong>으로 전액 환원
-                </div>
-            </div>
-            <div class="s-footer"><span>제4부 · 대구시 3개 부서 협조 건의안</span><span>세부 비율·조건은 투자협약 시 협의</span></div>
-        </section>
-
-        <!-- SLIDE 12 -->
-        <section class="slide" data-title="12. [부록 요약] 핵심 기술 인프라 및 용어 안내" data-note="마지막으로 세부 기술 규격(H200급 300~500대, 45PB 3-Tier 스토리지, Isaac×Unity×오픈소스 3원화, 법정 면허 준수)과 용어·참고문헌은 별도 제출된 공식 사업구상서(Word/HTML)의 미주와 부록에 상세히 수록되어 있습니다. 경청해 주셔서 감사합니다.">
-            <div class="s-top">
-                <div><span class="s-kicker">부록 요약 · 기술 인프라 &amp; 공식 문서 안내</span><h2 class="s-title">세부 기술 규격(`45PB` · 시뮬레이션 3원화) 및 부록 안내</h2></div>
-                <span class="s-page">12 / 12</span>
-            </div>
-            <div class="s-body">
-                <div class="g-2">
-                    <div class="ppt-card" style="border-left:6px solid var(--blue);">
-                        <span class="pill pill-blue">부록 A · 연산 &amp; 스토리지</span>
-                        <h3>`H200` 300~500대 + `45 PB` 3-Tier</h3>
+                        <span class="pill pill-purple">기계로봇과</span>
+                        <h3>신규 GPU · 사업 연계</h3>
                         <ul class="ppt-list">
-                            <li><strong>Hot (`5 PB`)</strong>: NVMe All-Flash (`Lustre/GPFS`, `600GB/s~1TB/s+`)</li>
-                            <li><strong>Warm (`15 PB`)</strong>: S3 오브젝트 + `Iceberg` (DaaS·City DT 서빙)</li>
-                            <li><strong>Cold (`25 PB`)</strong>: 고밀도 HDD WORM (원본증적 · <strong>의료 EMR 10년 백업</strong>)</li>
-                            <li><strong>전용망</strong>: 내부 `400G/800G` + 달성·DGIST `100~400G` 광회선</li>
-                        </ul>
-                    </div>
-                    <div class="ppt-card" style="border-left:6px solid var(--purple);">
-                        <span class="pill pill-purple">부록 B·C·D · 기술 &amp; 컴플라이언스</span>
-                        <h3>시뮬레이션 3원화 &amp; 법정 면허</h3>
-                        <ul class="ppt-list">
-                            <li><strong>3원화 엔진</strong>: `NVIDIA Isaac` × `Unity Industry`(지역 XR 인력) × `MuJoCo·Gazebo·ROS 2`(무료 오픈소스)</li>
-                            <li><strong>법정 면허</strong>: 정보통신공사업(`0036`)·SW사업자(`1468`) + MEP 전문사 분담이행 컨소시엄</li>
-                            <li><strong>상세 자료</strong>: 공식 사업구상서 본문 <strong>미주 · 부록 A~D · 용어설명 · 참고문헌</strong> 수록</li>
+                            <li><strong>중앙정부 협조 신규 GPU 확보</strong></li>
+                            <li>테스트필드·AX 6종·특화단지 데이터 연계</li>
                         </ul>
                     </div>
                 </div>
-                <div class="banner" style="text-align:center;">
-                    감사합니다 | 대구광역시 × 한국로봇산업진흥원(KIRIA) × DGIST × 메가존클라우드
+                <div class="banner" style="font-size:19.5px;">
+                    🗄️ <strong>부록 핵심</strong>: `H200` 300~500대 + <strong><code>45 PB</code> 3-Tier(`Hot 5` / `Warm 15` / `Cold·EMR 25 PB`)</strong> + `100~400G` 광망 | <strong>법정 면허</strong>: 정보통신(`0036`)·SW(`1468`)·MEP 분담이행
                 </div>
             </div>
-            <div class="s-footer"><span>END OF PRESENTATION</span><span>공식 보고서 전환은 하단 [📄 공식보고서] 클릭</span></div>
+            <div class="s-footer"><span>감사합니다 | 대구광역시 × KIRIA × DGIST × 메가존클라우드</span><span>공식 보고서 전환은 하단 [📄 공식보고서] 클릭</span></div>
         </section>
 
     </div>
@@ -603,7 +654,7 @@
 <div class="presenter-dock">
     <button class="dock-btn" onclick="toggleToc()">☰ 목차</button>
     <button class="dock-btn" onclick="prevSlide()">◀ 이전</button>
-    <span class="dock-counter" id="dockCounter">01 / 12</span>
+    <span class="dock-counter" id="dockCounter">01 / 14</span>
     <button class="dock-btn" onclick="nextSlide()">다음 ▶</button>
     <button class="dock-btn" id="noteBtn" onclick="toggleNotes()">🎤 발표노트</button>
     <button class="dock-btn" id="laserBtn" onclick="toggleLaser()">🔴 레이저</button>
